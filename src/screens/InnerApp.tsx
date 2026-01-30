@@ -388,7 +388,6 @@ const MainComp = () => {
           </Stack.Navigator>
         </SafeAreaView>
       </GestureHandlerRootView>
-      <Toast config={toastConfig} />
     </NavigationContainer>
   );
 };
@@ -419,7 +418,7 @@ const InnerApp = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <StatusBar backgroundColor={color.themeWhite} barStyle="dark-content" />
+      <StatusBar backgroundColor={color.background} barStyle="dark-content" />
       {!isLoading && <MainComp />}
       {Utils.showLoading(isRequesting ? isRequesting : isLoading)}
     </View>
@@ -428,33 +427,4 @@ const InnerApp = () => {
 
 export default InnerApp;
 
-const styles = StyleSheet.create({
-  lableText: {
-    fontFamily: fontFamily.Regular,
-    fontSize: fontSize.fontSize_18,
-  },
-  drawerIcon: {
-    height: verticalScale(17),
-    width: scale(18),
-  },
-  userName: {
-    fontFamily: fontFamily.Bold,
-    color: color.black,
-    fontSize: fontSize.fontSize_18,
-  },
-  nameView: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginHorizontal: scale(22),
-    justifyContent: 'space-between',
-    padding: scale(10),
-    marginVertical: verticalScale(10),
-  },
-  appVersionText: {
-    color: color.grey,
-    fontSize: fontSize.fontSize_18,
-    fontFamily: fontFamily.Regular,
-    alignSelf: 'center',
-    marginVertical: verticalScale(30),
-  },
-});
+const styles = StyleSheet.create({});

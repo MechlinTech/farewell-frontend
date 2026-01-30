@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import TranslucentStatusBar from './TranslucentStatusBar';
 import color from '@color';
@@ -33,12 +33,9 @@ const BaseWrapper: React.FC<Props> = ({
   linearStyle = {},
   linearStart = { x: 0, y: 0 },
   linearEnd = { x: 0, y: 1 },
-  topViewBackgroundColor,
 }) => {
-  const insets = useSafeAreaInsets();
-
-  const edgeInsets: any = fullScreenMode
-    ? ['left', 'right']
+  const edgeInsets = fullScreenMode
+    ? ['left', 'right', 'bottom']
     : ['top', 'left', 'right', 'bottom'];
 
   const wrapperProps = {
@@ -46,11 +43,17 @@ const BaseWrapper: React.FC<Props> = ({
     locations: linearLocation,
     start: linearStart,
     end: linearEnd,
-    style: [StyleSheet.absoluteFill, linearStyle],
+    style: { flex: 1 },
   };
 
+  // Background is transparent if gradient is enabled
   const Content = (
-    <View style={[styles.contentContainer, { backgroundColor }]}>
+    <View
+      style={[
+        styles.contentContainer,
+        { backgroundColor: linearGrad ? 'transparent' : backgroundColor },
+      ]}
+    >
       <TranslucentStatusBar
         container_style={container_style}
         translucent={true}
@@ -61,19 +64,9 @@ const BaseWrapper: React.FC<Props> = ({
       </TranslucentStatusBar>
     </View>
   );
+
   return (
-    <SafeAreaView
-      style={[styles.safeAreaView, { backgroundColor }]}
-      edges={edgeInsets}
-    >
-      {fullScreenMode && (
-        <View
-          style={{
-            backgroundColor: topViewBackgroundColor,
-            paddingTop: insets.top,
-          }}
-        />
-      )}
+    <SafeAreaView style={{ flex: 1, backgroundColor }} edges={edgeInsets}>
       {linearGrad ? (
         <LinearGradient {...wrapperProps}>{Content}</LinearGradient>
       ) : (
@@ -84,10 +77,6 @@ const BaseWrapper: React.FC<Props> = ({
 };
 
 const styles = StyleSheet.create({
-  safeAreaView: {
-    flex: 1,
-    width: '100%',
-  },
   contentContainer: {
     flex: 1,
     width: '100%',
