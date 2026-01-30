@@ -8,6 +8,8 @@ const lightColors = {
   transparent: 'transparent',
   border: '#DCE8E9',
   lightTheme: '#E9F6FD',
+  inputText: '#293540',
+  black: '#000000',
 };
 
 const darkColors = {
@@ -16,6 +18,8 @@ const darkColors = {
   transparent: 'transparent',
   border: '#DCE8E9',
   lightTheme: '#E9F6FD',
+  inputText: '#293540',
+  black: '#000000',
 };
 
 const color = scheme === 'dark' ? darkColors : lightColors;

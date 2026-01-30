@@ -1,47 +1,30 @@
-import React, { useEffect, useRef, useState } from 'react';
+import * as React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
-  AppState,
-  Image,
-  Linking,
   PermissionsAndroid,
   Platform,
   StatusBar,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import { Utils } from '@Utils';
-import { fontFamily, fontSize } from '@constants';
-
 import Navigator from '@Navigator';
 import SplashScreen from 'react-native-splash-screen';
-import { registerNotificationListener } from 'fcm/FCMListeners';
 import messaging from '@react-native-firebase/messaging';
 
 import color from '@color';
 import { AysncStorageHelper } from '@AsyncStoreHelper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Toast from 'react-native-toast-message';
-import { toastConfig } from 'components/showFlashMessage';
-
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 import { RootState } from '@redux/store';
-
-import ImageComponent from 'components/ImageComponent';
 import notifee, {
   EventType, // Import EventType if available
 } from '@notifee/react-native';
-import Icon from 'react-native-vector-icons/Feather';
-
 import { navigationRef } from '@redux/NavigationService';
 import WelcomeScreen from './WelcomeScreen/WelcomeScreen';
-import { scale, verticalScale } from '@scale';
 
 const Stack = createNativeStackNavigator();
 
@@ -200,11 +183,9 @@ const Stack = createNativeStackNavigator();
 // }
 
 function LoginStack() {
-  let navigation = useNavigation();
-
   return (
     <React.Suspense>
-      <Stack.Navigator>
+      <Stack.Navigator id="LoginStack">
         <Stack.Screen
           name="WelcomeScreen"
           component={WelcomeScreen}
@@ -215,87 +196,87 @@ function LoginStack() {
   );
 }
 
-function UserHomeStack() {
-  let navigation = useNavigation();
+// function UserHomeStack() {
+//   let navigation = useNavigation();
 
-  const handledNotificationRef: any = useRef<string | null>(null);
+//   const handledNotificationRef: any = useRef<string | null>(null);
 
-  useEffect(() => {
-    // App killed → user taps notification (only once)
-    messaging()
-      .getInitialNotification()
-      .then(remoteMessage => {
-        if (
-          remoteMessage &&
-          Utils.loggedInUser?.token &&
-          remoteMessage.messageId !== handledNotificationRef.current
-        ) {
-          handledNotificationRef.current = remoteMessage.messageId;
-          Navigator.switchToRootTab(navigation, 'MESSAGES', {});
-        }
-      });
+//   useEffect(() => {
+//     // App killed → user taps notification (only once)
+//     messaging()
+//       .getInitialNotification()
+//       .then(remoteMessage => {
+//         if (
+//           remoteMessage &&
+//           Utils.loggedInUser?.token &&
+//           remoteMessage.messageId !== handledNotificationRef.current
+//         ) {
+//           handledNotificationRef.current = remoteMessage.messageId;
+//           Navigator.switchToRootTab(navigation, 'MESSAGES', {});
+//         }
+//       });
 
-    // App in background → user taps notification
-    const unsubscribeBackground = messaging().onNotificationOpenedApp(
-      remoteMessage => {
-        if (
-          remoteMessage &&
-          Utils.loggedInUser?.token &&
-          remoteMessage.messageId !== handledNotificationRef.current
-        ) {
-          handledNotificationRef.current = remoteMessage.messageId;
-          Navigator.switchToRootTab(navigation, 'MESSAGES', {});
-        }
-      },
-    );
+//     // App in background → user taps notification
+//     const unsubscribeBackground = messaging().onNotificationOpenedApp(
+//       remoteMessage => {
+//         if (
+//           remoteMessage &&
+//           Utils.loggedInUser?.token &&
+//           remoteMessage.messageId !== handledNotificationRef.current
+//         ) {
+//           handledNotificationRef.current = remoteMessage.messageId;
+//           Navigator.switchToRootTab(navigation, 'MESSAGES', {});
+//         }
+//       },
+//     );
 
-    // Foreground / background notification press using Notifee
-    const unsubscribeForegroundEvent = notifee.onForegroundEvent(
-      ({ type, detail }: any) => {
-        if (
-          type === EventType.PRESS &&
-          Utils.loggedInUser?.token &&
-          detail.notification?.id !== handledNotificationRef.current
-        ) {
-          handledNotificationRef.current = detail.notification.id;
-          Navigator.switchToRootTab(navigation, 'MESSAGES', {});
-        }
-      },
-    );
+//     // Foreground / background notification press using Notifee
+//     const unsubscribeForegroundEvent = notifee.onForegroundEvent(
+//       ({ type, detail }: any) => {
+//         if (
+//           type === EventType.PRESS &&
+//           Utils.loggedInUser?.token &&
+//           detail.notification?.id !== handledNotificationRef.current
+//         ) {
+//           handledNotificationRef.current = detail.notification.id;
+//           Navigator.switchToRootTab(navigation, 'MESSAGES', {});
+//         }
+//       },
+//     );
 
-    const unsubscribeBackgroundEvent = notifee.onBackgroundEvent(
-      async ({ type, detail }: any) => {
-        if (
-          type === EventType.PRESS &&
-          Utils.loggedInUser?.token &&
-          detail.notification?.id !== handledNotificationRef.current
-        ) {
-          handledNotificationRef.current = detail.notification.id;
-          Navigator.switchToRootTab(navigation, 'MESSAGES', {});
-        }
-      },
-    );
+//     const unsubscribeBackgroundEvent = notifee.onBackgroundEvent(
+//       async ({ type, detail }: any) => {
+//         if (
+//           type === EventType.PRESS &&
+//           Utils.loggedInUser?.token &&
+//           detail.notification?.id !== handledNotificationRef.current
+//         ) {
+//           handledNotificationRef.current = detail.notification.id;
+//           Navigator.switchToRootTab(navigation, 'MESSAGES', {});
+//         }
+//       },
+//     );
 
-    return () => {
-      unsubscribeBackground();
-      unsubscribeForegroundEvent();
-      unsubscribeBackgroundEvent;
-      handledNotificationRef.current = null; // clear on unmount
-    };
-  }, [navigation]);
+//     return () => {
+//       unsubscribeBackground();
+//       unsubscribeForegroundEvent();
+//       unsubscribeBackgroundEvent;
+//       handledNotificationRef.current = null; // clear on unmount
+//     };
+//   }, [navigation]);
 
-  return (
-    <React.Suspense>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="BottomTabStack"
-          component={BottomTabStack}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </React.Suspense>
-  );
-}
+//   return (
+//     <React.Suspense>
+//       <Stack.Navigator id="UserHomeStack">
+//         <Stack.Screen
+//           name="BottomTabStack"
+//           component={BottomTabStack}
+//           options={{ headerShown: false }}
+//         />
+//       </Stack.Navigator>
+//     </React.Suspense>
+//   );
+// }
 
 export const checkApplicationPermission = async () => {
   if (Platform.OS === 'android') {
@@ -370,6 +351,7 @@ const MainComp = () => {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <SafeAreaView style={{ flex: 1 }} edges={['left', 'right', 'bottom']}>
           <Stack.Navigator
+            id="RootStack"
             initialRouteName={
               Utils.loggedInUser ? 'UserHomeStack' : 'LoginStack'
             }
