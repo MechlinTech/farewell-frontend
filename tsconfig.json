@@ -1,8 +1,25 @@
 {
-  "extends": "@react-native/typescript-config",
+  "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
-    "types": ["jest"],
-  },
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["**/node_modules", "**/Pods"]
+    "jsx": "react",
+    "baseUrl": "./src",
+    "paths": {
+      "@color": ["./styles/color.tsx"],
+      "@dimensions": ["./styles/dimensions.tsx"],
+      "@client": ["./api/client.tsx"],
+      "@queries": ["./api/queries.tsx"],
+      "@AsyncStoreHelper": ["./utils/AsyncStoreHelper.tsx"],
+      "@constants": ["./styles/constants.tsx"],
+      "@Navigator": ["./utils/Navigator.js"],
+      "@Utils": ["./utils/Utils.js"],
+      "@scale": ["./utils/scale.ts"],
+      "@Helper": ["./src/utils/Helper.tsx"],
+      "@images": ["./assets/images/"],
+      "@components": ["./components/"],
+      "@redux/*": ["./redux/*"],
+      "@screens": ["./screens/"],
+      "@api": ["./api/"],
+      "react-native": ["./node_modules/@types/react-native"]
+    }
+  }
 }
