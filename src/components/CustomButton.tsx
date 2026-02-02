@@ -1,44 +1,40 @@
+import * as React from 'react';
 import {
   StyleProp,
-  StyleSheet,
   Text,
   TextStyle,
   ViewStyle,
   Pressable,
   View,
+  StyleSheet,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import * as React from 'react';
-w            
+
 interface CustomButtonProps {
   title: string;
   onPress: () => void;
 
-  /* Layout */
   width?: number | string;
   height?: number;
 
-  /* Gradient */
   gradientColors?: string[];
   gradientStart?: { x: number; y: number };
   gradientEnd?: { x: number; y: number };
 
-  /* Shape */
   borderRadius?: number;
 
-  /* Text */
   textColor?: string;
   fontSize?: number;
   fontFamily?: string;
   letterSpacing?: number;
   textStyle?: StyleProp<TextStyle>;
 
-  /* Containers */
-  containerStyle?: StyleProp<ViewStyle>; // LinearGradient
-  pressableStyle?: StyleProp<ViewStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
+  pressableStyle?: StyleProp<ViewStyle> | any;
+
   icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
-  iconSpacing?: number; // Pressable
+  iconSpacing?: number;
 
   disabled?: boolean;
   pressOpacity?: number;
@@ -78,17 +74,22 @@ const CustomButton = ({
   containerStyle,
   pressableStyle,
 
-  disabled,
+  disabled = false,
   icon,
   iconPosition = 'left',
-  iconSpacing,
+  iconSpacing = 8,
   pressOpacity = DEFAULTS.pressOpacity,
 }: CustomButtonProps) => {
   return (
     <Pressable
-      onPress={() => !disabled && onPress()}
+      disabled={disabled}
+      accessibilityRole="button"
+      accessibilityState={{ disabled }}
+      accessibilityLabel={title}
+      hitSlop={10}
+      onPress={onPress}
       style={({ pressed }) => [
-        { width: width as any },
+        { width },
         pressableStyle,
         pressed && !disabled && { opacity: pressOpacity },
       ]}
@@ -98,24 +99,20 @@ const CustomButton = ({
         end={gradientEnd}
         colors={gradientColors}
         style={[
+          styles.gradient,
           {
             height,
             borderRadius,
-            justifyContent: 'center',
-            alignItems: 'center',
+            opacity: disabled ? 0.6 : 1,
           },
           containerStyle,
-          disabled && { opacity: 0.6 },
         ]}
       >
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: icon ? iconSpacing ?? 8 : 0,
-          }}
-        >
-          {icon && iconPosition === 'left' && <View>{icon}</View>}
+        <View style={styles.content}>
+          {icon && iconPosition === 'left' && (
+            <View style={{ marginRight: iconSpacing }}>{icon}</View>
+          )}
+
           <Text
             style={[
               {
@@ -129,7 +126,10 @@ const CustomButton = ({
           >
             {title}
           </Text>
-          {icon && iconPosition === 'right' && <View>{icon}</View>}
+
+          {icon && iconPosition === 'right' && (
+            <View style={{ marginLeft: iconSpacing }}>{icon}</View>
+          )}
         </View>
       </LinearGradient>
     </Pressable>
@@ -137,3 +137,14 @@ const CustomButton = ({
 };
 
 export default CustomButton;
+
+const styles = StyleSheet.create({
+  gradient: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+});
