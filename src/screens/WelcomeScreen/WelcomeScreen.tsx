@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Text } from 'react-native';
-import color from '@color';
+import { scale } from '@scale';
 
 import BaseWrapper from 'components/Base';
 
@@ -17,6 +17,6 @@ export default WelcomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.lightTheme,
+    paddingTop: scale(50),
   },
 });
