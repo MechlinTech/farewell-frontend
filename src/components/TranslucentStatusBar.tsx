@@ -1,5 +1,5 @@
-import React from 'react';
-import {StatusBar, View} from 'react-native';
+import * as React from 'react';
+import { StatusBar, View } from 'react-native';
 
 interface Props {
   children: React.ReactNode;
@@ -17,7 +17,7 @@ const TranslucentStatusBar: React.FC<Props> = ({
   container_style,
 }) => {
   return (
-    <View style={container_style || {flex: 1, width: '100%'}}>
+    <View style={container_style || { flex: 1, width: '100%' }}>
       <StatusBar
         translucent={translucent}
         backgroundColor={backgroundColor}

@@ -1,50 +1,50 @@
 import * as React from 'react';
-import { Modal, View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import {
+  Modal,
+  View,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+  Pressable,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 
 interface CenterModalProps {
   visible: boolean;
   onClose: () => void;
 
-  // Container styles only
   containerStyle?: StyleProp<ViewStyle>;
   modalStyle?: StyleProp<ViewStyle>;
-  backgroundColor?: string;
-  height?: number | string;
-  width?: number | string;
-  borderRadius?: number;
+  backgroundColor?: any;
+  height?: number | string | any;
+  width?: number | string | any;
+  borderRadius?: number | any;
   paddingHorizontal?: number;
   paddingVertical?: number;
 
-  // Shadow props
-
-  // Modal props
   animationType?: 'none' | 'slide' | 'fade';
   transparent?: boolean;
   statusBarTranslucent?: boolean;
 
-  // Children
   children: React.ReactNode;
 }
 
 const DEFAULTS = {
-  // Container defaults
   backgroundColor: '#FFFFFF',
   height: 300,
   width: '80%',
   borderRadius: 20,
   paddingHorizontal: 20,
   paddingVertical: 24,
-
-  // Modal defaults
   animationType: 'fade' as const,
   transparent: true,
   statusBarTranslucent: true,
 };
 
-export const CenterModal = ({
+const CenterModal = ({
   visible,
   onClose,
-
   containerStyle,
   modalStyle,
   backgroundColor = DEFAULTS.backgroundColor,
@@ -53,11 +53,9 @@ export const CenterModal = ({
   borderRadius = DEFAULTS.borderRadius,
   paddingHorizontal = DEFAULTS.paddingHorizontal,
   paddingVertical = DEFAULTS.paddingVertical,
-
   animationType = DEFAULTS.animationType,
   transparent = DEFAULTS.transparent,
   statusBarTranslucent = DEFAULTS.statusBarTranslucent,
-
   children,
 }: CenterModalProps) => {
   return (
@@ -68,34 +66,43 @@ export const CenterModal = ({
       statusBarTranslucent={statusBarTranslucent}
       onRequestClose={onClose}
     >
-      <View style={[style.view, containerStyle]}>
-        <View
-          style={[
-            {
-              backgroundColor,
-              height: height as any,
-              width: width as any,
-              borderRadius,
-              paddingHorizontal,
-              paddingVertical,
-            },
-            modalStyle,
-          ]}
+      <Pressable style={[styles.backdrop, containerStyle]} onPress={onClose}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
-          {children}
-        </View>
-      </View>
+          <Pressable
+            onPress={() => {}}
+            style={[
+              styles.modal,
+              modalStyle,
+              {
+                backgroundColor: backgroundColor,
+                height: height,
+                width: width,
+                borderRadius: borderRadius,
+                paddingHorizontal: paddingHorizontal,
+                paddingVertical: paddingVertical,
+              },
+            ]}
+          >
+            {children}
+          </Pressable>
+        </KeyboardAvoidingView>
+      </Pressable>
     </Modal>
   );
 };
 
 export default CenterModal;
 
-const style = StyleSheet.create({
-  view: {
+const styles = StyleSheet.create({
+  backdrop: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  modal: {
+    maxWidth: '95%',
   },
 });

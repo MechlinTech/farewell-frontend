@@ -15,25 +15,21 @@ import Icon from 'react-native-vector-icons/Ionicons';
 interface CustomToolbarProps {
   title: string;
 
-  // Left icon
   leftIcon?: React.ReactNode;
   leftIconName?: string;
   onLeftPress?: () => void;
   showLeftIcon?: boolean;
 
-  // Right icon
   rightIcon?: React.ReactNode;
   rightIconName?: string;
   onRightPress?: () => void;
   showRightIcon?: boolean;
 
-  // Styles
   containerStyle?: StyleProp<ViewStyle>;
   titleStyle?: StyleProp<TextStyle>;
   backgroundColor?: string;
   height?: number;
 
-  // Extra content (below or replacing title area if needed)
   children?: React.ReactNode;
 }
 
@@ -58,20 +54,27 @@ export const CustomToolbar = ({
   children,
 }: CustomToolbarProps) => {
   return (
-    <View style={[style.view, { height, backgroundColor }, containerStyle]}>
+    <View style={[styles.root, { height, backgroundColor }, containerStyle]}>
       {/* Left */}
-      {showLeftIcon ? (
-        <Pressable onPress={onLeftPress} style={{ padding: 8 }}>
-          {leftIcon || <Icon name={leftIconName as any} size={24} />}
-        </Pressable>
-      ) : (
-        <View style={{ width: scale(40) }} />
-      )}
+      <View style={styles.side}>
+        {showLeftIcon && (
+          <Pressable
+            onPress={onLeftPress}
+            disabled={!onLeftPress}
+            accessibilityRole="button"
+            accessibilityLabel="Back"
+            style={styles.iconButton}
+          >
+            {leftIcon || <Icon name={leftIconName as any} size={24} />}
+          </Pressable>
+        )}
+      </View>
 
       {/* Center */}
-      <View style={{ flex: 1, alignItems: 'center' }}>
+      <View style={styles.center}>
         <Text
           numberOfLines={1}
+          accessibilityRole="header"
           style={[
             {
               fontSize: fontSize.fontSize_18,
@@ -82,29 +85,46 @@ export const CustomToolbar = ({
         >
           {title}
         </Text>
-
         {children}
       </View>
 
       {/* Right */}
-      {showRightIcon ? (
-        <Pressable onPress={onRightPress} style={{ padding: 8 }}>
-          {rightIcon ||
-            (rightIconName && <Icon name={rightIconName as any} size={24} />)}
-        </Pressable>
-      ) : (
-        <View style={{ width: 40 }} />
-      )}
+      <View style={styles.side}>
+        {showRightIcon && (
+          <Pressable
+            onPress={onRightPress}
+            disabled={!onRightPress}
+            accessibilityRole="button"
+            accessibilityLabel="Action"
+            style={styles.iconButton}
+          >
+            {rightIcon ||
+              (rightIconName && <Icon name={rightIconName as any} size={24} />)}
+          </Pressable>
+        )}
+      </View>
     </View>
   );
 };
 
 export default CustomToolbar;
 
-const style = StyleSheet.create({
-  view: {
+const styles = StyleSheet.create({
+  root: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: scale(16),
+  },
+  side: {
+    width: scale(40),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  center: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  iconButton: {
+    padding: 8,
   },
 });
