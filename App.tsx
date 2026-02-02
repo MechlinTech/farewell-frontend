@@ -14,10 +14,6 @@ const App = () => {
   return (
     <Provider store={store}>
       <InnerApp />
-      {/* <HeadingGroup
-        heading = 'Welcome to Farewell'
-        subheading = 'Please select to user type to create your account'
-      /> */}
     </Provider>
   );
 };

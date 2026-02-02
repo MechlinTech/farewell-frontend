@@ -14,9 +14,9 @@ import {
 } from 'react-native';
 
 interface CustomInputProps {
-  label: string;
+  label?: string;
   value?: string;
-  placeholder?: string;
+  placeholder?: string | any;
   onPress?: () => void;
   onChangeText?: (text: string) => void;
 

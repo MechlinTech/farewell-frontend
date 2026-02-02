@@ -6,9 +6,10 @@ import BaseWrapper from 'components/Base';
 
 const WelcomeScreen = () => {
   return (
-    <BaseWrapper container_style={styles.container} fullScreenMode={true}>
-      <Text>233</Text>
-    </BaseWrapper>
+    <BaseWrapper
+      container_style={styles.container}
+      fullScreenMode={true}
+    ></BaseWrapper>
   );
 };
 

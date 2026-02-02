@@ -1,5 +1,5 @@
 {
-  "extends": "@react-native/typescript-config/tsconfig.json",
+  "extends": "./node_modules/@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
     "jsx": "react",
     "baseUrl": "./src",
@@ -10,7 +10,7 @@
       "@queries": ["./api/queries.tsx"],
       "@AsyncStoreHelper": ["./utils/AsyncStoreHelper.tsx"],
       "@constants": ["./styles/constants.tsx"],
-      "@Navigator": ["./utils/Navigator.js"],
+      "@Navigator": ["./utils/Navigator.ts"],
       "@Utils": ["./utils/Utils.js"],
       "@scale": ["./utils/scale.ts"],
       "@Helper": ["./src/utils/Helper.tsx"],
