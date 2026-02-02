@@ -13,6 +13,7 @@ import CustomButton from '../../components/CustomButton';
 import color from '@color';
 
 import { scale, verticalScale } from '@scale';
+import Navigator from '@Navigator';
 
 const SignupScreen = ({ navigation }: any) => {
   const [firstName, setFirstName] = useState('');
@@ -24,19 +25,19 @@ const SignupScreen = ({ navigation }: any) => {
 
   const handleSignup = () => {
     // TODO: Implement signup logic
-    console.log('Signup pressed', { 
-      firstName, 
-      lastName, 
-      email, 
-      password, 
-      confirmPassword, 
-      agreeToTerms 
+    console.log('Signup pressed', {
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword,
+      agreeToTerms,
     });
   };
 
   const handleSignIn = () => {
     // TODO: Navigate to sign in
-    console.log('Sign in pressed');
+    Navigator.pushScreen(navigation, 'LoginScreen');
   };
 
   const handleTermsPress = () => {
@@ -56,100 +57,107 @@ const SignupScreen = ({ navigation }: any) => {
       linearGrad={false}
     >
       <StatusBar barStyle="dark-content" backgroundColor={color.background} />
-      
+
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         <View style={styles.signupContainer}>
-        {/* Header */}
-        <View style={styles.signupHeaderContainer}>
-          <Text style={styles.signupTitle}>Register your new Account!</Text>
-          <Text style={styles.signupSubtitle}>Enter your information below</Text>
-        </View>
-
-        {/* Form */}
-        <View style={styles.signupFormContainer}>
-          <CustomInput
-            label=""
-            placeholder="Jacob"
-            value={firstName}
-            onChangeText={setFirstName}
-            containerStyle={styles.signupInputContainer}
-            fieldStyle={{ borderRadius: scale(10) }} 
-          />
-
-          <CustomInput
-            label=""
-            placeholder="Last name"
-            value={lastName}
-            onChangeText={setLastName}
-            containerStyle={styles.signupInputContainer}
-            fieldStyle={{ borderRadius: scale(10) }} 
-          />
-
-          <CustomInput
-            label=""
-            placeholder="Your email"
-            value={email}
-            onChangeText={setEmail}
-            containerStyle={styles.signupInputContainer}
-            fieldStyle={{ borderRadius: scale(10) }} 
-          />
-
-          <CustomInput
-            label=""
-            placeholder="Enter password"
-            value={password}
-            onChangeText={setPassword}
-            containerStyle={styles.signupInputContainer}
-            fieldStyle={{ borderRadius: scale(10) }} 
-          />
-
-          <CustomInput
-            label=""
-            placeholder="Confirm password"
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            containerStyle={styles.signupInputContainer}
-            fieldStyle={{ borderRadius: scale(10) }} 
-          />
-
-          {/* Terms Checkbox */}
-          <View style={styles.checkboxContainer}>
-            <TouchableOpacity 
-              style={styles.checkbox} 
-              onPress={() => setAgreeToTerms(!agreeToTerms)}
-            >
-              <View style={[styles.checkboxInner, agreeToTerms && styles.checkboxChecked]}>
-                {agreeToTerms && <Text style={styles.checkmark}>✓</Text>}
-              </View>
-            </TouchableOpacity>
-            <View style={styles.termsContainer}>
-              <Text style={styles.checkboxText}>I agree to Farewell </Text>
-              <TouchableOpacity onPress={handleTermsPress}>
-                <Text style={styles.termsText}>Terms of Service</Text>
-              </TouchableOpacity>
-              <Text style={styles.checkboxText}> and </Text>
-              <TouchableOpacity onPress={handlePrivacyPress}>
-                <Text style={styles.privacyText}>Privacy Policy.</Text>
-              </TouchableOpacity>
-            </View>
+          {/* Header */}
+          <View style={styles.signupHeaderContainer}>
+            <Text style={styles.signupTitle}>Register your new Account!</Text>
+            <Text style={styles.signupSubtitle}>
+              Enter your information below
+            </Text>
           </View>
 
-          {/* Signup Button */}
-          <CustomButton
-            title="Continue to Verification"
-            onPress={handleSignup}
-            containerStyle={styles.signupButton}
-            textStyle={styles.signupButtonText}
-          />
-        </View>
+          {/* Form */}
+          <View style={styles.signupFormContainer}>
+            <CustomInput
+              label=""
+              placeholder="Jacob"
+              value={firstName}
+              onChangeText={setFirstName}
+              containerStyle={styles.signupInputContainer}
+              fieldStyle={{ borderRadius: scale(10) }}
+            />
 
-        {/* Sign In Link */}
-        <View style={styles.signinContainer}>
-          <Text style={styles.signinText}>Already have account? </Text>
-          <TouchableOpacity onPress={handleSignIn}>
-            <Text style={styles.signinLink}>Sign In</Text>
-          </TouchableOpacity>
-        </View>
+            <CustomInput
+              label=""
+              placeholder="Last name"
+              value={lastName}
+              onChangeText={setLastName}
+              containerStyle={styles.signupInputContainer}
+              fieldStyle={{ borderRadius: scale(10) }}
+            />
+
+            <CustomInput
+              label=""
+              placeholder="Your email"
+              value={email}
+              onChangeText={setEmail}
+              containerStyle={styles.signupInputContainer}
+              fieldStyle={{ borderRadius: scale(10) }}
+            />
+
+            <CustomInput
+              label=""
+              placeholder="Enter password"
+              value={password}
+              onChangeText={setPassword}
+              containerStyle={styles.signupInputContainer}
+              fieldStyle={{ borderRadius: scale(10) }}
+            />
+
+            <CustomInput
+              label=""
+              placeholder="Confirm password"
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              containerStyle={styles.signupInputContainer}
+              fieldStyle={{ borderRadius: scale(10) }}
+            />
+
+            {/* Terms Checkbox */}
+            <View style={styles.checkboxContainer}>
+              <TouchableOpacity
+                style={styles.checkbox}
+                onPress={() => setAgreeToTerms(!agreeToTerms)}
+              >
+                <View
+                  style={[
+                    styles.checkboxInner,
+                    agreeToTerms && styles.checkboxChecked,
+                  ]}
+                >
+                  {agreeToTerms && <Text style={styles.checkmark}>✓</Text>}
+                </View>
+              </TouchableOpacity>
+              <View style={styles.termsContainer}>
+                <Text style={styles.checkboxText}>I agree to Farewell </Text>
+                <TouchableOpacity onPress={handleTermsPress}>
+                  <Text style={styles.termsText}>Terms of Service</Text>
+                </TouchableOpacity>
+                <Text style={styles.checkboxText}> and </Text>
+                <TouchableOpacity onPress={handlePrivacyPress}>
+                  <Text style={styles.privacyText}>Privacy Policy.</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* Signup Button */}
+            <CustomButton
+              title="Continue to Verification"
+              onPress={handleSignup}
+              containerStyle={styles.signupButton}
+              textStyle={styles.signupButtonText}
+            />
+          </View>
+
+          {/* Sign In Link */}
+          <View style={styles.signinContainer}>
+            <Text style={styles.signinText}>Already have account? </Text>
+            <TouchableOpacity onPress={handleSignIn}>
+              <Text style={styles.signinLink}>Sign In</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     </Base>
@@ -161,12 +169,12 @@ const styles = StyleSheet.create({
     backgroundColor: color.background,
     paddingHorizontal: scale(20),
     paddingTop: verticalScale(50),
-    marginTop:verticalScale(10)
+    marginTop: verticalScale(10),
   },
   signupHeaderContainer: {
     alignItems: 'flex-start',
     marginBottom: verticalScale(10),
-    marginTop: verticalScale(12)
+    marginTop: verticalScale(12),
   },
   signupTitle: {
     fontSize: 24,
@@ -263,7 +271,5 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
-
-
 
 export default SignupScreen;
