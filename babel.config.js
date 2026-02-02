@@ -17,7 +17,7 @@ module.exports = {
           '@constants': './src/styles/constants.tsx',
           '@Utils': './src/utils/Utils.js',
           '@scale': './src/utils/scale.ts',
-          '@Navigator': './src/utils/Navigator.js',
+          '@Navigator': './src/utils/Navigator.ts',
           '@Helper': './src/utils/Helper.tsx',
           '@components': './src/components',
           '@redux': './src/redux',

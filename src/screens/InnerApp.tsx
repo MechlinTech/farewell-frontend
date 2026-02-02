@@ -25,6 +25,8 @@ import notifee, {
 } from '@notifee/react-native';
 import { navigationRef } from '@redux/NavigationService';
 import WelcomeScreen from './WelcomeScreen/WelcomeScreen';
+import LoginScreen from './LoginScreen/LoginScreen';
+import SignupScreen from './SignupScreen/SignupScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -186,9 +188,19 @@ function LoginStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
-        <Stack.Screen
+        {/* <Stack.Screen
           name="WelcomeScreen"
           component={WelcomeScreen}
+          options={{ headerShown: false }}
+        /> */}
+        <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SignupScreen"
+          component={SignupScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
