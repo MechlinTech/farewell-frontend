@@ -4,6 +4,7 @@ import Orientation from 'react-native-orientation-locker';
 import store from '@redux/store';
 import React = require('react');
 import InnerApp from 'screens/InnerApp';
+import HeadingGroup from 'components/HeadingGroupComponent';
 
 const App = () => {
   useEffect(() => {
@@ -13,6 +14,10 @@ const App = () => {
   return (
     <Provider store={store}>
       <InnerApp />
+      {/* <HeadingGroup
+        heading = 'Welcome to Farewell'
+        subheading = 'Please select to user type to create your account'
+      /> */}
     </Provider>
   );
 };
