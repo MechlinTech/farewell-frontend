@@ -51,11 +51,7 @@ const SignupScreen = ({ navigation }: any) => {
   };
 
   return (
-    <Base
-      backgroundColor={color.background}
-      fullScreenMode={false}
-      linearGrad={false}
-    >
+    <Base backgroundColor={color.background} fullScreenMode={false}>
       <StatusBar barStyle="dark-content" backgroundColor={color.background} />
 
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
