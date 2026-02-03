@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
+import color from '@color';
 
 interface CenterModalProps {
   visible: boolean;
@@ -31,7 +32,7 @@ interface CenterModalProps {
 }
 
 const DEFAULTS = {
-  backgroundColor: '#FFFFFF',
+  backgroundColor: color.background,
   height: 300,
   width: '80%',
   borderRadius: 20,

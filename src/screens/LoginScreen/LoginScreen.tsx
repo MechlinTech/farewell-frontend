@@ -14,7 +14,9 @@ import CustomButton from '../../components/CustomButton';
 import color from '@color';
 
 import { scale, verticalScale } from '@scale';
-import Navigator from '@Navigator';
+import Navigator from '../../utils/Navigator';
+import { fontFamily, fontSize } from '@constants';
+import HeadingGroup from 'components/HeadingGroupComponent';
 
 const LoginScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
@@ -27,6 +29,7 @@ const LoginScreen = ({ navigation }: any) => {
 
   const handleForgotPassword = () => {
     // TODO: Navigate to forgot password
+    Navigator.pushScreen(navigation, 'ForgotPasswordScreen');
     console.log('Forgot password pressed');
   };
 
@@ -36,15 +39,19 @@ const LoginScreen = ({ navigation }: any) => {
   };
 
   return (
-    <Base backgroundColor={color.background} fullScreenMode={false}>
+    <Base backgroundColor={color.background} fullScreenMode={true}>
       <StatusBar barStyle="dark-content" backgroundColor={color.background} />
 
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.content}>
           {/* Header */}
           <View style={styles.headerContainer}>
-            <Text style={styles.title}>Let's get you Login!</Text>
-            <Text style={styles.subtitle}>Enter your information below</Text>
+            <HeadingGroup heading="Let's get you Login!" 
+            
+            subheading='Enter your information below' 
+            subheadingStyle={styles.subtitle}
+            headingStyle={styles.title} />
+            {/* <Text style={styles.subtitle}>Enter your information below</Text> */}
           </View>
 
           {/* Form */}
@@ -54,7 +61,7 @@ const LoginScreen = ({ navigation }: any) => {
               value={email}
               onChangeText={setEmail}
               containerStyle={styles.inputContainer}
-              fieldStyle={{ borderRadius: scale(10) }}
+              fieldStyle={{ borderRadius: scale(5) }}
             />
 
             <CustomInput
@@ -62,7 +69,7 @@ const LoginScreen = ({ navigation }: any) => {
               value={password}
               onChangeText={setPassword}
               containerStyle={styles.inputContainer}
-              fieldStyle={{ borderRadius: scale(10) }}
+              fieldStyle={{ borderRadius: scale(5) }}
             />
 
             {/* Forgot Password */}
@@ -108,26 +115,30 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     alignItems: 'flex-start',
-    marginBottom: verticalScale(14),
-    marginTop: verticalScale(12),
+    marginBottom: verticalScale(6),
+    marginTop: verticalScale(14),
+    
   },
   title: {
-    fontSize: 24,
+    // fontSize: fontSize.fontSize_20,
     fontWeight: '800',
     color: color.text,
     marginBottom: verticalScale(8),
+    marginLeft: scale(-7),
   },
   subtitle: {
-    fontSize: 16,
-    color: '#666',
+    // fontSize: fontSize.fontSize_12,
+    color: color.textSecondary,
     textAlign: 'center',
+    marginLeft: scale(-6),
   },
   formContainer: {
     marginBottom: verticalScale(30),
   },
   inputContainer: {
     marginBottom: verticalScale(1),
-    borderRadius: scale(10),
+    
+    
   },
   forgotPasswordContainer: {
     alignItems: 'flex-end',
@@ -135,8 +146,8 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(16),
   },
   forgotPasswordText: {
-    fontSize: 16,
-    color: '#202020',
+    fontSize: fontSize.fontSize_14,
+    color: color.text,
     fontWeight: '500',
   },
   loginButton: {
@@ -145,8 +156,8 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(10),
   },
   loginButtonText: {
-    color: '#024F7C',
-    fontSize: 16,
+    color: color.textContrast,
+    fontSize: fontSize.fontSize_15,
     fontWeight: '800',
   },
   signUpContainer: {
@@ -159,13 +170,13 @@ const styles = StyleSheet.create({
     // paddingBottom: verticalScale(20),
   },
   signUpText: {
-    fontSize: 14,
-    color: '#666',
+    fontSize: fontSize.fontSize_15,
+    color: color.textSecondary,
     fontWeight: '600',
   },
   signUpLink: {
-    fontSize: 14,
-    color: '#007AFF',
+    fontSize: fontSize.fontSize_15,
+    color: color.textContrast,
     fontWeight: '600',
   },
 });

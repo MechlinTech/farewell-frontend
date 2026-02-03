@@ -6,7 +6,7 @@ import {
 import { responsiveWidth } from 'react-native-responsive-dimensions';
 import LoadingView from './loadingView';
 import messaging from '@react-native-firebase/messaging';
-import Navigator from '@Navigator';
+import Navigator from './Navigator';
 import { EventType } from '@notifee/react-native';
 import notifee from '@notifee/react-native';
 
