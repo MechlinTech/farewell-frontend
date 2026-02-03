@@ -12,10 +12,10 @@ const WelcomeScreen = () => {
       container_style={styles.container}
       fullScreenMode={true}
     >
-      <ImageComponent
+      {/* <ImageComponent
         source={images.farewell}
         style={styles.image}
-      />
+      /> */}
     </BaseWrapper>
   );
 };

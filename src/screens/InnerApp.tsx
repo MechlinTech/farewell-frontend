@@ -200,7 +200,7 @@ function LoginStack() {
           component={SelectUserRoleScreen}
           options={{ headerShown: false }}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
@@ -318,7 +318,7 @@ export const checkApplicationPermission = async () => {
           }
         }
       }
-    } catch (error) {}
+    } catch (error) { }
   } else {
     try {
       const authStatus = await messaging().requestPermission();
