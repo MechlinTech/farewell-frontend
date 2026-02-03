@@ -29,6 +29,7 @@ import LoginScreen from './LoginScreen/LoginScreen';
 import SignupScreen from './SignupScreen/SignupScreen';
 import SelectUserRoleScreen from './SelectUserRoleScreen/SelectUserRoleScreen';
 import OTPVerificationScreen from './OTPVerificationScreen/OTPVerificationScreen';
+import ForgotPasswordScreen from './ForgotPassword/ForgotPassword';
 
 const Stack = createNativeStackNavigator();
 
@@ -214,7 +215,12 @@ function LoginStack() {
           name="SignupScreen"
           component={SignupScreen}
           options={{ headerShown: false }}
-        /> */}
+        />
+        <Stack.Screen
+          name="ForgotPasswordScreen"
+          component={ForgotPasswordScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </React.Suspense>
   );
