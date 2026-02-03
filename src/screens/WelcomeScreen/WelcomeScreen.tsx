@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { StyleSheet, Text } from 'react-native';
-import { scale } from '@scale';
+import { ImageComponent, StyleSheet, Text } from 'react-native';
+import { scale, verticalScale } from '@scale';
 
 import BaseWrapper from 'components/Base';
 import color from '@color';
+import images from '@images';
 
 const WelcomeScreen = () => {
   return (
@@ -11,7 +12,10 @@ const WelcomeScreen = () => {
       container_style={styles.container}
       fullScreenMode={true}
     >
-      <Text>233</Text>
+      {/* <ImageComponent
+        source={images.farewell}
+        style={styles.image}
+      /> */}
     </BaseWrapper>
   );
 };
@@ -24,4 +28,8 @@ const styles = StyleSheet.create({
     paddingTop: scale(50),
     backgroundColor: color.primary
   },
+  image: {
+    width: scale(322),
+    height: verticalScale(142),
+  }
 });

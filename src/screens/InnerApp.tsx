@@ -401,7 +401,7 @@ function LoginStack() {
                   options={{ headerShown: false }}
                 />
                 <Stack.Screen
-                  name="OTPVerificationScreen"
+          name="OTPVerificationScreen"
                   component={OTPVerificationScreen}
                   options={{ headerShown: false }}
                 />
@@ -523,7 +523,7 @@ export const checkApplicationPermission = async () => {
           }
         }
       }
-    } catch (error) {}
+    } catch (error) { }
   } else {
     try {
       const authStatus = await messaging().requestPermission();
