@@ -13,7 +13,7 @@ module.exports = {
         alias: {
           '@color': './src/styles/color.tsx',
           '@dimensions': './src/styles/dimensions.tsx',
-          '@images': './src/assets/images',
+          '@images': './src/assets/images/index.ts',
           '@constants': './src/styles/constants.tsx',
           '@Utils': './src/utils/Utils.js',
           '@scale': './src/utils/scale.ts',

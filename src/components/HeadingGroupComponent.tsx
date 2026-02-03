@@ -31,8 +31,8 @@ const style = StyleSheet.create({
   container: {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    paddingHorizontal: scale(12),
-    paddingBlock: verticalScale(10),
+    // paddingHorizontal: scale(12),
+    paddingBlock: verticalScale(35),
     gap: verticalScale(5),
   },
   heading: {
