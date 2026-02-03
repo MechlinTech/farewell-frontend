@@ -39,7 +39,6 @@ const SelectUserRoleScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // justifyContent: 'center',
         paddingTop: verticalScale(176),
         paddingHorizontal: scale(43),
     },
