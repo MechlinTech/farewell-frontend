@@ -3,6 +3,7 @@ import { StyleSheet, Text } from 'react-native';
 import { scale } from '@scale';
 
 import BaseWrapper from 'components/Base';
+import color from '@color';
 
 const WelcomeScreen = () => {
   return (
@@ -21,5 +22,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: scale(50),
+    backgroundColor: color.primary
   },
 });
