@@ -188,11 +188,11 @@ function LoginStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
-        {/* <Stack.Screen
+        <Stack.Screen
           name="WelcomeScreen"
           component={WelcomeScreen}
           options={{ headerShown: false }}
-        /> */}
+        />
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
