@@ -7,10 +7,9 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Utils } from '@Utils';
-import Navigator from '@Navigator';
 import SplashScreen from 'react-native-splash-screen';
 import messaging from '@react-native-firebase/messaging';
 
@@ -20,17 +19,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 import { RootState } from '@redux/store';
-import notifee, {
-  EventType, // Import EventType if available
-} from '@notifee/react-native';
 import { navigationRef } from '@redux/NavigationService';
 import WelcomeScreen from './WelcomeScreen/WelcomeScreen';
 import LoginScreen from './LoginScreen/LoginScreen';
 import SignupScreen from './SignupScreen/SignupScreen';
-import SelectUserRoleScreen from './SelectUserRoleScreen/SelectUserRoleScreen';
-import OTPVerificationScreen from './OTPVerificationScreen/OTPVerificationScreen';
 import ForgotPasswordScreen from './ForgotPassword/ForgotPassword';
 import SelectUserRoleScreen from './SelectUserRoleScreen/SelectUserRoleScreen';
+import OTPVerificationScreen from './OTPVerificationScreen/OTPVerificationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -192,224 +187,17 @@ function LoginStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
-        <Stack.Screen
-          name="WelcomeScreen"
-          component={WelcomeScreen}
-          options={{ headerShown: false }}
-        />
+
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
         />
-        import * as React from 'react';
-        import { useEffect, useRef, useState } from 'react';
-        import {
-          PermissionsAndroid,
-          Platform,
-          StatusBar,
-          StyleSheet,
-          View,
-        } from 'react-native';
-        import { NavigationContainer, useNavigation } from '@react-navigation/native';
-        import { createNativeStackNavigator } from '@react-navigation/native-stack';
-        import { Utils } from '@Utils';
-        import Navigator from '@Navigator';
-        import SplashScreen from 'react-native-splash-screen';
-        import messaging from '@react-native-firebase/messaging';
-
-        import color from '@color';
-        import { AysncStorageHelper } from '@AsyncStoreHelper';
-        import { SafeAreaView } from 'react-native-safe-area-context';
-        import { GestureHandlerRootView } from 'react-native-gesture-handler';
-        import { useSelector } from 'react-redux';
-        import { RootState } from '@redux/store';
-        import notifee, {
-          EventType, // Import EventType if available
-        } from '@notifee/react-native';
-        import { navigationRef } from '@redux/NavigationService';
-        import WelcomeScreen from './WelcomeScreen/WelcomeScreen';
-        import LoginScreen from './LoginScreen/LoginScreen';
-        import SignupScreen from './SignupScreen/SignupScreen';
-        import SelectUserRoleScreen from './SelectUserRoleScreen/SelectUserRoleScreen';
-        import OTPVerificationScreen from './OTPVerificationScreen/OTPVerificationScreen';
-        import ForgotPasswordScreen from './ForgotPassword/ForgotPassword';
-
-        const Stack = createNativeStackNavigator();
-
-        // const screenIcons: Record<string, { active: any }> = {
-        //   HOME: {
-        //     active: require('@images/Home.webp'),
-        //   },
-        //   LEARN: {
-        //     active: require('@images/Learn.webp'),
-        //   },
-        //   ACCOUNT: {
-        //     active: require('@images/Account.webp'),
-        //   },
-        //   MESSAGES: {
-        //     active: require('@images/Messages.webp'),
-        //   },
-        // };
-
-        // Define screens & map icons explicitly
-        // const TABS = [
-        //   { key: 'home', name: 'HOME', component: Home },
-        //   { key: 'learn', name: 'LEARN', component: DashboardStack },
-        //   { key: 'account', name: 'ACCOUNT', component: AccountSettings },
-        //   { key: 'messages', name: 'MESSAGES', component: Messages },
-        // ];
-
-        // const Tab: any = createBottomTabNavigator();
-
-        // function BottomTabStack() {
-        //   return (
-        //     <Tab.Navigator
-        //       screenOptions={{ headerShown: false }}
-        //       tabBar={(props: any) => <CustomBottomTab {...props} />}
-        //     >
-        //       {TABS.map(tab => (
-        //         <Tab.Screen key={tab.key} name={tab.name} component={tab.component} />
-        //       ))}
-        //     </Tab.Navigator>
-        //   );
-        // }
-
-        // function CustomBottomTab({ state, descriptors, navigation }: any) {
-        //   return (
-        //     <View
-        //       style={{
-        //         flexDirection: 'row',
-        //         backgroundColor: color.themeWhite,
-        //         height:
-        //           Platform.OS == 'android'
-        //             ? verticalScale(64)
-        //             : verticalScale(80),
-        //         justifyContent: 'space-around',
-        //         alignItems: 'center',
-        //         // paddingBottom: verticalScale(10),
-        //         elevation: 5,
-        //         shadowColor: '#000',
-        //         shadowOpacity: 0.05,
-        //         shadowOffset: { width: 0, height: -2 },
-        //         shadowRadius: 5,
-        //         paddingHorizontal: scale(5),
-        //       }}
-        //     >
-        //       {state.routes.map((route: any, index: number) => {
-        //         const isFocused = state.index === index;
-
-        //         // Map the route name to the icon using the TABS array
-        //         const tabConfig = TABS.find(tab => tab.name === route.name);
-        //         const tabIcon: any = tabConfig ? screenIcons[tabConfig.name] : null;
-
-        //         const onPress = () => {
-        //           if (!isFocused) navigation.navigate(route.name);
-        //         };
-
-        //         console.log('data3132231', Utils.notification_count);
-        //         return (
-        //           <TouchableOpacity
-        //             key={route.key}
-        //             onPress={onPress}
-        //             style={{ justifyContent: 'center', alignItems: 'center' }}
-        //             activeOpacity={0.7}
-        //           >
-        //             {index == 3 && Utils.notification_count > 0 && (
-        //               <View
-        //                 style={{
-        //                   minHeight: scale(14),
-        //                   minWidth: scale(14),
-        //                   borderRadius: scale(30),
-        //                   backgroundColor: color.green,
-        //                   position: 'absolute',
-        //                   top: -verticalScale(5),
-        //                   left: scale(34),
-        //                   zIndex: 10,
-        //                   alignItems: 'center',
-        //                   justifyContent: 'center',
-        //                   paddingHorizontal: scale(3),
-        //                   paddingVertical: scale(1),
-        //                   flexDirection: 'row',
-        //                 }}
-        //               >
-        //                 {Utils.notification_count > 100 ? (
-        //                   <>
-        //                     <Text
-        //                       style={{
-        //                         fontSize: fontSize.fontSize_8,
-        //                         fontFamily: fontFamily.Medium,
-        //                         color: color.themeWhite,
-        //                       }}
-        //                     >
-        //                       100
-        //                     </Text>
-        //                     <Icon
-        //                       name="plus"
-        //                       size={scale(6)}
-        //                       color={color.themeWhite}
-        //                     />
-        //                   </>
-        //                 ) : (
-        //                   <Text
-        //                     style={{
-        //                       fontSize: fontSize.fontSize_8,
-        //                       fontFamily: fontFamily.Medium,
-        //                       color: color.themeWhite,
-        //                     }}
-        //                   >
-        //                     {Utils.notification_count}
-        //                   </Text>
-        //                 )}
-        //               </View>
-        //             )}
-
-        //             <ImageComponent
-        //               source={tabIcon.active}
-        //               resizeMode="contain"
-        //               style={{
-        //                 width: scale(24),
-        //                 height: scale(24),
-        //               }}
-        //               tintColor={isFocused ? color.blue : color.greyPremium}
-        //             />
-        //             <Text
-        //               style={{
-        //                 color: isFocused ? color.blue : color.greyPremium,
-        //                 fontSize: fontSize.fontSize_12,
-        //                 fontFamily: fontFamily.Medium,
-        //                 fontWeight: isFocused ? 'bold' : 'normal',
-        //                 marginTop: 3,
-        //               }}
-        //             >
-        //               {route.name}
-        //             </Text>
-        //           </TouchableOpacity>
-        //         );
-        //       })}
-        //     </View>
-        //   );
-        // }
-
-        function LoginStack() {
-          return (
-            <React.Suspense>
-              <Stack.Navigator id="LoginStack">
-                <Stack.Screen
-                  name="WelcomeScreen"
-                  component={WelcomeScreen}
-                  options={{ headerShown: false }}
-                />
-                <Stack.Screen
+        <Stack.Screen
           name="OTPVerificationScreen"
-                  component={OTPVerificationScreen}
-                  options={{ headerShown: false }}
-                />
-          <Stack.Screen
-                  name="SelectUserRoleScreen"
-                  component={SelectUserRoleScreen}
-                  options={{ headerShown: false }}
-                />
+          component={OTPVerificationScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="SelectUserRoleScreen"
           component={SelectUserRoleScreen}

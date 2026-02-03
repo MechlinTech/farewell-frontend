@@ -25,6 +25,7 @@ const LoginScreen = ({ navigation }: any) => {
   const handleLogin = () => {
     // TODO: Implement login logic
     console.log('Login pressed', { email, password });
+
   };
 
   const handleForgotPassword = () => {
@@ -46,11 +47,10 @@ const LoginScreen = ({ navigation }: any) => {
         <View style={styles.content}>
           {/* Header */}
           <View style={styles.headerContainer}>
-            <HeadingGroup heading="Let's get you Login!" 
-            
-            subheading='Enter your information below' 
-            subheadingStyle={styles.subtitle}
-            headingStyle={styles.title} />
+            <HeadingGroup
+              heading="Let's get you Login!"
+              subheading='Enter your information below'
+            />
             {/* <Text style={styles.subtitle}>Enter your information below</Text> */}
           </View>
 
@@ -110,35 +110,19 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     paddingHorizontal: scale(20),
-    paddingTop: verticalScale(40),
-    marginTop: verticalScale(110),
+    marginTop: verticalScale(122),
   },
   headerContainer: {
     alignItems: 'flex-start',
     marginBottom: verticalScale(6),
     marginTop: verticalScale(14),
-    
-  },
-  title: {
-    // fontSize: fontSize.fontSize_20,
-    fontWeight: '800',
-    color: color.text,
-    marginBottom: verticalScale(8),
-    marginLeft: scale(-7),
-  },
-  subtitle: {
-    // fontSize: fontSize.fontSize_12,
-    color: color.textSecondary,
-    textAlign: 'center',
-    marginLeft: scale(-6),
+
   },
   formContainer: {
     marginBottom: verticalScale(30),
   },
   inputContainer: {
     marginBottom: verticalScale(1),
-    
-    
   },
   forgotPasswordContainer: {
     alignItems: 'flex-end',
