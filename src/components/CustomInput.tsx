@@ -1,5 +1,5 @@
 import color from '@color';
-import { fontSize } from '@constants';
+import { fontFamily, fontSize } from '@constants';
 import { scale, verticalScale } from '@scale';
 import * as React from 'react';
 import {
@@ -27,8 +27,8 @@ interface CustomInputProps {
   fieldStyle?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
   textStyle?: StyleProp<TextStyle>;
-    enableFocusStyle?: boolean;
- 
+  enableFocusStyle?: boolean;
+
 }
 
 
@@ -50,19 +50,20 @@ export const CustomInput = ({
   const [isFocused, setIsFocused] = React.useState(false)
   return (
     <View style={containerStyle}>
-      <Text
-        style={[
-          {
-            fontSize: fontSize.fontSize_14,
-            fontWeight: '700',
-            color: color.textSecondary,
-            marginBottom: 6,
-          },
-          labelStyle,
-        ]}
-      >
-        {label}
-      </Text>
+      {label && (
+        <Text
+          style={[
+            {
+              fontSize: fontSize.fontSize_14,
+              fontFamily: fontFamily.Medium,
+              color: color.textSecondary,
+              marginBottom: verticalScale(6),
+            },
+            labelStyle,
+          ]}
+        >
+          {label}
+        </Text>)}
 
       <Pressable
         onPress={onPress}
@@ -74,7 +75,7 @@ export const CustomInput = ({
 
         {/* Text / value */}
         <View style={{ flex: 1 }}>
-                 <TextInput
+          <TextInput
             style={[
               { fontSize: fontSize.fontSize_16, color: color.inputText },
               textStyle,
@@ -82,7 +83,7 @@ export const CustomInput = ({
             value={value}
             placeholder={placeholder}
             onChangeText={onChangeText}
-            placeholderTextColor={color.black + '80'} // faded placeholder
+            placeholderTextColor={color.placeholderText} // faded placeholder
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
           />
@@ -111,7 +112,7 @@ const style = StyleSheet.create({
     borderWidth: 1,              // 👈 REQUIRED
     borderColor: 'transparent'
   },
-    focused: {
+  focused: {
     borderColor: color.primary, // highlight color
     // backgroundColor: '#F5FAFF',
   },

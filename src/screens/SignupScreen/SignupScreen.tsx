@@ -60,10 +60,10 @@ const SignupScreen = ({ navigation }: any) => {
         <View style={styles.signupContainer}>
           {/* Header */}
           <View style={styles.signupHeaderContainer}>
-            <HeadingGroup 
-              heading='Register your new Account!' 
+            <HeadingGroup
+              heading='Register your new Account!'
               subheading='Enter your information below'
-              headingStyle={styles.signupTitle} 
+              headingStyle={styles.signupTitle}
               subheadingStyle={styles.signupSubtitle}
             />
 
@@ -75,7 +75,6 @@ const SignupScreen = ({ navigation }: any) => {
           {/* Form */}
           <View style={styles.signupFormContainer}>
             <CustomInput
-              label=""
               placeholder="Jacob"
               value={firstName}
               onChangeText={setFirstName}
@@ -84,7 +83,6 @@ const SignupScreen = ({ navigation }: any) => {
             />
 
             <CustomInput
-              label=""
               placeholder="Last name"
               value={lastName}
               onChangeText={setLastName}
@@ -93,7 +91,6 @@ const SignupScreen = ({ navigation }: any) => {
             />
 
             <CustomInput
-              label=""
               placeholder="Your email"
               value={email}
               onChangeText={setEmail}
@@ -102,7 +99,6 @@ const SignupScreen = ({ navigation }: any) => {
             />
 
             <CustomInput
-              label=""
               placeholder="Enter password"
               value={password}
               onChangeText={setPassword}
@@ -111,11 +107,9 @@ const SignupScreen = ({ navigation }: any) => {
             />
 
             <CustomInput
-              label=""
               placeholder="Confirm password"
               value={confirmPassword}
               onChangeText={setConfirmPassword}
-              containerStyle={styles.signupInputContainer}
               fieldStyle={{ borderRadius: scale(10) }}
             />
 
@@ -125,14 +119,7 @@ const SignupScreen = ({ navigation }: any) => {
                 style={styles.checkbox}
                 onPress={() => setAgreeToTerms(!agreeToTerms)}
               >
-                <View
-                  style={[
-                    styles.checkboxInner,
-                    agreeToTerms && styles.checkboxChecked,
-                  ]}
-                >
-                  {agreeToTerms && <Text style={styles.checkmark}>✓</Text>}
-                </View>
+
               </TouchableOpacity>
               <View style={styles.termsContainer}>
                 <Text style={styles.checkboxText}>I agree to Farewell </Text>
@@ -141,7 +128,7 @@ const SignupScreen = ({ navigation }: any) => {
                 </TouchableOpacity>
                 <Text style={styles.checkboxText}> and </Text>
                 <TouchableOpacity onPress={handlePrivacyPress}>
-                  <Text style={styles.privacyText}>Privacy Policy.</Text>
+                  <Text style={styles.termsText}>Privacy Policy.</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -156,12 +143,9 @@ const SignupScreen = ({ navigation }: any) => {
           </View>
 
           {/* Sign In Link */}
-          <View style={styles.signinContainer}>
-            <Text style={styles.signinText}>Already have account? </Text>
-            <TouchableOpacity onPress={handleSignIn}>
-              <Text style={styles.signinLink}>Sign In</Text>
-            </TouchableOpacity>
-          </View>
+          <Text style={styles.signinText}>Already have account?  <Text style={styles.signinLink}>Sign In</Text>
+          </Text>
+
         </View>
       </ScrollView>
     </Base>
@@ -181,14 +165,13 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(12),
   },
   signupTitle: {
-    
+
     fontWeight: '800',
     color: color.textMain,
     marginBottom: verticalScale(8),
     marginLeft: scale(-9),
   },
   signupSubtitle: {
-   
     color: color.textSecondary,
     fontWeight: '400',
     marginLeft: scale(-7),
@@ -197,81 +180,48 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(20),
   },
   signupInputContainer: {
-    marginBottom: verticalScale(-2),
+    marginBottom: verticalScale(15),
   },
   checkboxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: verticalScale(20),
     marginTop: verticalScale(12),
     borderRadius: scale(8),
   },
   checkbox: {
     marginRight: scale(8),
-    marginTop: verticalScale(12),
   },
-  checkboxInner: {
-    width: scale(22),
-    height: scale(22),
-    borderWidth: 1,
-    borderColor: color.primaryMuted,
-    borderRadius: scale(4),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor:color.primaryMuted,
-  },
-  checkboxChecked: {
-    backgroundColor: color.textContrast,
-    borderColor: color.textContrast,
-  },
-  checkmark: {
-    color: color.primaryMuted,
-    fontSize: fontSize.fontSize_12,
-    fontFamily: fontFamily.Bold,
-  },
+
   termsContainer: {
     flex: 1,
     flexDirection: 'row',
     // flexWrap: 'wrap',
     alignItems: 'center',
-    marginTop: verticalScale(12),
   },
   checkboxText: {
-    fontSize: fontSize.fontSize_13,
+    fontSize: fontSize.fontSize_12,
+    fontFamily: fontFamily.Light,
     color: color.textSecondary,
   },
   termsText: {
-    fontSize: fontSize.fontSize_13,
-    color: color.textSecondary,
     textDecorationLine: 'underline',
-  },
-  privacyText: {
-    fontSize: fontSize.fontSize_13,
     color: color.textSecondary,
-    textDecorationLine: 'underline',
   },
+
   signupButton: {
     marginBottom: verticalScale(20),
     height: verticalScale(55),
-    marginTop: verticalScale(14),
+    marginTop: verticalScale(34),
   },
   signupButtonText: {
     color: color.textContrast,
     fontSize: fontSize.fontSize_16,
-     fontWeight: '800',
-    
+    fontWeight: '800',
+
   },
-  signinContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    // marginTop: 'auto',
-    // paddingBottom: verticalScale(18),
-     marginTop: verticalScale(-10),
-   
-  },
+
   signinText: {
-    fontSize: fontSize.fontSize_15,
+    fontSize: fontSize.fontSize_14,
     color: color.textSecondary,
   },
   signinLink: {

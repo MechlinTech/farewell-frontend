@@ -2,18 +2,18 @@ import { moderateScale } from '@scale';
 
 export const fontFamily = {
   //// inter fonts
-  Black: 'AvenieLTStd-Black', //'Roboto-Bold',
-  BlackOblique: 'AvenieLTStd-BlackOblique', //'Roboto-Bold',
-  Book: 'AvenieLTStd-Book',
-  BookOblique: 'AvenieLTStd-BookOblique',
-  Heavy: 'AvenieLTStd-Heavy',
-  HeavyOblique: 'AvenieLTStd-HeavyOblique',
-  Light: 'AvenieLTStd-Light',
-  LightOblique: 'AvenieLTStd-LightOblique',
-  Medium: 'AvenieLTStd-Medium',
-  MediumOblique: 'AvenieLTStd-MediumOblique',
-  Oblique: 'AvenieLTStd-Oblique',
-  Roman: 'AvenieLTStd-Roman',
+  Black: 'AvenirLTStd-Black',
+  BlackOblique: 'AvenirLTStd-BlackOblique',
+  Book: 'AvenirLTStd-Book',
+  BookOblique: 'AvenirLTStd-BookOblique',
+  Heavy: 'AvenirLTStd-Heavy',
+  HeavyOblique: 'AvenirLTStd-HeavyOblique',
+  Light: 'AvenirLTStd-Light',
+  LightOblique: 'AvenirLTStd-LightOblique',
+  Medium: 'AvenirLTStd-Medium',
+  MediumOblique: 'AvenirLTStd-MediumOblique',
+  Oblique: 'AvenirLTStd-Oblique',
+  Roman: 'AvenirLTStd-Roman',
 };
 
 export const fontSize = {

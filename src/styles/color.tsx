@@ -35,7 +35,7 @@ const lightColors = {
   surfaceSecondary: "#F0F5F5", // was bgCall
   starActive: "#FDC500",       // was bgRankedStar
   starInactive: "#C4C4C4",     // was bgUnrankedStar
-  
+
   // Feature Specific (Grouping helps readability)
   booking: {
     title: "#0C341F",
@@ -51,6 +51,7 @@ const lightColors = {
     text: "#024F7CBA",
   },
   overlayText: "#00000080", // was iconButtonText
+  placeholderText: "#757B7F",
 };
 
 const darkColors = {
@@ -86,7 +87,7 @@ const darkColors = {
   surfaceSecondary: "#F0F5F5", // was bgCall
   starActive: "#FDC500",       // was bgRankedStar
   starInactive: "#C4C4C4",     // was bgUnrankedStar
-  
+
   // Feature Specific (Grouping helps readability)
   booking: {
     title: "#0C341F",
@@ -102,6 +103,8 @@ const darkColors = {
     text: "#024F7CBA",
   },
   overlayText: "#00000080", // was iconButtonText
+  placeholderText: "#757B7F",
+
 };
 
 const color = scheme === 'dark' ? darkColors : lightColors;
