@@ -9,7 +9,9 @@ const WelcomeScreen = () => {
     <BaseWrapper
       container_style={styles.container}
       fullScreenMode={true}
-    ></BaseWrapper>
+    >
+      <Text>233</Text>
+    </BaseWrapper>
   );
 };
 
