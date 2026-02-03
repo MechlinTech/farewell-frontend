@@ -28,6 +28,7 @@ import WelcomeScreen from './WelcomeScreen/WelcomeScreen';
 import LoginScreen from './LoginScreen/LoginScreen';
 import SignupScreen from './SignupScreen/SignupScreen';
 import SelectUserRoleScreen from './SelectUserRoleScreen/SelectUserRoleScreen';
+import OTPVerificationScreen from './OTPVerificationScreen/OTPVerificationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -195,10 +196,15 @@ function LoginStack() {
           options={{ headerShown: false }}
         /> */}
         <Stack.Screen
+          name="OTPVerificationScreen"
+          component={OTPVerificationScreen}
+          options={{ headerShown: false }}
+        />
+        {/* <Stack.Screen
           name="SelectUserRoleScreen"
           component={SelectUserRoleScreen}
           options={{ headerShown: false }}
-        />
+        /> */}
         {/* <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
