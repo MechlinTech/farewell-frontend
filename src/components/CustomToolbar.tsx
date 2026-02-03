@@ -1,3 +1,4 @@
+import color from '@color';
 import { fontFamily, fontSize } from '@constants';
 import { scale } from '@scale';
 import * as React from 'react';
@@ -48,7 +49,7 @@ export const CustomToolbar = ({
 
   containerStyle,
   titleStyle,
-  backgroundColor = '#FFFFFF',
+  backgroundColor = color.background,
   height = 56,
 
   children,
