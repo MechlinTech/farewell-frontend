@@ -27,7 +27,6 @@ import { navigationRef } from '@redux/NavigationService';
 import WelcomeScreen from './WelcomeScreen/WelcomeScreen';
 import LoginScreen from './LoginScreen/LoginScreen';
 import SignupScreen from './SignupScreen/SignupScreen';
-import ForgotPasswordScreen from './ForgotPassword/ForgotPassword';
 import SelectUserRoleScreen from './SelectUserRoleScreen/SelectUserRoleScreen';
 
 const Stack = createNativeStackNavigator();
@@ -190,32 +189,26 @@ function LoginStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
-        <Stack.Screen
+        {/* <Stack.Screen
           name="WelcomeScreen"
           component={WelcomeScreen}
           options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="LoginScreen"
-          component={LoginScreen}
-          options={{ headerShown: false }}
-        />
+        /> */}
         <Stack.Screen
           name="SelectUserRoleScreen"
           component={SelectUserRoleScreen}
           options={{ headerShown: false }}
         />
-
+        {/* <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="SignupScreen"
           component={SignupScreen}
           options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="ForgotPasswordScreen"
-          component={ForgotPasswordScreen}
-          options={{ headerShown: false }}
-        />
+        /> */}
       </Stack.Navigator>
     </React.Suspense>
   );
@@ -319,7 +312,7 @@ export const checkApplicationPermission = async () => {
           }
         }
       }
-    } catch (error) { }
+    } catch (error) {}
   } else {
     try {
       const authStatus = await messaging().requestPermission();
