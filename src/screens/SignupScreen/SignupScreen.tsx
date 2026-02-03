@@ -13,7 +13,9 @@ import CustomButton from '../../components/CustomButton';
 import color from '@color';
 
 import { scale, verticalScale } from '@scale';
-import Navigator from '@Navigator';
+import Navigator from '../../utils/Navigator';
+import { fontFamily, fontSize } from '@constants';
+import HeadingGroup from 'components/HeadingGroupComponent';
 
 const SignupScreen = ({ navigation }: any) => {
   const [firstName, setFirstName] = useState('');
@@ -58,10 +60,16 @@ const SignupScreen = ({ navigation }: any) => {
         <View style={styles.signupContainer}>
           {/* Header */}
           <View style={styles.signupHeaderContainer}>
-            <Text style={styles.signupTitle}>Register your new Account!</Text>
-            <Text style={styles.signupSubtitle}>
+            <HeadingGroup 
+              heading='Register your new Account!' 
+              subheading='Enter your information below'
+              headingStyle={styles.signupTitle} 
+              subheadingStyle={styles.signupSubtitle}
+            />
+
+            {/* <Text style={styles.signupSubtitle}>
               Enter your information below
-            </Text>
+            </Text> */}
           </View>
 
           {/* Form */}
@@ -72,7 +80,7 @@ const SignupScreen = ({ navigation }: any) => {
               value={firstName}
               onChangeText={setFirstName}
               containerStyle={styles.signupInputContainer}
-              fieldStyle={{ borderRadius: scale(10) }}
+              fieldStyle={{ borderRadius: scale(5) }}
             />
 
             <CustomInput
@@ -81,7 +89,7 @@ const SignupScreen = ({ navigation }: any) => {
               value={lastName}
               onChangeText={setLastName}
               containerStyle={styles.signupInputContainer}
-              fieldStyle={{ borderRadius: scale(10) }}
+              fieldStyle={{ borderRadius: scale(5) }}
             />
 
             <CustomInput
@@ -169,19 +177,21 @@ const styles = StyleSheet.create({
   },
   signupHeaderContainer: {
     alignItems: 'flex-start',
-    marginBottom: verticalScale(10),
+    marginBottom: verticalScale(6),
     marginTop: verticalScale(12),
   },
   signupTitle: {
-    fontSize: 24,
+    
     fontWeight: '800',
-    color: color.text,
+    color: color.textMain,
     marginBottom: verticalScale(8),
+    marginLeft: scale(-9),
   },
   signupSubtitle: {
-    fontSize: 16,
-    color: '#4f4f4f',
+   
+    color: color.textSecondary,
     fontWeight: '400',
+    marginLeft: scale(-7),
   },
   signupFormContainer: {
     marginBottom: verticalScale(20),
@@ -191,52 +201,53 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     marginBottom: verticalScale(20),
     marginTop: verticalScale(12),
+    borderRadius: scale(8),
   },
   checkbox: {
     marginRight: scale(8),
     marginTop: verticalScale(12),
   },
   checkboxInner: {
-    width: scale(18),
-    height: scale(18),
+    width: scale(22),
+    height: scale(22),
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: color.primaryMuted,
     borderRadius: scale(4),
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor:color.primaryMuted,
   },
   checkboxChecked: {
-    backgroundColor: '#007AFF',
-    borderColor: '#007AFF',
+    backgroundColor: color.textContrast,
+    borderColor: color.textContrast,
   },
   checkmark: {
-    color: '#fff',
-    fontSize: 12,
-    fontWeight: 'bold',
+    color: color.primaryMuted,
+    fontSize: fontSize.fontSize_12,
+    fontFamily: fontFamily.Bold,
   },
   termsContainer: {
     flex: 1,
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    // flexWrap: 'wrap',
     alignItems: 'center',
     marginTop: verticalScale(12),
   },
   checkboxText: {
-    fontSize: 14,
-    color: '#666',
+    fontSize: fontSize.fontSize_13,
+    color: color.textSecondary,
   },
   termsText: {
-    fontSize: 14,
-    color: '#007AFF',
+    fontSize: fontSize.fontSize_13,
+    color: color.textSecondary,
     textDecorationLine: 'underline',
   },
   privacyText: {
-    fontSize: 14,
-    color: '#007AFF',
+    fontSize: fontSize.fontSize_13,
+    color: color.textSecondary,
     textDecorationLine: 'underline',
   },
   signupButton: {
@@ -245,9 +256,10 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(14),
   },
   signupButtonText: {
-    color: '#024F76',
-    fontSize: 18,
-    fontWeight: '800',
+    color: color.textContrast,
+    fontSize: fontSize.fontSize_16,
+     fontWeight: '800',
+    
   },
   signinContainer: {
     flexDirection: 'row',
@@ -255,15 +267,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // marginTop: 'auto',
     // paddingBottom: verticalScale(18),
-    marginTop: verticalScale(-8),
+     marginTop: verticalScale(-10),
+   
   },
   signinText: {
-    fontSize: 14,
-    color: '#666',
+    fontSize: fontSize.fontSize_15,
+    color: color.textSecondary,
   },
   signinLink: {
-    fontSize: 14,
-    color: '#007AFF',
+    fontSize: fontSize.fontSize_15,
+    color: color.textContrast,
     fontWeight: '600',
   },
 });

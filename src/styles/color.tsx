@@ -6,7 +6,7 @@ const lightColors = {
   text: '#000000',
   transparent: 'transparent',
   border: '#DCE8E9',
-  lightTheme: '#E9F6FD',
+  // lightTheme: '#E9F6FD',
   inputText: '#293540',
   black: '#000000',
 
