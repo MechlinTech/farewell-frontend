@@ -196,15 +196,16 @@ function LoginStack() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="SelectUserRoleScreen"
-          component={SelectUserRoleScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="SelectUserRoleScreen"
+          component={SelectUserRoleScreen}
+          options={{ headerShown: false }}
+        />
+
         <Stack.Screen
           name="SignupScreen"
           component={SignupScreen}
