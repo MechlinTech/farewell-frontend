@@ -7,13 +7,13 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
-import Base from '../../components/Base';
-import CustomInput from '../../components/CustomInput';
-import CustomButton from '../../components/CustomButton';
+import Base from '../../../components/Base';
+import CustomInput from '../../../components/CustomInput';
+import CustomButton from '../../../components/CustomButton';
 import color from '@color';
 
 import { scale, verticalScale } from '@scale';
-import Navigator from '../../utils/Navigator';
+import Navigator from '../../../utils/Navigator';
 import { fontFamily, fontSize } from '@constants';
 import HeadingGroup from 'components/HeadingGroupComponent';
 

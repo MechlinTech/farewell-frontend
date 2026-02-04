@@ -9,16 +9,16 @@ import {
   StyleSheet,
   Pressable,
 } from 'react-native';
-import CustomInput from '../../components/CustomInput';
-import CustomButton from '../../components/CustomButton';
-import CenterModal from '../../components/CenterModal';
+import CustomInput from 'components/CustomInput';
+import CustomButton from 'components/CustomButton';
+import CenterModal from 'components/CenterModal';
 import color from '@color';
 
 import { scale, verticalScale } from '@scale';
-import Navigator from '../../utils/Navigator';
+import Navigator from 'utils/Navigator';
 import { fontSize, fontFamily } from '@constants';
 import HeadingGroup from 'components/HeadingGroupComponent';
-import BaseWrapper from '../../components/Base';
+import BaseWrapper from 'components/Base';
 
 const ForgotPasswordScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
@@ -156,15 +156,14 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: fontSize.fontSize_24,
-    fontFamily: fontFamily.Bold,
+    fontFamily: fontFamily.weight700,
     color: color.textMain,
     textAlign: 'center',
     marginBottom: verticalScale(12),
-    fontWeight: '700',
   },
   modalMessage: {
     fontSize: fontSize.fontSize_12,
-    fontFamily: fontFamily.Regular,
+    fontFamily: fontFamily.weight400,
     color: color.textSecondary,
     textAlign: 'center',
     lineHeight: verticalScale(16),
@@ -187,9 +186,8 @@ const styles = StyleSheet.create({
   },
   finishButtonText: {
     fontSize: fontSize.fontSize_16,
-    fontFamily: fontFamily.SemiBold,
+    fontFamily: fontFamily.weight800,
     color: color.textContrast,
-    fontWeight: '800',
   },
 
 

@@ -20,11 +20,11 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 import { RootState } from '@redux/store';
 import { navigationRef } from '@redux/NavigationService';
-import LoginScreen from './LoginScreen/LoginScreen';
-import SignupScreen from './SignupScreen/SignupScreen';
-import ForgotPasswordScreen from './ForgotPassword/ForgotPassword';
-import SelectUserRoleScreen from './SelectUserRoleScreen/SelectUserRoleScreen';
-import OTPVerificationScreen from './OTPVerificationScreen/OTPVerificationScreen';
+import LoginScreen from './login/LoginScreen/LoginScreen';
+import SignupScreen from './login/SignupScreen/SignupScreen';
+import ForgotPasswordScreen from './login/ForgotPassword/ForgotPassword';
+import SelectUserRoleScreen from './login/SelectUserRoleScreen/SelectUserRoleScreen';
+import OTPVerificationScreen from './login/OTPVerificationScreen/OTPVerificationScreen';
  
 const Stack = createNativeStackNavigator();
  
@@ -187,7 +187,7 @@ function LoginStack() {
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
  
-        {/* <Stack.Screen
+        <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
@@ -196,14 +196,13 @@ function LoginStack() {
           name="OTPVerificationScreen"
           component={OTPVerificationScreen}
           options={{ headerShown: false }}
-        /> */}
+        />
         <Stack.Screen
           name="SelectUserRoleScreen"
           component={SelectUserRoleScreen}
           options={{ headerShown: false }}
         />
- 
-        {/* <Stack.Screen
+        <Stack.Screen
           name="SignupScreen"
           component={SignupScreen}
           options={{ headerShown: false }}
@@ -212,7 +211,7 @@ function LoginStack() {
           name="ForgotPasswordScreen"
           component={ForgotPasswordScreen}
           options={{ headerShown: false }}
-        /> */}
+        />
       </Stack.Navigator>
     </React.Suspense>
   );
