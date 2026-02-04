@@ -22,16 +22,20 @@ const SelectUserRoleScreen = ({ navigation }: any) => {
                 <UserRoleComponent
                     imageSource={images.package}
                     title="Customer"
-                    onPress={() => {setUserRole('customer'),
-                        Navigator.pushScreen(navigation, 'SignupScreen', { userRole: 'customer' });}
+                    onPress={() => {
+                        setUserRole('customer'),
+                        Navigator.pushScreen(navigation, 'SignupScreen', { userRole: 'customer' });
+                    }
                     }
                     selected={userRole === 'customer'}
                 />
                 <UserRoleComponent
                     imageSource={images.bike}
                     title="Rider"
-                    onPress={() => {setUserRole('rider'),
-                        Navigator.pushScreen(navigation, 'SignupScreen', { userRole: 'rider' });}
+                    onPress={() => {
+                        setUserRole('rider'),
+                        Navigator.pushScreen(navigation, 'SignupScreen', { userRole: 'rider' });
+                    }
                     }
                     selected={userRole === 'rider'}
                 />

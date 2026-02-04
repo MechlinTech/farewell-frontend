@@ -38,12 +38,12 @@ const style = StyleSheet.create({
   heading: {
     color: color.textMain,
     fontSize: fontSize.fontSize_20,
-    fontFamily: fontFamily.Heavy,
+    fontFamily: fontFamily.weight800,
     marginBottom: verticalScale(6),
   },
   subheading: {
     color: color.textSubHeading,
     fontSize: fontSize.fontSize_12,
-    fontFamily: fontFamily.Light,
+    fontFamily: fontFamily.weight400,
   },
 });
