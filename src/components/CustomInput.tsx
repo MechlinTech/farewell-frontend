@@ -75,7 +75,7 @@ export const CustomInput = ({
 
         {/* Text / value */}
         <View style={{ flex: 1 }}>
-          <TextInput
+                 <TextInput
             style={[
               { fontSize: fontSize.fontSize_16, color: color.inputText },
               textStyle,
