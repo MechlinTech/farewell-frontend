@@ -27,7 +27,8 @@ const ForgotPasswordScreen = ({ navigation }: any) => {
 
   const handlesend = () => {
     // Show the modal when send is clicked
-    setShowModal(true);
+    // setShowModal(true);
+  Navigator.pushScreen(navigation, 'OTPVerificationScreen');
     console.log('Send pressed', { email });
   };
 
@@ -56,20 +57,23 @@ const ForgotPasswordScreen = ({ navigation }: any) => {
 
       <ScrollView style={{ flex: 1, marginTop: verticalScale(132) }}>
         {/* Header */}
+        <View style={styles.headerContainer}>
         <HeadingGroup heading='Forgot Password?'
           subheading='Enter your registered email id below'
         />
+        </View>
         {/* <Text style={styles.title}>Forgot Password?</Text>
             <Text style={styles.subtitle}>Enter your registered email id below</Text> */}
 
         {/* Form */}
         <View style={styles.formContainer}>
+          <View style={styles.commoncontainer}>
           <CustomInput
             placeholder={'Enter your Email id'}
             value={email}
             onChangeText={setEmail}
             containerStyle={styles.inputContainer}
-            fieldStyle={{ borderRadius: scale(10) }}
+            fieldStyle={{ borderRadius: scale(5) }}
           />
 
           <CustomInput
@@ -77,15 +81,16 @@ const ForgotPasswordScreen = ({ navigation }: any) => {
             value={password}
             onChangeText={setPassword}
             containerStyle={styles.inputContainer}
-            fieldStyle={{ borderRadius: scale(10) }}
+            fieldStyle={{ borderRadius: scale(5) }}
           />
           <CustomInput
             placeholder="Confirm New Password"
             value={password}
             onChangeText={setPassword}
             containerStyle={styles.inputContainer}
-            fieldStyle={{ borderRadius: scale(10) }}
+            fieldStyle={{ borderRadius: scale(5) }}
           />
+          </View>
 
           {/* Forgot Password */}
           {/* <View style={styles.forgotPasswordContainer}>
@@ -118,7 +123,10 @@ const ForgotPasswordScreen = ({ navigation }: any) => {
 };
 const styles = StyleSheet.create({
 
+headerContainer: {
 
+ marginLeft: scale(24),
+},
 
   formContainer: {
     marginBottom: verticalScale(30),
@@ -126,16 +134,25 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginBottom: verticalScale(1),
   },
+  commoncontainer: {
+    gap: verticalScale(20),
+    width: '90%',
+    alignSelf: 'center',
+    // marginHorizontal: scale(33),
+    // marginTop: verticalScale(33),
+  },
 
   SendButton: {
     marginBottom: verticalScale(20),
     height: verticalScale(55),
     marginTop: verticalScale(24),
+    width:'90%',
+    alignSelf:'center'
   },
   SendButtonText: {
     color: color.textContrast,
     fontSize: fontSize.fontSize_16,
-    fontWeight: '800',
+    fontFamily:fontFamily.Heavy,
   },
 
   // Modal Styles

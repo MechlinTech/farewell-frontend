@@ -16,9 +16,14 @@ import { scale, verticalScale } from '@scale';
 import Navigator from '../../utils/Navigator';
 import { fontFamily, fontSize } from '@constants';
 import HeadingGroup from 'components/HeadingGroupComponent';
+import CheckBox from 'components/CustomCheckbox';
+import { KeyboardAvoidingView, Platform } from 'react-native';
+import UserRoleComponent from 'components/UserRoleComponent';
+import images from '@images';
 
 const SignupScreen = ({ navigation }: any) => {
   const [firstName, setFirstName] = useState('');
+const [userRole, setUserRole] = React.useState<string>('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -55,8 +60,14 @@ const SignupScreen = ({ navigation }: any) => {
   return (
     <Base backgroundColor={color.background} fullScreenMode={false}>
       <StatusBar barStyle="dark-content" backgroundColor={color.background} />
-
-      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+<KeyboardAvoidingView
+  style={{ flex: 1 }}
+  behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+   keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
+>
+      <ScrollView style={{ flex: 1}} showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+           automaticallyAdjustKeyboardInsets>
         <View style={styles.signupContainer}>
           {/* Header */}
           <View style={styles.signupHeaderContainer}>
@@ -66,13 +77,29 @@ const SignupScreen = ({ navigation }: any) => {
               headingStyle={styles.signupTitle}
               subheadingStyle={styles.signupSubtitle}
             />
+            </View>
+                   <View style={styles.userRoleContainer}>
+                <UserRoleComponent
+                    imageSource={images.package}
+                    title="Customer"
+                    onPress={() => setUserRole('customer')}
+                    selected={userRole === 'customer'}
+                />
+                <UserRoleComponent
+                    imageSource={images.bike}
+                    title="Rider"
+                    onPress={() => setUserRole('rider')}
+                    selected={userRole === 'rider'}
+                />
+            </View>
 
             {/* <Text style={styles.signupSubtitle}>
               Enter your information below
             </Text> */}
-          </View>
+          
 
           {/* Form */}
+          <View style={styles.commoncontainer}>
           <View style={styles.signupFormContainer}>
             <CustomInput
               placeholder="Jacob"
@@ -95,7 +122,7 @@ const SignupScreen = ({ navigation }: any) => {
               value={email}
               onChangeText={setEmail}
               containerStyle={styles.signupInputContainer}
-              fieldStyle={{ borderRadius: scale(10) }}
+              fieldStyle={{ borderRadius: scale(5) }}
             />
 
             <CustomInput
@@ -103,39 +130,40 @@ const SignupScreen = ({ navigation }: any) => {
               value={password}
               onChangeText={setPassword}
               containerStyle={styles.signupInputContainer}
-              fieldStyle={{ borderRadius: scale(10) }}
+              fieldStyle={{ borderRadius: scale(5) }}
             />
 
             <CustomInput
               placeholder="Confirm password"
               value={confirmPassword}
               onChangeText={setConfirmPassword}
-              fieldStyle={{ borderRadius: scale(10) }}
+              fieldStyle={{ borderRadius: scale(5) }}
             />
+          </View>
 
             {/* Terms Checkbox */}
-            <View style={styles.checkboxContainer}>
-              <TouchableOpacity
-                style={styles.checkbox}
-                onPress={() => setAgreeToTerms(!agreeToTerms)}
-              >
+   <View style={styles.termsContainer}>
+    <View style={styles.checkboxContainer}>
+  <CheckBox isChecked={agreeToTerms} onChange={setAgreeToTerms}/>
+  <Text style={styles.text}>I agree to Farewell</Text>
 
-              </TouchableOpacity>
-              <View style={styles.termsContainer}>
-                <Text style={styles.checkboxText}>I agree to Farewell </Text>
-                <TouchableOpacity onPress={handleTermsPress}>
-                  <Text style={styles.termsText}>Terms of Service</Text>
-                </TouchableOpacity>
-                <Text style={styles.checkboxText}> and </Text>
-                <TouchableOpacity onPress={handlePrivacyPress}>
-                  <Text style={styles.termsText}>Privacy Policy.</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+  <Text style={styles.link} onPress={handleTermsPress}>
+    Terms of Service
+  </Text>
+
+  <Text style={[styles.text, { marginLeft: scale(2) }]}>and</Text>
+
+  <Text style={styles.link} onPress={handlePrivacyPress}>
+    Privacy Policy.
+  </Text>
+  </View>
+  </View>
+
+
 
             {/* Signup Button */}
             <CustomButton
-              title="Continue to Verification"
+              title="Continue"
               onPress={handleSignup}
               containerStyle={styles.signupButton}
               textStyle={styles.signupButtonText}
@@ -143,11 +171,14 @@ const SignupScreen = ({ navigation }: any) => {
           </View>
 
           {/* Sign In Link */}
-          <Text style={styles.signinText}>Already have account?  <Text style={styles.signinLink}>Sign In</Text>
+         <View style={styles.textsignin}>
+          <Text style={styles.signinText}>Already have account?  <Text style={styles.signinLink} onPress={handleSignIn}>Sign In</Text>
           </Text>
+          </View>
 
         </View>
       </ScrollView>
+      </KeyboardAvoidingView>
     </Base>
   );
 };
@@ -159,75 +190,135 @@ const styles = StyleSheet.create({
     paddingTop: verticalScale(50),
     marginTop: verticalScale(10),
   },
+  commoncontainer: {
+  
+    gap:20,
+    marginTop:verticalScale(20)
+  },
   signupHeaderContainer: {
     alignItems: 'flex-start',
-    marginBottom: verticalScale(6),
-    marginTop: verticalScale(12),
+    marginBottom: verticalScale(1),
+    marginTop: verticalScale(5),
   },
   signupTitle: {
 
-    fontWeight: '800',
+   
     color: color.textMain,
     marginBottom: verticalScale(8),
-    marginLeft: scale(-9),
+    marginLeft: scale(2),
   },
   signupSubtitle: {
     color: color.textSecondary,
-    fontWeight: '400',
-    marginLeft: scale(-7),
+   
+    marginLeft: scale(4),
   },
+      container: {
+        flex: 1,
+        // justifyContent: 'center',
+        paddingTop: verticalScale(176),
+        paddingHorizontal: scale(43),
+    },
+    userRoleContainer: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        gap: scale(33),
+        marginLeft: scale(4),
+        
+    },
   signupFormContainer: {
-    marginBottom: verticalScale(20),
+    // marginBottom: verticalScale(20),
   },
   signupInputContainer: {
-    marginBottom: verticalScale(15),
+     marginBottom: verticalScale(15),
+    //  marginTop: verticalScale(5),
   },
-  checkboxContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: verticalScale(12),
-    borderRadius: scale(8),
-  },
+checkboxContainer: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginTop: verticalScale(25),
+
+},
+
+
+text: {
+  fontSize: fontSize.fontSize_12,
+  fontFamily: fontFamily.Light,
+  color: color.textSecondary,
+  marginRight: scale(5),
+  marginLeft:scale(12),
+  marginBottom: verticalScale(6), // 👈 SAME GAP
+},
+link: {
+  fontSize: fontSize.fontSize_12,
+  fontFamily: fontFamily.Light,
+  color: color.textSecondary,
+  textDecorationLine: 'underline',
+  marginRight: scale(4),
+  marginBottom: verticalScale(5), // 👈 SAME GAP
+},
+
   checkbox: {
     marginRight: scale(8),
+   
   },
 
-  termsContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    // flexWrap: 'wrap',
-    alignItems: 'center',
-  },
-  checkboxText: {
-    fontSize: fontSize.fontSize_12,
-    fontFamily: fontFamily.Light,
-    color: color.textSecondary,
-  },
-  termsText: {
-    textDecorationLine: 'underline',
-    color: color.textSecondary,
-  },
+termsContainer: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  flexWrap: 'wrap',  
+  marginTop: verticalScale(10),
+  marginBottom: verticalScale(5),   // 👈 allows proper wrapping
+},
+
+
+checkboxText: {
+  fontSize: fontSize.fontSize_12,
+  fontFamily: fontFamily.weight400,
+  color: color.textSecondary,
+ 
+  marginRight: scale(4),
+  marginLeft: scale(10),
+  
+},
+
+termsText: {
+  fontSize: fontSize.fontSize_12,
+  color: color.textSecondary,
+  textDecorationLine: 'underline',
+  marginRight: scale(4),
+},
+textsignin:{
+
+  marginBottom: verticalScale(40),
+  marginTop: verticalScale(27),
+
+},
+
 
   signupButton: {
-    marginBottom: verticalScale(20),
+    marginBottom: verticalScale(15),
     height: verticalScale(55),
-    marginTop: verticalScale(34),
+    // marginTop: verticalScale(20),
   },
   signupButtonText: {
     color: color.textContrast,
     fontSize: fontSize.fontSize_16,
-    fontWeight: '800',
+    fontFamily: fontFamily.Heavy,
 
   },
 
   signinText: {
     fontSize: fontSize.fontSize_14,
     color: color.textSecondary,
+    marginLeft: scale(70),
+    fontFamily:fontFamily.weight400,
+    // marginTop: verticalScale(20),
+    marginBottom: verticalScale(20),
   },
   signinLink: {
-    fontSize: fontSize.fontSize_15,
-    color: color.textContrast,
-    fontWeight: '600',
+    fontSize: fontSize.fontSize_14,
+    color: color.textAccent,
+    fontFamily: fontFamily.weight800,
   },
 });
 
