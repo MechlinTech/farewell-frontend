@@ -31,18 +31,19 @@ const style = StyleSheet.create({
   container: {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    paddingHorizontal: scale(12),
-    paddingBlock: verticalScale(10),
-    gap: verticalScale(5),
+    // paddingHorizontal: scale(12),
+    paddingBlock: verticalScale(35),
+    // gap: verticalScale(4),
   },
   heading: {
     color: color.textMain,
     fontSize: fontSize.fontSize_20,
-    fontFamily: fontFamily.Bold,
+    fontFamily: fontFamily.Heavy,
+    marginBottom: verticalScale(6),
   },
   subheading: {
     color: color.textSubHeading,
     fontSize: fontSize.fontSize_12,
-    fontFamily: fontFamily.Regular,
+    fontFamily: fontFamily.Light,
   },
 });

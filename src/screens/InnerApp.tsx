@@ -7,10 +7,9 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Utils } from '@Utils';
-import Navigator from '@Navigator';
 import SplashScreen from 'react-native-splash-screen';
 import messaging from '@react-native-firebase/messaging';
 
@@ -20,14 +19,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 import { RootState } from '@redux/store';
-import notifee, {
-  EventType, // Import EventType if available
-} from '@notifee/react-native';
 import { navigationRef } from '@redux/NavigationService';
 import WelcomeScreen from './WelcomeScreen/WelcomeScreen';
 import LoginScreen from './LoginScreen/LoginScreen';
 import SignupScreen from './SignupScreen/SignupScreen';
 import ForgotPasswordScreen from './ForgotPassword/ForgotPassword';
+import SelectUserRoleScreen from './SelectUserRoleScreen/SelectUserRoleScreen';
+import OTPVerificationScreen from './OTPVerificationScreen/OTPVerificationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -189,16 +187,23 @@ function LoginStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
-        {/* <Stack.Screen
-          name="WelcomeScreen"
-          component={WelcomeScreen}
-          options={{ headerShown: false }}
-        /> */}
+
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="OTPVerificationScreen"
+          component={OTPVerificationScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SelectUserRoleScreen"
+          component={SelectUserRoleScreen}
+          options={{ headerShown: false }}
+        />
+
         <Stack.Screen
           name="SignupScreen"
           component={SignupScreen}
@@ -312,7 +317,7 @@ export const checkApplicationPermission = async () => {
           }
         }
       }
-    } catch (error) {}
+    } catch (error) { }
   } else {
     try {
       const authStatus = await messaging().requestPermission();

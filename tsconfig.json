@@ -14,7 +14,7 @@
       "@Utils": ["./utils/Utils.js"],
       "@scale": ["./utils/scale.ts"],
       "@Helper": ["./src/utils/Helper.tsx"],
-      "@images": ["./assets/images/"],
+      "@images": ["./assets/images/index.ts"],
       "@components": ["./components/"],
       "@redux/*": ["./redux/*"],
       "@screens": ["./screens/"],

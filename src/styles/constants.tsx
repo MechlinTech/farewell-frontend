@@ -1,11 +1,30 @@
 import { moderateScale } from '@scale';
 
 export const fontFamily = {
-  //// inter fonts
-  Bold: 'Roboto-Bold', //'Roboto-Bold',
-  SemiBold: 'Roboto-SemiBold', //'Roboto-Bold',
-  Regular: 'Roboto-Regular',
-  Medium: 'Roboto-Medium',
+  // Named fonts
+  Black: 'AvenirLTStd-Black',
+  BlackOblique: 'AvenirLTStd-BlackOblique',
+  Heavy: 'AvenirLTStd-Heavy',
+  HeavyOblique: 'AvenirLTStd-HeavyOblique',
+  Medium: 'AvenirLTStd-Medium',
+  MediumOblique: 'AvenirLTStd-MediumOblique',
+  Roman: 'AvenirLTStd-Roman',
+  Book: 'AvenirLTStd-Book',
+  BookOblique: 'AvenirLTStd-BookOblique',
+  Light: 'AvenirLTStd-Light',
+  LightOblique: 'AvenirLTStd-LightOblique',
+  Oblique: 'AvenirLTStd-Oblique',
+ 
+  // Weight-based aliases ✅
+  weight100: 'AvenirLTStd-Light',
+  weight200: 'AvenirLTStd-Light',
+  weight300: 'AvenirLTStd-Book',
+  weight400: 'AvenirLTStd-Roman',   // Regular
+  weight500: 'AvenirLTStd-Medium',
+  weight600: 'AvenirLTStd-Medium',
+  weight700: 'AvenirLTStd-Heavy',
+  weight800: 'AvenirLTStd-Black',
+  weight900: 'AvenirLTStd-Black',
 };
 
 export const fontSize = {
