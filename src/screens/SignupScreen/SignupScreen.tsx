@@ -13,7 +13,9 @@ import CustomButton from '../../components/CustomButton';
 import color from '@color';
 
 import { scale, verticalScale } from '@scale';
-import Navigator from '@Navigator';
+import Navigator from '../../utils/Navigator';
+import { fontFamily, fontSize } from '@constants';
+import HeadingGroup from 'components/HeadingGroupComponent';
 
 const SignupScreen = ({ navigation }: any) => {
   const [firstName, setFirstName] = useState('');
@@ -58,34 +60,37 @@ const SignupScreen = ({ navigation }: any) => {
         <View style={styles.signupContainer}>
           {/* Header */}
           <View style={styles.signupHeaderContainer}>
-            <Text style={styles.signupTitle}>Register your new Account!</Text>
-            <Text style={styles.signupSubtitle}>
+            <HeadingGroup
+              heading='Register your new Account!'
+              subheading='Enter your information below'
+              headingStyle={styles.signupTitle}
+              subheadingStyle={styles.signupSubtitle}
+            />
+
+            {/* <Text style={styles.signupSubtitle}>
               Enter your information below
-            </Text>
+            </Text> */}
           </View>
 
           {/* Form */}
           <View style={styles.signupFormContainer}>
             <CustomInput
-              label=""
               placeholder="Jacob"
               value={firstName}
               onChangeText={setFirstName}
               containerStyle={styles.signupInputContainer}
-              fieldStyle={{ borderRadius: scale(10) }}
+              fieldStyle={{ borderRadius: scale(5) }}
             />
 
             <CustomInput
-              label=""
               placeholder="Last name"
               value={lastName}
               onChangeText={setLastName}
               containerStyle={styles.signupInputContainer}
-              fieldStyle={{ borderRadius: scale(10) }}
+              fieldStyle={{ borderRadius: scale(5) }}
             />
 
             <CustomInput
-              label=""
               placeholder="Your email"
               value={email}
               onChangeText={setEmail}
@@ -94,7 +99,6 @@ const SignupScreen = ({ navigation }: any) => {
             />
 
             <CustomInput
-              label=""
               placeholder="Enter password"
               value={password}
               onChangeText={setPassword}
@@ -103,11 +107,9 @@ const SignupScreen = ({ navigation }: any) => {
             />
 
             <CustomInput
-              label=""
               placeholder="Confirm password"
               value={confirmPassword}
               onChangeText={setConfirmPassword}
-              containerStyle={styles.signupInputContainer}
               fieldStyle={{ borderRadius: scale(10) }}
             />
 
@@ -117,14 +119,7 @@ const SignupScreen = ({ navigation }: any) => {
                 style={styles.checkbox}
                 onPress={() => setAgreeToTerms(!agreeToTerms)}
               >
-                <View
-                  style={[
-                    styles.checkboxInner,
-                    agreeToTerms && styles.checkboxChecked,
-                  ]}
-                >
-                  {agreeToTerms && <Text style={styles.checkmark}>✓</Text>}
-                </View>
+
               </TouchableOpacity>
               <View style={styles.termsContainer}>
                 <Text style={styles.checkboxText}>I agree to Farewell </Text>
@@ -133,7 +128,7 @@ const SignupScreen = ({ navigation }: any) => {
                 </TouchableOpacity>
                 <Text style={styles.checkboxText}> and </Text>
                 <TouchableOpacity onPress={handlePrivacyPress}>
-                  <Text style={styles.privacyText}>Privacy Policy.</Text>
+                  <Text style={styles.termsText}>Privacy Policy.</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -148,12 +143,9 @@ const SignupScreen = ({ navigation }: any) => {
           </View>
 
           {/* Sign In Link */}
-          <View style={styles.signinContainer}>
-            <Text style={styles.signinText}>Already have account? </Text>
-            <TouchableOpacity onPress={handleSignIn}>
-              <Text style={styles.signinLink}>Sign In</Text>
-            </TouchableOpacity>
-          </View>
+          <Text style={styles.signinText}>Already have account?  <Text style={styles.signinLink}>Sign In</Text>
+          </Text>
+
         </View>
       </ScrollView>
     </Base>
@@ -169,101 +161,72 @@ const styles = StyleSheet.create({
   },
   signupHeaderContainer: {
     alignItems: 'flex-start',
-    marginBottom: verticalScale(10),
+    marginBottom: verticalScale(6),
     marginTop: verticalScale(12),
   },
   signupTitle: {
-    fontSize: 24,
+
     fontWeight: '800',
-    color: color.text,
+    color: color.textMain,
     marginBottom: verticalScale(8),
+    marginLeft: scale(-9),
   },
   signupSubtitle: {
-    fontSize: 16,
-    color: '#4f4f4f',
+    color: color.textSecondary,
     fontWeight: '400',
+    marginLeft: scale(-7),
   },
   signupFormContainer: {
     marginBottom: verticalScale(20),
   },
   signupInputContainer: {
-    marginBottom: verticalScale(-2),
+    marginBottom: verticalScale(15),
   },
   checkboxContainer: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginBottom: verticalScale(20),
+    alignItems: 'center',
     marginTop: verticalScale(12),
+    borderRadius: scale(8),
   },
   checkbox: {
     marginRight: scale(8),
-    marginTop: verticalScale(12),
   },
-  checkboxInner: {
-    width: scale(18),
-    height: scale(18),
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: scale(4),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  checkboxChecked: {
-    backgroundColor: '#007AFF',
-    borderColor: '#007AFF',
-  },
-  checkmark: {
-    color: '#fff',
-    fontSize: 12,
-    fontWeight: 'bold',
-  },
+
   termsContainer: {
     flex: 1,
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    // flexWrap: 'wrap',
     alignItems: 'center',
-    marginTop: verticalScale(12),
   },
   checkboxText: {
-    fontSize: 14,
-    color: '#666',
+    fontSize: fontSize.fontSize_12,
+    fontFamily: fontFamily.Light,
+    color: color.textSecondary,
   },
   termsText: {
-    fontSize: 14,
-    color: '#007AFF',
     textDecorationLine: 'underline',
+    color: color.textSecondary,
   },
-  privacyText: {
-    fontSize: 14,
-    color: '#007AFF',
-    textDecorationLine: 'underline',
-  },
+
   signupButton: {
     marginBottom: verticalScale(20),
     height: verticalScale(55),
-    marginTop: verticalScale(14),
+    marginTop: verticalScale(34),
   },
   signupButtonText: {
-    color: '#024F76',
-    fontSize: 18,
+    color: color.textContrast,
+    fontSize: fontSize.fontSize_16,
     fontWeight: '800',
+
   },
-  signinContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    // marginTop: 'auto',
-    // paddingBottom: verticalScale(18),
-    marginTop: verticalScale(-8),
-  },
+
   signinText: {
-    fontSize: 14,
-    color: '#666',
+    fontSize: fontSize.fontSize_14,
+    color: color.textSecondary,
   },
   signinLink: {
-    fontSize: 14,
-    color: '#007AFF',
+    fontSize: fontSize.fontSize_15,
+    color: color.textContrast,
     fontWeight: '600',
   },
 });

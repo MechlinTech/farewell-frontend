@@ -5,9 +5,9 @@ import HeadingGroup from 'components/HeadingGroupComponent';
 import UserRoleComponent from 'components/UserRoleComponent';
 import { scale, verticalScale } from '@scale';
 import images from '@images';
+import Navigator from '@Navigator';
 
-
-const SelectUserRoleScreen = () => {
+const SelectUserRoleScreen = ({ navigation }: any) => {
     const [userRole, setUserRole] = React.useState<string>('');
     return (
         <BaseWrapper
@@ -22,13 +22,17 @@ const SelectUserRoleScreen = () => {
                 <UserRoleComponent
                     imageSource={images.package}
                     title="Customer"
-                    onPress={() => setUserRole('customer')}
+                    onPress={() => {setUserRole('customer'),
+                        Navigator.pushScreen(navigation, 'SignupScreen', { userRole: 'customer' });}
+                    }
                     selected={userRole === 'customer'}
                 />
                 <UserRoleComponent
                     imageSource={images.bike}
                     title="Rider"
-                    onPress={() => setUserRole('rider')}
+                    onPress={() => {setUserRole('rider'),
+                        Navigator.pushScreen(navigation, 'SignupScreen', { userRole: 'rider' });}
+                    }
                     selected={userRole === 'rider'}
                 />
             </View>
@@ -39,6 +43,7 @@ const SelectUserRoleScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        // justifyContent: 'center',
         paddingTop: verticalScale(176),
         paddingHorizontal: scale(43),
     },

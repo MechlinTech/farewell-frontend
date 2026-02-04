@@ -1,8 +1,9 @@
 import color from '@color';
-import { fontSize } from '@constants';
+import { fontFamily, fontSize } from '@constants';
 import { scale, verticalScale } from '@scale';
 import * as React from 'react';
 import {
+  Pressable,
   Text,
   View,
   StyleProp,
@@ -10,105 +11,109 @@ import {
   TextStyle,
   TextInput,
   StyleSheet,
-  Pressable,
 } from 'react-native';
 
 interface CustomInputProps {
   label?: string;
   value?: string;
-  placeholder?: string | any;
+  placeholder?: string;
   onPress?: () => void;
-  onChangeText?: (text: string) => void;
 
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   children?: React.ReactNode;
-
+  onChangeText?: (text: string) => void;
   containerStyle?: StyleProp<ViewStyle>;
   fieldStyle?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
   textStyle?: StyleProp<TextStyle>;
+  enableFocusStyle?: boolean;
 
-  editable?: boolean;
 }
+
 
 export const CustomInput = ({
   label,
   value,
   placeholder,
   onPress,
-  onChangeText,
   leftIcon,
   rightIcon,
   children,
   containerStyle,
   fieldStyle,
   labelStyle,
+  onChangeText,
   textStyle,
-  editable = true,
+  enableFocusStyle = true,
 }: CustomInputProps) => {
-  const Wrapper = onPress ? Pressable : View;
-
+  const [isFocused, setIsFocused] = React.useState(false)
   return (
     <View style={containerStyle}>
-      <Text
-        accessibilityRole="text"
-        style={[
-          {
-            fontSize: 16,
-            fontWeight: '700',
-            color: '#666',
-            marginBottom: 6,
-          },
-          labelStyle,
-        ]}
-      >
-        {label}
-      </Text>
+      {label && (
+        <Text
+          style={[
+            {
+              fontSize: fontSize.fontSize_14,
+              fontFamily: fontFamily.Medium,
+              color: color.textSecondary,
+              marginBottom: verticalScale(6),
+            },
+            labelStyle,
+          ]}
+        >
+          {label}
+        </Text>)}
 
-      <Wrapper
+      <Pressable
         onPress={onPress}
         disabled={!onPress}
-        style={[styles.field, fieldStyle]}
+        style={[style.pressable, fieldStyle, enableFocusStyle && isFocused && style.focused]}
       >
+        {/* Left icon */}
         {leftIcon && <View style={{ marginRight: 8 }}>{leftIcon}</View>}
 
+        {/* Text / value */}
         <View style={{ flex: 1 }}>
           <TextInput
             style={[
-              {
-                fontSize: fontSize.fontSize_16,
-                color: color.inputText,
-              },
+              { fontSize: fontSize.fontSize_16, color: color.inputText },
               textStyle,
             ]}
             value={value}
             placeholder={placeholder}
             onChangeText={onChangeText}
-            placeholderTextColor="#999"
-            editable={editable && !onPress}
-            accessibilityLabel={label}
+            placeholderTextColor={color.placeholderText} // faded placeholder
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
           />
         </View>
 
-        {children
-          ? children
-          : rightIcon && <View style={{ marginLeft: 8 }}>{rightIcon}</View>}
-      </Wrapper>
+        {/* Right icon OR children */}
+        {children ??
+          (rightIcon && <View style={{ marginLeft: 8 }}>{rightIcon}</View>)}
+      </Pressable>
     </View>
   );
 };
 
 export default CustomInput;
 
-const styles = StyleSheet.create({
-  field: {
+const style = StyleSheet.create({
+  pressable: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     paddingVertical: verticalScale(10),
     paddingHorizontal: scale(12),
-    backgroundColor: color.lightTheme,
+    backgroundColor: color.primaryMuted,
     borderRadius: scale(10),
     minHeight: verticalScale(50),
+    borderWidth: 1,              // 👈 REQUIRED
+    borderColor: 'transparent'
+  },
+  focused: {
+    borderColor: color.primary, // highlight color
+    // backgroundColor: '#F5FAFF',
   },
 });
