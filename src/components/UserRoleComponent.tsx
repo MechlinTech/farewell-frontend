@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: fontSize.fontSize_16,
-        fontFamily: fontFamily.Bold,
+        fontFamily: fontFamily.weight800,
         color: color.textContrast
     },
     selectedStyle: {

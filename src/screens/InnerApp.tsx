@@ -12,7 +12,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Utils } from '@Utils';
 import SplashScreen from 'react-native-splash-screen';
 import messaging from '@react-native-firebase/messaging';
-
+ 
 import color from '@color';
 import { AysncStorageHelper } from '@AsyncStoreHelper';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -20,14 +20,23 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 import { RootState } from '@redux/store';
 import { navigationRef } from '@redux/NavigationService';
+<<<<<<< HEAD
 import LoginScreen from './LoginScreen/LoginScreen';
 import SignupScreen from './SignupScreen/SignupScreen';
 import ForgotPasswordScreen from './ForgotPassword/ForgotPassword';
 import SelectUserRoleScreen from './SelectUserRoleScreen/SelectUserRoleScreen';
 import OTPVerificationScreen from './OTPVerificationScreen/OTPVerificationScreen';
 
+=======
+import LoginScreen from './login/LoginScreen/LoginScreen';
+import SignupScreen from './login/SignupScreen/SignupScreen';
+import ForgotPasswordScreen from './login/ForgotPassword/ForgotPassword';
+import SelectUserRoleScreen from './login/SelectUserRoleScreen/SelectUserRoleScreen';
+import OTPVerificationScreen from './login/OTPVerificationScreen/OTPVerificationScreen';
+ 
+>>>>>>> feat/onboarding-components
 const Stack = createNativeStackNavigator();
-
+ 
 // const screenIcons: Record<string, { active: any }> = {
 //   HOME: {
 //     active: require('@images/Home.webp'),
@@ -42,7 +51,7 @@ const Stack = createNativeStackNavigator();
 //     active: require('@images/Messages.webp'),
 //   },
 // };
-
+ 
 // Define screens & map icons explicitly
 // const TABS = [
 //   { key: 'home', name: 'HOME', component: Home },
@@ -50,9 +59,9 @@ const Stack = createNativeStackNavigator();
 //   { key: 'account', name: 'ACCOUNT', component: AccountSettings },
 //   { key: 'messages', name: 'MESSAGES', component: Messages },
 // ];
-
+ 
 // const Tab: any = createBottomTabNavigator();
-
+ 
 // function BottomTabStack() {
 //   return (
 //     <Tab.Navigator
@@ -65,7 +74,7 @@ const Stack = createNativeStackNavigator();
 //     </Tab.Navigator>
 //   );
 // }
-
+ 
 // function CustomBottomTab({ state, descriptors, navigation }: any) {
 //   return (
 //     <View
@@ -89,15 +98,15 @@ const Stack = createNativeStackNavigator();
 //     >
 //       {state.routes.map((route: any, index: number) => {
 //         const isFocused = state.index === index;
-
+ 
 //         // Map the route name to the icon using the TABS array
 //         const tabConfig = TABS.find(tab => tab.name === route.name);
 //         const tabIcon: any = tabConfig ? screenIcons[tabConfig.name] : null;
-
+ 
 //         const onPress = () => {
 //           if (!isFocused) navigation.navigate(route.name);
 //         };
-
+ 
 //         console.log('data3132231', Utils.notification_count);
 //         return (
 //           <TouchableOpacity
@@ -154,7 +163,7 @@ const Stack = createNativeStackNavigator();
 //                 )}
 //               </View>
 //             )}
-
+ 
 //             <ImageComponent
 //               source={tabIcon.active}
 //               resizeMode="contain"
@@ -181,12 +190,16 @@ const Stack = createNativeStackNavigator();
 //     </View>
 //   );
 // }
-
+ 
 function LoginStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> feat/onboarding-components
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
@@ -202,7 +215,10 @@ function LoginStack() {
           component={SelectUserRoleScreen}
           options={{ headerShown: false }}
         />
+<<<<<<< HEAD
 
+=======
+>>>>>>> feat/onboarding-components
         <Stack.Screen
           name="SignupScreen"
           component={SignupScreen}
@@ -217,12 +233,12 @@ function LoginStack() {
     </React.Suspense>
   );
 }
-
+ 
 // function UserHomeStack() {
 //   let navigation = useNavigation();
-
+ 
 //   const handledNotificationRef: any = useRef<string | null>(null);
-
+ 
 //   useEffect(() => {
 //     // App killed → user taps notification (only once)
 //     messaging()
@@ -237,7 +253,7 @@ function LoginStack() {
 //           Navigator.switchToRootTab(navigation, 'MESSAGES', {});
 //         }
 //       });
-
+ 
 //     // App in background → user taps notification
 //     const unsubscribeBackground = messaging().onNotificationOpenedApp(
 //       remoteMessage => {
@@ -251,7 +267,7 @@ function LoginStack() {
 //         }
 //       },
 //     );
-
+ 
 //     // Foreground / background notification press using Notifee
 //     const unsubscribeForegroundEvent = notifee.onForegroundEvent(
 //       ({ type, detail }: any) => {
@@ -265,7 +281,7 @@ function LoginStack() {
 //         }
 //       },
 //     );
-
+ 
 //     const unsubscribeBackgroundEvent = notifee.onBackgroundEvent(
 //       async ({ type, detail }: any) => {
 //         if (
@@ -278,7 +294,7 @@ function LoginStack() {
 //         }
 //       },
 //     );
-
+ 
 //     return () => {
 //       unsubscribeBackground();
 //       unsubscribeForegroundEvent();
@@ -286,7 +302,7 @@ function LoginStack() {
 //       handledNotificationRef.current = null; // clear on unmount
 //     };
 //   }, [navigation]);
-
+ 
 //   return (
 //     <React.Suspense>
 //       <Stack.Navigator id="UserHomeStack">
@@ -299,7 +315,7 @@ function LoginStack() {
 //     </React.Suspense>
 //   );
 // }
-
+ 
 export const checkApplicationPermission = async () => {
   if (Platform.OS === 'android') {
     try {
@@ -323,7 +339,7 @@ export const checkApplicationPermission = async () => {
       const enabled =
         authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
         authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
+ 
       if (enabled) {
         console.log('Notification permission granted on iOS:', authStatus);
         return true;
@@ -335,22 +351,22 @@ export const checkApplicationPermission = async () => {
     }
   }
 };
-
+ 
 const MainComp = () => {
   // useEffect(() => {
   //   registerNotificationListener();
   //   checkApplicationPermission();
   // }, []);
-
+ 
   // useEffect(() => {
   //   const handleDeepLink = (event: { url: string }) => {
   //     console.log('Deep link received:', event.url);
-
+ 
   //     if (!navigationRef.isReady()) {
   //       console.log('Navigation not ready yet');
   //       return;
   //     }
-
+ 
   //     if (event.url.includes('/app') && !Utils.loggedInUser) {
   //       navigationRef.reset({
   //         index: 0,
@@ -358,16 +374,16 @@ const MainComp = () => {
   //       });
   //     }
   //   };
-
+ 
   //   Linking.getInitialURL().then(url => {
   //     if (url) handleDeepLink({ url });
   //   });
-
+ 
   //   const sub = Linking.addEventListener('url', handleDeepLink);
-
+ 
   //   return () => sub.remove();
   // }, []);
-
+ 
   return (
     <NavigationContainer ref={navigationRef}>
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -383,7 +399,7 @@ const MainComp = () => {
               component={LoginStack}
               options={{ headerShown: false }}
             />
-
+ 
             {/* <Stack.Screen
               name="UserHomeStack"
               component={UserHomeStack}
@@ -395,17 +411,17 @@ const MainComp = () => {
     </NavigationContainer>
   );
 };
-
+ 
 const InnerApp = () => {
   const [isLoading, setIsLoading] = useState(true);
   const isRequesting = useSelector(
     (state: RootState) => state.users.isRequesting,
   );
-
+ 
   useEffect(() => {
     console.log('isRequesting3123', isRequesting);
   }, [isRequesting]);
-
+ 
   useEffect(() => {
     AysncStorageHelper.UserData()
       .then((res: any) => {
@@ -419,7 +435,7 @@ const InnerApp = () => {
         setIsLoading(false);
       });
   }, []);
-
+ 
   return (
     <View style={{ flex: 1 }}>
       <StatusBar backgroundColor={color.background} barStyle="dark-content" />
@@ -428,7 +444,8 @@ const InnerApp = () => {
     </View>
   );
 };
-
+ 
 export default InnerApp;
-
+ 
 const styles = StyleSheet.create({});
+ 
