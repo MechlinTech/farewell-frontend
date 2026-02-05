@@ -9,19 +9,21 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-
 import color from '@color';
-import { scale } from '@scale';
+import { scale, verticalScale } from '@scale';
 
 interface CenterModalProps {
   visible: boolean;
-  onClose?: () => void;
-  disableClose?: boolean;   // ✅ NEW
+  onClose: () => void;
 
   containerStyle?: StyleProp<ViewStyle>;
   modalStyle?: StyleProp<ViewStyle>;
-
-
+  backgroundColor?: any;
+  height?: number | string | any;
+  width?: number | string | any;
+  borderRadius?: number | any;
+  paddingHorizontal?: number;
+  paddingVertical?: number;
 
   animationType?: 'none' | 'slide' | 'fade';
   transparent?: boolean;
@@ -30,51 +32,64 @@ interface CenterModalProps {
   children: React.ReactNode;
 }
 
+const DEFAULTS = {
+  backgroundColor: color.background,
+  height: verticalScale(300),
+  width: '80%',
+  borderRadius: scale(20),
+  paddingHorizontal: scale(20),
+  paddingVertical: scale(24),
+  animationType: 'fade' as const,
+  transparent: true,
+  statusBarTranslucent: true,
+};
+
 const CenterModal = ({
   visible,
   onClose,
-  disableClose = false,
-
   containerStyle,
   modalStyle,
-
-
-
-  animationType = 'fade',
-  transparent = true,
-  statusBarTranslucent = true,
-
+  backgroundColor = DEFAULTS.backgroundColor,
+  height = DEFAULTS.height,
+  width = DEFAULTS.width,
+  borderRadius = DEFAULTS.borderRadius,
+  paddingHorizontal = DEFAULTS.paddingHorizontal,
+  paddingVertical = DEFAULTS.paddingVertical,
+  animationType = DEFAULTS.animationType,
+  transparent = DEFAULTS.transparent,
+  statusBarTranslucent = DEFAULTS.statusBarTranslucent,
   children,
 }: CenterModalProps) => {
   return (
     <Modal
       visible={visible}
-      transparent={transparent}
       animationType={animationType}
+      transparent={transparent}
       statusBarTranslucent={statusBarTranslucent}
-      onRequestClose={disableClose ? () => { } : onClose}
+      onRequestClose={onClose}
     >
-      {/* Backdrop */}
-      <Pressable
-        style={[styles.backdrop, containerStyle]}
-        onPress={disableClose ? undefined : onClose}
-      >
-        {/* Prevent backdrop close when tapping modal */}
-        <Pressable>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      <Pressable style={[styles.backdrop, containerStyle]} onPress={onClose}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        >
+          <Pressable
+            onPress={() => {}}
+            style={[
+              styles.modal,
+              modalStyle,
+              {
+                backgroundColor: backgroundColor,
+                height: height,
+                width: width,
+                borderRadius: borderRadius,
+                paddingHorizontal: paddingHorizontal,
+                paddingVertical: paddingVertical,
+              },
+            ]}
           >
-            <View
-              style={[
-                styles.modal,
-                modalStyle,
-
-              ]}
-            >
-              {children}
-            </View>
-          </KeyboardAvoidingView>
-        </Pressable>
+            {children}
+          </Pressable>
+        </KeyboardAvoidingView>
       </Pressable>
     </Modal>
   );
@@ -90,12 +105,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modal: {
-    backgroundColor: color.background,
-    borderRadius: scale(32),
-    paddingHorizontal: scale(24),
-    paddingTop: scale(42),
-    paddingBottom: scale(36),
-    marginHorizontal: scale(20),
-
+    maxWidth: '95%',
   },
 });
