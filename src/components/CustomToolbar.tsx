@@ -50,18 +50,25 @@ export const CustomToolbar = ({
   height = verticalScale(56),
 
   children,
-  navigation
+  navigation,
 }: CustomToolbarProps) => {
   return (
     <View style={[styles.root, { height, backgroundColor }, containerStyle]}>
       {/* Left */}
       {showLeftIcon && (
         <Pressable
-          onPress={() => { onLeftPress ? onLeftPress() : Navigator.goBack(navigation) }}
+          onPress={() => {
+            onLeftPress ? onLeftPress() : Navigator.goBack(navigation);
+          }}
           disabled={!onLeftPress}
           style={styles.iconButton}
         >
-          {leftIcon || <ImageComponent source={images.backArrow} style={{ width: scale(20), height: verticalScale(20) }} />}
+          {leftIcon || (
+            <ImageComponent
+              source={images.backArrow}
+              style={{ width: scale(20), height: verticalScale(20) }}
+            />
+          )}
         </Pressable>
       )}
 
@@ -93,7 +100,10 @@ export const CustomToolbar = ({
           style={styles.iconButton}
         >
           {
-            <ImageComponent source={rightIcon} style={{ width: scale(20), height: verticalScale(20) }} />
+            <ImageComponent
+              source={rightIcon}
+              style={{ width: scale(20), height: verticalScale(20) }}
+            />
           }
         </Pressable>
       )}
@@ -115,9 +125,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   iconButton: {
-    width: scale(40),
+    // width: scale(40),
     height: verticalScale(40),
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center',
+    marginRight: scale(16),
   },
 });
