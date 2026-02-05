@@ -1,7 +1,7 @@
 import { moderateScale } from '@scale';
 
 export const fontFamily = {
-  // Named fonts
+  // Actual font files (do not change)
   Black: 'AvenirLTStd-Black',
   BlackOblique: 'AvenirLTStd-BlackOblique',
   Heavy: 'AvenirLTStd-Heavy',
@@ -14,12 +14,12 @@ export const fontFamily = {
   Light: 'AvenirLTStd-Light',
   LightOblique: 'AvenirLTStd-LightOblique',
   Oblique: 'AvenirLTStd-Oblique',
- 
-  // Weight-based aliases ✅
+
+  // Weight aliases (SAFE – no new fonts)
   weight100: 'AvenirLTStd-Light',
   weight200: 'AvenirLTStd-Light',
   weight300: 'AvenirLTStd-Book',
-  weight400: 'AvenirLTStd-Roman',   // Regular
+  weight400: 'AvenirLTStd-Roman',
   weight500: 'AvenirLTStd-Medium',
   weight600: 'AvenirLTStd-Medium',
   weight700: 'AvenirLTStd-Heavy',

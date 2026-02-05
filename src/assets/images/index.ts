@@ -3,6 +3,8 @@ const images = {
     bike: require('./bike.svg'),
     frame: require("./Frame.svg"),
     vector:require("./Vector.svg")
+    add_notes: require("./add_notes.svg"),
+    backArrow: require("./backArrow.svg"),
 };
 
 export default images;

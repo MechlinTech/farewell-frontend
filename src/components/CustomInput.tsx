@@ -23,14 +23,22 @@ interface CustomInputProps {
   rightIcon?: React.ReactNode;
   children?: React.ReactNode;
   onChangeText?: (text: string) => void;
+
   containerStyle?: StyleProp<ViewStyle>;
   fieldStyle?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
   textStyle?: StyleProp<TextStyle>;
+
   enableFocusStyle?: boolean;
 
-}
+  /* 🔴 Validation */
+  error?: string;
+  showError?: boolean;
 
+  /* 🔴 NEW — Blur/Focus handlers */
+  onBlur?: () => void;
+  onFocus?: () => void;
+}
 
 export const CustomInput = ({
   label,
@@ -46,10 +54,18 @@ export const CustomInput = ({
   onChangeText,
   textStyle,
   enableFocusStyle = true,
+  error,
+  showError = true,
+  onBlur,
+  onFocus,
 }: CustomInputProps) => {
-  const [isFocused, setIsFocused] = React.useState(false)
+  const [isFocused, setIsFocused] = React.useState(false);
+
+  const isError = !!error;
+
   return (
     <View style={containerStyle}>
+      {/* Label */}
       {label && (
         <Text
           style={[
@@ -63,17 +79,22 @@ export const CustomInput = ({
           ]}
         >
           {label}
-        </Text>)}
+        </Text>
+      )}
 
+      {/* Field */}
       <Pressable
         onPress={onPress}
         disabled={!onPress}
-        style={[style.pressable, fieldStyle, enableFocusStyle && isFocused && style.focused]}
+        style={[
+          styles.pressable,
+          fieldStyle,
+          enableFocusStyle && isFocused && styles.focused,
+          isError && styles.errorBorder,
+        ]}
       >
-        {/* Left icon */}
         {leftIcon && <View style={{ marginRight: 8 }}>{leftIcon}</View>}
 
-        {/* Text / value */}
         <View style={{ flex: 1 }}>
                  <TextInput
             style={[
@@ -83,23 +104,33 @@ export const CustomInput = ({
             value={value}
             placeholder={placeholder}
             onChangeText={onChangeText}
-            placeholderTextColor={color.placeholderText} // faded placeholder
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
+            placeholderTextColor={color.placeholderText}
+            onFocus={() => {
+              setIsFocused(true);
+              onFocus?.(); // 🔴 trigger parent focus
+            }}
+            onBlur={() => {
+              setIsFocused(false);
+              onBlur?.(); // 🔴 trigger parent blur
+            }}
           />
         </View>
 
-        {/* Right icon OR children */}
         {children ??
           (rightIcon && <View style={{ marginLeft: 8 }}>{rightIcon}</View>)}
       </Pressable>
+
+      {/* Error */}
+      {isError && showError && (
+        <Text style={styles.errorText}>{error}</Text>
+      )}
     </View>
   );
 };
 
 export default CustomInput;
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   pressable: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -109,11 +140,19 @@ const style = StyleSheet.create({
     backgroundColor: color.primaryMuted,
     borderRadius: scale(10),
     minHeight: verticalScale(50),
-    borderWidth: 1,              // 👈 REQUIRED
-    borderColor: 'transparent'
+    borderWidth: 1,
+    borderColor: 'transparent',
   },
   focused: {
-    borderColor: color.primary, // highlight color
-    // backgroundColor: '#F5FAFF',
+    borderColor: color.primary,
+  },
+  errorBorder: {
+    borderColor: color.error,
+  },
+  errorText: {
+    marginTop: verticalScale(4),
+    fontSize: fontSize.fontSize_12,
+    color: color.error,
+    fontFamily: fontFamily.Medium,
   },
 });

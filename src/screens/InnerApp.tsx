@@ -26,6 +26,9 @@ import SignupScreen from './SignupScreen/SignupScreen';
 import ForgotPasswordScreen from './ForgotPassword/ForgotPassword';
 import SelectUserRoleScreen from './SelectUserRoleScreen/SelectUserRoleScreen';
 import OTPVerificationScreen from './OTPVerificationScreen/OTPVerificationScreen';
+import AddVehicleDetails from './AddVehicleDetails/AddVehicleDetails';
+import Toast from 'react-native-toast-message';
+import { toastConfig } from 'components/showFlashMessage';
 
 =======
 import LoginScreen from './login/LoginScreen/LoginScreen';
@@ -200,6 +203,11 @@ function LoginStack() {
 =======
  
 >>>>>>> feat/onboarding-components
+        <Stack.Screen
+          name="AddVehicleDetails"
+          component={AddVehicleDetails}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
@@ -441,6 +449,8 @@ const InnerApp = () => {
       <StatusBar backgroundColor={color.background} barStyle="dark-content" />
       {!isLoading && <MainComp />}
       {Utils.showLoading(isRequesting ? isRequesting : isLoading)}
+      <Toast config={toastConfig} />
+
     </View>
   );
 };

@@ -1,7 +1,8 @@
 // components/FlashMessage.tsx
 
 import color from '@color';
-import { fontFamily } from '@constants';
+import { fontFamily, fontSize } from '@constants';
+import { scale, verticalScale } from '@scale';
 import * as React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Toast, { BaseToastProps } from 'react-native-toast-message';
@@ -50,18 +51,18 @@ export const toastConfig = {
 // ✅ Styles
 const styles = StyleSheet.create({
   toastContainer: {
-    backgroundColor: color.lightTheme, // Common color
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    marginHorizontal: 16,
+    backgroundColor: color.primaryMuted, // Common color
+    paddingVertical: verticalScale(12),
+    paddingHorizontal: scale(20),
+    borderRadius: scale(8),
+    marginHorizontal: scale(16),
     elevation: 4,
     width: '90%',
   },
   toastText: {
     color: color.text,
-    fontFamily: fontFamily.Medium,
-    fontSize: 14,
+    fontFamily: fontFamily.weight300,
+    fontSize: fontSize.fontSize_15,
   },
 });
 
