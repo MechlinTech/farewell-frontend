@@ -4,7 +4,6 @@ import {
   View,
   Text,
   StatusBar,
-  TouchableOpacity,
   ScrollView,
   StyleSheet,
 } from 'react-native';
@@ -19,20 +18,85 @@ import { fontFamily, fontSize } from '@constants';
 import HeadingGroup from 'components/HeadingGroupComponent';
 import UserRoleComponent from 'components/UserRoleComponent';
 import images from '@images';
+import { showFlashMessage } from 'components/showFlashMessage';
 
 const LoginScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userRole, setUserRole] = React.useState<string>('customer');
 
-  const handleLogin = () => {};
+  const [errors, setErrors] = useState<any>({});
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  /* 🔴 Field validators */
+
+const validateEmail = () => {
+  const trimmedEmail = email.trim();
+
+  if (!trimmedEmail)
+    setErrors((p: any) => ({ ...p, email: 'Email is required' }));
+  else if (!emailRegex.test(trimmedEmail))
+    setErrors((p: any) => ({
+      ...p,
+      email: 'Enter a valid email address',
+    }));
+};
+
+const validatePassword = () => {
+  if (!password)
+    setErrors((p: any) => ({ ...p, password: 'Password is required' }));
+  else if (password.includes(' '))
+    setErrors((p: any) => ({
+      ...p,
+      password: 'Password cannot contain spaces',
+    }));
+  else if (password.length < 8 || password.length > 16)
+    setErrors((p: any) => ({
+      ...p,
+      password: 'Password must be 8–16 characters',
+    }));
+};
+
+
+
+  /* 🔴 Submit validation */
+
+  const validateAll = () => {
+  let err: any = {};
+
+  const trimmedEmail = email.trim();
+  const trimmedPassword = password.trim();
+
+  if (!trimmedEmail) err.email = 'Email is required';
+  else if (!emailRegex.test(trimmedEmail))
+    err.email = 'Enter a valid email address';
+
+ if (!password) err.password = 'Password is required';
+else if (password.includes(' '))
+  err.password = 'Password cannot contain spaces';
+else if (password.length < 8 || password.length > 16)
+  err.password = 'Password must be 8–16 characters';
+
+
+  setErrors(err);
+  return Object.keys(err).length === 0;
+};
+
+
+  const handleLogin = () => {
+    if (!validateAll()) {
+      // showFlashMessage('Please fill all required fields');
+      return;
+    }
+
+    console.log('Login pressed', { email, password, userRole });
+  };
 
   const handleForgotPassword = () => {
     Navigator.pushScreen(navigation, 'ForgotPasswordScreen');
   };
 
   const handleSignUp = () => {
-    // TODO: Navigate to sign up
     Navigator.pushScreen(navigation, 'SignupScreen');
   };
 
@@ -49,6 +113,7 @@ const LoginScreen = ({ navigation }: any) => {
               subheading="Enter your information below"
             />
           </View>
+
           <View style={styles.userRoleContainer}>
             <UserRoleComponent
               imageSource={images.package}
@@ -68,9 +133,14 @@ const LoginScreen = ({ navigation }: any) => {
           <View style={styles.formContainer}>
             <View style={styles.commoncontainer}>
               <CustomInput
-                placeholder={'Enter your Email id'}
+                placeholder="Enter your Email id"
                 value={email}
-                onChangeText={setEmail}
+                onChangeText={text => {
+                  setEmail(text);
+                  setErrors((p: any) => ({ ...p, email: '' }));
+                }}
+                onBlur={validateEmail}
+                error={errors.email}
                 containerStyle={styles.inputContainer}
                 fieldStyle={{ borderRadius: scale(5) }}
               />
@@ -78,8 +148,13 @@ const LoginScreen = ({ navigation }: any) => {
               <CustomInput
                 placeholder="Password"
                 value={password}
-                onChangeText={setPassword}
-                containerStyle={[styles.inputContainer]}
+                onChangeText={text => {
+                  setPassword(text);
+                  setErrors((p: any) => ({ ...p, password: '' }));
+                }}
+                onBlur={validatePassword}
+                error={errors.password}
+                containerStyle={styles.inputContainer}
                 fieldStyle={{ borderRadius: scale(5) }}
               />
             </View>
@@ -103,10 +178,9 @@ const LoginScreen = ({ navigation }: any) => {
             />
           </View>
 
-          {/* Sign Up Link */}
+          {/* Sign Up */}
           <View style={styles.signUpContainer}>
             <Text style={styles.signUpText}>Need an account? </Text>
-
             <Text style={styles.signUpLink} onPress={handleSignUp}>
               Sign up
             </Text>
@@ -116,6 +190,9 @@ const LoginScreen = ({ navigation }: any) => {
     </Base>
   );
 };
+
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
