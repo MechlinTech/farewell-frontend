@@ -191,11 +191,17 @@ function LoginStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
-        <Stack.Screen
+         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="AddVehicleDetails"
+          component={AddVehicleDetails}
+          options={{ headerShown: false }}
+        />
+       
         <Stack.Screen
           name="OTPVerificationScreen"
           component={OTPVerificationScreen}
@@ -209,11 +215,6 @@ function LoginStack() {
         <Stack.Screen
           name="ForgotPasswordScreen"
           component={ForgotPasswordScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="AddVehicleDetails"
-          component={AddVehicleDetails}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
