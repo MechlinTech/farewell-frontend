@@ -25,15 +25,10 @@ const LoginScreen = ({ navigation }: any) => {
   const [password, setPassword] = useState('');
   const [userRole, setUserRole] = React.useState<string>('customer');
 
-  const handleLogin = () => {
-    // TODO: Implement login logic
-    console.log('Login pressed', { email, password });
-  };
+  const handleLogin = () => {};
 
   const handleForgotPassword = () => {
-    // TODO: Navigate to forgot password
     Navigator.pushScreen(navigation, 'ForgotPasswordScreen');
-    console.log('Forgot password pressed');
   };
 
   const handleSignUp = () => {
@@ -125,8 +120,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: color.background,
-    // paddingTop: verticalScale(70),
-    //  paddingHorizontal: scale(20),
   },
   userRoleContainer: {
     flexDirection: 'row',
