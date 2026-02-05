@@ -7,15 +7,16 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
-import CustomInput from '@components/CustomInput';
-import CustomButton from '@components/CustomButton';
+import CustomInput from 'components/CustomInput';
+import CustomButton from 'components/CustomButton';
 import color from '@color';
 
 import { scale, verticalScale } from '@scale';
 import Navigator from 'utils/Navigator';
 import { fontSize, fontFamily } from '@constants';
-import HeadingGroup from '@components/HeadingGroupComponent';
-import BaseWrapper from '@components/Base';
+import HeadingGroup from 'components/HeadingGroupComponent';
+import BaseWrapper from 'components/Base';
+import { showFlashMessage } from 'components/showFlashMessage';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
