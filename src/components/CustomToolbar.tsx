@@ -47,7 +47,7 @@ export const CustomToolbar = ({
   containerStyle,
   titleStyle,
   backgroundColor = color.background,
-  height = 56,
+  height = verticalScale(56),
 
   children,
   navigation

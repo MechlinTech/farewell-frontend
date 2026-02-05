@@ -10,6 +10,7 @@ import {
   Platform,
 } from 'react-native';
 import color from '@color';
+import { scale, verticalScale } from '@scale';
 
 interface CenterModalProps {
   visible: boolean;
@@ -33,11 +34,11 @@ interface CenterModalProps {
 
 const DEFAULTS = {
   backgroundColor: color.background,
-  height: 300,
+  height: verticalScale(300),
   width: '80%',
-  borderRadius: 20,
-  paddingHorizontal: 20,
-  paddingVertical: 24,
+  borderRadius: scale(20),
+  paddingHorizontal: scale(20),
+  paddingVertical: scale(24),
   animationType: 'fade' as const,
   transparent: true,
   statusBarTranslucent: true,
