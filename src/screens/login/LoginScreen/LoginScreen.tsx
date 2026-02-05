@@ -14,7 +14,7 @@ import CustomButton from '../../../components/CustomButton';
 import color from '@color';
 
 import { scale, verticalScale } from '@scale';
-import Navigator from '../../../utils/Navigator';
+import Navigator from '@Navigator';
 import { fontFamily, fontSize } from '@constants';
 import HeadingGroup from 'components/HeadingGroupComponent';
 import UserRoleComponent from 'components/UserRoleComponent';
