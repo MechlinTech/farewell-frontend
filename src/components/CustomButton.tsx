@@ -10,6 +10,9 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import  colors  from '../styles/color';
+import { fontFamily, fontSize } from '@constants';
+import { scale, verticalScale } from '@scale';
+
 
 interface CustomButtonProps {
   title: string;
@@ -42,11 +45,11 @@ interface CustomButtonProps {
 }
 
 const DEFAULTS = {
-  height: 58,
-  borderRadius: 12,
+  height: verticalScale(58),
+  borderRadius: scale(12),
   textColor: colors.textContrast,
-  fontSize: 14,
-  fontFamily: 'Poppins-Medium',
+  fontSize: fontSize.fontSize_16,
+  fontFamily: fontFamily.Medium,
   letterSpacing: 0,
   gradientColors: [colors.primary, colors.primary],
   gradientStart: { x: 0, y: 1 },

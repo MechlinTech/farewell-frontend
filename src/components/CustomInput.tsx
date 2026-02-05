@@ -93,7 +93,7 @@ export const CustomInput = ({
           isError && styles.errorBorder,
         ]}
       >
-        {leftIcon && <View style={{ marginRight: 8 }}>{leftIcon}</View>}
+        {leftIcon && <View style={{ marginRight: scale(8) }}>{leftIcon}</View>}
 
         <View style={{ flex: 1 }}>
           <TextInput

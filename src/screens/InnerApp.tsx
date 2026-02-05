@@ -192,6 +192,7 @@ function LoginStack() {
           component={LoginScreen}
           options={{ headerShown: false }}
         />
+       
         <Stack.Screen
           name="OTPVerificationScreen"
           component={OTPVerificationScreen}
