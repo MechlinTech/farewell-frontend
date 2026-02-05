@@ -17,7 +17,7 @@ import Animated, {
 import { useEffect } from 'react';
 import color from '@color';
 import CustomButton from 'components/CustomButton';
-import { fontFamily } from '@constants';
+import { fontFamily, fontSize } from '@constants';
 
 const OTPVerificationScreen = () => {
   const ref = useRef<OTPInputRef>(null);
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(20),
   },
   resendCodeText: {
-    fontSize: 12,
+    fontSize: fontSize.fontSize_12,
     color: color.textSecondary,
   },
   verifyButtonContainer: {
@@ -150,35 +150,33 @@ const styles = StyleSheet.create({
     gap: scale(24),
   },
   slot: {
-    width: 50,
-    height: 50,
+    width: scale(48),
+    height: verticalScale(48),
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 5,
+    borderRadius: scale(5),
     backgroundColor: color.primaryMuted,
   },
   activeSlot: {
     borderColor: color.primary,
-    borderWidth: 1,
+    borderWidth: scale(1),
   },
   char: {
-    fontSize: 24,
-    fontWeight: '500',
-    color: '#2D2D2D',
+    fontSize: fontSize.fontSize_24,
+    fontFamily: fontFamily.weight800,
+    color: color.inputText,
   },
   /* Caret */
   fakeCaretContainer: {
     position: 'absolute',
-    width: '100%',
-    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
   fakeCaret: {
-    width: 2,
-    height: 28,
-    backgroundColor: '#000',
-    borderRadius: 1,
+    width: scale(2),
+    height: verticalScale(28),
+    backgroundColor: color.black,
+    borderRadius: scale(1),
   },
 });
 
