@@ -96,7 +96,7 @@ export const CustomInput = ({
         {leftIcon && <View style={{ marginRight: 8 }}>{leftIcon}</View>}
 
         <View style={{ flex: 1 }}>
-                 <TextInput
+          <TextInput
             style={[
               { fontSize: fontSize.fontSize_16, color: color.inputText },
               textStyle,
@@ -107,11 +107,11 @@ export const CustomInput = ({
             placeholderTextColor={color.placeholderText}
             onFocus={() => {
               setIsFocused(true);
-              onFocus?.(); // 🔴 trigger parent focus
+              onFocus?.();
             }}
             onBlur={() => {
               setIsFocused(false);
-              onBlur?.(); // 🔴 trigger parent blur
+              onBlur?.();
             }}
           />
         </View>
@@ -121,9 +121,7 @@ export const CustomInput = ({
       </Pressable>
 
       {/* Error */}
-      {isError && showError && (
-        <Text style={styles.errorText}>{error}</Text>
-      )}
+      {isError && showError && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
 };
