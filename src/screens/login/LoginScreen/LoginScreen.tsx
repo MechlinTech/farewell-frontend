@@ -17,15 +17,17 @@ import { scale, verticalScale } from '@scale';
 import Navigator from '../../../utils/Navigator';
 import { fontFamily, fontSize } from '@constants';
 import HeadingGroup from 'components/HeadingGroupComponent';
+import UserRoleComponent from 'components/UserRoleComponent';
+import images from '@images';
 
 const LoginScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userRole, setUserRole] = React.useState<string>('customer');
 
   const handleLogin = () => {
     // TODO: Implement login logic
     console.log('Login pressed', { email, password });
-
   };
 
   const handleForgotPassword = () => {
@@ -49,34 +51,52 @@ const LoginScreen = ({ navigation }: any) => {
           <View style={styles.headerContainer}>
             <HeadingGroup
               heading="Let's get you Login!"
-              subheading='Enter your information below'
+              subheading="Enter your information below"
             />
-            {/* <Text style={styles.subtitle}>Enter your information below</Text> */}
+          </View>
+          <View style={styles.userRoleContainer}>
+            <UserRoleComponent
+              imageSource={images.package}
+              title="Customer"
+              onPress={() => setUserRole('customer')}
+              selected={userRole === 'customer'}
+            />
+            <UserRoleComponent
+              imageSource={images.bike}
+              title="Rider"
+              onPress={() => setUserRole('rider')}
+              selected={userRole === 'rider'}
+            />
           </View>
 
           {/* Form */}
           <View style={styles.formContainer}>
-            <CustomInput
-              placeholder={'Enter your Email id'}
-              value={email}
-              onChangeText={setEmail}
-              containerStyle={styles.inputContainer}
-              fieldStyle={{ borderRadius: scale(5) }}
-            />
+            <View style={styles.commoncontainer}>
+              <CustomInput
+                placeholder={'Enter your Email id'}
+                value={email}
+                onChangeText={setEmail}
+                containerStyle={styles.inputContainer}
+                fieldStyle={{ borderRadius: scale(5) }}
+              />
 
-            <CustomInput
-              placeholder="Password"
-              value={password}
-              onChangeText={setPassword}
-              containerStyle={styles.inputContainer}
-              fieldStyle={{ borderRadius: scale(5) }}
-            />
+              <CustomInput
+                placeholder="Password"
+                value={password}
+                onChangeText={setPassword}
+                containerStyle={[styles.inputContainer]}
+                fieldStyle={{ borderRadius: scale(5) }}
+              />
+            </View>
 
             {/* Forgot Password */}
             <View style={styles.forgotPasswordContainer}>
-              <TouchableOpacity onPress={handleForgotPassword}>
-                <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-              </TouchableOpacity>
+              <Text
+                style={styles.forgotPasswordText}
+                onPress={handleForgotPassword}
+              >
+                Forgot Password?
+              </Text>
             </View>
 
             {/* Login Button */}
@@ -91,9 +111,10 @@ const LoginScreen = ({ navigation }: any) => {
           {/* Sign Up Link */}
           <View style={styles.signUpContainer}>
             <Text style={styles.signUpText}>Need an account? </Text>
-            <TouchableOpacity onPress={handleSignUp}>
-              <Text style={styles.signUpLink}>Sign up</Text>
-            </TouchableOpacity>
+
+            <Text style={styles.signUpLink} onPress={handleSignUp}>
+              Sign up
+            </Text>
           </View>
         </View>
       </ScrollView>
@@ -107,22 +128,32 @@ const styles = StyleSheet.create({
     // paddingTop: verticalScale(70),
     //  paddingHorizontal: scale(20),
   },
+  userRoleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    gap: scale(31),
+    marginTop: verticalScale(22),
+  },
   content: {
     flex: 1,
     paddingHorizontal: scale(20),
-    marginTop: verticalScale(122),
+    marginTop: verticalScale(65),
   },
   headerContainer: {
     alignItems: 'flex-start',
     marginBottom: verticalScale(6),
     marginTop: verticalScale(14),
-
+  },
+  commoncontainer: {
+    gap: verticalScale(20),
+    marginTop: verticalScale(31),
   },
   formContainer: {
     marginBottom: verticalScale(30),
   },
   inputContainer: {
     marginBottom: verticalScale(1),
+    // paddingTop: verticalScale(10),
   },
   forgotPasswordContainer: {
     alignItems: 'flex-end',
@@ -132,36 +163,38 @@ const styles = StyleSheet.create({
   forgotPasswordText: {
     fontSize: fontSize.fontSize_14,
     color: color.text,
-    fontWeight: '500',
+    fontFamily: fontFamily.Medium,
   },
   loginButton: {
-    marginBottom: verticalScale(20),
+    marginBottom: verticalScale(4),
     height: verticalScale(55),
     marginTop: verticalScale(10),
   },
   loginButtonText: {
     color: color.textContrast,
-    fontSize: fontSize.fontSize_15,
-    fontWeight: '800',
+    fontSize: fontSize.fontSize_16,
+    fontFamily: fontFamily.Heavy,
   },
   signUpContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: verticalScale(-20),
+    //  marginTop: verticalScale(1),
+    marginVertical: verticalScale(1),
 
     // marginTop: 'auto',
     // paddingBottom: verticalScale(20),
   },
   signUpText: {
-    fontSize: fontSize.fontSize_15,
+    fontSize: fontSize.fontSize_14,
     color: color.textSecondary,
-    fontWeight: '600',
+    fontFamily: fontFamily.weight400,
   },
   signUpLink: {
-    fontSize: fontSize.fontSize_15,
-    color: color.textContrast,
-    fontWeight: '600',
+    fontSize: fontSize.fontSize_14,
+    color: color.textAccent,
+    fontFamily: fontFamily.weight800,
+    marginLeft: scale(4),
   },
 });
 

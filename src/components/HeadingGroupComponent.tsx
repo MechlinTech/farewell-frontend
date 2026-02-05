@@ -7,7 +7,7 @@ import color from '@color';
 interface HeadingGroupProps {
   heading: string;
   headingStyle?: StyleProp<TextStyle>;
-  subheading?: string;
+  subheading?: React.ReactNode; // ✅ updated
   subheadingStyle?: StyleProp<TextStyle>;
 }
 
@@ -20,7 +20,10 @@ export const HeadingGroup = ({
   return (
     <View style={style.container}>
       <Text style={[style.heading, headingStyle]}>{heading}</Text>
-      <Text style={[style.subheading, subheadingStyle]}>{subheading}</Text>
+
+      {subheading && (
+        <Text style={[style.subheading, subheadingStyle]}>{subheading}</Text>
+      )}
     </View>
   );
 };
@@ -31,8 +34,6 @@ const style = StyleSheet.create({
   container: {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    // paddingHorizontal: scale(12),
-    paddingBlock: verticalScale(35),
     gap: verticalScale(5),
   },
   heading: {
@@ -45,5 +46,6 @@ const style = StyleSheet.create({
     color: color.textSubHeading,
     fontSize: fontSize.fontSize_12,
     fontFamily: fontFamily.weight400,
+    lineHeight: verticalScale(14),
   },
 });

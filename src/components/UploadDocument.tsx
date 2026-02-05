@@ -4,6 +4,7 @@ import {
   Image,
   Modal,
   Pressable,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -53,26 +54,27 @@ const UploadDocument: React.FC<Props> = ({
 
   return (
     <View style={{ marginBottom: verticalScale(15) }}>
-      {label && (
-        <Text style={styles.label}>
-          {label}
-        </Text>
-      )}
+      {label && <Text style={styles.label}>{label}</Text>}
 
       <TouchableOpacity
         style={styles.uploadBox}
         onPress={() => setShowSheet(true)}
       >
-        {(
+        {
           <ImageComponent
             source={image?.path ?? images.add_notes}
             style={styles.preview}
           />
-        )}
+        }
       </TouchableOpacity>
 
       {/* Bottom Sheet */}
-      <Modal transparent visible={showSheet} animationType="fade">
+      <Modal
+        transparent
+        visible={showSheet}
+        animationType="fade"
+        statusBarTranslucent
+      >
         <Pressable
           style={styles.modalOverlay}
           onPress={() => setShowSheet(false)}
@@ -144,7 +146,7 @@ const styles = StyleSheet.create({
   },
   optionText: {
     fontSize: fontSize.fontSize_16,
-    fontFamily: fontFamily.Medium,
-    color: color.primary,
+    fontFamily: fontFamily.Heavy,
+    color: color.textSecondary,
   },
 });
