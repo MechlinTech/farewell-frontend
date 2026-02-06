@@ -53,6 +53,7 @@ const lightColors = {
   overlayText: "#00000080", // was iconButtonText
   placeholderText: "#757B7F",
   docBackground: "#B4E2FC",
+  tabInactive: "#C0C5C2",
 };
 
 const darkColors = {
@@ -106,6 +107,7 @@ const darkColors = {
   overlayText: "#00000080", // was iconButtonText
   placeholderText: "#757B7F",
   docBackground: "#B4E2FC",
+  tabInactive: "#C0C5C2",
 
 };
 
