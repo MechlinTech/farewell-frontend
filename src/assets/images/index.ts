@@ -8,7 +8,7 @@ const images = {
     home:require("./Home.webp"),
     profile:require("./Profile.webp"),
     calender:require("./calender.webp"),
-    
+    check: require("./check.svg"),
 };
 
 export default images;

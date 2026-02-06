@@ -99,12 +99,12 @@ export default class Navigator {
     navigation.popToTop();
   }
 
-  static 
-  (
-    navigation: NavigationProp<ParamListBase>,
-    routeName: string,
-    params?: object,
-  ) {
+  static
+    (
+      navigation: NavigationProp<ParamListBase>,
+      routeName: string,
+      params?: object,
+    ) {
     navigation.dispatch(
       CommonActions.reset({
         index: 0,
@@ -184,6 +184,15 @@ export default class Navigator {
     navigation.navigate(
       'BottomTabStack' as never,
       { screen: screenName, params } as never,
+    );
+  }
+  static resetStackScreen(
+    navigation: any,
+    routeName: string,
+    params?: object,
+  ) {
+    navigation.dispatch(
+      CommonActions.reset({ index: 0, routes: [{ name: routeName, params }] }),
     );
   }
 }

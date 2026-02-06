@@ -15,7 +15,7 @@
       "@scale": ["./utils/scale.ts"],
       "@Helper": ["./src/utils/Helper.tsx"],
       "@images": ["./assets/images/index.ts"],
-      "@components/*": ["./components/*"],
+      "@components": ["./components/"],
       "@redux/*": ["./redux/*"],
       "@screens/*": ["./screens/*"],
       "@api/*": ["./api/*"],
@@ -23,4 +23,3 @@
     }
   }
 }
- 
