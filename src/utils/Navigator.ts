@@ -176,14 +176,14 @@ export default class Navigator {
     navigation.closeDrawer();
   }
 
-  static switchToRootTab(
-    navigation: any,
-    screenName: string,
-    params?: object,
-  ) {
-    navigation.navigate(
-      'BottomTabStack' as never,
-      { screen: screenName, params } as never,
-    );
-  }
+  // static switchToRootTab(
+  //   navigation: any,
+  //   screenName: string,
+  //   params?: object,
+  // ) {
+  //   navigation.navigate(
+  //     'BottomTabStack' as never,
+  //     { screen: screenName, params } as never,
+  //   );
+  // }
 }
