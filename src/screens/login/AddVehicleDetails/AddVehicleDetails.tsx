@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
-import Base from 'components/Base';
-import CustomToolbar from 'components/CustomToolbar';
-import CustomInput from 'components/CustomInput';
-import CustomButton from 'components/CustomButton';
-import UploadDocument from 'components/UploadDocument';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import Base from '@components/Base';
+import CustomToolbar from '@components/CustomToolbar';
+import CustomInput from '@components/CustomInput';
+import CustomButton from '@components/CustomButton';
+import UploadDocument from '@components/UploadDocument';
 
 import color from '@color';
 import { scale, verticalScale } from '@scale';
-import { showFlashMessage } from 'components/showFlashMessage';
+import { showFlashMessage } from '@components/showFlashMessage';
+import CenterModal from '@components/CenterModal';
+import ImageComponent from '@components/ImageComponent';
+import images from '@images';
+import { fontFamily, fontSize } from '@constants';
+import Navigator from '@Navigator';
 
 const AddVehicleDetails = ({ navigation }: any) => {
     const [vehicleNumber, setVehicleNumber] = useState('');
     const [model, setModel] = useState('');
     const [capacity, setCapacity] = useState('');
-
     const [licence, setLicence] = useState<any>();
     const [rc, setRc] = useState<any>();
     const [insurance, setInsurance] = useState<any>();
-
     const [errors, setErrors] = useState<any>({});
+    const [showPendingModal, setShowPendingModal] = useState<boolean>(false);
 
     /* 🔴 Field Validators */
 
@@ -65,12 +69,59 @@ const AddVehicleDetails = ({ navigation }: any) => {
     };
 
     const handleSubmit = () => {
+
         if (!validateAll()) {
             showFlashMessage('Please fill all required fields');
             return;
         }
 
         console.log('Submitted ✅');
+    };
+
+    const pendingModal = () => {
+        return (
+            <CenterModal
+                visible={showPendingModal}
+                onClose={() => {
+                    setShowPendingModal(false);
+                    Navigator.resetStackScreen(navigation, 'LoginStack');
+
+                }}
+            >
+                <View style={{ alignItems: 'center', }}>
+
+                    {/* Icon Circle */}
+                    <View style={styles.iconCircle}>
+                        <ImageComponent source={images.check} style={{ width: scale(34), height: verticalScale(22) }} />
+                    </View>
+                    {/* Title */}
+                    <Text
+                        style={styles.title}
+                    >
+                        Account Verification Pending
+                    </Text>
+
+                    {/* Description */}
+                    <Text
+                        style={styles.description}
+                    >
+                        Your request is sent for approval to the admin and will be verified soon..
+                    </Text>
+
+                    {/* Continue Button */}
+                    <CustomButton
+                        title="Continue"
+                        onPress={() => {
+                            setShowPendingModal(false);
+                            Navigator.resetStackScreen(navigation, 'LoginStack');
+                        }}
+                        containerStyle={styles.modalButton}
+
+                    />
+                </View>
+            </CenterModal>
+
+        );
     };
 
     return (
@@ -170,6 +221,7 @@ const AddVehicleDetails = ({ navigation }: any) => {
                     containerStyle={styles.button}
                 />
             </ScrollView>
+            {showPendingModal && pendingModal()}
         </Base>
     );
 };
@@ -197,8 +249,34 @@ const styles = StyleSheet.create({
     },
     errorText: {
         color: color.error,
-        fontSize: 12,
-        marginTop: -10,
-        marginBottom: verticalScale(10),
+        fontSize: fontSize.fontSize_12,
+        fontFamily: fontFamily.Medium,
+        marginVertical: verticalScale(10),
     },
+    iconCircle: {
+        width: scale(75),
+        height: scale(75),
+        borderRadius: scale(75),
+        backgroundColor: color.logoBackground,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    title: {
+        fontSize: fontSize.fontSize_20,
+        fontFamily: fontFamily.Heavy,
+        marginTop: verticalScale(30),
+        color: color.text,
+    },
+    description: {
+        color: color.text,
+        marginTop: verticalScale(12),
+        fontSize: fontSize.fontSize_16,
+        fontFamily: fontFamily.Roman,
+        textAlign: 'center',
+        marginHorizontal: scale(24),
+        lineHeight: verticalScale(22),
+    },
+    modalButton: {
+        marginTop: verticalScale(28),
+    }
 });

@@ -46,22 +46,29 @@ const Tab: any = createBottomTabNavigator();
 
 const CustomerScreenIcons: Record<string, { active: any }> = {
   CUSTOMERHOME: {
-    active: require(images.home),
+    active: images.home,
   },
   CUSTOMERHISTORY: {
-    active: require(images.calender),
+    active: images.calendar,
   },
   CUSTOMERPROFILE: {
-    active: require(images.profile),
+    active: images.profile,
   },
- 
 };
 
 //Define screens & map icons explicitly
 const CUSTOMERTABS = [
   { key: 'CustomerHome', name: 'CUSTOMERHOME', component: CustomerHome },
-  { key: 'CustomerHistory', name: 'CUSTOMERHISTORY', component: CustomerHistory },
-  { key: 'CustomerProfile', name: 'CUSTOMERPROFILE', component: CustomerProfile }
+  {
+    key: 'CustomerHistory',
+    name: 'CUSTOMERHISTORY',
+    component: CustomerHistory,
+  },
+  {
+    key: 'CustomerProfile',
+    name: 'CUSTOMERPROFILE',
+    component: CustomerProfile,
+  },
 ];
 
 function CustomerBottomTabStack() {
@@ -77,7 +84,6 @@ function CustomerBottomTabStack() {
   );
 }
 
-
 function CustomCustomerBottomTab({ state, descriptors, navigation }: any) {
   return (
     <View
@@ -85,9 +91,7 @@ function CustomCustomerBottomTab({ state, descriptors, navigation }: any) {
         flexDirection: 'row',
         backgroundColor: color.background,
         height:
-          Platform.OS == 'android'
-            ? verticalScale(64)
-            : verticalScale(80),
+          Platform.OS == 'android' ? verticalScale(64) : verticalScale(80),
         justifyContent: 'space-around',
         alignItems: 'center',
         // paddingBottom: verticalScale(10),
@@ -104,7 +108,9 @@ function CustomCustomerBottomTab({ state, descriptors, navigation }: any) {
 
         // Map the route name to the icon using the TABS array
         const tabConfig = CUSTOMERTABS.find(tab => tab.name === route.name);
-        const tabIcon: any = tabConfig ? CustomerScreenIcons[tabConfig.name] : null;
+        const tabIcon: any = tabConfig
+          ? CustomerScreenIcons[tabConfig.name]
+          : null;
 
         const onPress = () => {
           if (!isFocused) navigation.navigate(route.name);
@@ -118,8 +124,6 @@ function CustomCustomerBottomTab({ state, descriptors, navigation }: any) {
             style={{ justifyContent: 'center', alignItems: 'center' }}
             activeOpacity={0.7}
           >
-
-
             <ImageComponent
               source={tabIcon.active}
               resizeMode="contain"
@@ -149,20 +153,20 @@ function CustomCustomerBottomTab({ state, descriptors, navigation }: any) {
 
 const RiderScreenIcons: Record<string, { active: any }> = {
   RIDERHOME: {
-    active: require(images.home),
+    active: images.home,
   },
   RIDERBOOKINGS: {
-    active: require(images.calender),
+    active: images.calendar,
   },
   RIDERPROFILE: {
-    active: require(images.profile),
-  }
+    active: images.profile,
+  },
 };
 
 const RiderTabs = [
   { key: 'RiderHome', name: 'RIDERHOME', component: RiderHome },
   { key: 'RiderBookings', name: 'RIDERBOOKINGS', component: RiderBookings },
-  { key: 'RiderProfile', name: 'RIDERPROFILE', component: RiderProfile }
+  { key: 'RiderProfile', name: 'RIDERPROFILE', component: RiderProfile },
 ];
 
 function RiderBottomTabStack() {
@@ -178,7 +182,6 @@ function RiderBottomTabStack() {
   );
 }
 
-
 function CustomRiderBottomTab({ state, descriptors, navigation }: any) {
   return (
     <View
@@ -186,9 +189,7 @@ function CustomRiderBottomTab({ state, descriptors, navigation }: any) {
         flexDirection: 'row',
         backgroundColor: color.background,
         height:
-          Platform.OS == 'android'
-            ? verticalScale(64)
-            : verticalScale(80),
+          Platform.OS == 'android' ? verticalScale(64) : verticalScale(80),
         justifyContent: 'space-around',
         alignItems: 'center',
         // paddingBottom: verticalScale(10),
@@ -205,7 +206,9 @@ function CustomRiderBottomTab({ state, descriptors, navigation }: any) {
 
         // Map the route name to the icon using the TABS array
         const tabConfig = RiderTabs.find(tab => tab.name === route.name);
-        const tabIcon: any = tabConfig ? RiderScreenIcons[tabConfig.name] : null;
+        const tabIcon: any = tabConfig
+          ? RiderScreenIcons[tabConfig.name]
+          : null;
 
         const onPress = () => {
           if (!isFocused) navigation.navigate(route.name);
@@ -219,8 +222,6 @@ function CustomRiderBottomTab({ state, descriptors, navigation }: any) {
             style={{ justifyContent: 'center', alignItems: 'center' }}
             activeOpacity={0.7}
           >
-
-
             <ImageComponent
               source={tabIcon.active}
               resizeMode="contain"
@@ -253,11 +254,6 @@ function LoginStack() {
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
         <Stack.Screen
-          name="AddVehicleDetails"
-          component={AddVehicleDetails}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
@@ -275,6 +271,11 @@ function LoginStack() {
         <Stack.Screen
           name="ForgotPasswordScreen"
           component={ForgotPasswordScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AddVehicleDetails"
+          component={AddVehicleDetails}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
@@ -442,7 +443,6 @@ function CustomerHomeStack() {
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
-
     </React.Suspense>
   );
 }
@@ -463,7 +463,7 @@ export const checkApplicationPermission = async () => {
           }
         }
       }
-    } catch (error) { }
+    } catch (error) {}
   } else {
     try {
       const authStatus = await messaging().requestPermission();

@@ -1,10 +1,9 @@
 import color from '@color';
 import { fontSize } from '@constants';
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import ImageComponent from './ImageComponent';
-import images from '@images';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { scale, verticalScale } from '@scale';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 interface CheckBoxProps {
   isChecked: boolean;
@@ -25,22 +24,21 @@ const CheckBox: React.FC<CheckBoxProps> = ({
     >
       <View style={[styles.box, isChecked && styles.boxChecked]}>
         {isChecked && (
-          <ImageComponent
-            source={images.vector}
-            style={styles.checkMark}
-            tintColor={color.black}
-          />
+          <Icon name="checkmark" size={verticalScale(14)} color={color.black} />
         )}
       </View>
     </TouchableOpacity>
   );
 };
 
+export default CheckBox;
+
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   box: {
     width: fontSize.fontSize_20,
     height: fontSize.fontSize_20,
@@ -51,13 +49,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
   boxChecked: {
     backgroundColor: color.primaryMuted,
   },
-  checkMark: {
-    height: verticalScale(18),
-    width: scale(18),
-  },
 });
-
-export default CheckBox;
