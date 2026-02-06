@@ -25,7 +25,11 @@ import SignupScreen from './login/SignupScreen/SignupScreen';
 import ForgotPasswordScreen from './login/ForgotPassword/ForgotPassword';
 import OTPVerificationScreen from './login/OTPVerificationScreen/OTPVerificationScreen';
 import AddVehicleDetails from './login/AddVehicleDetails/AddVehicleDetails';
+import PrivacyPolicyScreen from './shared/PrivacyPolicy/PrivacyPolicy';
 import Toast, { toastConfig } from 'components/showFlashMessage';
+import TermsAndConditionsScreen from './shared/TermsAndConditions/TermsAndConditions';
+import ChangePasswordScreen from './shared/ChangePassword/ChangePassword';
+import RiderSettings from './rider/RiderSettings/RiderSettings';
 
 const Stack = createNativeStackNavigator();
 
