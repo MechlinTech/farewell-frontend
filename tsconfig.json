@@ -15,10 +15,14 @@
       "@scale": ["./utils/scale.ts"],
       "@Helper": ["./src/utils/Helper.tsx"],
       "@images": ["./assets/images/index.ts"],
-      "@components": ["./components/"],
+      "@components/*": ["./components/*"],
       "@redux/*": ["./redux/*"],
-      "@screens": ["./screens/"],
-      "@api": ["./api/"],
+      "@screens/*": ["./screens/*"],
+      "@customer/*": ["./screens/customer/*"],
+      "@rider/*": ["./screens/rider/*"],
+      "@login/*": ["./screens/login/*"],
+      "@common/*": ["./screens/shared/*"],
+      "@api/*": ["./api/*"],
       "react-native": ["./node_modules/@types/react-native"]
     }
   }

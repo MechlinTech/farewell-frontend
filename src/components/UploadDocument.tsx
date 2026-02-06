@@ -53,7 +53,7 @@ const UploadDocument: React.FC<Props> = ({
   };
 
   return (
-    <View style={{ marginBottom: verticalScale(15) }}>
+    <View style={{}}>
       {label && <Text style={styles.label}>{label}</Text>}
 
       <TouchableOpacity
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   uploadBox: {
     height: verticalScale(86),
     borderRadius: scale(10),
-    borderWidth: 1,
+    borderWidth: scale(1),
     borderStyle: 'dashed',
     borderColor: color.primary,
     backgroundColor: color.primaryMuted,
