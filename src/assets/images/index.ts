@@ -8,6 +8,13 @@ const images = {
     forwardArrow: require("./forwardArrow.svg"),
     lockOpen: require("./lock_open.svg"),
     settingsBell: require("./settingsBell.svg"),
+    home: require("./Home.webp"),
+    profile: require("./Profile.webp"),
+    calendar: require("./calendar.webp"),
+    check: require("./check.svg"),
+    forwardArrow: require("./forwardArrow.svg"),
+    lockOpen: require("./lock_open.svg"),
+    settingsBell: require("./settingsBell.svg"),
 };
 
 export default images;
