@@ -12,6 +12,9 @@ const images = {
     profile: require("./Profile.webp"),
     calendar: require("./calendar.webp"),
     check: require("./check.svg"),
+    forwardArrow: require("./forwardArrow.svg"),
+    lockOpen: require("./lock_open.svg"),
+    settingsBell: require("./settingsBell.svg"),
 };
 
 export default images;
