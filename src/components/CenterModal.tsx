@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 import color from '@color';
-import { scale, verticalScale } from '@scale';
+import { scale } from '@scale';
 
 interface CenterModalProps {
   visible: boolean;
