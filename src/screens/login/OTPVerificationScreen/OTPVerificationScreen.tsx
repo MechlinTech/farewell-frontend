@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import BaseWrapper from 'components/Base';
-import HeadingGroup from 'components/HeadingGroupComponent';
+import BaseWrapper from '@components/Base';
+import HeadingGroup from '@components/HeadingGroupComponent';
 import { scale, verticalScale } from '@scale';
 import { Text, type ViewStyle, Alert, Pressable } from 'react-native';
 import { OTPInput, type SlotProps } from 'input-otp-native';
@@ -16,7 +16,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useEffect } from 'react';
 import color from '@color';
-import CustomButton from 'components/CustomButton';
+import CustomButton from '@components/CustomButton';
 import { fontFamily, fontSize } from '@constants';
 
 const OTPVerificationScreen = () => {

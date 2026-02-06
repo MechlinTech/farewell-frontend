@@ -1,5 +1,3 @@
-
-
 module.exports = {
   presets: ['module:@react-native/babel-preset'],
   plugins: [
@@ -22,6 +20,9 @@ module.exports = {
           '@components': './src/components',
           '@redux': './src/redux',
           '@screens': './src/screens',
+          '@rider': './src/screens/rider',
+          '@shared': './src/screens/shared',
+          '@customer': './src/screens/customer',
           '@api': './src/api',
           '@client': './src/api/client.tsx',
           '@queries': './src/api/queries.tsx',
@@ -30,7 +31,7 @@ module.exports = {
       },
     ],
   ],
-
+ 
   env: {
     production: {
       plugins: ['transform-remove-console'],
