@@ -5,11 +5,9 @@ import {
   Platform,
   StatusBar,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Utils } from '@Utils';
 import SplashScreen from 'react-native-splash-screen';
@@ -27,239 +25,172 @@ import SignupScreen from './login/SignupScreen/SignupScreen';
 import ForgotPasswordScreen from './login/ForgotPassword/ForgotPassword';
 import OTPVerificationScreen from './login/OTPVerificationScreen/OTPVerificationScreen';
 import AddVehicleDetails from './login/AddVehicleDetails/AddVehicleDetails';
+import PrivacyPolicyScreen from './shared/PrivacyPolicy/PrivacyPolicy';
 import Toast, { toastConfig } from 'components/showFlashMessage';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import images from '@images';
-import CustomerHome from './customer/CustomerHome/CustomerHome';
-import CustomerHistory from './customer/CustomerHistory/CustomerHistory';
-import CustomerProfile from './customer/CustomerProfile/CustomerProfile';
-import RiderHome from './rider/RiderHome/RiderHome';
-import RiderProfile from './rider/RiderProfile/RiderProfile';
-import RiderBookings from './rider/RiderBookings/RiderBookings';
-import { scale, verticalScale } from '@scale';
-import ImageComponent from '@components/ImageComponent';
-import { fontFamily, fontSize } from '@constants';
-import ContactUs from './shared/Contact/Contact';
+import TermsAndConditionsScreen from './shared/TermsAndConditions/TermsAndConditions';
+import ChangePasswordScreen from './shared/ChangePassword/ChangePassword';
+import RiderSettings from './rider/RiderSettings/RiderSettings';
 
 const Stack = createNativeStackNavigator();
 
-const Tab: any = createBottomTabNavigator();
+// const screenIcons: Record<string, { active: any }> = {
+//   HOME: {
+//     active: require('@images/Home.webp'),
+//   },
+//   LEARN: {
+//     active: require('@images/Learn.webp'),
+//   },
+//   ACCOUNT: {
+//     active: require('@images/Account.webp'),
+//   },
+//   MESSAGES: {
+//     active: require('@images/Messages.webp'),
+//   },
+// };
 
-const CustomerScreenIcons: Record<string, { active: any }> = {
-  CUSTOMERHOME: {
-    active: images.home,
-  },
-  CUSTOMERHISTORY: {
-    active: images.calendar,
-  },
-  CUSTOMERPROFILE: {
-    active: images.profile,
-  },
-};
+// Define screens & map icons explicitly
+// const TABS = [
+//   { key: 'home', name: 'HOME', component: Home },
+//   { key: 'learn', name: 'LEARN', component: DashboardStack },
+//   { key: 'account', name: 'ACCOUNT', component: AccountSettings },
+//   { key: 'messages', name: 'MESSAGES', component: Messages },
+// ];
 
-//Define screens & map icons explicitly
-const CUSTOMERTABS = [
-  { key: 'CustomerHome', name: 'CUSTOMERHOME', component: CustomerHome },
-  {
-    key: 'CustomerHistory',
-    name: 'CUSTOMERHISTORY',
-    component: CustomerHistory,
-  },
-  {
-    key: 'CustomerProfile',
-    name: 'CUSTOMERPROFILE',
-    component: CustomerProfile,
-  },
-];
+// const Tab: any = createBottomTabNavigator();
 
-function CustomerBottomTabStack() {
-  return (
-    <Tab.Navigator
-      screenOptions={{ headerShown: false }}
-      tabBar={(props: any) => <CustomCustomerBottomTab {...props} />}
-    >
-      {CUSTOMERTABS.map(tab => (
-        <Tab.Screen key={tab.key} name={tab.name} component={tab.component} />
-      ))}
-    </Tab.Navigator>
-  );
-}
+// function BottomTabStack() {
+//   return (
+//     <Tab.Navigator
+//       screenOptions={{ headerShown: false }}
+//       tabBar={(props: any) => <CustomBottomTab {...props} />}
+//     >
+//       {TABS.map(tab => (
+//         <Tab.Screen key={tab.key} name={tab.name} component={tab.component} />
+//       ))}
+//     </Tab.Navigator>
+//   );
+// }
 
-function CustomCustomerBottomTab({ state, descriptors, navigation }: any) {
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        backgroundColor: color.background,
-        height:
-          Platform.OS == 'android' ? verticalScale(64) : verticalScale(80),
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        // paddingBottom: verticalScale(10),
-        elevation: 5,
-        shadowColor: '#000',
-        shadowOpacity: 0.05,
-        shadowOffset: { width: 0, height: -2 },
-        shadowRadius: 5,
-        paddingHorizontal: scale(5),
-      }}
-    >
-      {state.routes.map((route: any, index: number) => {
-        const isFocused = state.index === index;
+// function CustomBottomTab({ state, descriptors, navigation }: any) {
+//   return (
+//     <View
+//       style={{
+//         flexDirection: 'row',
+//         backgroundColor: color.themeWhite,
+//         height:
+//           Platform.OS == 'android'
+//             ? verticalScale(64)
+//             : verticalScale(80),
+//         justifyContent: 'space-around',
+//         alignItems: 'center',
+//         // paddingBottom: verticalScale(10),
+//         elevation: 5,
+//         shadowColor: '#000',
+//         shadowOpacity: 0.05,
+//         shadowOffset: { width: 0, height: -2 },
+//         shadowRadius: 5,
+//         paddingHorizontal: scale(5),
+//       }}
+//     >
+//       {state.routes.map((route: any, index: number) => {
+//         const isFocused = state.index === index;
 
-        // Map the route name to the icon using the TABS array
-        const tabConfig = CUSTOMERTABS.find(tab => tab.name === route.name);
-        const tabIcon: any = tabConfig
-          ? CustomerScreenIcons[tabConfig.name]
-          : null;
+//         // Map the route name to the icon using the TABS array
+//         const tabConfig = TABS.find(tab => tab.name === route.name);
+//         const tabIcon: any = tabConfig ? screenIcons[tabConfig.name] : null;
 
-        const onPress = () => {
-          if (!isFocused) navigation.navigate(route.name);
-        };
+//         const onPress = () => {
+//           if (!isFocused) navigation.navigate(route.name);
+//         };
 
-        console.log('data3132231', Utils.notification_count);
-        return (
-          <TouchableOpacity
-            key={route.key}
-            onPress={onPress}
-            style={{ justifyContent: 'center', alignItems: 'center' }}
-            activeOpacity={0.7}
-          >
-            <ImageComponent
-              source={tabIcon.active}
-              resizeMode="contain"
-              style={{
-                width: scale(24),
-                height: scale(24),
-              }}
-              tintColor={isFocused ? color.primaryMuted : color.tabInactive}
-            />
-            <Text
-              style={{
-                color: isFocused ? color.textContrast : color.tabInactive,
-                fontSize: fontSize.fontSize_12,
-                fontFamily: fontFamily.Medium,
-                fontWeight: isFocused ? 'bold' : 'normal',
-                marginTop: verticalScale(3),
-              }}
-            >
-              {route.name}
-            </Text>
-          </TouchableOpacity>
-        );
-      })}
-    </View>
-  );
-}
+//         console.log('data3132231', Utils.notification_count);
+//         return (
+//           <TouchableOpacity
+//             key={route.key}
+//             onPress={onPress}
+//             style={{ justifyContent: 'center', alignItems: 'center' }}
+//             activeOpacity={0.7}
+//           >
+//             {index == 3 && Utils.notification_count > 0 && (
+//               <View
+//                 style={{
+//                   minHeight: scale(14),
+//                   minWidth: scale(14),
+//                   borderRadius: scale(30),
+//                   backgroundColor: color.green,
+//                   position: 'absolute',
+//                   top: -verticalScale(5),
+//                   left: scale(34),
+//                   zIndex: 10,
+//                   alignItems: 'center',
+//                   justifyContent: 'center',
+//                   paddingHorizontal: scale(3),
+//                   paddingVertical: scale(1),
+//                   flexDirection: 'row',
+//                 }}
+//               >
+//                 {Utils.notification_count > 100 ? (
+//                   <>
+//                     <Text
+//                       style={{
+//                         fontSize: fontSize.fontSize_8,
+//                         fontFamily: fontFamily.Medium,
+//                         color: color.themeWhite,
+//                       }}
+//                     >
+//                       100
+//                     </Text>
+//                     <Icon
+//                       name="plus"
+//                       size={scale(6)}
+//                       color={color.themeWhite}
+//                     />
+//                   </>
+//                 ) : (
+//                   <Text
+//                     style={{
+//                       fontSize: fontSize.fontSize_8,
+//                       fontFamily: fontFamily.Medium,
+//                       color: color.themeWhite,
+//                     }}
+//                   >
+//                     {Utils.notification_count}
+//                   </Text>
+//                 )}
+//               </View>
+//             )}
 
-const RiderScreenIcons: Record<string, { active: any }> = {
-  RIDERHOME: {
-    active: images.home,
-  },
-  RIDERBOOKINGS: {
-    active: images.calendar,
-  },
-  RIDERPROFILE: {
-    active: images.profile,
-  },
-};
-
-const RiderTabs = [
-  { key: 'RiderHome', name: 'RIDERHOME', component: RiderHome },
-  { key: 'RiderBookings', name: 'RIDERBOOKINGS', component: RiderBookings },
-  { key: 'RiderProfile', name: 'RIDERPROFILE', component: RiderProfile },
-];
-
-function RiderBottomTabStack() {
-  return (
-    <Tab.Navigator
-      screenOptions={{ headerShown: false }}
-      tabBar={(props: any) => <CustomRiderBottomTab {...props} />}
-    >
-      {RiderTabs.map(tab => (
-        <Tab.Screen key={tab.key} name={tab.name} component={tab.component} />
-      ))}
-    </Tab.Navigator>
-  );
-}
-
-function CustomRiderBottomTab({ state, descriptors, navigation }: any) {
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        backgroundColor: color.background,
-        height:
-          Platform.OS == 'android' ? verticalScale(64) : verticalScale(80),
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        // paddingBottom: verticalScale(10),
-        elevation: 5,
-        shadowColor: '#000',
-        shadowOpacity: 0.05,
-        shadowOffset: { width: 0, height: -2 },
-        shadowRadius: 5,
-        paddingHorizontal: scale(5),
-      }}
-    >
-      {state.routes.map((route: any, index: number) => {
-        const isFocused = state.index === index;
-
-        // Map the route name to the icon using the TABS array
-        const tabConfig = RiderTabs.find(tab => tab.name === route.name);
-        const tabIcon: any = tabConfig
-          ? RiderScreenIcons[tabConfig.name]
-          : null;
-
-        const onPress = () => {
-          if (!isFocused) navigation.navigate(route.name);
-        };
-
-        console.log('data3132231', Utils.notification_count);
-        return (
-          <TouchableOpacity
-            key={route.key}
-            onPress={onPress}
-            style={{ justifyContent: 'center', alignItems: 'center' }}
-            activeOpacity={0.7}
-          >
-            <ImageComponent
-              source={tabIcon.active}
-              resizeMode="contain"
-              style={{
-                width: scale(24),
-                height: scale(24),
-              }}
-              tintColor={isFocused ? color.primaryMuted : color.tabInactive}
-            />
-            <Text
-              style={{
-                color: isFocused ? color.textContrast : color.tabInactive,
-                fontSize: fontSize.fontSize_12,
-                fontFamily: fontFamily.Medium,
-                fontWeight: isFocused ? 'bold' : 'normal',
-                marginTop: verticalScale(3),
-              }}
-            >
-              {route.name}
-            </Text>
-          </TouchableOpacity>
-        );
-      })}
-    </View>
-  );
-}
-
+//             <ImageComponent
+//               source={tabIcon.active}
+//               resizeMode="contain"
+//               style={{
+//                 width: scale(24),
+//                 height: scale(24),
+//               }}
+//               tintColor={isFocused ? color.blue : color.greyPremium}
+//             />
+//             <Text
+//               style={{
+//                 color: isFocused ? color.blue : color.greyPremium,
+//                 fontSize: fontSize.fontSize_12,
+//                 fontFamily: fontFamily.Medium,
+//                 fontWeight: isFocused ? 'bold' : 'normal',
+//                 marginTop: 3,
+//               }}
+//             >
+//               {route.name}
+//             </Text>
+//           </TouchableOpacity>
+//         );
+//       })}
+//     </View>
+//   );
+// }
+  
 function LoginStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
-        {/* <Stack.Screen
-          name="Contact"
-          component={ContactUs}
-          options={{ headerShown: false }}
-        /> */}
-
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
@@ -290,169 +221,87 @@ function LoginStack() {
   );
 }
 
-function RiderHomeStack() {
-  let navigation = useNavigation();
+// function UserHomeStack() {
+//   let navigation = useNavigation();
 
-  // const handledNotificationRef: any = useRef<string | null>(null);
+//   const handledNotificationRef: any = useRef<string | null>(null);
 
-  // useEffect(() => {
-  //   // App killed → user taps notification (only once)
-  //   messaging()
-  //     .getInitialNotification()
-  //     .then(remoteMessage => {
-  //       if (
-  //         remoteMessage &&
-  //         Utils.loggedInUser?.token &&
-  //         remoteMessage.messageId !== handledNotificationRef.current
-  //       ) {
-  //         handledNotificationRef.current = remoteMessage.messageId;
-  //         Navigator.switchToRootTab(navigation, 'MESSAGES', {});
-  //       }
-  //     });
+//   useEffect(() => {
+//     // App killed → user taps notification (only once)
+//     messaging()
+//       .getInitialNotification()
+//       .then(remoteMessage => {
+//         if (
+//           remoteMessage &&
+//           Utils.loggedInUser?.token &&
+//           remoteMessage.messageId !== handledNotificationRef.current
+//         ) {
+//           handledNotificationRef.current = remoteMessage.messageId;
+//           Navigator.switchToRootTab(navigation, 'MESSAGES', {});
+//         }
+//       });
 
-  //   // App in background → user taps notification
-  //   const unsubscribeBackground = messaging().onNotificationOpenedApp(
-  //     remoteMessage => {
-  //       if (
-  //         remoteMessage &&
-  //         Utils.loggedInUser?.token &&
-  //         remoteMessage.messageId !== handledNotificationRef.current
-  //       ) {
-  //         handledNotificationRef.current = remoteMessage.messageId;
-  //         Navigator.switchToRootTab(navigation, 'MESSAGES', {});
-  //       }
-  //     },
-  //   );
+//     // App in background → user taps notification
+//     const unsubscribeBackground = messaging().onNotificationOpenedApp(
+//       remoteMessage => {
+//         if (
+//           remoteMessage &&
+//           Utils.loggedInUser?.token &&
+//           remoteMessage.messageId !== handledNotificationRef.current
+//         ) {
+//           handledNotificationRef.current = remoteMessage.messageId;
+//           Navigator.switchToRootTab(navigation, 'MESSAGES', {});
+//         }
+//       },
+//     );
 
-  //   // Foreground / background notification press using Notifee
-  //   const unsubscribeForegroundEvent = notifee.onForegroundEvent(
-  //     ({ type, detail }: any) => {
-  //       if (
-  //         type === EventType.PRESS &&
-  //         Utils.loggedInUser?.token &&
-  //         detail.notification?.id !== handledNotificationRef.current
-  //       ) {
-  //         handledNotificationRef.current = detail.notification.id;
-  //         Navigator.switchToRootTab(navigation, 'MESSAGES', {});
-  //       }
-  //     },
-  //   );
+//     // Foreground / background notification press using Notifee
+//     const unsubscribeForegroundEvent = notifee.onForegroundEvent(
+//       ({ type, detail }: any) => {
+//         if (
+//           type === EventType.PRESS &&
+//           Utils.loggedInUser?.token &&
+//           detail.notification?.id !== handledNotificationRef.current
+//         ) {
+//           handledNotificationRef.current = detail.notification.id;
+//           Navigator.switchToRootTab(navigation, 'MESSAGES', {});
+//         }
+//       },
+//     );
 
-  //   const unsubscribeBackgroundEvent = notifee.onBackgroundEvent(
-  //     async ({ type, detail }: any) => {
-  //       if (
-  //         type === EventType.PRESS &&
-  //         Utils.loggedInUser?.token &&
-  //         detail.notification?.id !== handledNotificationRef.current
-  //       ) {
-  //         handledNotificationRef.current = detail.notification.id;
-  //         Navigator.switchToRootTab(navigation, 'MESSAGES', {});
-  //       }
-  //     },
-  //   );
+//     const unsubscribeBackgroundEvent = notifee.onBackgroundEvent(
+//       async ({ type, detail }: any) => {
+//         if (
+//           type === EventType.PRESS &&
+//           Utils.loggedInUser?.token &&
+//           detail.notification?.id !== handledNotificationRef.current
+//         ) {
+//           handledNotificationRef.current = detail.notification.id;
+//           Navigator.switchToRootTab(navigation, 'MESSAGES', {});
+//         }
+//       },
+//     );
 
-  //   return () => {
-  //     unsubscribeBackground();
-  //     unsubscribeForegroundEvent();
-  //     unsubscribeBackgroundEvent;
-  //     handledNotificationRef.current = null; // clear on unmount
-  //   };
-  // }, [navigation]);
+//     return () => {
+//       unsubscribeBackground();
+//       unsubscribeForegroundEvent();
+//       unsubscribeBackgroundEvent;
+//       handledNotificationRef.current = null; // clear on unmount
+//     };
+//   }, [navigation]);
 
-  return (
-    <React.Suspense>
-      <Stack.Navigator id="RiderHomeStack">
-        <Stack.Screen
-          name="RiderBottomTabStack"
-          component={RiderBottomTabStack}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </React.Suspense>
-  );
-}
-
-function CustomerHomeStack() {
-  let navigation = useNavigation();
-
-  // const handledNotificationRef: any = useRef<string | null>(null);
-
-  // useEffect(() => {
-  //   // App killed → user taps notification (only once)
-  //   messaging()
-  //     .getInitialNotification()
-  //     .then(remoteMessage => {
-  //       if (
-  //         remoteMessage &&
-  //         Utils.loggedInUser?.token &&
-  //         remoteMessage.messageId !== handledNotificationRef.current
-  //       ) {
-  //         handledNotificationRef.current = remoteMessage.messageId;
-  //         Navigator.switchToRootTab(navigation, 'MESSAGES', {});
-  //       }
-  //     });
-
-  //   // App in background → user taps notification
-  //   const unsubscribeBackground = messaging().onNotificationOpenedApp(
-  //     remoteMessage => {
-  //       if (
-  //         remoteMessage &&
-  //         Utils.loggedInUser?.token &&
-  //         remoteMessage.messageId !== handledNotificationRef.current
-  //       ) {
-  //         handledNotificationRef.current = remoteMessage.messageId;
-  //         Navigator.switchToRootTab(navigation, 'MESSAGES', {});
-  //       }
-  //     },
-  //   );
-
-  //   // Foreground / background notification press using Notifee
-  //   const unsubscribeForegroundEvent = notifee.onForegroundEvent(
-  //     ({ type, detail }: any) => {
-  //       if (
-  //         type === EventType.PRESS &&
-  //         Utils.loggedInUser?.token &&
-  //         detail.notification?.id !== handledNotificationRef.current
-  //       ) {
-  //         handledNotificationRef.current = detail.notification.id;
-  //         Navigator.switchToRootTab(navigation, 'MESSAGES', {});
-  //       }
-  //     },
-  //   );
-
-  //   const unsubscribeBackgroundEvent = notifee.onBackgroundEvent(
-  //     async ({ type, detail }: any) => {
-  //       if (
-  //         type === EventType.PRESS &&
-  //         Utils.loggedInUser?.token &&
-  //         detail.notification?.id !== handledNotificationRef.current
-  //       ) {
-  //         handledNotificationRef.current = detail.notification.id;
-  //         Navigator.switchToRootTab(navigation, 'MESSAGES', {});
-  //       }
-  //     },
-  //   );
-
-  //   return () => {
-  //     unsubscribeBackground();
-  //     unsubscribeForegroundEvent();
-  //     unsubscribeBackgroundEvent;
-  //     handledNotificationRef.current = null; // clear on unmount
-  //   };
-  // }, [navigation]);
-
-  return (
-    <React.Suspense>
-      <Stack.Navigator id="CustomerHomeStack">
-        <Stack.Screen
-          name="CustomerBottomTabStack"
-          component={CustomerBottomTabStack}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </React.Suspense>
-  );
-}
+//   return (
+//     <React.Suspense>
+//       <Stack.Navigator id="UserHomeStack">
+//         <Stack.Screen
+//           name="BottomTabStack"
+//           component={BottomTabStack}
+//           options={{ headerShown: false }}
+//         />
+//       </Stack.Navigator>
+//     </React.Suspense>
+//   );
+// }
 
 export const checkApplicationPermission = async () => {
   if (Platform.OS === 'android') {
@@ -538,16 +387,11 @@ const MainComp = () => {
               options={{ headerShown: false }}
             />
 
-            <Stack.Screen
-              name="CustomerHomeStack"
-              component={CustomerHomeStack}
+            {/* <Stack.Screen
+              name="UserHomeStack"
+              component={UserHomeStack}
               options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="RiderHomeStack"
-              component={RiderHomeStack}
-              options={{ headerShown: false }}
-            />
+            /> */}
           </Stack.Navigator>
         </SafeAreaView>
       </GestureHandlerRootView>
