@@ -5,7 +5,10 @@ const images = {
     vector: require("./Vector.svg"),
     add_notes: require("./add_notes.svg"),
     backArrow: require("./backArrow.svg"),
-    check: require("./check.svg"),
+    home:require("./Home.webp"),
+    profile:require("./Profile.webp"),
+    calender:require("./calender.webp"),
+    
 };
 
 export default images;
