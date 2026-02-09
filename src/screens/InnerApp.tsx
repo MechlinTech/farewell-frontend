@@ -39,6 +39,7 @@ import RiderBookings from './rider/RiderBookings/RiderBookings';
 import { scale, verticalScale } from '@scale';
 import ImageComponent from '@components/ImageComponent';
 import { fontFamily, fontSize } from '@constants';
+import ContactUs from './shared/Contact/Contact';
 
 const Stack = createNativeStackNavigator();
 
@@ -253,6 +254,16 @@ function LoginStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
+        {/* <Stack.Screen
+          name="Contact"
+          component={ContactUs}
+          options={{ headerShown: false }}
+        /> */}
+          <Stack.Screen
+          name="AddVehicleDetails"
+          component={AddVehicleDetails}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
@@ -273,11 +284,7 @@ function LoginStack() {
           component={ForgotPasswordScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="AddVehicleDetails"
-          component={AddVehicleDetails}
-          options={{ headerShown: false }}
-        />
+      
       </Stack.Navigator>
     </React.Suspense>
   );
