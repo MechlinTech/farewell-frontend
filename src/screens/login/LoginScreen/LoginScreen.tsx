@@ -92,8 +92,7 @@ const LoginScreen = ({ navigation }: any) => {
   };
 
   return (
-    <Base backgroundColor={color.background} fullScreenMode={true}>
-      <StatusBar barStyle="dark-content" backgroundColor={color.background} />
+    <Base fullScreenMode={true}>
 
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.content}>
@@ -198,7 +197,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     paddingHorizontal: scale(20),
-    marginTop: verticalScale(65),
+     
   },
   headerContainer: {
     alignItems: 'flex-start',
