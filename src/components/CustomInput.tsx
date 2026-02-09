@@ -38,6 +38,7 @@ interface CustomInputProps {
   /* 🔴 NEW — Blur/Focus handlers */
   onBlur?: () => void;
   onFocus?: () => void;
+  onRightIconPress?: () => void;
 }
 
 export const CustomInput = ({
@@ -58,6 +59,7 @@ export const CustomInput = ({
   showError = true,
   onBlur,
   onFocus,
+  onRightIconPress
 }: CustomInputProps) => {
   const [isFocused, setIsFocused] = React.useState(false);
 
@@ -75,7 +77,7 @@ export const CustomInput = ({
               color: color.textSecondary,
               marginBottom: verticalScale(6),
             },
-            labelStyle,
+            labelStyle,styles.label
           ]}
         >
           {label}
@@ -116,8 +118,17 @@ export const CustomInput = ({
           />
         </View>
 
-        {children ??
-          (rightIcon && <View style={{ marginLeft: 8 }}>{rightIcon}</View>)}
+    {children ??
+  (rightIcon && (
+    <Pressable
+      onPress={onRightIconPress}
+      hitSlop={10}
+      style={{ marginLeft: scale(8) }}
+    >
+      {rightIcon}
+    </Pressable>
+  ))}
+
       </Pressable>
 
       {/* Error */}
@@ -136,7 +147,7 @@ const styles = StyleSheet.create({
     paddingVertical: verticalScale(10),
     paddingHorizontal: scale(12),
     backgroundColor: color.primaryMuted,
-    borderRadius: scale(10),
+    borderRadius: scale(5),
     minHeight: verticalScale(50),
     borderWidth: 1,
     borderColor: 'transparent',
@@ -153,4 +164,10 @@ const styles = StyleSheet.create({
     color: color.error,
     fontFamily: fontFamily.Medium,
   },
+  label:{
+    fontSize: fontSize.fontSize_13,
+    fontFamily: fontFamily.Medium,
+    color: color.textSecondary,
+    marginBottom: verticalScale(6),
+  }
 });

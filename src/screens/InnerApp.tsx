@@ -30,6 +30,10 @@ import Toast, { toastConfig } from 'components/showFlashMessage';
 import TermsAndConditionsScreen from './shared/TermsAndConditions/TermsAndConditions';
 import ChangePasswordScreen from './shared/ChangePassword/ChangePassword';
 import RiderSettings from './rider/RiderSettings/RiderSettings';
+import ContactUs from './shared/Contact/Contact';
+import DropOffPackage from './rider/DropoffPackage/DropOffPackage';
+import AddBankDetails from './shared/BankDetails/AddBankDetails';
+import InstantDelivery from './customer/InstantDelivery/InstantDelivery';
 
 const Stack = createNativeStackNavigator();
 
@@ -191,6 +195,22 @@ function LoginStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
+        {/* <Stack.Screen
+          name="AddBankDetails"
+          component={AddBankDetails}
+          options={{ headerShown: false }}
+        /> */}
+   <Stack.Screen
+      name="InstantDelivery"
+      component={InstantDelivery}
+      options={{ headerShown: false }}
+    />
+      <Stack.Screen
+      name="DropOffPackage"
+      component={DropOffPackage}
+      options={{ headerShown: false }}
+    />
+      
          <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
