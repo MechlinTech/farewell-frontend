@@ -1,54 +1,34 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   CommonActions,
   NavigationProp,
   ParamListBase,
 } from '@react-navigation/native';
 
-import { AysncStorageHelper } from '@AsyncStoreHelper';
-import { Utils } from '@Utils';
 
 /**
  * Common navigation helper class
  */
 export default class Navigator {
-  static setDashboardAsRoot(
+  static setCustomerDashboardAsRoot(
     navigation: NavigationProp<ParamListBase>,
     dashboardIndex?: number,
   ) {
     navigation.dispatch(
       CommonActions.reset({
         index: dashboardIndex ?? 0,
-        routes: [{ name: 'BottomTabStack' }],
+        routes: [{ name: 'CustomerBottomTabStack' }],
       }),
     );
   }
 
-  static setDashboardAsRootFromAppCategory(
+  static setRiderDashboardAsRoot(
     navigation: NavigationProp<ParamListBase>,
-    dashboardIndex: number,
-    tabName: string,
+    dashboardIndex?: number,
   ) {
     navigation.dispatch(
       CommonActions.reset({
-        index: dashboardIndex,
-        routes: [
-          {
-            name: 'BottomTabStack',
-            state: {
-              routes: [{ name: tabName }],
-            },
-          },
-        ],
-      }),
-    );
-  }
-
-  static showUserStack(navigation: NavigationProp<ParamListBase>) {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{ name: 'UserHomeStack' }],
+        index: dashboardIndex ?? 0,
+        routes: [{ name: 'RiderBottomTabStack' }],
       }),
     );
   }
@@ -85,9 +65,6 @@ export default class Navigator {
     navigation.navigate(routeName as never, params as never);
   }
 
-  /**
-   * Go back N screens in stack
-   */
   static goBackToScreen(
     navigation: any,
     howManyScreenBack: number,
@@ -99,69 +76,12 @@ export default class Navigator {
     navigation.popToTop();
   }
 
-  static
-    (
-      navigation: NavigationProp<ParamListBase>,
-      routeName: string,
-      params?: object,
-    ) {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{ name: routeName, params }],
-      }),
-    );
-  }
-
   static showModal(
     navigation: any,
     routeName: string,
     params?: object,
   ) {
     navigation.navigate(routeName as never, params as never);
-  }
-
-  static showMessage(
-    message: string,
-    navigation: any,
-    onViewed?: () => void,
-    subMessage?: string,
-  ) {
-    let viewed = false;
-
-    const data = {
-      message,
-      subMessage,
-      onViewed: async () => {
-        if (viewed) {
-          return;
-        }
-        viewed = true;
-
-        onViewed ? onViewed() : navigation.goBack();
-
-        if (Utils.loggedInUser?.logout) {
-          if (Utils.loggedInUser?.isRemember) {
-            const userData = { email: Utils.loggedInUser?.email };
-            Utils.loggedInUser = undefined;
-            await AsyncStorage.clear();
-            AysncStorageHelper.setUserData(userData);
-          } else {
-            await AsyncStorage.clear();
-            Utils.loggedInUser = undefined;
-          }
-
-          navigation.dispatch(
-            CommonActions.reset({
-              index: 0,
-              routes: [{ name: 'LoginStack' }],
-            }),
-          );
-        }
-      },
-    };
-
-    navigation.navigate('MessageSheet' as never, { data } as never);
   }
 
   static dismissModal(navigation: NavigationProp<ParamListBase>) {
@@ -176,16 +96,28 @@ export default class Navigator {
     navigation.closeDrawer();
   }
 
-  static switchToRootTab(
+  static switchToCustomerRootTab(
     navigation: any,
     screenName: string,
     params?: object,
   ) {
     navigation.navigate(
-      'BottomTabStack' as never,
+      'CustomerBottomTabStack' as never,
       { screen: screenName, params } as never,
     );
   }
+
+  static switchToRiderRootTab(
+    navigation: any,
+    screenName: string,
+    params?: object,
+  ) {
+    navigation.navigate(
+      'RiderBottomTabStack' as never,
+      { screen: screenName, params } as never,
+    );
+  }
+
   static resetStackScreen(
     navigation: any,
     routeName: string,
