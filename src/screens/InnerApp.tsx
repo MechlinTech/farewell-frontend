@@ -27,6 +27,7 @@ import SignupScreen from './login/SignupScreen/SignupScreen';
 import ForgotPasswordScreen from './login/ForgotPassword/ForgotPassword';
 import OTPVerificationScreen from './login/OTPVerificationScreen/OTPVerificationScreen';
 import AddVehicleDetails from './login/AddVehicleDetails/AddVehicleDetails';
+import PrivacyPolicyScreen from './shared/PrivacyPolicy/PrivacyPolicy';
 import Toast, { toastConfig } from 'components/showFlashMessage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import images from '@images';
@@ -39,7 +40,9 @@ import RiderBookings from './rider/RiderBookings/RiderBookings';
 import { scale, verticalScale } from '@scale';
 import ImageComponent from '@components/ImageComponent';
 import { fontFamily, fontSize } from '@constants';
-import ContactUs from './shared/Contact/Contact';
+import TermsAndConditionsScreen from './shared/TermsAndConditions/TermsAndConditions';
+import ChangePasswordScreen from './shared/ChangePassword/ChangePassword';
+import RiderSettings from './rider/RiderSettings/RiderSettings';
 
 const Stack = createNativeStackNavigator();
 
@@ -254,21 +257,17 @@ function LoginStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
-        {/* <Stack.Screen
-          name="Contact"
-          component={ContactUs}
-          options={{ headerShown: false }}
-        /> */}
-          <Stack.Screen
-          name="AddVehicleDetails"
-          component={AddVehicleDetails}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
+         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="AddVehicleDetails"
+          component={AddVehicleDetails}
+          options={{ headerShown: false }}
+        />
+       
         <Stack.Screen
           name="OTPVerificationScreen"
           component={OTPVerificationScreen}
@@ -284,7 +283,6 @@ function LoginStack() {
           component={ForgotPasswordScreen}
           options={{ headerShown: false }}
         />
-      
       </Stack.Navigator>
     </React.Suspense>
   );
@@ -470,7 +468,7 @@ export const checkApplicationPermission = async () => {
           }
         }
       }
-    } catch (error) {}
+    } catch (error) { }
   } else {
     try {
       const authStatus = await messaging().requestPermission();

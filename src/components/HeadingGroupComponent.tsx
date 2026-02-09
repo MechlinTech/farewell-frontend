@@ -7,7 +7,7 @@ import color from '@color';
 interface HeadingGroupProps {
   heading: string;
   headingStyle?: StyleProp<TextStyle>;
-  subheading?: React.ReactNode; // ✅ updated
+  subheading?: React.ReactNode;
   subheadingStyle?: StyleProp<TextStyle>;
 }
 

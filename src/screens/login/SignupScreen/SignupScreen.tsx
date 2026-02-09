@@ -14,7 +14,7 @@ import CustomButton from '@components/CustomButton';
 import color from '@color';
 
 import { scale, verticalScale } from '@scale';
-import Navigator from '@Navigator';
+import Navigator from '../../../utils/Navigator';
 import { fontFamily, fontSize } from '@constants';
 import HeadingGroup from '@components/HeadingGroupComponent';
 import UserRoleComponent from '@components/UserRoleComponent';
@@ -168,7 +168,6 @@ const SignupScreen = ({ navigation }: any) => {
       agreeToTerms,
       userRole,
     });
-    Navigator.pushScreen(navigation, 'OTPVerificationScreen');
   };
 
   const handleSignIn = () => {
@@ -220,7 +219,7 @@ const SignupScreen = ({ navigation }: any) => {
             <View style={styles.commoncontainer}>
               <View style={styles.signupFormContainer}>
                 <CustomInput
-                  placeholder="First name"
+                  placeholder="Jacob"
                   value={firstName}
                   onChangeText={t => {
                     setFirstName(t);

@@ -49,7 +49,7 @@ const DEFAULTS = {
   borderRadius: scale(12),
   textColor: colors.textContrast,
   fontSize: fontSize.fontSize_16,
-  fontFamily: fontFamily.Medium,
+  fontFamily: fontFamily.weight800,
   letterSpacing: 0,
   gradientColors: [colors.primary, colors.primary],
   gradientStart: { x: 0, y: 1 },
