@@ -14,7 +14,6 @@ import { scale, verticalScale } from '@scale';
 import images from '@images';
 import ImageComponent from './ImageComponent';
 import Icon from 'react-native-vector-icons/MaterialIcons';
- 
 interface Props {
   label?: string;
   imageData?: any;
