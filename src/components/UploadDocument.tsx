@@ -1,10 +1,8 @@
 import color from '@color';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  Image,
   Modal,
   Pressable,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -15,21 +13,34 @@ import { fontFamily, fontSize } from '@constants';
 import { scale, verticalScale } from '@scale';
 import images from '@images';
 import ImageComponent from './ImageComponent';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 interface Props {
   label?: string;
   imageData?: any;
+  error?: string;
   onImageSelected: (image: any) => void;
+  mainStyle?: any;
 }
 
 const UploadDocument: React.FC<Props> = ({
   label,
   imageData,
+  error,
   onImageSelected,
+  mainStyle,
 }) => {
   const [image, setImage] = useState<any>(imageData);
   const [showSheet, setShowSheet] = useState(false);
 
+  /* 🔁 Sync parent image */
+  useEffect(() => {
+    if (imageData) {
+      setImage(imageData);
+    }
+  }, [imageData]);
+
+  /* 📸 Camera */
   const openCamera = () => {
     ImagePicker.openCamera({
       cropping: true,
@@ -41,6 +52,7 @@ const UploadDocument: React.FC<Props> = ({
     });
   };
 
+  /* 🖼 Gallery */
   const openGallery = () => {
     ImagePicker.openPicker({
       cropping: true,
@@ -52,21 +64,50 @@ const UploadDocument: React.FC<Props> = ({
     });
   };
 
+  /* ❌ Delete Image */
+  const removeImage = () => {
+    setImage(null);
+    onImageSelected(null); // reset parent state
+  };
+
+  /* 🚫 Prevent opening picker if image exists */
+  const handleUploadPress = () => {
+    if (image?.path) return; // do nothing
+    setShowSheet(true);
+  };
+
   return (
-    <View style={{}}>
+    <View style={mainStyle}>
+      {/* Label */}
       {label && <Text style={styles.label}>{label}</Text>}
 
+      {/* Upload Box */}
       <TouchableOpacity
-        style={styles.uploadBox}
-        onPress={() => setShowSheet(true)}
+        activeOpacity={0.8}
+        style={[styles.uploadBox, error && { borderColor: color.error }]}
+        onPress={handleUploadPress}
       >
-        {
-          <ImageComponent
-            source={image?.path ?? images.add_notes}
-            style={styles.preview}
-          />
-        }
+        {/* Preview / Placeholder */}
+        <ImageComponent
+          source={image?.path ? { uri: image.path } : images.add_notes}
+          style={[styles.preview, image?.path && styles.fullImage]}
+          resizeMode="cover"
+        />
+
+        {/* ❌ Delete Icon */}
+        {image?.path && (
+          <TouchableOpacity
+            style={styles.deleteIcon}
+            onPress={removeImage}
+            activeOpacity={0.8}
+          >
+            <Icon name="close" size={18} color={color.error} />
+          </TouchableOpacity>
+        )}
       </TouchableOpacity>
+
+      {/* Error */}
+      {!!error && <Text style={styles.errorText}>{error}</Text>}
 
       {/* Bottom Sheet */}
       <Modal
@@ -110,6 +151,7 @@ const styles = StyleSheet.create({
     color: color.text,
     marginBottom: verticalScale(18),
   },
+
   uploadBox: {
     height: verticalScale(86),
     borderRadius: scale(10),
@@ -120,33 +162,64 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
+    width: '100%',
   },
-  placeholder: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+
   preview: {
     width: scale(32),
     height: verticalScale(32),
   },
+
+  fullImage: {
+    height: verticalScale(86),
+    width: scale(328),
+  },
+
+  /* ❌ Delete Icon */
+  deleteIcon: {
+    position: 'absolute',
+    top: verticalScale(6),
+    right: scale(6),
+    backgroundColor: color.background,
+    borderRadius: scale(20),
+    padding: scale(4),
+    elevation: 3,
+  },
+
+  deleteImage: {
+    width: scale(16),
+    height: scale(16),
+    tintColor: color.error,
+  },
+
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'flex-end',
   },
+
   modalBox: {
     backgroundColor: color.background,
     padding: scale(20),
     borderTopLeftRadius: scale(16),
     borderTopRightRadius: scale(16),
   },
+
   option: {
     paddingVertical: verticalScale(14),
     alignItems: 'center',
   },
+
   optionText: {
     fontSize: fontSize.fontSize_16,
     fontFamily: fontFamily.Heavy,
     color: color.textSecondary,
+  },
+
+  errorText: {
+    color: color.error,
+    fontSize: fontSize.fontSize_12,
+    fontFamily: fontFamily.Medium,
+    marginTop: verticalScale(8),
   },
 });
