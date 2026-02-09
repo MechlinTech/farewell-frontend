@@ -259,11 +259,7 @@ function LoginStack() {
           component={ContactUs}
           options={{ headerShown: false }}
         /> */}
-          <Stack.Screen
-          name="AddVehicleDetails"
-          component={AddVehicleDetails}
-          options={{ headerShown: false }}
-        />
+
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
@@ -284,7 +280,11 @@ function LoginStack() {
           component={ForgotPasswordScreen}
           options={{ headerShown: false }}
         />
-      
+        <Stack.Screen
+          name="AddVehicleDetails"
+          component={AddVehicleDetails}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </React.Suspense>
   );
