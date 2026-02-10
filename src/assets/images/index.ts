@@ -15,6 +15,11 @@ const images = {
     forwardArrow: require("./forwardArrow.svg"),
     lockOpen: require("./lock_open.svg"),
     settingsBell: require("./settingsBell.svg"),
+    camera: require("./camera_alt_24px.svg"),
+    downarrow: require("./arrow_forward_ios.svg"),
+    location: require("./location_on.svg"),
+    ellipse: require("./Ellipse 122.svg"),
+    small: require("./Small.svg"),
 };
 
 export default images;

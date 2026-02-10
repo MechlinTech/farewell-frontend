@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         paddingHorizontal: scale(20),
-        marginTop: verticalScale(65),
+         
     },
     headerContainer: {
         alignItems: 'flex-start',
