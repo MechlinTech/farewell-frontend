@@ -73,7 +73,7 @@ const LoginScreen = ({ navigation }: any) => {
   };
 
   const handleLogin = () => {
-    Navigator.pushScreen(navigation, 'AddVehicleDetails');
+    Navigator.resetStackScreen(navigation, 'RiderHomeStack');
 
     if (!validateAll()) {
       // showFlashMessage('Please fill all required fields');
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     paddingHorizontal: scale(20),
-     
+
   },
   headerContainer: {
     alignItems: 'flex-start',

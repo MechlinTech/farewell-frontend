@@ -8,14 +8,14 @@ import {
 } from 'react-native';
 import TranslucentStatusBar from './TranslucentStatusBar';
 import color from '@color';
- 
+
 export interface Props {
   container_style?: any;
   children?: React.ReactNode;
   backgroundColor?: string;
   fullScreenMode?: boolean;
 }
- 
+
 const BaseWrapper: React.FC<Props> = ({
   container_style,
   children,
@@ -28,8 +28,8 @@ const BaseWrapper: React.FC<Props> = ({
    * Android fullscreen → remove top
    * iOS fullscreen → KEEP top
    */
-  const edges: any =  ['top', 'left', 'right', 'bottom'];
- 
+  const edges: any = ['top', 'left', 'right', 'bottom'];
+
   return (
     <SafeAreaView
       edges={edges}
@@ -38,8 +38,8 @@ const BaseWrapper: React.FC<Props> = ({
         { backgroundColor: backgroundColor },
       ]}
     >
-    
- 
+
+
       <View style={styles.contentContainer}>
         <TranslucentStatusBar
           container_style={container_style}
@@ -55,7 +55,7 @@ const BaseWrapper: React.FC<Props> = ({
     </SafeAreaView>
   );
 };
- 
+
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
- 
+
 export default BaseWrapper;
- 
- 
+
+

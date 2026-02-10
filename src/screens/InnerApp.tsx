@@ -17,7 +17,7 @@ import messaging from '@react-native-firebase/messaging';
 
 import color from '@color';
 import { AysncStorageHelper } from '@AsyncStoreHelper';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 import { RootState } from '@redux/store';
@@ -66,15 +66,15 @@ const CustomerScreenIcons: Record<string, { active: any }> = {
 
 //Define screens & map icons explicitly
 const CUSTOMERTABS = [
-  { key: 'CustomerHome', name: 'CUSTOMERHOME', component: CustomerHome },
+  { key: 'CustomerHome', name: 'Home', component: CustomerHome },
   {
     key: 'CustomerHistory',
-    name: 'CUSTOMERHISTORY',
+    name: 'History',
     component: CustomerHistory,
   },
   {
     key: 'CustomerProfile',
-    name: 'CUSTOMERPROFILE',
+    name: 'Profile',
     component: CustomerProfile,
   },
 ];
@@ -92,33 +92,41 @@ function CustomerBottomTabStack() {
   );
 }
 
-function CustomCustomerBottomTab({ state, descriptors, navigation }: any) {
+
+function CustomCustomerBottomTab({ state, navigation }: any) {
+  const insets = useSafeAreaInsets();
+
   return (
     <View
       style={{
         flexDirection: 'row',
         backgroundColor: color.background,
+
+        // ✅ Real height
         height:
-          Platform.OS == 'android' ? verticalScale(64) : verticalScale(80),
+          Platform.OS === 'android'
+            ? verticalScale(80)
+            : verticalScale(80),
+
         justifyContent: 'space-around',
         alignItems: 'center',
-        // paddingBottom: verticalScale(10),
         elevation: 5,
         shadowColor: '#000',
         shadowOpacity: 0.05,
         shadowOffset: { width: 0, height: -2 },
         shadowRadius: 5,
-        paddingHorizontal: scale(5),
       }}
     >
+
       {state.routes.map((route: any, index: number) => {
         const isFocused = state.index === index;
 
         // Map the route name to the icon using the TABS array
         const tabConfig = CUSTOMERTABS.find(tab => tab.name === route.name);
         const tabIcon: any = tabConfig
-          ? CustomerScreenIcons[tabConfig.name]
+          ? CustomerScreenIcons[tabConfig.key.toUpperCase()]
           : null;
+
 
         const onPress = () => {
           if (!isFocused) navigation.navigate(route.name);
@@ -136,18 +144,18 @@ function CustomCustomerBottomTab({ state, descriptors, navigation }: any) {
               source={tabIcon.active}
               resizeMode="contain"
               style={{
-                width: scale(24),
-                height: scale(24),
+                width: scale(18),
+                height: verticalScale(18),
               }}
-              tintColor={isFocused ? color.primaryMuted : color.tabInactive}
+              tintColor={isFocused ? color.primary : color.tabInactive}
             />
             <Text
               style={{
                 color: isFocused ? color.textContrast : color.tabInactive,
-                fontSize: fontSize.fontSize_12,
+                fontSize: fontSize.fontSize_10,
                 fontFamily: fontFamily.Medium,
                 fontWeight: isFocused ? 'bold' : 'normal',
-                marginTop: verticalScale(3),
+                marginTop: verticalScale(12),
               }}
             >
               {route.name}
@@ -159,7 +167,10 @@ function CustomCustomerBottomTab({ state, descriptors, navigation }: any) {
   );
 }
 
-const RiderScreenIcons: Record<string, { active: any }> = {
+const RiderScreenIcons: Record<
+  string,
+  { active: any }
+> = {
   RIDERHOME: {
     active: images.home,
   },
@@ -171,91 +182,153 @@ const RiderScreenIcons: Record<string, { active: any }> = {
   },
 };
 
+
 const RiderTabs = [
-  { key: 'RiderHome', name: 'RIDERHOME', component: RiderHome },
-  { key: 'RiderBookings', name: 'RIDERBOOKINGS', component: RiderBookings },
-  { key: 'RiderProfile', name: 'RIDERPROFILE', component: RiderProfile },
+  {
+    key: 'RiderHome',
+    name: 'RIDERHOME',
+    component: RiderHome,
+    label: 'Home',
+  },
+  {
+    key: 'RiderBookings',
+    name: 'RIDERBOOKINGS',
+    component: RiderBookings,
+    label: 'Bookings',
+  },
+  {
+    key: 'RiderProfile',
+    name: 'RIDERPROFILE',
+    component: RiderProfile,
+    label: 'Profile',
+  },
 ];
+
 
 function RiderBottomTabStack() {
   return (
     <Tab.Navigator
       screenOptions={{ headerShown: false }}
-      tabBar={(props: any) => <CustomRiderBottomTab {...props} />}
+      tabBar={(props: any) => (
+        <CustomRiderBottomTab {...props} />
+      )}
     >
       {RiderTabs.map(tab => (
-        <Tab.Screen key={tab.key} name={tab.name} component={tab.component} />
+        <Tab.Screen
+          key={tab.key}
+          name={tab.name}
+          component={tab.component}
+        />
       ))}
     </Tab.Navigator>
   );
 }
 
-function CustomRiderBottomTab({ state, descriptors, navigation }: any) {
+
+function CustomRiderBottomTab({
+  state,
+  navigation,
+}: any) {
+  const insets = useSafeAreaInsets();
+
   return (
     <View
       style={{
         flexDirection: 'row',
         backgroundColor: color.background,
+
         height:
-          Platform.OS == 'android' ? verticalScale(64) : verticalScale(80),
+          Platform.OS === 'android'
+            ? verticalScale(80)
+            : verticalScale(80),
+
         justifyContent: 'space-around',
         alignItems: 'center',
-        // paddingBottom: verticalScale(10),
+
         elevation: 5,
         shadowColor: '#000',
         shadowOpacity: 0.05,
         shadowOffset: { width: 0, height: -2 },
         shadowRadius: 5,
-        paddingHorizontal: scale(5),
       }}
     >
-      {state.routes.map((route: any, index: number) => {
-        const isFocused = state.index === index;
+      {state.routes.map(
+        (route: any, index: number) => {
+          const isFocused =
+            state.index === index;
 
-        // Map the route name to the icon using the TABS array
-        const tabConfig = RiderTabs.find(tab => tab.name === route.name);
-        const tabIcon: any = tabConfig
-          ? RiderScreenIcons[tabConfig.name]
-          : null;
+          // 🔹 Get tab config
+          const tabConfig =
+            RiderTabs.find(
+              tab => tab.name === route.name
+            );
 
-        const onPress = () => {
-          if (!isFocused) navigation.navigate(route.name);
-        };
+          // 🔹 Get icon
+          const tabIcon = tabConfig
+            ? RiderScreenIcons[
+            tabConfig.name
+            ]
+            : null;
 
-        console.log('data3132231', Utils.notification_count);
-        return (
-          <TouchableOpacity
-            key={route.key}
-            onPress={onPress}
-            style={{ justifyContent: 'center', alignItems: 'center' }}
-            activeOpacity={0.7}
-          >
-            <ImageComponent
-              source={tabIcon.active}
-              resizeMode="contain"
+          const onPress = () => {
+            if (!isFocused)
+              navigation.navigate(
+                route.name
+              );
+          };
+
+          return (
+            <TouchableOpacity
+              key={route.key}
+              onPress={onPress}
+              activeOpacity={0.7}
               style={{
-                width: scale(24),
-                height: scale(24),
-              }}
-              tintColor={isFocused ? color.primaryMuted : color.tabInactive}
-            />
-            <Text
-              style={{
-                color: isFocused ? color.textContrast : color.tabInactive,
-                fontSize: fontSize.fontSize_12,
-                fontFamily: fontFamily.Medium,
-                fontWeight: isFocused ? 'bold' : 'normal',
-                marginTop: verticalScale(3),
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
-              {route.name}
-            </Text>
-          </TouchableOpacity>
-        );
-      })}
+              {/* Icon */}
+              <ImageComponent
+                source={tabIcon?.active}
+                resizeMode="contain"
+                style={{
+                  width: scale(18),
+                  height: verticalScale(18),
+                }}
+                tintColor={
+                  isFocused
+                    ? color.primary
+                    : color.tabInactive
+                }
+              />
+
+              {/* Label */}
+              <Text
+                style={{
+                  color: isFocused
+                    ? color.textContrast
+                    : color.tabInactive,
+                  fontSize:
+                    fontSize.fontSize_10,
+                  fontFamily:
+                    fontFamily.Medium,
+                  fontWeight: isFocused
+                    ? 'bold'
+                    : 'normal',
+                  marginTop:
+                    verticalScale(12),
+                }}
+              >
+                {tabConfig?.label}
+              </Text>
+            </TouchableOpacity>
+          );
+        }
+      )}
     </View>
   );
 }
+
 
 function LoginStack() {
   return (
@@ -276,7 +349,7 @@ function LoginStack() {
       component={DropOffPackage}
       options={{ headerShown: false }}
     />
-      
+
          <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
@@ -287,7 +360,7 @@ function LoginStack() {
           component={AddVehicleDetails}
           options={{ headerShown: false }}
         />
-       
+
         <Stack.Screen
           name="OTPVerificationScreen"
           component={OTPVerificationScreen}

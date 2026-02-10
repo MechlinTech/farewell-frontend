@@ -1,273 +1,329 @@
 import * as React from 'react';
-import { useState } from 'react';
 import {
-  View,
-  Text,
-  StatusBar,
   ScrollView,
   StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
 } from 'react-native';
-import Base from '../../../components/Base';
-import CustomInput from '../../../components/CustomInput';
-import CustomButton from '../../../components/CustomButton';
-import color from '@color';
 
-import { scale, verticalScale } from '@scale';
-import Navigator from '../../../utils/Navigator';
+import color from '@color';
+import BaseWrapper from '@components/Base';
 import { fontFamily, fontSize } from '@constants';
-import HeadingGroup from 'components/HeadingGroupComponent';
-import UserRoleComponent from 'components/UserRoleComponent';
-import images from '@images';
-import { showFlashMessage } from 'components/showFlashMessage';
+import { scale, verticalScale } from '@scale';
+import RiderBookingCard from './components/RiderBookingCard';
 
 const RiderBookings = ({ navigation }: any) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [userRole, setUserRole] = React.useState<string>('customer');
+  /* ---------------- ACTIVE TAB ---------------- */
 
-  const [errors, setErrors] = useState<any>({});
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const [activeTab, setActiveTab] =
+    React.useState<'IN_PROGRESS' | 'COMPLETED'>(
+      'IN_PROGRESS'
+    );
 
-  /* 🔴 Field validators */
+  /* ---------------- IN PROGRESS STATE ---------------- */
 
-const validateEmail = () => {
-  const trimmedEmail = email.trim();
+  const [inProgressPage, setInProgressPage] =
+    React.useState(1);
 
-  if (!trimmedEmail)
-    setErrors((p: any) => ({ ...p, email: 'Email is required' }));
-  else if (!emailRegex.test(trimmedEmail))
-    setErrors((p: any) => ({
-      ...p,
-      email: 'Enter a valid email address',
-    }));
-};
+  const [inProgressList, setInProgressList] =
+    React.useState([
+      {
+        id: 1,
+        bookingId: 'Booking1234',
+        location: 'California - FedEx',
+        time: 'Today, 2:43pm',
+        status: 'IN_PROGRESS',
+        address: 'Abc street, California',
+        pickedAt: '4:00pm',
+      },
+      {
+        id: 2,
+        bookingId: 'Booking2222',
+        location: 'California - FedEx',
+        time: 'Today, 2:43pm',
+        status: 'NOT_STARTED',
+      },
+    ]);
 
-const validatePassword = () => {
-  if (!password)
-    setErrors((p: any) => ({ ...p, password: 'Password is required' }));
-  else if (password.includes(' '))
-    setErrors((p: any) => ({
-      ...p,
-      password: 'Password cannot contain spaces',
-    }));
-  else if (password.length < 8 || password.length > 16)
-    setErrors((p: any) => ({
-      ...p,
-      password: 'Password must be 8–16 characters',
-    }));
-};
+  /* ---------------- COMPLETED STATE ---------------- */
 
+  const [completedPage, setCompletedPage] =
+    React.useState(1);
 
+  const [completedList, setCompletedList] =
+    React.useState([
+      {
+        id: 101,
+        bookingId: 'Booking9999',
+        location: 'California - FedEx',
+        time: '12 Jan 2020, 2:43pm',
+        status: 'COMPLETED',
+      },
+    ]);
 
-  /* 🔴 Submit validation */
+  /* ---------------- PAGINATION ---------------- */
 
-  const validateAll = () => {
-  let err: any = {};
+  const loadMoreInProgress = () => {
+    console.log(
+      'InProgress page:',
+      inProgressPage
+    );
 
-  const trimmedEmail = email.trim();
-  const trimmedPassword = password.trim();
+    setInProgressPage(prev => prev + 1);
 
-  if (!trimmedEmail) err.email = 'Email is required';
-  else if (!emailRegex.test(trimmedEmail))
-    err.email = 'Enter a valid email address';
-
- if (!password) err.password = 'Password is required';
-else if (password.includes(' '))
-  err.password = 'Password cannot contain spaces';
-else if (password.length < 8 || password.length > 16)
-  err.password = 'Password must be 8–16 characters';
-
-
-  setErrors(err);
-  return Object.keys(err).length === 0;
-};
-
-
-  const handleLogin = () => {
-    if (!validateAll()) {
-      // showFlashMessage('Please fill all required fields');
-      return;
-    }
-
-    console.log('Login pressed', { email, password, userRole });
+    setInProgressList(prev => [
+      ...prev,
+      {
+        id: Math.random(),
+        bookingId: 'BookingNEW',
+        location: 'Texas - DHL',
+        time: 'Tomorrow',
+        status: 'IN_PROGRESS',
+      },
+    ]);
   };
 
-  const handleForgotPassword = () => {
-    Navigator.pushScreen(navigation, 'ForgotPasswordScreen');
+  const loadMoreCompleted = () => {
+    console.log(
+      'Completed page:',
+      completedPage
+    );
+
+    setCompletedPage(prev => prev + 1);
+
+    setCompletedList(prev => [
+      ...prev,
+      {
+        id: Math.random(),
+        bookingId: 'BookingDONE',
+        location: 'New York',
+        time: 'Yesterday',
+        status: 'COMPLETED',
+      },
+    ]);
   };
 
-  const handleSignUp = () => {
-    Navigator.pushScreen(navigation, 'SignupScreen');
-  };
+  /* ---------------- TABS ---------------- */
+
+  const TabSection = () => (
+    <View style={styles.tabContainer}>
+      {['IN_PROGRESS', 'COMPLETED'].map(tab => {
+        const isActive = activeTab === tab;
+
+        return (
+          <TouchableOpacity
+            key={tab}
+            style={[
+              styles.tabBtn,
+              isActive && styles.activeTab,
+            ]}
+            onPress={() =>
+              setActiveTab(tab as any)
+            }
+          >
+            <Text
+              style={[
+                styles.tabText,
+                isActive &&
+                styles.activeTabText,
+              ]}
+            >
+              {tab === 'IN_PROGRESS'
+                ? 'In Progress'
+                : 'Completed'}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
+    </View>
+  );
+
+  /* ---------------- RENDER ---------------- */
 
   return (
-    <Base backgroundColor={color.background} fullScreenMode={true}>
-      <StatusBar barStyle="dark-content" backgroundColor={color.background} />
+    <BaseWrapper
+      backgroundColor={color.background}
+      fullScreenMode
+    >
+      <ScrollView
+        style={styles.container}
+        showsVerticalScrollIndicator={
+          false
+        }
+        onScrollEndDrag={() => {
+          if (activeTab === 'IN_PROGRESS') {
+            loadMoreInProgress();
+          } else {
+            loadMoreCompleted();
+          }
+        }}
+      >
+        <Text style={styles.title}>
+          Deliveries
+        </Text>
 
-      <ScrollView style={{ flex: 1 }}>
-        <View style={styles.content}>
-          {/* Header */}
-          <View style={styles.headerContainer}>
-            <HeadingGroup
-              heading="Let's get you Login!"
-              subheading="Enter your information below"
-            />
-          </View>
+        <TabSection />
 
-          <View style={styles.userRoleContainer}>
-            <UserRoleComponent
-              imageSource={images.package}
-              title="Customer"
-              onPress={() => setUserRole('customer')}
-              selected={userRole === 'customer'}
-            />
-            <UserRoleComponent
-              imageSource={images.bike}
-              title="Rider"
-              onPress={() => setUserRole('rider')}
-              selected={userRole === 'rider'}
-            />
-          </View>
-
-          {/* Form */}
-          <View style={styles.formContainer}>
-            <View style={styles.commoncontainer}>
-              <CustomInput
-                placeholder="Enter your Email id"
-                value={email}
-                onChangeText={text => {
-                  setEmail(text);
-                  setErrors((p: any) => ({ ...p, email: '' }));
-                }}
-                onBlur={validateEmail}
-                error={errors.email}
-                containerStyle={styles.inputContainer}
-                fieldStyle={{ borderRadius: scale(5) }}
-              />
-
-              <CustomInput
-                placeholder="Password"
-                value={password}
-                onChangeText={text => {
-                  setPassword(text);
-                  setErrors((p: any) => ({ ...p, password: '' }));
-                }}
-                onBlur={validatePassword}
-                error={errors.password}
-                containerStyle={styles.inputContainer}
-                fieldStyle={{ borderRadius: scale(5) }}
-              />
+        {/* 🔹 IN PROGRESS LIST */}
+        {activeTab === 'IN_PROGRESS' &&
+          (
+            <View style={{ marginTop: verticalScale(28) }}>
+              {inProgressList.map((item: any) => (
+                <RiderBookingCard
+                  key={item.id}
+                  item={item}
+                />))}
             </View>
+          )}
 
-            {/* Forgot Password */}
-            <View style={styles.forgotPasswordContainer}>
-              <Text
-                style={styles.forgotPasswordText}
-                onPress={handleForgotPassword}
-              >
-                Forgot Password?
-              </Text>
-            </View>
-
-            {/* Login Button */}
-            <CustomButton
-              title="Get Started"
-              onPress={handleLogin}
-              containerStyle={styles.loginButton}
-              textStyle={styles.loginButtonText}
-            />
+        {/* 🔹 COMPLETED LIST */}
+        {activeTab === 'COMPLETED' &&
+          <View style={{ marginTop: verticalScale(36) }}>
+            {completedList.map((item: any) => (
+              <RiderBookingCard
+                key={item.id}
+                item={item}
+              />))}
           </View>
-
-          {/* Sign Up */}
-          <View style={styles.signUpContainer}>
-            <Text style={styles.signUpText}>Need an account? </Text>
-            <Text style={styles.signUpLink} onPress={handleSignUp}>
-              Sign up
-            </Text>
-          </View>
-        </View>
+        }
       </ScrollView>
-    </Base>
-  );
+    </BaseWrapper >
+  )
 };
 
-
+export default RiderBookings
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
-    // paddingTop: verticalScale(70),
-    //  paddingHorizontal: scale(20),
+    paddingHorizontal: scale(26),
   },
-  userRoleContainer: {
+
+  title: {
+    fontSize: fontSize.fontSize_20,
+    fontFamily: fontFamily.Heavy,
+    marginTop: verticalScale(26),
+    color: color.textMain,
+    lineHeight: verticalScale(20)
+  },
+
+  /* Tabs */
+  tabContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    gap: scale(31),
-    marginTop: verticalScale(22),
+    backgroundColor: color.primaryMuted,
+    borderRadius: scale(10),
+    marginTop: verticalScale(32),
+
   },
-  content: {
+
+  tabBtn: {
     flex: 1,
-    paddingHorizontal: scale(20),
-     
+    borderRadius: scale(10),
+    alignItems: 'center',
+    height: verticalScale(56),
+    justifyContent: 'center',
   },
-  headerContainer: {
-    alignItems: 'flex-start',
-    marginBottom: verticalScale(6),
-    marginTop: verticalScale(14),
+
+  activeTab: {
+    backgroundColor: color.primary,
   },
-  commoncontainer: {
-    gap: verticalScale(20),
-    marginTop: verticalScale(31),
-  },
-  formContainer: {
-    marginBottom: verticalScale(30),
-  },
-  inputContainer: {
-    marginBottom: verticalScale(1),
-    // paddingTop: verticalScale(10),
-  },
-  forgotPasswordContainer: {
-    alignItems: 'flex-end',
-    marginBottom: verticalScale(20),
-    marginTop: verticalScale(16),
-  },
-  forgotPasswordText: {
-    fontSize: fontSize.fontSize_14,
-    color: color.text,
-    fontFamily: fontFamily.Medium,
-  },
-  loginButton: {
-    marginBottom: verticalScale(4),
-    height: verticalScale(55),
-    marginTop: verticalScale(10),
-  },
-  loginButtonText: {
-    color: color.textContrast,
+
+  tabText: {
     fontSize: fontSize.fontSize_16,
+    color: color.deliveryInactive,
     fontFamily: fontFamily.Heavy,
   },
-  signUpContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    //  marginTop: verticalScale(1),
-    marginVertical: verticalScale(1),
 
-    // marginTop: 'auto',
-    // paddingBottom: verticalScale(20),
+  activeTabText: {
+    color: color.textContrast,
   },
-  signUpText: {
-    fontSize: fontSize.fontSize_14,
-    color: color.textSecondary,
-    fontFamily: fontFamily.weight400,
+
+  /* Card */
+  card: {
+    marginTop: verticalScale(18),
+    paddingBottom: verticalScale(14),
+    borderBottomWidth: 1,
+    borderColor: color.border,
   },
-  signUpLink: {
+
+  expandedCard: {
+    backgroundColor: '#F7F9FB',
+    borderRadius: 12,
+    padding: scale(12),
+    borderWidth: 1,
+    borderColor: color.border,
+  },
+
+  cardHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  bookingId: {
     fontSize: fontSize.fontSize_14,
+    fontFamily: fontFamily.weight600,
+    color: color.textMain,
+  },
+
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 4,
+  },
+
+  icon: {
+    width: scale(12),
+    height: scale(12),
+    marginRight: 4,
+  },
+
+  location: {
+    fontSize: fontSize.fontSize_12,
     color: color.textAccent,
-    fontFamily: fontFamily.weight800,
-    marginLeft: scale(4),
+  },
+
+  time: {
+    fontSize: fontSize.fontSize_10,
+    color: color.textSecondary,
+    marginTop: 2,
+  },
+
+  badge: {
+    backgroundColor: '#D6E6F5',
+    paddingHorizontal: scale(8),
+    paddingVertical: 4,
+    borderRadius: 6,
+  },
+
+  completedBadge: {
+    backgroundColor: '#DFF3E6',
+  },
+
+  pendingBadge: {
+    backgroundColor: '#FFE7A3',
+  },
+
+  badgeText: {
+    fontSize: fontSize.fontSize_10,
+    fontFamily: fontFamily.weight500,
+  },
+
+  expandedBox: {
+    borderTopWidth: 1,
+    borderColor: color.border,
+    marginTop: verticalScale(10),
+    paddingTop: verticalScale(10),
+  },
+
+  metaText: {
+    fontSize: fontSize.fontSize_11,
+    color: color.textSecondary,
+  },
+
+  waitingText: {
+    marginTop: verticalScale(6),
+    fontSize: fontSize.fontSize_11,
+    color: color.textSecondary,
   },
 });
-
-export default RiderBookings;
