@@ -19,7 +19,6 @@ const images = {
     bookingLogo: require("./bookingLogo.svg"),
     camera: require("./camera_alt_24px.svg"),
     downarrow: require("./arrow_forward_ios.svg"),
-    location: require("./location_on.svg"),
     ellipse: require("./Ellipse 122.svg"),
     small: require("./Small.svg"),
 };
