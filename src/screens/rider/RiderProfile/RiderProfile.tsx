@@ -30,57 +30,57 @@ const RiderProfile = ({ navigation }: any) => {
 
   /* 🔴 Field validators */
 
-const validateEmail = () => {
-  const trimmedEmail = email.trim();
+  const validateEmail = () => {
+    const trimmedEmail = email.trim();
 
-  if (!trimmedEmail)
-    setErrors((p: any) => ({ ...p, email: 'Email is required' }));
-  else if (!emailRegex.test(trimmedEmail))
-    setErrors((p: any) => ({
-      ...p,
-      email: 'Enter a valid email address',
-    }));
-};
+    if (!trimmedEmail)
+      setErrors((p: any) => ({ ...p, email: 'Email is required' }));
+    else if (!emailRegex.test(trimmedEmail))
+      setErrors((p: any) => ({
+        ...p,
+        email: 'Enter a valid email address',
+      }));
+  };
 
-const validatePassword = () => {
-  if (!password)
-    setErrors((p: any) => ({ ...p, password: 'Password is required' }));
-  else if (password.includes(' '))
-    setErrors((p: any) => ({
-      ...p,
-      password: 'Password cannot contain spaces',
-    }));
-  else if (password.length < 8 || password.length > 16)
-    setErrors((p: any) => ({
-      ...p,
-      password: 'Password must be 8–16 characters',
-    }));
-};
+  const validatePassword = () => {
+    if (!password)
+      setErrors((p: any) => ({ ...p, password: 'Password is required' }));
+    else if (password.includes(' '))
+      setErrors((p: any) => ({
+        ...p,
+        password: 'Password cannot contain spaces',
+      }));
+    else if (password.length < 8 || password.length > 16)
+      setErrors((p: any) => ({
+        ...p,
+        password: 'Password must be 8–16 characters',
+      }));
+  };
 
 
 
   /* 🔴 Submit validation */
 
   const validateAll = () => {
-  let err: any = {};
+    let err: any = {};
 
-  const trimmedEmail = email.trim();
-  const trimmedPassword = password.trim();
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
 
-  if (!trimmedEmail) err.email = 'Email is required';
-  else if (!emailRegex.test(trimmedEmail))
-    err.email = 'Enter a valid email address';
+    if (!trimmedEmail) err.email = 'Email is required';
+    else if (!emailRegex.test(trimmedEmail))
+      err.email = 'Enter a valid email address';
 
- if (!password) err.password = 'Password is required';
-else if (password.includes(' '))
-  err.password = 'Password cannot contain spaces';
-else if (password.length < 8 || password.length > 16)
-  err.password = 'Password must be 8–16 characters';
+    if (!password) err.password = 'Password is required';
+    else if (password.includes(' '))
+      err.password = 'Password cannot contain spaces';
+    else if (password.length < 8 || password.length > 16)
+      err.password = 'Password must be 8–16 characters';
 
 
-  setErrors(err);
-  return Object.keys(err).length === 0;
-};
+    setErrors(err);
+    return Object.keys(err).length === 0;
+  };
 
 
   const handleLogin = () => {
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     paddingHorizontal: scale(20),
-     
+
   },
   headerContainer: {
     alignItems: 'flex-start',

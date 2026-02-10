@@ -55,13 +55,22 @@ const lightColors = {
   docBackground: '#B4E2FC',
   logoBackground: '#4D2161',
   tabInactive: '#C0C5C2',
+  grey: "#F3F7F5",
+  darkGrey: "#111111B2",
+  packageBg: "#F7F7F7",
+  deliveryInactive: "#5E92B0",
+  completedLinearBg: "#27794D66",
+  notStartedLinearBg: "#FBBC044D",
+  notStartedBadgeText: "#FBBC04",
+
+
 };
 
 const darkColors = {
   text: '#000000',
   transparent: 'transparent',
   border: '#DCE8E9',
-  lightTheme: '#E9F6FD',
+  // lightTheme: '#E9F6FD',
   inputText: '#293540',
   black: '#000000',
 
@@ -110,6 +119,17 @@ const darkColors = {
   docBackground: '#B4E2FC',
   logoBackground: '#4D2161',
   tabInactive: '#C0C5C2',
+  grey: "#F3F7F5",
+  darkGrey: "#111111B2",
+  packageBg: "#F7F7F7",
+  deliveryInactive: "#5E92B0",
+  completedLinearBg: "#27794D66",
+  notStartedLinearBg: "#FBBC044D",
+  notStartedBadgeText: "#FBBC04",
+
+
+
+
 };
 
 const color = scheme === 'dark' ? darkColors : lightColors;
