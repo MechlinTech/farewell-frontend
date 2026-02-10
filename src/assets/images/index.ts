@@ -17,6 +17,26 @@ const images = {
     car: require("./car.svg"),
     greenTick: require("./greenTick.svg"),
     truck: require("./truck.svg"),
+    warning: require("./warning.svg"),
+    exclamation: require("./exclamation.svg"),
+    dollar: require("./dollar.svg"),
+    location: require("./location.svg"),
+    bookingLogo: require("./bookingLogo.svg"),
+    camera: require("./camera_alt_24px.svg"),
+    downarrow: require("./arrow_forward_ios.svg"),
+    ellipse: require("./Ellipse 122.svg"),
+    small: require("./Small.svg"),
+    vehicles: require("./vehicles.svg"),
+    documents: require("./documents.svg"),
+    account_balance: require("./account_balance.svg"),
+    setting: require("./setting.svg"),
+    faq: require("./faq.svg"),
+    invitation: require("./invitation.svg"),
+    signout: require("./signout.svg"),
+    credit_card: require("./credit_card.svg"),
+    spark: require("./spark.svg"),
+    time: require("./time.svg"),
+
 };
 
 export default images;

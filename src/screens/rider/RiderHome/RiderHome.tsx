@@ -17,7 +17,6 @@ import images from '@images';
 import { scale, verticalScale } from '@scale';
 import MaterialCommunityIcons from
     'react-native-vector-icons/MaterialCommunityIcons';
-import RequestCard from '@screens/customer/CustomerHome/components/RequestCard';
 import Animated, {
     useSharedValue,
     useAnimatedStyle,
@@ -25,6 +24,7 @@ import Animated, {
     interpolateColor,
 
 } from 'react-native-reanimated';
+import RequestCard from './components/RequestCard';
 
 
 const RiderHome = ({ navigation }: any) => {

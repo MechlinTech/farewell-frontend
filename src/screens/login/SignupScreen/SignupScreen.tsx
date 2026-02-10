@@ -179,7 +179,6 @@ const SignupScreen = ({ navigation }: any) => {
 
   return (
     <Base backgroundColor={color.background} fullScreenMode={false}>
-      <StatusBar barStyle="dark-content" backgroundColor={color.background} />
 
       <KeyboardAvoidingView
         style={{ flex: 1 }}

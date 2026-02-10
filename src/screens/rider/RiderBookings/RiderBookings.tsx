@@ -5,15 +5,41 @@ import {
   View,
   Text,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 
 import color from '@color';
 import BaseWrapper from '@components/Base';
 import { fontFamily, fontSize } from '@constants';
 import { scale, verticalScale } from '@scale';
-import RiderBookingCard from './components/RiderBookingCard';
 
-const RiderBookings = ({ navigation }: any) => {
+import RiderBookingCard from './components/RiderBookingCard';
+import InProgressBookingCard from './components/InProgressBookingCard';
+import { useFocusEffect } from '@react-navigation/native';
+
+const RiderBookings = () => {
+
+  useFocusEffect(
+    React.useCallback(() => {
+      // /* Reset pages */
+      // setInProgressPage(1);
+      // setCompletedPage(1);
+
+      // /* Reset lists */
+      // setInProgressList([]);
+      // setCompletedList([]);
+
+      /* Optional → refetch API */
+      // fetchInProgress();
+      // fetchCompleted();
+
+      return () => {
+        // cleanup if needed
+      };
+    }, [])
+  );
+
+
   /* ---------------- ACTIVE TAB ---------------- */
 
   const [activeTab, setActiveTab] =
@@ -21,178 +47,238 @@ const RiderBookings = ({ navigation }: any) => {
       'IN_PROGRESS'
     );
 
-  /* ---------------- IN PROGRESS STATE ---------------- */
+  /* ---------------- IN PROGRESS ---------------- */
 
   const [inProgressPage, setInProgressPage] =
     React.useState(1);
 
   const [inProgressList, setInProgressList] =
-    React.useState([
+    React.useState<any[]>([
       {
         id: 1,
         bookingId: 'Booking1234',
         location: 'California - FedEx',
-        time: 'Today, 2:43pm',
         status: 'IN_PROGRESS',
         address: 'Abc street, California',
         pickedAt: '4:00pm',
       },
       {
         id: 2,
+        bookingId: 'Booking5678',
+        location: 'Texas - DHL',
+        status: 'IN_PROGRESS',
+        address: 'Sunset Blvd, Texas',
+        pickedAt: '3:15pm',
+      },
+      {
+        id: 3,
         bookingId: 'Booking2222',
         location: 'California - FedEx',
         time: 'Today, 2:43pm',
         status: 'NOT_STARTED',
+        address: 'Abc street, California',
+        pickedAt: '4:00pm',
       },
     ]);
 
-  /* ---------------- COMPLETED STATE ---------------- */
+  /* ---------------- COMPLETED ---------------- */
 
   const [completedPage, setCompletedPage] =
     React.useState(1);
 
   const [completedList, setCompletedList] =
-    React.useState([
+    React.useState<any[]>([
       {
         id: 101,
-        bookingId: 'Booking9999',
-        location: 'California - FedEx',
-        time: '12 Jan 2020, 2:43pm',
+        bookingId: 'Booking9001',
+        location: 'New York - FedEx',
+        time: '12 Jan 2026, 2:43pm',
+        status: 'COMPLETED',
+      },
+      {
+        id: 102,
+        bookingId: 'Booking9002',
+        location: 'Chicago - DHL',
+        time: '10 Jan 2026, 11:20am',
+        status: 'COMPLETED',
+      },
+      {
+        id: 103,
+        bookingId: 'Booking9003',
+        location: 'Florida - UPS',
+        time: '08 Jan 2026, 9:10am',
         status: 'COMPLETED',
       },
     ]);
 
+  const [refreshing, setRefreshing] =
+    React.useState(false);
+
+
+  const onRefresh = () => {
+    setRefreshing(true);
+
+    setTimeout(() => {
+      setInProgressList([]);
+      setCompletedList([]);
+      setInProgressPage(1);
+      setCompletedPage(1);
+
+      setRefreshing(false);
+    }, 1000);
+  };
+
+
   /* ---------------- PAGINATION ---------------- */
 
   const loadMoreInProgress = () => {
-    console.log(
-      'InProgress page:',
-      inProgressPage
-    );
-
     setInProgressPage(prev => prev + 1);
 
     setInProgressList(prev => [
       ...prev,
       {
         id: Math.random(),
-        bookingId: 'BookingNEW',
-        location: 'Texas - DHL',
-        time: 'Tomorrow',
+        bookingId: `BookingNEW-${inProgressPage}`,
+        location: 'Arizona - DHL',
         status: 'IN_PROGRESS',
+        address: 'Main street, Arizona',
+        pickedAt: '5:30pm',
       },
     ]);
   };
 
   const loadMoreCompleted = () => {
-    console.log(
-      'Completed page:',
-      completedPage
-    );
-
     setCompletedPage(prev => prev + 1);
 
     setCompletedList(prev => [
       ...prev,
       {
         id: Math.random(),
-        bookingId: 'BookingDONE',
-        location: 'New York',
+        bookingId: `BookingDONE-${completedPage}`,
+        location: 'Boston - FedEx',
         time: 'Yesterday',
         status: 'COMPLETED',
       },
     ]);
   };
 
-  /* ---------------- TABS ---------------- */
+  const EmptyList = () => (
+    <View style={styles.emptyContainer}>
+      <Text style={styles.emptyTitle}>
+        No Deliveries Found
+      </Text>
 
-  const TabSection = () => (
-    <View style={styles.tabContainer}>
-      {['IN_PROGRESS', 'COMPLETED'].map(tab => {
-        const isActive = activeTab === tab;
-
-        return (
-          <TouchableOpacity
-            key={tab}
-            style={[
-              styles.tabBtn,
-              isActive && styles.activeTab,
-            ]}
-            onPress={() =>
-              setActiveTab(tab as any)
-            }
-          >
-            <Text
-              style={[
-                styles.tabText,
-                isActive &&
-                styles.activeTabText,
-              ]}
-            >
-              {tab === 'IN_PROGRESS'
-                ? 'In Progress'
-                : 'Completed'}
-            </Text>
-          </TouchableOpacity>
-        );
-      })}
+      <Text style={styles.emptySubtitle}>
+        {activeTab === 'IN_PROGRESS'
+          ? 'You have no active deliveries right now.'
+          : 'No deliveries completed yet.'}
+      </Text>
     </View>
   );
 
-  /* ---------------- RENDER ---------------- */
+
+  /* ---------------- TABS ---------------- */
+
+  const TabSection = React.useMemo(
+    () => (
+      <View style={[styles.tabContainer, { marginBottom: activeTab === 'IN_PROGRESS' ? verticalScale(26) : verticalScale(36) }]}>
+        {['IN_PROGRESS', 'COMPLETED'].map(
+          tab => {
+            const isActive =
+              activeTab === tab;
+
+            return (
+              <TouchableOpacity
+                key={tab}
+                style={[
+                  styles.tabBtn,
+                  isActive &&
+                  styles.activeTab,
+
+                ]}
+                onPress={() =>
+                  setActiveTab(tab as any)
+                }
+              >
+                <Text
+                  style={[
+                    styles.tabText,
+                    isActive &&
+                    styles.activeTabText,
+                  ]}
+                >
+                  {tab === 'IN_PROGRESS'
+                    ? 'In Progress'
+                    : 'Completed'}
+                </Text>
+              </TouchableOpacity>
+            );
+          }
+        )}
+      </View>
+    ),
+    [activeTab]
+  );
+
 
   return (
     <BaseWrapper
       backgroundColor={color.background}
       fullScreenMode
     >
-      <ScrollView
+      <View
         style={styles.container}
-        showsVerticalScrollIndicator={
-          false
-        }
-        onScrollEndDrag={() => {
-          if (activeTab === 'IN_PROGRESS') {
-            loadMoreInProgress();
-          } else {
-            loadMoreCompleted();
-          }
-        }}
+
       >
         <Text style={styles.title}>
           Deliveries
         </Text>
 
-        <TabSection />
+        {TabSection}
 
-        {/* 🔹 IN PROGRESS LIST */}
-        {activeTab === 'IN_PROGRESS' &&
-          (
-            <View style={{ marginTop: verticalScale(28) }}>
-              {inProgressList.map((item: any) => (
-                <RiderBookingCard
-                  key={item.id}
-                  item={item}
-                />))}
-            </View>
+        <FlatList
+          data={
+            activeTab === 'IN_PROGRESS'
+              ? inProgressList
+              : completedList
+          }
+          keyExtractor={item =>
+            item.id.toString()
+          }
+          ItemSeparatorComponent={() => (
+            <View
+              style={{
+                height: verticalScale(26),
+              }}
+            />
           )}
-
-        {/* 🔹 COMPLETED LIST */}
-        {activeTab === 'COMPLETED' &&
-          <View style={{ marginTop: verticalScale(36) }}>
-            {completedList.map((item: any) => (
-              <RiderBookingCard
-                key={item.id}
+          ListEmptyComponent={EmptyList}
+          contentContainerStyle={{
+            paddingBottom: verticalScale(40),
+            flexGrow: 1, // important for center empty
+          }}
+          renderItem={({ item }) =>
+            item.status === 'IN_PROGRESS' ? (
+              <InProgressBookingCard
                 item={item}
-              />))}
-          </View>
-        }
-      </ScrollView>
-    </BaseWrapper >
-  )
+              />
+            ) : (
+              <RiderBookingCard item={item} />
+            )
+          }
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          showsVerticalScrollIndicator={false}
+
+        />
+
+
+      </View>
+    </BaseWrapper>
+  );
 };
 
-export default RiderBookings
+export default RiderBookings;
 
 const styles = StyleSheet.create({
   container: {
@@ -205,16 +291,16 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.Heavy,
     marginTop: verticalScale(26),
     color: color.textMain,
-    lineHeight: verticalScale(20)
+    lineHeight: verticalScale(20),
   },
 
   /* Tabs */
+
   tabContainer: {
     flexDirection: 'row',
     backgroundColor: color.primaryMuted,
     borderRadius: scale(10),
     marginTop: verticalScale(32),
-
   },
 
   tabBtn: {
@@ -239,91 +325,32 @@ const styles = StyleSheet.create({
     color: color.textContrast,
   },
 
-  /* Card */
-  card: {
-    marginTop: verticalScale(18),
-    paddingBottom: verticalScale(14),
-    borderBottomWidth: 1,
-    borderColor: color.border,
+  /* List */
+
+  listSpacing: {
+    marginTop: verticalScale(36),
   },
 
-  expandedCard: {
-    backgroundColor: '#F7F9FB',
-    borderRadius: 12,
-    padding: scale(12),
-    borderWidth: 1,
-    borderColor: color.border,
-  },
-
-  cardHeader: {
-    flexDirection: 'row',
+  emptyContainer: {
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
+    // marginTop: verticalScale(80),
   },
 
-  bookingId: {
-    fontSize: fontSize.fontSize_14,
+  emptyTitle: {
+    fontSize: fontSize.fontSize_16,
     fontFamily: fontFamily.weight600,
     color: color.textMain,
   },
 
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 4,
-  },
-
-  icon: {
-    width: scale(12),
-    height: scale(12),
-    marginRight: 4,
-  },
-
-  location: {
+  emptySubtitle: {
     fontSize: fontSize.fontSize_12,
-    color: color.textAccent,
-  },
-
-  time: {
-    fontSize: fontSize.fontSize_10,
+    fontFamily: fontFamily.weight400,
     color: color.textSecondary,
-    marginTop: 2,
-  },
-
-  badge: {
-    backgroundColor: '#D6E6F5',
-    paddingHorizontal: scale(8),
-    paddingVertical: 4,
-    borderRadius: 6,
-  },
-
-  completedBadge: {
-    backgroundColor: '#DFF3E6',
-  },
-
-  pendingBadge: {
-    backgroundColor: '#FFE7A3',
-  },
-
-  badgeText: {
-    fontSize: fontSize.fontSize_10,
-    fontFamily: fontFamily.weight500,
-  },
-
-  expandedBox: {
-    borderTopWidth: 1,
-    borderColor: color.border,
-    marginTop: verticalScale(10),
-    paddingTop: verticalScale(10),
-  },
-
-  metaText: {
-    fontSize: fontSize.fontSize_11,
-    color: color.textSecondary,
-  },
-
-  waitingText: {
     marginTop: verticalScale(6),
-    fontSize: fontSize.fontSize_11,
-    color: color.textSecondary,
+    textAlign: 'center',
+    paddingHorizontal: scale(40),
   },
+
 });
