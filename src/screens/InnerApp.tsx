@@ -339,18 +339,9 @@ function LoginStack() {
           component={AddBankDetails}
           options={{ headerShown: false }}
         /> */}
-   <Stack.Screen
-      name="InstantDelivery"
-      component={InstantDelivery}
-      options={{ headerShown: false }}
-    />
-      <Stack.Screen
-      name="DropOffPackage"
-      component={DropOffPackage}
-      options={{ headerShown: false }}
-    />
 
-         <Stack.Screen
+
+        <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
@@ -374,6 +365,16 @@ function LoginStack() {
         <Stack.Screen
           name="ForgotPasswordScreen"
           component={ForgotPasswordScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="InstantDelivery"
+          component={InstantDelivery}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="DropOffPackage"
+          component={DropOffPackage}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

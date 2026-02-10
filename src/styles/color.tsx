@@ -62,7 +62,8 @@ const lightColors = {
   completedLinearBg: "#27794D66",
   notStartedLinearBg: "#FBBC044D",
   notStartedBadgeText: "#FBBC04",
-
+  profileBorder: "#B0B0B0",
+  darkText: "#161616"
 
 };
 
@@ -126,7 +127,8 @@ const darkColors = {
   completedLinearBg: "#27794D66",
   notStartedLinearBg: "#FBBC044D",
   notStartedBadgeText: "#FBBC04",
-
+  profileBorder: "#B0B0B0",
+  darkText: "#161616"
 
 
 

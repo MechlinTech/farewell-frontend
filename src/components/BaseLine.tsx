@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
   line: {
     backgroundColor: color.border,
     height: scale(1),
-    marginVertical: verticalScale(16),
   },
 });
 
