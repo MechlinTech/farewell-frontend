@@ -30,7 +30,7 @@ interface CustomInputProps {
   textStyle?: StyleProp<TextStyle>;
 
   enableFocusStyle?: boolean;
-
+ editable?: boolean;
   /* 🔴 Validation */
   error?: string;
   showError?: boolean;
@@ -45,6 +45,7 @@ export const CustomInput = ({
   label,
   value,
   placeholder,
+  editable,
   onPress,
   leftIcon,
   rightIcon,
@@ -95,7 +96,7 @@ export const CustomInput = ({
           isError && styles.errorBorder,
         ]}
       >
-        {leftIcon && <View style={{ marginRight: scale(8) }}>{leftIcon}</View>}
+        {leftIcon && <View style={{ marginRight: scale(2) }}>{leftIcon}</View>}
 
         <View style={{ flex: 1 }}>
           <TextInput
@@ -106,6 +107,7 @@ export const CustomInput = ({
             value={value}
             placeholder={placeholder}
             onChangeText={onChangeText}
+              editable={editable} 
             placeholderTextColor={color.placeholderText}
             onFocus={() => {
               setIsFocused(true);
@@ -123,7 +125,7 @@ export const CustomInput = ({
     <Pressable
       onPress={onRightIconPress}
       hitSlop={10}
-      style={{ marginLeft: scale(8) }}
+      style={{ marginLeft: scale(6) }}
     >
       {rightIcon}
     </Pressable>
@@ -140,18 +142,20 @@ export const CustomInput = ({
 export default CustomInput;
 
 const styles = StyleSheet.create({
-  pressable: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: verticalScale(10),
-    paddingHorizontal: scale(12),
-    backgroundColor: color.primaryMuted,
-    borderRadius: scale(5),
-    minHeight: verticalScale(50),
-    borderWidth: 1,
-    borderColor: 'transparent',
-  },
+pressable: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  paddingVertical: verticalScale(10),
+  paddingLeft: scale(12),   // ✅ left stays same
+  paddingRight: scale(12),   // 👈 reduce this
+  backgroundColor: color.primaryMuted,
+  borderRadius: scale(5),
+  minHeight: verticalScale(50),
+  borderWidth: 1,
+  borderColor: 'transparent',
+},
+
   focused: {
     borderColor: color.primary,
   },
