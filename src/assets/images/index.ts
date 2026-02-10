@@ -12,16 +12,11 @@ const images = {
     profile: require("./Profile.webp"),
     calendar: require("./calendar.webp"),
     check: require("./check.svg"),
-    warning: require("./warning.svg"),
-    exclamation: require("./exclamation.svg"),
-    dollar: require("./dollar.svg"),
-    location: require("./location.svg"),
-    bookingLogo: require("./bookingLogo.svg"),
-    camera: require("./camera_alt_24px.svg"),
-    downarrow: require("./arrow_forward_ios.svg"),
-    location: require("./location_on.svg"),
-    ellipse: require("./Ellipse 122.svg"),
-    small: require("./Small.svg"),
+    minus: require("./closeAccordion.svg"),
+    plus: require("./openAccordion.svg"),
+    car: require("./car.svg"),
+    greenTick: require("./greenTick.svg"),
+    truck: require("./truck.svg"),
 };
 
 export default images;
