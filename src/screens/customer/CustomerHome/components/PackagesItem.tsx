@@ -16,11 +16,10 @@ interface Props {
         bookingId: string;
         location: string;
         time: string;
-        status: 'COMPLETED' | 'NOT_STARTED';
     };
 }
 
-const RiderBookingCard: React.FC<Props> = ({ item }) => {
+const PackagesItem: React.FC<Props> = ({ item }) => {
     return (
         <View style={styles.card}>
             <View style={styles.headerRow}>
@@ -58,26 +57,10 @@ const RiderBookingCard: React.FC<Props> = ({ item }) => {
                     </View>
                 </View>
 
-                {/* 🔹 Status Badge */}
-                <View
-                    style={[
-                        styles.badge,
-                        item.status === 'COMPLETED'
-                            ? styles.completedBadge
-                            : styles.pendingBadge,
-                    ]}
-                >
-                    <Text
-                        style={[
-                            styles.badgeText,
-                            item.status === 'COMPLETED'
-                                ? styles.completedBadgeText
-                                : styles.pendingBadgeText,
-                        ]}
-                    >
-                        {item.status === 'COMPLETED'
-                            ? 'Completed'
-                            : 'Not Started'}
+                {/* ✅ Completed Badge Only */}
+                <View style={styles.completedBadge}>
+                    <Text style={styles.completedBadgeText}>
+                        Completed
                     </Text>
                 </View>
             </View>
@@ -85,14 +68,14 @@ const RiderBookingCard: React.FC<Props> = ({ item }) => {
     );
 };
 
-export default RiderBookingCard;
+export default PackagesItem;
 
 const styles = StyleSheet.create({
     card: {
         borderBottomWidth: verticalScale(1),
         borderColor: color.border,
-        paddingBottom: verticalScale(16),
-        paddingHorizontal: scale(8),
+        paddingVertical: verticalScale(16),
+        paddingHorizontal: scale(16),
     },
 
     headerRow: {
@@ -151,31 +134,22 @@ const styles = StyleSheet.create({
         marginTop: verticalScale(4),
     },
 
-    /* 🔹 Badge */
-    badge: {
-        paddingHorizontal: scale(8),
-        paddingVertical: scale(4),
-        borderRadius: scale(6),
-    },
+    /* ✅ Completed Badge */
 
     completedBadge: {
         backgroundColor: color.completedLinearBg,
-    },
-
-    pendingBadge: {
-        backgroundColor: color.notStartedLinearBg,
+        width: scale(62),
+        height: scale(18),
+        borderRadius: scale(4),
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 
     completedBadgeText: {
-        color: color.success,
-    },
-
-    pendingBadgeText: {
-        color: color.notStartedBadgeText,
-    },
-
-    badgeText: {
         fontSize: fontSize.fontSize_10,
         fontFamily: fontFamily.weight500,
+        color: color.success,
+        lineHeight: verticalScale(16),
+        marginTop: verticalScale(2),
     },
 });

@@ -1,273 +1,356 @@
 import * as React from 'react';
-import { useState } from 'react';
 import {
-  View,
-  Text,
-  StatusBar,
   ScrollView,
   StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
 } from 'react-native';
-import Base from '../../../components/Base';
-import CustomInput from '../../../components/CustomInput';
-import CustomButton from '../../../components/CustomButton';
+
 import color from '@color';
-
-import { scale, verticalScale } from '@scale';
-import Navigator from '../../../utils/Navigator';
+import BaseWrapper from '@components/Base';
 import { fontFamily, fontSize } from '@constants';
-import HeadingGroup from 'components/HeadingGroupComponent';
-import UserRoleComponent from 'components/UserRoleComponent';
-import images from '@images';
-import { showFlashMessage } from 'components/showFlashMessage';
+import { scale, verticalScale } from '@scale';
 
-const CustomerHistory = ({ navigation }: any) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [userRole, setUserRole] = React.useState<string>('customer');
+import { useFocusEffect } from '@react-navigation/native';
+import InProgressCustomerBookingCard from './components/InProgressCustomerBookingCard';
+import CustomerBookingCard from './components/CustomerBookingCard';
 
-  const [errors, setErrors] = useState<any>({});
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const CustomerHistory = () => {
 
-  /* 🔴 Field validators */
+  useFocusEffect(
+    React.useCallback(() => {
+      // /* Reset pages */
+      // setInProgressPage(1);
+      // setCompletedPage(1);
 
-const validateEmail = () => {
-  const trimmedEmail = email.trim();
+      // /* Reset lists */
+      // setInProgressList([]);
+      // setCompletedList([]);
 
-  if (!trimmedEmail)
-    setErrors((p: any) => ({ ...p, email: 'Email is required' }));
-  else if (!emailRegex.test(trimmedEmail))
-    setErrors((p: any) => ({
-      ...p,
-      email: 'Enter a valid email address',
-    }));
-};
+      /* Optional → refetch API */
+      // fetchInProgress();
+      // fetchCompleted();
 
-const validatePassword = () => {
-  if (!password)
-    setErrors((p: any) => ({ ...p, password: 'Password is required' }));
-  else if (password.includes(' '))
-    setErrors((p: any) => ({
-      ...p,
-      password: 'Password cannot contain spaces',
-    }));
-  else if (password.length < 8 || password.length > 16)
-    setErrors((p: any) => ({
-      ...p,
-      password: 'Password must be 8–16 characters',
-    }));
-};
+      return () => {
+        // cleanup if needed
+      };
+    }, [])
+  );
 
 
+  /* ---------------- ACTIVE TAB ---------------- */
 
-  /* 🔴 Submit validation */
+  const [activeTab, setActiveTab] =
+    React.useState<'IN_PROGRESS' | 'COMPLETED'>(
+      'IN_PROGRESS'
+    );
 
-  const validateAll = () => {
-  let err: any = {};
+  /* ---------------- IN PROGRESS ---------------- */
 
-  const trimmedEmail = email.trim();
-  const trimmedPassword = password.trim();
+  const [inProgressPage, setInProgressPage] =
+    React.useState(1);
 
-  if (!trimmedEmail) err.email = 'Email is required';
-  else if (!emailRegex.test(trimmedEmail))
-    err.email = 'Enter a valid email address';
+  const [inProgressList, setInProgressList] =
+    React.useState<any[]>([
+      {
+        id: 1,
+        bookingId: 'ORDB1234',
+        location: 'California - FedEx',
+        status: 'IN_PROGRESS',
+        address: 'Abc street, California',
+        pickedAt: '4:00pm',
+      },
+      {
+        id: 2,
+        bookingId: 'ORDB1234',
+        location: 'Texas - DHL',
+        status: 'IN_PROGRESS',
+        address: 'Sunset Blvd, Texas',
+        pickedAt: '3:15pm',
+      },
+      {
+        id: 3,
+        bookingId: 'ORDB1234',
+        location: 'California - FedEx',
+        time: 'Today, 2:43pm',
+        status: 'NOT_STARTED',
+        address: 'Abc street, California',
+        pickedAt: '4:00pm',
+      },
+    ]);
 
- if (!password) err.password = 'Password is required';
-else if (password.includes(' '))
-  err.password = 'Password cannot contain spaces';
-else if (password.length < 8 || password.length > 16)
-  err.password = 'Password must be 8–16 characters';
+  /* ---------------- COMPLETED ---------------- */
+
+  const [completedPage, setCompletedPage] =
+    React.useState(1);
+
+  const [completedList, setCompletedList] =
+    React.useState<any[]>([
+      {
+        id: 101,
+        bookingId: 'ORDB1234',
+        location: 'New York - FedEx',
+        time: '12 Jan 2026, 2:43pm',
+        status: 'COMPLETED',
+      },
+      {
+        id: 102,
+        bookingId: 'ORDB1234',
+        location: 'Chicago - DHL',
+        time: '10 Jan 2026, 11:20am',
+        status: 'COMPLETED',
+      },
+      {
+        id: 103,
+        bookingId: 'ORDB1234',
+        location: 'Florida - UPS',
+        time: '08 Jan 2026, 9:10am',
+        status: 'COMPLETED',
+      },
+    ]);
+
+  const [refreshing, setRefreshing] =
+    React.useState(false);
 
 
-  setErrors(err);
-  return Object.keys(err).length === 0;
-};
+  const onRefresh = () => {
+    setRefreshing(true);
 
+    setTimeout(() => {
+      setInProgressList([]);
+      setCompletedList([]);
+      setInProgressPage(1);
+      setCompletedPage(1);
 
-  const handleLogin = () => {
-    if (!validateAll()) {
-      // showFlashMessage('Please fill all required fields');
-      return;
-    }
-
-    console.log('Login pressed', { email, password, userRole });
+      setRefreshing(false);
+    }, 1000);
   };
 
-  const handleForgotPassword = () => {
-    Navigator.pushScreen(navigation, 'ForgotPasswordScreen');
+
+  /* ---------------- PAGINATION ---------------- */
+
+  const loadMoreInProgress = () => {
+    setInProgressPage(prev => prev + 1);
+
+    setInProgressList(prev => [
+      ...prev,
+      {
+        id: Math.random(),
+        bookingId: `BookingNEW-${inProgressPage}`,
+        location: 'Arizona - DHL',
+        status: 'IN_PROGRESS',
+        address: 'Main street, Arizona',
+        pickedAt: '5:30pm',
+      },
+    ]);
   };
 
-  const handleSignUp = () => {
-    Navigator.pushScreen(navigation, 'SignupScreen');
+  const loadMoreCompleted = () => {
+    setCompletedPage(prev => prev + 1);
+
+    setCompletedList(prev => [
+      ...prev,
+      {
+        id: Math.random(),
+        bookingId: `BookingDONE-${completedPage}`,
+        location: 'Boston - FedEx',
+        time: 'Yesterday',
+        status: 'COMPLETED',
+      },
+    ]);
   };
+
+  const EmptyList = () => (
+    <View style={styles.emptyContainer}>
+      <Text style={styles.emptyTitle}>
+        No Deliveries Found
+      </Text>
+
+      <Text style={styles.emptySubtitle}>
+        {activeTab === 'IN_PROGRESS'
+          ? 'You have no active deliveries right now.'
+          : 'No deliveries completed yet.'}
+      </Text>
+    </View>
+  );
+
+
+  /* ---------------- TABS ---------------- */
+
+  const TabSection = React.useMemo(
+    () => (
+      <View style={[styles.tabContainer, { marginBottom: activeTab === 'IN_PROGRESS' ? verticalScale(26) : verticalScale(36) }]}>
+        {['IN_PROGRESS', 'COMPLETED'].map(
+          tab => {
+            const isActive =
+              activeTab === tab;
+
+            return (
+              <TouchableOpacity
+                key={tab}
+                style={[
+                  styles.tabBtn,
+                  isActive &&
+                  styles.activeTab,
+
+                ]}
+                onPress={() =>
+                  setActiveTab(tab as any)
+                }
+              >
+                <Text
+                  style={[
+                    styles.tabText,
+                    isActive &&
+                    styles.activeTabText,
+                  ]}
+                >
+                  {tab === 'IN_PROGRESS'
+                    ? 'In Progress'
+                    : 'Completed'}
+                </Text>
+              </TouchableOpacity>
+            );
+          }
+        )}
+      </View>
+    ),
+    [activeTab]
+  );
+
 
   return (
-    <Base backgroundColor={color.background} fullScreenMode={true}>
-      <StatusBar barStyle="dark-content" backgroundColor={color.background} />
+    <BaseWrapper
+      backgroundColor={color.background}
+      fullScreenMode
+    >
+      <View
+        style={styles.container}
 
-      <ScrollView style={{ flex: 1 }}>
-        <View style={styles.content}>
-          {/* Header */}
-          <View style={styles.headerContainer}>
-            <HeadingGroup
-              heading="Let's get you Login!"
-              subheading="Enter your information below"
-            />
-          </View>
+      >
+        <Text style={styles.title}>
+          Delivery History
+        </Text>
 
-          <View style={styles.userRoleContainer}>
-            <UserRoleComponent
-              imageSource={images.package}
-              title="Customer"
-              onPress={() => setUserRole('customer')}
-              selected={userRole === 'customer'}
-            />
-            <UserRoleComponent
-              imageSource={images.bike}
-              title="Rider"
-              onPress={() => setUserRole('rider')}
-              selected={userRole === 'rider'}
-            />
-          </View>
+        {TabSection}
 
-          {/* Form */}
-          <View style={styles.formContainer}>
-            <View style={styles.commoncontainer}>
-              <CustomInput
-                placeholder="Enter your Email id"
-                value={email}
-                onChangeText={text => {
-                  setEmail(text);
-                  setErrors((p: any) => ({ ...p, email: '' }));
-                }}
-                onBlur={validateEmail}
-                error={errors.email}
-                containerStyle={styles.inputContainer}
-                fieldStyle={{ borderRadius: scale(5) }}
+        <FlatList
+          data={
+            activeTab === 'IN_PROGRESS'
+              ? inProgressList
+              : completedList
+          }
+          keyExtractor={item =>
+            item.id.toString()
+          }
+          ItemSeparatorComponent={() => (
+            <View
+              style={{
+                height: verticalScale(26),
+              }}
+            />
+          )}
+          ListEmptyComponent={EmptyList}
+          contentContainerStyle={{
+            paddingBottom: verticalScale(40),
+            flexGrow: 1, // important for center empty
+          }}
+          renderItem={({ item }) =>
+            item.status === 'IN_PROGRESS' ? (
+              <InProgressCustomerBookingCard
+                item={item}
               />
+            ) : (
+              <CustomerBookingCard item={item} />
+            )
+          }
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          showsVerticalScrollIndicator={false}
 
-              <CustomInput
-                placeholder="Password"
-                value={password}
-                onChangeText={text => {
-                  setPassword(text);
-                  setErrors((p: any) => ({ ...p, password: '' }));
-                }}
-                onBlur={validatePassword}
-                error={errors.password}
-                containerStyle={styles.inputContainer}
-                fieldStyle={{ borderRadius: scale(5) }}
-              />
-            </View>
+        />
 
-            {/* Forgot Password */}
-            <View style={styles.forgotPasswordContainer}>
-              <Text
-                style={styles.forgotPasswordText}
-                onPress={handleForgotPassword}
-              >
-                Forgot Password?
-              </Text>
-            </View>
 
-            {/* Login Button */}
-            <CustomButton
-              title="Get Started"
-              onPress={handleLogin}
-              containerStyle={styles.loginButton}
-              textStyle={styles.loginButtonText}
-            />
-          </View>
-
-          {/* Sign Up */}
-          <View style={styles.signUpContainer}>
-            <Text style={styles.signUpText}>Need an account? </Text>
-            <Text style={styles.signUpLink} onPress={handleSignUp}>
-              Sign up
-            </Text>
-          </View>
-        </View>
-      </ScrollView>
-    </Base>
+      </View>
+    </BaseWrapper>
   );
 };
 
-
+export default CustomerHistory;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
-    // paddingTop: verticalScale(70),
-    //  paddingHorizontal: scale(20),
+    paddingHorizontal: scale(26),
   },
-  userRoleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    gap: scale(31),
-    marginTop: verticalScale(22),
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: scale(20),
 
+  title: {
+    fontSize: fontSize.fontSize_20,
+    fontFamily: fontFamily.Heavy,
+    marginTop: verticalScale(26),
+    color: color.textMain,
+    lineHeight: verticalScale(20),
   },
-  headerContainer: {
-    alignItems: 'flex-start',
-    marginBottom: verticalScale(6),
-    marginTop: verticalScale(14),
+
+  /* Tabs */
+
+  tabContainer: {
+    flexDirection: 'row',
+    backgroundColor: color.primaryMuted,
+    borderRadius: scale(10),
+    marginTop: verticalScale(32),
   },
-  commoncontainer: {
-    gap: verticalScale(20),
-    marginTop: verticalScale(31),
+
+  tabBtn: {
+    flex: 1,
+    borderRadius: scale(10),
+    alignItems: 'center',
+    height: verticalScale(56),
+    justifyContent: 'center',
   },
-  formContainer: {
-    marginBottom: verticalScale(30),
+
+  activeTab: {
+    backgroundColor: color.primary,
   },
-  inputContainer: {
-    marginBottom: verticalScale(1),
-    // paddingTop: verticalScale(10),
-  },
-  forgotPasswordContainer: {
-    alignItems: 'flex-end',
-    marginBottom: verticalScale(20),
-    marginTop: verticalScale(16),
-  },
-  forgotPasswordText: {
-    fontSize: fontSize.fontSize_14,
-    color: color.text,
-    fontFamily: fontFamily.Medium,
-  },
-  loginButton: {
-    marginBottom: verticalScale(4),
-    height: verticalScale(55),
-    marginTop: verticalScale(10),
-  },
-  loginButtonText: {
-    color: color.textContrast,
+
+  tabText: {
     fontSize: fontSize.fontSize_16,
+    color: color.deliveryInactive,
     fontFamily: fontFamily.Heavy,
   },
-  signUpContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+
+  activeTabText: {
+    color: color.textContrast,
+  },
+
+  /* List */
+
+  listSpacing: {
+    marginTop: verticalScale(36),
+  },
+
+  emptyContainer: {
+    flex: 1,
     alignItems: 'center',
-    //  marginTop: verticalScale(1),
-    marginVertical: verticalScale(1),
-
-    // marginTop: 'auto',
-    // paddingBottom: verticalScale(20),
+    justifyContent: 'center',
+    // marginTop: verticalScale(80),
   },
-  signUpText: {
-    fontSize: fontSize.fontSize_14,
-    color: color.textSecondary,
+
+  emptyTitle: {
+    fontSize: fontSize.fontSize_16,
+    fontFamily: fontFamily.weight600,
+    color: color.textMain,
+  },
+
+  emptySubtitle: {
+    fontSize: fontSize.fontSize_12,
     fontFamily: fontFamily.weight400,
+    color: color.textSecondary,
+    marginTop: verticalScale(6),
+    textAlign: 'center',
+    paddingHorizontal: scale(40),
   },
-  signUpLink: {
-    fontSize: fontSize.fontSize_14,
-    color: color.textAccent,
-    fontFamily: fontFamily.weight800,
-    marginLeft: scale(4),
-  },
-});
 
-export default CustomerHistory;
+});
