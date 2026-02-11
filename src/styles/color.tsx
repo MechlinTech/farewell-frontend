@@ -30,6 +30,7 @@ const lightColors = {
   error: '#DC1818',
   errorBg: '#DC18184D', // was bgRed
   errorSurface: '#FDF1F1', // was statusError (subtle bg)
+  warning: '#FFA500',
 
   // Component Specific (Still semantic)
   surfaceSecondary: '#F0F5F5', // was bgCall
@@ -51,24 +52,23 @@ const lightColors = {
     text: '#024F7CBA',
   },
   accordion: {
-    border: "#D9D9D9",
-    answer: "#757575",
+    border: '#D9D9D9',
+    answer: '#757575',
   },
   overlayText: '#00000080', // was iconButtonText
   placeholderText: '#757B7F',
   docBackground: '#B4E2FC',
   logoBackground: '#4D2161',
   tabInactive: '#C0C5C2',
-  grey: "#F3F7F5",
-  darkGrey: "#111111B2",
-  packageBg: "#F7F7F7",
-  deliveryInactive: "#5E92B0",
-  completedLinearBg: "#27794D66",
-  notStartedLinearBg: "#FBBC044D",
-  notStartedBadgeText: "#FBBC04",
-  profileBorder: "#B0B0B0",
-  darkText: "#161616"
-
+  grey: '#F3F7F5',
+  darkGrey: '#111111B2',
+  packageBg: '#F7F7F7',
+  deliveryInactive: '#5E92B0',
+  completedLinearBg: '#27794D66',
+  notStartedLinearBg: '#FBBC044D',
+  notStartedBadgeText: '#FBBC04',
+  profileBorder: '#B0B0B0',
+  darkText: '#161616',
 };
 
 const darkColors = {
@@ -99,6 +99,7 @@ const darkColors = {
   error: '#DC1818',
   errorBg: '#DC18184D', // was bgRed
   errorSurface: '#FDF1F1', // was statusError (subtle bg)
+  warning: '#FFA500',
 
   // Component Specific (Still semantic)
   surfaceSecondary: '#F0F5F5', // was bgCall
@@ -120,25 +121,23 @@ const darkColors = {
     text: '#024F7CBA',
   },
   accordion: {
-    border: "#D9D9D9",
-    answer: "#757575",
+    border: '#D9D9D9',
+    answer: '#757575',
   },
   overlayText: '#00000080', // was iconButtonText
   placeholderText: '#757B7F',
   docBackground: '#B4E2FC',
   logoBackground: '#4D2161',
   tabInactive: '#C0C5C2',
-  grey: "#F3F7F5",
-  darkGrey: "#111111B2",
-  packageBg: "#F7F7F7",
-  deliveryInactive: "#5E92B0",
-  completedLinearBg: "#27794D66",
-  notStartedLinearBg: "#FBBC044D",
-  notStartedBadgeText: "#FBBC04",
-  profileBorder: "#B0B0B0",
-  darkText: "#161616"
-
-
+  grey: '#F3F7F5',
+  darkGrey: '#111111B2',
+  packageBg: '#F7F7F7',
+  deliveryInactive: '#5E92B0',
+  completedLinearBg: '#27794D66',
+  notStartedLinearBg: '#FBBC044D',
+  notStartedBadgeText: '#FBBC04',
+  profileBorder: '#B0B0B0',
+  darkText: '#161616',
 };
 
 const color = scheme === 'dark' ? darkColors : lightColors;

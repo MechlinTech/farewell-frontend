@@ -7,39 +7,40 @@ import images from '@images';
 import { CustomNavigationItem } from 'components/CustomNavigationItem';
 import Navigator from '@Navigator';
 
-
-const SettingsScreen = ({ navigation }: any) => {
-    return (
-        <BaseWrapper>
-            <CustomToolbar
-                title="Settings"
-                onLeftPress={() => navigation.goBack()}
-                showLeftIcon
-                navigation={navigation}
-            />
-            <View style={styles.container}>
-                <CustomNavigationItem
-                    title="Change Password"
-                    icon={images.lockOpen}
-                    onPress={() => Navigator.pushScreen(navigation, 'ChangePassword')}
-                />
-                <CustomNavigationItem
-                    title="Notifications Settings"
-                    icon={images.settingsBell}
-                    onPress={() => Navigator.pushScreen(navigation, 'Notifications')}
-                />
-            </View>
-        </BaseWrapper>
-    );
+const RiderSettings = ({ navigation }: any) => {
+  return (
+    <BaseWrapper>
+      <CustomToolbar
+        title="Settings"
+        onLeftPress={() => navigation.goBack()}
+        showLeftIcon
+        navigation={navigation}
+      />
+      <View style={styles.container}>
+        <CustomNavigationItem
+          title="Change Password"
+          icon={images.lockOpen}
+          onPress={() => Navigator.pushScreen(navigation, 'ChangePassword')}
+        />
+        <CustomNavigationItem
+          title="Notifications Settings"
+          icon={images.settingsBell}
+          onPress={() =>
+            Navigator.pushScreen(navigation, 'NotificationSettings')
+          }
+        />
+      </View>
+    </BaseWrapper>
+  );
 };
 
-export default SettingsScreen;
+export default RiderSettings;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingHorizontal: scale(24),
-        paddingTop: verticalScale(30),
-        gap: verticalScale(20),
-    },
+  container: {
+    flex: 1,
+    paddingHorizontal: scale(24),
+    paddingTop: verticalScale(30),
+    gap: verticalScale(20),
+  },
 });

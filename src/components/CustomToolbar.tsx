@@ -60,7 +60,6 @@ export const CustomToolbar = ({
           onPress={() => {
             onLeftPress ? onLeftPress() : Navigator.goBack(navigation);
           }}
-          disabled={!onLeftPress}
           style={styles.iconButton}
         >
           {leftIcon || (
