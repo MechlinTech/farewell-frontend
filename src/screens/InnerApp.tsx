@@ -48,6 +48,10 @@ import DropOffPackage from './rider/DropoffPackage/DropOffPackage';
 import AddBankDetails from './shared/BankDetails/AddBankDetails';
 import InstantDelivery from './customer/InstantDelivery/InstantDelivery';
 import ScheduleDelivery from './customer/ScheduleDelivery/ScheduleDelivery';
+import FAQScreen from './shared/FAQ/FAQ';
+import Vehicles from './rider/Vehicles/Vehicles';
+import NotificationSettings from './shared/NotificationSettings/NotificationSettings';
+import VehicleDetails from './rider/VehicleDetails/VehicleDetails';
 
 const Stack = createNativeStackNavigator();
 
@@ -335,10 +339,7 @@ function LoginStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
-   
-   
-
-         <Stack.Screen
+        <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
@@ -362,6 +363,16 @@ function LoginStack() {
         <Stack.Screen
           name="ForgotPasswordScreen"
           component={ForgotPasswordScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="InstantDelivery"
+          component={InstantDelivery}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="DropOffPackage"
+          component={DropOffPackage}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
@@ -543,6 +554,8 @@ function CustomerHomeStack() {
           component={CustomerBottomTabStack}
           options={{ headerShown: false }}
         />
+
+
       </Stack.Navigator>
     </React.Suspense>
   );

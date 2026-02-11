@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Base from '@components/Base';
 import CustomToolbar from '@components/CustomToolbar';
 import CustomInput from '@components/CustomInput';
@@ -14,6 +14,8 @@ import ImageComponent from '@components/ImageComponent';
 import images from '@images';
 import { fontFamily, fontSize } from '@constants';
 import Navigator from '@Navigator';
+import BottomSheet from '@components/BottomSheetCustom';
+import SelectionListBottomSheet from '@components/SelectionListBottomSheet';
 
 const AddVehicleDetails = ({ navigation }: any) => {
   const [vehicleNumber, setVehicleNumber] = useState('');
@@ -24,6 +26,16 @@ const AddVehicleDetails = ({ navigation }: any) => {
   const [insurance, setInsurance] = useState<any>();
   const [errors, setErrors] = useState<any>({});
   const [showPendingModal, setShowPendingModal] = useState<boolean>(false);
+  const [vehicleType, setVehicleType] =
+    useState<any>(undefined);
+
+  const [showVehicleSheet, setShowVehicleSheet] =
+    useState(false);
+  const [vehicleTypes, setVehicleTypes] = useState<any[]>([
+    { id: 1, title: 'Car' },
+    { id: 2, title: 'Truck' },
+  ]);
+
 
   /* 🔴 Field Validators */
 
@@ -56,6 +68,9 @@ const AddVehicleDetails = ({ navigation }: any) => {
   const validateAll = () => {
     let err: any = {};
 
+    if (!vehicleType)
+      err.vehicleType =
+        'Vehicle type is required';
     if (!vehicleNumber) err.vehicleNumber = 'Vehicle number is required';
     if (!model) err.model = 'Model is required';
     if (!capacity) err.capacity = 'Capacity is required';
@@ -116,18 +131,57 @@ const AddVehicleDetails = ({ navigation }: any) => {
       </CenterModal>
     );
   };
+  const handleVehicleSelect = (item: any) => {
+    setVehicleType(item?.title);
+
+    setErrors((p: any) => ({
+      ...p,
+      vehicleType: '',
+    }));
+  };
+
+
 
   return (
     <Base backgroundColor={color.background}>
       <CustomToolbar
         title="Add Vehicle Details"
-        onLeftPress={() => navigation.goBack()}
         showLeftIcon
         navigation={navigation}
       />
 
       <ScrollView contentContainerStyle={styles.content}>
         {/* Inputs */}
+
+        <View style={styles.input}>
+          <Pressable
+            style={[styles.dropdownField, errors.vehicleType && styles.errorBorder,
+            ]}
+            onPress={() => setShowVehicleSheet(true)}
+          >
+            <Text
+              style={[
+                styles.dropdownText,
+                !vehicleType && styles.placeholderText,
+              ]}
+            >
+              {vehicleType || 'Select Vehicle Type'}
+            </Text>
+
+            <ImageComponent
+              source={images.downarrow}
+              style={styles.dropdownIcon}
+            />
+          </Pressable>
+
+          {errors.vehicleType && (
+            <Text style={styles.errorText}>
+              {errors.vehicleType}
+            </Text>
+          )}
+        </View>
+
+
         <CustomInput
           placeholder="Vehicle Number"
           value={vehicleNumber}
@@ -207,6 +261,20 @@ const AddVehicleDetails = ({ navigation }: any) => {
         />
       </ScrollView>
       {showPendingModal && pendingModal()}
+      <SelectionListBottomSheet
+        visible={showVehicleSheet}
+        data={vehicleTypes}
+        header="Select Vehicle Type"
+        selectedItem={
+          vehicleTypes.find(
+            (v: any) => v.id === vehicleType?.id
+          )
+        }
+        onPress={handleVehicleSelect}
+        onDismiss={() =>
+          setShowVehicleSheet(false)
+        }
+      />
     </Base>
   );
 };
@@ -216,17 +284,129 @@ export default AddVehicleDetails;
 /* 🔴 Reusable Error Text */
 
 const styles = StyleSheet.create({
+  /* Screen Content */
+
   content: {
     padding: scale(20),
     paddingBottom: verticalScale(40),
   },
+
   input: {
     marginBottom: verticalScale(15),
   },
+
   button: {
     height: verticalScale(56),
     marginTop: verticalScale(25),
   },
+
+  doc: {
+    marginBottom: verticalScale(15),
+  },
+
+  /* =========================
+     Vehicle Type Dropdown
+     ========================= */
+
+  dropdownField: {
+    height: verticalScale(56),
+    borderWidth: 1,
+    borderColor: color.border,
+    borderRadius: scale(10),
+    paddingHorizontal: scale(16),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: color.primaryMuted,
+  },
+
+  dropdownText: {
+    fontSize: fontSize.fontSize_14,
+    fontFamily: fontFamily.Roman,
+    color: color.text,
+  },
+
+  placeholderText: {
+    color: color.textSecondary,
+  },
+
+  dropdownIcon: {
+    width: scale(16),
+    height: scale(16),
+  },
+
+  errorText: {
+    color: color.error,
+    fontSize: fontSize.fontSize_12,
+    marginTop: verticalScale(10),
+    // marginBottom: verticalScale(10),
+  },
+
+  /* =========================
+     Vehicle Type Bottom Sheet
+     ========================= */
+
+  sheetTitle: {
+    fontSize: fontSize.fontSize_16,
+    fontFamily: fontFamily.Heavy,
+    marginBottom: verticalScale(16),
+    color: color.text,
+  },
+
+  sheetItem: {
+    paddingVertical: verticalScale(14),
+    borderBottomWidth: 1,
+    borderColor: color.border,
+  },
+
+  sheetItemSelected: {
+    backgroundColor: color.primaryMuted,
+  },
+
+  sheetItemText: {
+    fontSize: fontSize.fontSize_14,
+    fontFamily: fontFamily.Roman,
+    color: color.text,
+  },
+
+  sheetItemTextSelected: {
+    color: color.primary,
+    fontFamily: fontFamily.Medium,
+  },
+
+  errorBorder: {
+    borderColor: color.error,
+  },
+
+  modalContainer: {
+    padding: scale(20),
+    backgroundColor: color.background,
+    borderRadius: scale(10),
+  },
+
+  modalContent: {
+    padding: scale(20),
+    backgroundColor: color.background,
+    borderRadius: scale(10),
+  },
+
+  modalTitle: {
+    fontSize: fontSize.fontSize_16,
+    fontFamily: fontFamily.Heavy,
+    color: color.text,
+  },
+
+  modalDescription: {
+    fontSize: fontSize.fontSize_14,
+    fontFamily: fontFamily.Roman,
+    color: color.text,
+    marginBottom: verticalScale(16),
+  },
+
+  modalButtonContainer: {
+    marginTop: verticalScale(20),
+  },
+
   iconCircle: {
     width: scale(75),
     height: scale(75),
@@ -253,5 +433,5 @@ const styles = StyleSheet.create({
   modalButton: {
     marginTop: verticalScale(28),
   },
-  doc: { marginBottom: verticalScale(15) },
 });
+
