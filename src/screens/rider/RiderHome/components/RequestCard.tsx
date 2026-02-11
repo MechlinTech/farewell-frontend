@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
         fontSize: fontSize.fontSize_14,
         fontFamily: fontFamily.weight500,
         color: color.booking.title,
+        width: '90%',
     },
 
     locationRow: {
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
         color: color.textContrast,
         fontFamily: fontFamily.weight500,
         lineHeight: verticalScale(16),
-
+        width: '80%',
     },
 
     timeText: {
