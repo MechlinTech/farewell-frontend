@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
 
 
     uploadLabel: {
-        marginTop: verticalScale(25),
+        marginTop: verticalScale(15),
         marginBottom: verticalScale(18),
         
         

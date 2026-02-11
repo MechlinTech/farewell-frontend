@@ -47,6 +47,7 @@ import ContactUs from './shared/Contact/Contact';
 import DropOffPackage from './rider/DropoffPackage/DropOffPackage';
 import AddBankDetails from './shared/BankDetails/AddBankDetails';
 import InstantDelivery from './customer/InstantDelivery/InstantDelivery';
+import ScheduleDelivery from './customer/ScheduleDelivery/ScheduleDelivery';
 import FAQScreen from './shared/FAQ/FAQ';
 import Vehicles from './rider/Vehicles/Vehicles';
 import NotificationSettings from './shared/NotificationSettings/NotificationSettings';
@@ -338,37 +339,6 @@ function LoginStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
-        {/* <Stack.Screen
-          name="VehicleDetails"
-          component={VehicleDetails}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="NotificationSettings"
-          component={NotificationSettings}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Vehicles"
-          component={Vehicles}
-          options={{ headerShown: false }}
-        /> */}
-        {/* <Stack.Screen
-          name="AddBankDetails"
-          component={AddBankDetails}
-          options={{ headerShown: false }}
-        /> */}
-   {/* <Stack.Screen
-      name="InstantDelivery"
-      component={InstantDelivery}
-      options={{ headerShown: false }}
-    />
-      <Stack.Screen
-      name="DropOffPackage"
-      component={DropOffPackage}
-      options={{ headerShown: false }}
-    /> */}
-
         <Stack.Screen
           name="FAQScreen"
           component={FAQScreen}
@@ -488,6 +458,11 @@ function RiderHomeStack() {
     <React.Suspense>
       <Stack.Navigator id="RiderHomeStack">
         <Stack.Screen
+          name="DropOffPackage"
+          component={DropOffPackage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="RiderBottomTabStack"
           component={RiderBottomTabStack}
           options={{ headerShown: false }}
@@ -569,6 +544,16 @@ function CustomerHomeStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="CustomerHomeStack">
+        <Stack.Screen
+          name="ScheduleDelivery"
+          component={ScheduleDelivery}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="InstantDelivery"
+          component={InstantDelivery}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="CustomerBottomTabStack"
           component={CustomerBottomTabStack}
