@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@animatereactnative/accordion": "^0.1.5",
     "@d11/react-native-fast-image": "^8.13.0",
     "@notifee/react-native": "9.1.8",
     "@react-native-async-storage/async-storage": "2.2.0",

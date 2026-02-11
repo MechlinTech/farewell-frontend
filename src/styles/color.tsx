@@ -50,6 +50,10 @@ const lightColors = {
   profile: {
     text: '#024F7CBA',
   },
+  accordion: {
+    border: "#D9D9D9",
+    answer: "#757575",
+  },
   overlayText: '#00000080', // was iconButtonText
   placeholderText: '#757B7F',
   docBackground: '#B4E2FC',
@@ -115,6 +119,10 @@ const darkColors = {
   profile: {
     text: '#024F7CBA',
   },
+  accordion: {
+    border: "#D9D9D9",
+    answer: "#757575",
+  },
   overlayText: '#00000080', // was iconButtonText
   placeholderText: '#757B7F',
   docBackground: '#B4E2FC',
@@ -129,7 +137,6 @@ const darkColors = {
   notStartedBadgeText: "#FBBC04",
   profileBorder: "#B0B0B0",
   darkText: "#161616"
-
 
 
 };
