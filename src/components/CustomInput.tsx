@@ -78,7 +78,7 @@ export const CustomInput = ({
               color: color.textSecondary,
               marginBottom: verticalScale(6),
             },
-            labelStyle,styles.label
+            labelStyle, styles.label
           ]}
         >
           {label}
@@ -107,7 +107,7 @@ export const CustomInput = ({
             value={value}
             placeholder={placeholder}
             onChangeText={onChangeText}
-              editable={editable} 
+              editable={editable}
             placeholderTextColor={color.placeholderText}
             onFocus={() => {
               setIsFocused(true);
@@ -120,16 +120,16 @@ export const CustomInput = ({
           />
         </View>
 
-    {children ??
-  (rightIcon && (
-    <Pressable
-      onPress={onRightIconPress}
-      hitSlop={10}
-      style={{ marginLeft: scale(6) }}
-    >
-      {rightIcon}
-    </Pressable>
-  ))}
+        {children ??
+          (rightIcon && (
+            <Pressable
+              onPress={onRightIconPress}
+              hitSlop={10}
+              style={{ marginLeft: scale(6) }}
+            >
+              {rightIcon}
+            </Pressable>
+          ))}
 
       </Pressable>
 
@@ -163,12 +163,12 @@ pressable: {
     borderColor: color.error,
   },
   errorText: {
-    marginTop: verticalScale(4),
+    marginTop: verticalScale(10),
     fontSize: fontSize.fontSize_12,
     color: color.error,
     fontFamily: fontFamily.Medium,
   },
-  label:{
+  label: {
     fontSize: fontSize.fontSize_13,
     fontFamily: fontFamily.Medium,
     color: color.textSecondary,

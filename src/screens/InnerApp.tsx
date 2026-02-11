@@ -340,11 +340,6 @@ function LoginStack() {
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
         <Stack.Screen
-          name="FAQScreen"
-          component={FAQScreen}
-          options={{ headerShown: false }}
-        />
-         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
@@ -559,6 +554,8 @@ function CustomerHomeStack() {
           component={CustomerBottomTabStack}
           options={{ headerShown: false }}
         />
+
+
       </Stack.Navigator>
     </React.Suspense>
   );
