@@ -350,7 +350,6 @@ function LoginStack() {
           component={AddVehicleDetails}
           options={{ headerShown: false }}
         />
-
         <Stack.Screen
           name="OTPVerificationScreen"
           component={OTPVerificationScreen}
@@ -553,6 +552,13 @@ function CustomerHomeStack() {
           component={InstantDelivery}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="CustomerBottomTabStack"
+          component={CustomerBottomTabStack}
+          options={{ headerShown: false }}
+        />
+
+
       </Stack.Navigator>
     </React.Suspense>
   );
