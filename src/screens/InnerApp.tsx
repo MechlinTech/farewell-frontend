@@ -50,6 +50,7 @@ import ContactUs from './shared/Contact/Contact';
 import DropOffPackage from './rider/DropoffPackage/DropOffPackage';
 import AddBankDetails from './shared/BankDetails/AddBankDetails';
 import InstantDelivery from './customer/InstantDelivery/InstantDelivery';
+import ScheduleDelivery from './customer/ScheduleDelivery/ScheduleDelivery';
 import FAQScreen from './shared/FAQ/FAQ';
 import Vehicles from './rider/Vehicles/Vehicles';
 import NotificationSettings from './shared/NotificationSettings/NotificationSettings';
@@ -298,13 +299,13 @@ function LoginStack() {
           name="VehicleDetails"
           component={VehicleDetails}
           options={{ headerShown: false }}
-        /> */}
-        {/* <Stack.Screen
+        />
+        <Stack.Screen
           name="NotificationSettings"
           component={NotificationSettings}
           options={{ headerShown: false }}
-        /> */}
-        {/* <Stack.Screen
+        />
+        <Stack.Screen
           name="Vehicles"
           component={Vehicles}
           options={{ headerShown: false }}
@@ -324,21 +325,12 @@ function LoginStack() {
       component={DropOffPackage}
       options={{ headerShown: false }}
     /> */}
-        {/* <Stack.Screen
-          name="PrivacyPolicyScreen"
-          component={PrivacyPolicyScreen}
-          options={{ headerShown: false }}
-        /> */}
-        {/* <Stack.Screen
-          name="TermsAndConditionsScreen"
-          component={TermsAndConditionsScreen}
-          options={{ headerShown: false }}
-        /> */}
-        {/* <Stack.Screen
+
+        <Stack.Screen
           name="FAQScreen"
           component={FAQScreen}
           options={{ headerShown: false }}
-        /> */}
+        />
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
@@ -349,7 +341,6 @@ function LoginStack() {
           component={AddVehicleDetails}
           options={{ headerShown: false }}
         />
-
         <Stack.Screen
           name="OTPVerificationScreen"
           component={OTPVerificationScreen}
@@ -452,6 +443,11 @@ function RiderHomeStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="RiderHomeStack">
+        <Stack.Screen
+          name="DropOffPackage"
+          component={DropOffPackage}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="RiderBottomTabStack"
           component={RiderBottomTabStack}
@@ -579,6 +575,16 @@ function CustomerHomeStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="CustomerHomeStack">
+        <Stack.Screen
+          name="ScheduleDelivery"
+          component={ScheduleDelivery}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="InstantDelivery"
+          component={InstantDelivery}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="CustomerBottomTabStack"
           component={CustomerBottomTabStack}

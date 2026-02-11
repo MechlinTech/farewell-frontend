@@ -80,6 +80,8 @@ export const CustomToolbar = ({
               fontSize: fontSize.fontSize_20,
               fontFamily: fontFamily.Heavy,
               color: color.text,
+              marginTop: verticalScale(4.25),
+
             },
             titleStyle,
           ]}
