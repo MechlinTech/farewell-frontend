@@ -6,7 +6,9 @@ import CustomButton from 'components/CustomButton';
 import { scale, verticalScale } from '@scale';
 import { fontFamily, fontSize } from '@constants';
 import color from '@color';
-import CollapsibleAccordion from 'components/CollapsibleAccordion';
+import CollapsibleAccordion from '@components/CollapsibleAccordion';
+import Navigator from '../../../utils/Navigator';
+
 
 const faqData = [
     {
@@ -42,8 +44,11 @@ const faqData = [
         answer: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantiumSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium?",
     },
 ]
-const FAQScreen = ({ navigation }: any) => {
 
+const FAQScreen = ({ navigation }: any) => {
+const handlesend = () => {
+    Navigator.pushScreen(navigation, 'ContactUs')
+}
     return (
         <BaseWrapper>
             <CustomToolbar
@@ -72,7 +77,7 @@ const FAQScreen = ({ navigation }: any) => {
                         </Text>
                         <CustomButton
                             title="Contact Us"
-                            onPress={() => { }}
+                            onPress={handlesend}
                         />
                     </View>
                 </View>

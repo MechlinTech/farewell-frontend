@@ -41,7 +41,7 @@ const InstantDelivery = ({ navigation }: any) => {
           label='Pickup Location'
           value="2972 Westheimer, California"
           textStyle={styles.pickupLocationTextStyle}
-          editable={false}
+          // editable={false}
           leftIcon={
             <ImageComponent source={images.location} style={styles.locationicon} />
           }
@@ -249,6 +249,6 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    marginTop: verticalScale(105),
+    marginTop: verticalScale(15),
   },
 });

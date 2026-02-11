@@ -339,11 +339,7 @@ function LoginStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
-        <Stack.Screen
-          name="FAQScreen"
-          component={FAQScreen}
-          options={{ headerShown: false }}
-        />
+      
          <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
@@ -370,11 +366,7 @@ function LoginStack() {
           component={ForgotPasswordScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="InstantDelivery"
-          component={InstantDelivery}
-          options={{ headerShown: false }}
-        />
+       
         <Stack.Screen
           name="DropOffPackage"
           component={DropOffPackage}
@@ -457,14 +449,15 @@ function RiderHomeStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="RiderHomeStack">
-        <Stack.Screen
-          name="DropOffPackage"
-          component={DropOffPackage}
-          options={{ headerShown: false }}
-        />
+  
         <Stack.Screen
           name="RiderBottomTabStack"
           component={RiderBottomTabStack}
+          options={{ headerShown: false }}
+        />
+              <Stack.Screen
+          name="DropOffPackage"
+          component={DropOffPackage}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
@@ -544,7 +537,13 @@ function CustomerHomeStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="CustomerHomeStack">
+      
         <Stack.Screen
+          name="CustomerBottomTabStack"
+          component={CustomerBottomTabStack}
+          options={{ headerShown: false }}
+        />
+          <Stack.Screen
           name="ScheduleDelivery"
           component={ScheduleDelivery}
           options={{ headerShown: false }}
@@ -552,11 +551,6 @@ function CustomerHomeStack() {
         <Stack.Screen
           name="InstantDelivery"
           component={InstantDelivery}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="CustomerBottomTabStack"
-          component={CustomerBottomTabStack}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
