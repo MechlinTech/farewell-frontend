@@ -17,12 +17,12 @@ import images from '@images';
 import BaseLine from '@components/BaseLine';
 import Navigator from '@Navigator';
 import LogoutModal from '@components/LogoutModal';
+import Share from 'react-native-share';
+import RNShare from 'react-native-share';
 
 const RiderProfile = ({ navigation }: any) => {
-  const [refreshing, setRefreshing] =
-    React.useState(false);
-  const [showLogout, setShowLogout] =
-    React.useState(false);
+  const [refreshing, setRefreshing] = React.useState(false);
+  const [showLogout, setShowLogout] = React.useState(false);
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -33,18 +33,40 @@ const RiderProfile = ({ navigation }: any) => {
   };
 
   const profileMenus = [
-    { id: 1, title: 'Earnings', icon: images.credit_card, route: 'RiderEarnings' },
-    { id: 2, title: 'Vehicles', icon: images.vehicles, route: 'RiderVehicles' },
-    { id: 3, title: 'Documents', icon: images.documents, route: 'RiderDocuments' },
-    { id: 4, title: 'Bank Details', icon: images.account_balance, route: 'RiderBankDetails' },
-    { id: 5, title: 'Settings', icon: images.setting, route: 'RiderSettings' },
-    { id: 6, title: 'Support/FAQ', icon: images.faq, route: 'RiderSupportFAQ' },
-    { id: 7, title: 'Invite Friends', icon: images.invitation, route: 'RiderInviteFriends' },
-    { id: 8, title: 'Logout', icon: images.signout },
+    {
+      id: 1,
+      title: 'Earnings',
+      icon: images.credit_card,
+      route: 'RiderEarnings',
+    },
+    { id: 2, title: 'Vehicles', icon: images.vehicles, route: 'Vehicles' },
+    {
+      id: 3,
+      title: 'Bank Details',
+      icon: images.account_balance,
+      route: 'AddBankDetails',
+    },
+    { id: 4, title: 'Settings', icon: images.setting, route: 'RiderSettings' },
+    { id: 5, title: 'Support/FAQ', icon: images.faq, route: 'FAQScreen' },
+    {
+      id: 6,
+      title: 'Invite Friends',
+      icon: images.invitation,
+      route: 'RiderInviteFriends',
+    },
+    { id: 7, title: 'Logout', icon: images.signout },
   ];
 
   const handleLogout = () => {
     setShowLogout(true);
+  };
+  const shareOptions = () => {
+    RNShare.open({
+      title: 'Farewell',
+      subject: 'Farewell App',
+      message: `Farewell App\n\nShare the app with your friends`,
+      url: 'https://www.google.com',
+    });
   };
 
   return (
@@ -53,38 +75,32 @@ const RiderProfile = ({ navigation }: any) => {
         style={styles.container}
         showsVerticalScrollIndicator={false}
         refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
         {/* Profile Header */}
         <View style={styles.profileHeader}>
           <View style={styles.avatar}>
-            <Text style={styles.avatarText}>
-              AS
-            </Text>
+            <Text style={styles.avatarText}>AS</Text>
           </View>
 
-          <Text style={styles.userName}>
-            Adam Smith
-          </Text>
+          <Text style={styles.userName}>Adam Smith</Text>
         </View>
 
         <BaseLine style={styles.divider} />
 
         {/* Menu List */}
         {profileMenus.map((item: any) => (
-          <View
-            key={item.id}
-            style={styles.menuItem}
-          >
+          <View key={item.id} style={styles.menuItem}>
             <CustomNavigationItem
               title={item.title}
               icon={item.icon}
               onPress={() =>
-                item.title === 'Logout' ? handleLogout() : Navigator.pushScreen(navigation, item.route)
+                item.title === 'Logout'
+                  ? handleLogout()
+                  : item.title === 'Invite Friends'
+                  ? shareOptions()
+                  : Navigator.pushScreen(navigation, item.route)
               }
             />
           </View>
@@ -98,7 +114,6 @@ const RiderProfile = ({ navigation }: any) => {
             Navigator.resetStackScreen(navigation, 'LoginStack');
           }}
         />
-
       </ScrollView>
     </Base>
   );
@@ -134,7 +149,6 @@ const styles = StyleSheet.create({
     color: color.textSecondary,
     lineHeight: verticalScale(34),
     marginTop: verticalScale(8),
-
   },
 
   userName: {

@@ -17,7 +17,10 @@ import messaging from '@react-native-firebase/messaging';
 
 import color from '@color';
 import { AysncStorageHelper } from '@AsyncStoreHelper';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 import { RootState } from '@redux/store';
@@ -96,7 +99,6 @@ function CustomerBottomTabStack() {
   );
 }
 
-
 function CustomCustomerBottomTab({ state, navigation }: any) {
   const insets = useSafeAreaInsets();
 
@@ -108,9 +110,7 @@ function CustomCustomerBottomTab({ state, navigation }: any) {
 
         // ✅ Real height
         height:
-          Platform.OS === 'android'
-            ? verticalScale(80)
-            : verticalScale(80),
+          Platform.OS === 'android' ? verticalScale(80) : verticalScale(80),
 
         justifyContent: 'space-around',
         alignItems: 'center',
@@ -121,7 +121,6 @@ function CustomCustomerBottomTab({ state, navigation }: any) {
         shadowRadius: 5,
       }}
     >
-
       {state.routes.map((route: any, index: number) => {
         const isFocused = state.index === index;
 
@@ -130,7 +129,6 @@ function CustomCustomerBottomTab({ state, navigation }: any) {
         const tabIcon: any = tabConfig
           ? CustomerScreenIcons[tabConfig.key.toUpperCase()]
           : null;
-
 
         const onPress = () => {
           if (!isFocused) navigation.navigate(route.name);
@@ -171,10 +169,7 @@ function CustomCustomerBottomTab({ state, navigation }: any) {
   );
 }
 
-const RiderScreenIcons: Record<
-  string,
-  { active: any }
-> = {
+const RiderScreenIcons: Record<string, { active: any }> = {
   RIDERHOME: {
     active: images.home,
   },
@@ -185,7 +180,6 @@ const RiderScreenIcons: Record<
     active: images.profile,
   },
 };
-
 
 const RiderTabs = [
   {
@@ -208,31 +202,20 @@ const RiderTabs = [
   },
 ];
 
-
 function RiderBottomTabStack() {
   return (
     <Tab.Navigator
       screenOptions={{ headerShown: false }}
-      tabBar={(props: any) => (
-        <CustomRiderBottomTab {...props} />
-      )}
+      tabBar={(props: any) => <CustomRiderBottomTab {...props} />}
     >
       {RiderTabs.map(tab => (
-        <Tab.Screen
-          key={tab.key}
-          name={tab.name}
-          component={tab.component}
-        />
+        <Tab.Screen key={tab.key} name={tab.name} component={tab.component} />
       ))}
     </Tab.Navigator>
   );
 }
 
-
-function CustomRiderBottomTab({
-  state,
-  navigation,
-}: any) {
+function CustomRiderBottomTab({ state, navigation }: any) {
   const insets = useSafeAreaInsets();
 
   return (
@@ -242,9 +225,7 @@ function CustomRiderBottomTab({
         backgroundColor: color.background,
 
         height:
-          Platform.OS === 'android'
-            ? verticalScale(80)
-            : verticalScale(80),
+          Platform.OS === 'android' ? verticalScale(80) : verticalScale(80),
 
         justifyContent: 'space-around',
         alignItems: 'center',
@@ -256,83 +237,58 @@ function CustomRiderBottomTab({
         shadowRadius: 5,
       }}
     >
-      {state.routes.map(
-        (route: any, index: number) => {
-          const isFocused =
-            state.index === index;
+      {state.routes.map((route: any, index: number) => {
+        const isFocused = state.index === index;
 
-          // 🔹 Get tab config
-          const tabConfig =
-            RiderTabs.find(
-              tab => tab.name === route.name
-            );
+        // 🔹 Get tab config
+        const tabConfig = RiderTabs.find(tab => tab.name === route.name);
 
-          // 🔹 Get icon
-          const tabIcon = tabConfig
-            ? RiderScreenIcons[
-            tabConfig.name
-            ]
-            : null;
+        // 🔹 Get icon
+        const tabIcon = tabConfig ? RiderScreenIcons[tabConfig.name] : null;
 
-          const onPress = () => {
-            if (!isFocused)
-              navigation.navigate(
-                route.name
-              );
-          };
+        const onPress = () => {
+          if (!isFocused) navigation.navigate(route.name);
+        };
 
-          return (
-            <TouchableOpacity
-              key={route.key}
-              onPress={onPress}
-              activeOpacity={0.7}
+        return (
+          <TouchableOpacity
+            key={route.key}
+            onPress={onPress}
+            activeOpacity={0.7}
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            {/* Icon */}
+            <ImageComponent
+              source={tabIcon?.active}
+              resizeMode="contain"
               style={{
-                justifyContent: 'center',
-                alignItems: 'center',
+                width: scale(18),
+                height: verticalScale(18),
+              }}
+              tintColor={isFocused ? color.primary : color.tabInactive}
+            />
+
+            {/* Label */}
+            <Text
+              style={{
+                color: isFocused ? color.textContrast : color.tabInactive,
+                fontSize: fontSize.fontSize_10,
+                fontFamily: fontFamily.Medium,
+                fontWeight: isFocused ? 'bold' : 'normal',
+                marginTop: verticalScale(12),
               }}
             >
-              {/* Icon */}
-              <ImageComponent
-                source={tabIcon?.active}
-                resizeMode="contain"
-                style={{
-                  width: scale(18),
-                  height: verticalScale(18),
-                }}
-                tintColor={
-                  isFocused
-                    ? color.primary
-                    : color.tabInactive
-                }
-              />
-
-              {/* Label */}
-              <Text
-                style={{
-                  color: isFocused
-                    ? color.textContrast
-                    : color.tabInactive,
-                  fontSize:
-                    fontSize.fontSize_10,
-                  fontFamily:
-                    fontFamily.Medium,
-                  fontWeight: isFocused
-                    ? 'bold'
-                    : 'normal',
-                  marginTop:
-                    verticalScale(12),
-                }}
-              >
-                {tabConfig?.label}
-              </Text>
-            </TouchableOpacity>
-          );
-        }
-      )}
+              {tabConfig?.label}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 }
-
 
 function LoginStack() {
   return (
@@ -342,13 +298,13 @@ function LoginStack() {
           name="VehicleDetails"
           component={VehicleDetails}
           options={{ headerShown: false }}
-        />
-        <Stack.Screen
+        /> */}
+        {/* <Stack.Screen
           name="NotificationSettings"
           component={NotificationSettings}
           options={{ headerShown: false }}
-        />
-        <Stack.Screen
+        /> */}
+        {/* <Stack.Screen
           name="Vehicles"
           component={Vehicles}
           options={{ headerShown: false }}
@@ -358,7 +314,7 @@ function LoginStack() {
           component={AddBankDetails}
           options={{ headerShown: false }}
         /> */}
-   {/* <Stack.Screen
+        {/* <Stack.Screen
       name="InstantDelivery"
       component={InstantDelivery}
       options={{ headerShown: false }}
@@ -368,13 +324,22 @@ function LoginStack() {
       component={DropOffPackage}
       options={{ headerShown: false }}
     /> */}
-
-        <Stack.Screen
+        {/* <Stack.Screen
+          name="PrivacyPolicyScreen"
+          component={PrivacyPolicyScreen}
+          options={{ headerShown: false }}
+        /> */}
+        {/* <Stack.Screen
+          name="TermsAndConditionsScreen"
+          component={TermsAndConditionsScreen}
+          options={{ headerShown: false }}
+        /> */}
+        {/* <Stack.Screen
           name="FAQScreen"
           component={FAQScreen}
           options={{ headerShown: false }}
-        />
-         <Stack.Screen
+        /> */}
+        <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
@@ -492,6 +457,51 @@ function RiderHomeStack() {
           component={RiderBottomTabStack}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="PrivacyPolicyScreen"
+          component={PrivacyPolicyScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="TermsAndConditionsScreen"
+          component={TermsAndConditionsScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="FAQScreen"
+          component={FAQScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="VehicleDetails"
+          component={VehicleDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="RiderSettings"
+          component={RiderSettings}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="NotificationSettings"
+          component={NotificationSettings}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ChangePassword"
+          component={ChangePasswordScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Vehicles"
+          component={Vehicles}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AddBankDetails"
+          component={AddBankDetails}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </React.Suspense>
   );
@@ -595,7 +605,7 @@ export const checkApplicationPermission = async () => {
           }
         }
       }
-    } catch (error) { }
+    } catch (error) {}
   } else {
     try {
       const authStatus = await messaging().requestPermission();
