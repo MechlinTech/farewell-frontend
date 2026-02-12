@@ -6,7 +6,6 @@ import CustomButton from 'components/CustomButton';
 import { scale, verticalScale } from '@scale';
 import { fontFamily, fontSize } from '@constants';
 import color from '@color';
-import CollapsibleAccordion from 'components/CollapsibleAccordion';
 import { useEffect, useState } from 'react';
 
 const faqDataArray = [
@@ -85,91 +84,13 @@ const FAQScreen = ({ navigation }: any) => {
             <Text style={styles.footerTitle}>
               Still Stuck ? We're just a mail away
             </Text>
-            <CustomButton title="Contact Us" onPress={() => {}} />
+            <CustomButton title="Contact Us" onPress={() => { }} />
           </View>
         </View>
       </ScrollView>
     </BaseWrapper>
   );
-import CollapsibleAccordion from '@components/CollapsibleAccordion';
-import Navigator from '../../../utils/Navigator';
-
-
-const faqData = [
-    {
-        question: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium?",
-        answer: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantiumSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium?",
-    },
-    {
-        question: "What is the capital of France?",
-        answer: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantiumSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium?",
-    },
-    {
-        question: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium?",
-        answer: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantiumSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium?",
-    },
-    {
-        question: "What is the capital of France?",
-        answer: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantiumSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium?",
-    },
-    {
-        question: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium?",
-        answer: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantiumSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium?",
-    },
-    {
-        question: "What is the capital of France?",
-        answer: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantiumSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium?",
-    },
-    {
-        question: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium?",
-        answer: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantiumSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium?",
-    },
-    {
-        question: "What is the capital of France?",
-        answer: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantiumSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium?",
-    },
-]
-
-const FAQScreen = ({ navigation }: any) => {
-const handlesend = () => {
-    Navigator.pushScreen(navigation, 'ContactUs')
 }
-    return (
-        <BaseWrapper>
-            <CustomToolbar
-                title="How can we help you?"
-                onLeftPress={() => navigation.goBack()}
-                showLeftIcon
-                navigation={navigation}
-            />
-            <ScrollView style={{ flex: 1 }}>
-                <View style={styles.container}>
-                    <View style={styles.inputContainer}>
-                        <Text style={styles.title}>Frequently asked questions</Text>
-                        <View>
-                            {faqData.map((item, index) => (
-                                <CollapsibleAccordion
-                                    key={index}
-                                    question={item.question}
-                                    answer={item.answer}
-                                />
-                            ))}
-                        </View>
-                    </View>
-                    <View>
-                        <Text style={styles.footerTitle}>
-                            Still Stuck ? We're just a mail away
-                        </Text>
-                        <CustomButton
-                            title="Contact Us"
-                            onPress={handlesend}
-                        />
-                    </View>
-                </View>
-            </ScrollView>
-        </BaseWrapper>
-    );
-};
 
 export default FAQScreen;
 
