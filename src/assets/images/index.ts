@@ -25,7 +25,7 @@ const images = {
     bookingLogo: require("./bookingLogo.svg"),
     camera: require("./camera_alt_24px.svg"),
     downarrow: require("./arrow_forward_ios.svg"),
-    ellipse: require("./Ellipse 122.svg"),
+    greenIndicator: require("./greenIndicator.svg"),
     small: require("./Small.svg"),
     vehicles: require("./vehicles.svg"),
     documents: require("./documents.svg"),
@@ -38,6 +38,8 @@ const images = {
     credit_card: require("./credit_card.svg"),
     spark: require("./spark.svg"),
     time: require("./time.svg"),
+    dummyBarCode: require("./dummyBarCode.svg"),
+    dummyCompany: require("./dummyCompany.svg"),
 
 };
 

@@ -294,7 +294,7 @@ function CustomRiderBottomTab({ state, navigation }: any) {
 function LoginStack() {
   return (
     <React.Suspense>
-      <Stack.Navigator id="LoginStack">      
+      <Stack.Navigator id="LoginStack">     
          <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
@@ -422,6 +422,11 @@ function RiderHomeStack() {
         <Stack.Screen
           name="FAQScreen"
           component={FAQScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ContactUs"
+          component={ContactUs}
           options={{ headerShown: false }}
         />
         <Stack.Screen
