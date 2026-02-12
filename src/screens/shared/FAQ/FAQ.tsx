@@ -85,13 +85,13 @@ const FAQScreen = ({ navigation }: any) => {
             <Text style={styles.footerTitle}>
               Still Stuck ? We're just a mail away
             </Text>
-            <CustomButton title="Contact Us" onPress={() => { }} />
+            <CustomButton title="Contact Us" onPress={() => {}} />
           </View>
         </View>
       </ScrollView>
     </BaseWrapper>
   );
-}
+};
 
 export default FAQScreen;
 

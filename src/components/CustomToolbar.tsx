@@ -81,7 +81,6 @@ export const CustomToolbar = ({
               fontFamily: fontFamily.Heavy,
               color: color.text,
               marginTop: verticalScale(4.25),
-
             },
             titleStyle,
           ]}
@@ -131,5 +130,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
     marginRight: scale(16),
+    marginTop: verticalScale(4.25),
   },
 });
