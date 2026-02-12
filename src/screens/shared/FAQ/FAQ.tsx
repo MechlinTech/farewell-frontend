@@ -7,6 +7,7 @@ import { scale, verticalScale } from '@scale';
 import { fontFamily, fontSize } from '@constants';
 import color from '@color';
 import { useEffect, useState } from 'react';
+import CollapsibleAccordion from '@components/CollapsibleAccordion';
 
 const faqDataArray = [
   {
