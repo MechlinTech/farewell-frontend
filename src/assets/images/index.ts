@@ -16,6 +16,7 @@ const images = {
     exclamation: require("./exclamation.svg"),
     exclamationWhite: require("./exclamationWhite.svg"),
     dollar: require("./dollar.svg"),
+    earningsDollar: require("./earningsDollar.svg"),
     location: require("./location.svg"),
     bookingLogo: require("./bookingLogo.svg"),
     camera: require("./camera_alt_24px.svg"),
@@ -33,6 +34,9 @@ const images = {
     credit_card: require("./credit_card.svg"),
     spark: require("./spark.svg"),
     time: require("./time.svg"),
+    filter: require("./filter.svg"),
+    hide: require("./hideIcon.svg"),
+    unhide: require("./viewIcon.svg"),
 
 };
 
