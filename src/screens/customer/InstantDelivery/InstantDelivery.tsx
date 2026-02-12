@@ -23,7 +23,7 @@ const InstantDelivery = ({ navigation }: any) => {
   const [packageQuantity, setPackageQuantity] = useState<any>('1');
   const[pickupLocation, setPickupLocation] = useState<any>('2972 Westheimer, California');
   const[courierCompany, setCourierCompany] = useState<any>('FedEx, 27 Samwell California, USA');
-  
+
   const [errors, setErrors] = useState<any>({});
   const validatePickupLocation = () => {
   if (!pickupLocation?.trim())
@@ -52,7 +52,7 @@ const validateAll = () => {
   else if (isNaN(packageQuantity)) err.quantity = 'Must be a number';
   else if (Number(packageQuantity) <= 0) err.quantity = 'Must be greater than 0';
 
-  
+
 
   if (!packageSize) err.packageSize = 'Select package size';
 
@@ -71,7 +71,7 @@ const validateAll = () => {
         title="Instant Delivery"
         showLeftIcon
         onLeftPress={() => navigation.goBack()}
-        
+
         navigation={navigation}
       />
 
@@ -175,7 +175,7 @@ error={errors.courier}
             if(!validateAll()){
               return;
             }
-            
+
             console.log({
               packageSize,
               labelImage,

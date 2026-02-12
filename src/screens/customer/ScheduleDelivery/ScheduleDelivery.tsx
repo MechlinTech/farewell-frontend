@@ -45,7 +45,7 @@ const [courierCompany, setCourierCompany] = useState('FedEx, 27 Samwell Californ
 
   const [showDatePicker, setShowDatePicker] = useState(false);
   // const [showTimePicker, setShowTimePicker] = useState(false);
-  
+
 const [errors, setErrors] = useState<any>({});
 const validatePickupLocation = () => {
   if (!pickupLocation?.trim())
@@ -92,7 +92,7 @@ const validateAll = () => {
 
 
 
- 
+
 
   return (
     <Base backgroundColor={color.background}>
@@ -183,12 +183,12 @@ const validateAll = () => {
             editable={false}
             onPress={
               () => {
-               if(!date){
-                showFlashMessage("Please select a date first")
-               }
+                if (!date) {
+                  showFlashMessage("Please select a date first")
+                }
               }
             }
-       
+
             onRightIconPress={() => console.log('🟢 Time input pressed')}
           />
         </View>
@@ -242,7 +242,7 @@ const validateAll = () => {
             setShowConfirmSheet(true);
             console.log({
               date,
-              
+
               packageSize,
               labelImage,
             });
@@ -250,7 +250,7 @@ const validateAll = () => {
         />
       </ScrollView>
 
-  
+
 <ConfirmDetailsSheet
   visible={showConfirmSheet}
   onClose={() => setShowConfirmSheet(false)}
@@ -268,9 +268,9 @@ const validateAll = () => {
     }}
   />
 )}
-    
 
-   
+
+
 
 
     </Base>
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize.fontSize_14,
     color: color.delivery.value,
   },
- 
+
   righticon: {
     width: scale(14),
     height: verticalScale(14),

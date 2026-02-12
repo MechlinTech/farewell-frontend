@@ -55,6 +55,8 @@ import FAQScreen from './shared/FAQ/FAQ';
 import Vehicles from './rider/Vehicles/Vehicles';
 import NotificationSettings from './shared/NotificationSettings/NotificationSettings';
 import VehicleDetails from './rider/VehicleDetails/VehicleDetails';
+import RiderDeliveryDetails from './rider/RiderDeliveryDetails/RiderDeliveryDetails';
+import CustomerDeliveryDetails from './customer/CustomerDeliveryDetails/CustomerDeliveryDetails';
 
 const Stack = createNativeStackNavigator();
 
@@ -294,7 +296,7 @@ function CustomRiderBottomTab({ state, navigation }: any) {
 function LoginStack() {
   return (
     <React.Suspense>
-      <Stack.Navigator id="LoginStack">     
+      <Stack.Navigator id="LoginStack">
          <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
@@ -320,7 +322,7 @@ function LoginStack() {
           component={ForgotPasswordScreen}
           options={{ headerShown: false }}
         />
-       
+
         <Stack.Screen
           name="DropOffPackage"
           component={DropOffPackage}
@@ -403,7 +405,7 @@ function RiderHomeStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="RiderHomeStack">
-  
+
         <Stack.Screen
           name="RiderBottomTabStack"
           component={RiderBottomTabStack}
@@ -462,6 +464,11 @@ function RiderHomeStack() {
         <Stack.Screen
           name="DropOffPackage"
           component={DropOffPackage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="RiderDeliveryDetails"
+          component={RiderDeliveryDetails}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
@@ -541,13 +548,13 @@ function CustomerHomeStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="CustomerHomeStack">
-      
+
         <Stack.Screen
           name="CustomerBottomTabStack"
           component={CustomerBottomTabStack}
           options={{ headerShown: false }}
         />
-          <Stack.Screen
+        <Stack.Screen
           name="ScheduleDelivery"
           component={ScheduleDelivery}
           options={{ headerShown: false }}
@@ -558,10 +565,11 @@ function CustomerHomeStack() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="CustomerBottomTabStack"
-          component={CustomerBottomTabStack}
+          name="CustomerDeliveryDetails"
+          component={CustomerDeliveryDetails}
           options={{ headerShown: false }}
         />
+
       </Stack.Navigator>
     </React.Suspense>
   );
@@ -583,7 +591,7 @@ export const checkApplicationPermission = async () => {
           }
         }
       }
-    } catch (error) {}
+    } catch (error) { }
   } else {
     try {
       const authStatus = await messaging().requestPermission();
