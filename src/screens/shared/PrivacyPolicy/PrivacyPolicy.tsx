@@ -6,22 +6,26 @@ import HTMLView from 'react-native-htmlview';
 import { fontFamily, fontSize } from '@constants';
 import { scale, verticalScale } from '@scale';
 import CustomToolbar from 'components/CustomToolbar';
+import { useEffect, useState } from 'react';
 
 const source = {
   html: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra condimentum eget purus in. Consectetur eget id morbi amet amet, in. Ipsum viverra pretium tellus neque. Ullamcorper suspendisse aenean leo pharetra in sit semper et. Amet quam placerat sem.</p><ul><li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra condimentum eget purus in.</li><li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li></ul><ul><li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra condimentum eget purus in.</li><li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li></ul>`,
 };
 
 const PrivacyPolicyScreen = ({ navigation }: any) => {
+  const [data, setData] = useState<any>([]);
+  useEffect(() => {
+    setData(source);
+  }, []);
   return (
     <BaseWrapper>
       <CustomToolbar
         title="Privacy Policy"
-        onLeftPress={() => navigation.goBack()}
         showLeftIcon
         navigation={navigation}
       />
       <ScrollView style={styles.container}>
-        <HTMLView value={source.html} stylesheet={styles} />
+        <HTMLView value={data.html} stylesheet={styles} />
       </ScrollView>
     </BaseWrapper>
   );
