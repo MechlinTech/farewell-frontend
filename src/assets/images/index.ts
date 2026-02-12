@@ -40,7 +40,7 @@ const images = {
     time: require("./time.svg"),
     dummyBarCode: require("./dummyBarCode.svg"),
     dummyCompany: require("./dummyCompany.svg"),
-    call: require("./call.svg"),
+
 };
 
 export default images;
