@@ -6,6 +6,7 @@ import {
   Pressable,
   ScrollView,
   Platform,
+  Alert,
 } from 'react-native';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -22,6 +23,8 @@ import { scale, verticalScale } from '@scale';
 import { fontFamily, fontSize } from '@constants';
 import images from '@images';
 import CustomImageButton from '@components/CustomImageButton';
+import SelectionListBottomSheet from '@components/SelectionListBottomSheet';
+import { showFlashMessage } from '@components/showFlashMessage';
 
 const ScheduleDelivery = ({ navigation }: any) => {
   const [packageSize, setPackageSize] = useState<'Small' | 'Medium' | 'Large'>(
@@ -33,24 +36,16 @@ const ScheduleDelivery = ({ navigation }: any) => {
   /* ===================== DATE & TIME LOGIC ===================== */
 
   const [date, setDate] = useState<Date | null>(null);
-  const [time, setTime] = useState<Date | null>(null);
+  // const [time, setTime] = useState<Date | null>(null);
 
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [showTimePicker, setShowTimePicker] = useState(false);
+  // const [showTimePicker, setShowTimePicker] = useState(false);
+  
 
-  const getFormattedTime = () => {
-    if (!time) return '';
 
-    let hours = time.getHours();
-    const minutes = time.getMinutes().toString().padStart(2, '0');
-    const amPm = hours >= 12 ? 'PM' : 'AM';
 
-    hours = hours % 12 || 12;
 
-    return `${hours}:${minutes} ${amPm}`;
-  };
-
-  /* ============================================================= */
+ 
 
   return (
     <Base backgroundColor={color.background}>
@@ -93,6 +88,7 @@ const ScheduleDelivery = ({ navigation }: any) => {
           rightIcon={
             <ImageComponent source={images.downarrow} style={styles.righticon} />
           }
+          onRightIconPress={() => console.log('Courier Company pressed')}
         />
 
         {/* Package Quantity */}
@@ -111,15 +107,15 @@ const ScheduleDelivery = ({ navigation }: any) => {
             labelStyle={styles.datelabel}
             editable={false}
             placeholder="DD/MM/YYYY"
-            
+
             value={date ? date.toLocaleDateString() : ''}
             textStyle={styles.datetextStyle}
             fieldStyle={styles.datefield}
-            
-        onPress={() => {
-    
-     setShowDatePicker(true);
-    }}
+
+            onPress={() => {
+
+              setShowDatePicker(true);
+            }}
           />
 
           {/* TIME */}
@@ -127,15 +123,22 @@ const ScheduleDelivery = ({ navigation }: any) => {
             label="Time"
             labelStyle={styles.timelabel}
             placeholder="HH:MM"
-            value={getFormattedTime()}
-            
+            // value={getFormattedTime()}
+            textStyle={styles.timetextStyle}
             fieldStyle={styles.timefield}
             rightIcon={
               <ImageComponent source={images.downarrow} style={styles.righticon} />
             }
             editable={false}
-            onRightIconPress={() => setShowTimePicker(true)}
-            // onRightIconPress={() => console.log('🟢 Time input pressed')}
+            onPress={
+              () => {
+               if(!date){
+                showFlashMessage("Please select a date first")
+               }
+              }
+            }
+       
+            onRightIconPress={() => console.log('🟢 Time input pressed')}
           />
         </View>
 
@@ -182,7 +185,7 @@ const ScheduleDelivery = ({ navigation }: any) => {
           onPress={() => {
             console.log({
               date,
-              time,
+              
               packageSize,
               labelImage,
             });
@@ -190,37 +193,24 @@ const ScheduleDelivery = ({ navigation }: any) => {
         />
       </ScrollView>
 
-      {/* ===================== PICKERS ===================== */}
-
-      {showDatePicker && (
-        <DateTimePicker
-          value={date || new Date()}
-          mode="date"
-          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-          onChange={(event, selectedDate) => {
-            setShowDatePicker(false);
-            if (selectedDate) setDate(selectedDate);
-          }}
-        />
-      )}
-
-      {showTimePicker && (
-        <DateTimePicker
-          value={time || new Date()}
-          mode="time"
-          is24Hour={false}
-          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
 
 
+{showDatePicker && (
+  <DateTimePicker
+    value={date || new Date()}
+    mode="date"
+    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+    minimumDate={new Date(new Date().setHours(0, 0, 0, 0))}
+    onChange={(event, selectedDate) => {
+      setShowDatePicker(false);
+      if (selectedDate) setDate(selectedDate);
+    }}
+  />
+)}
+      
 
+   
 
-
-          onChange={(event, selectedTime) => {
-            setShowTimePicker(false);
-            if (selectedTime) setTime(selectedTime);
-          }}
-        />
-      )}
 
     </Base>
   );
@@ -229,152 +219,157 @@ const ScheduleDelivery = ({ navigation }: any) => {
 export default ScheduleDelivery;
 
 const styles = StyleSheet.create({
-    content: {
-        paddingHorizontal: scale(24),
-        paddingTop: verticalScale(29),
-        paddingBottom: verticalScale(40),
-    },
-    couriertextStyle: {
+  content: {
+    paddingHorizontal: scale(24),
+    paddingTop: verticalScale(29),
+    paddingBottom: verticalScale(40),
+  },
 
-        fontSize: fontSize.fontSize_14,
-        color: color.delivery.value,
-    },
-    datetextStyle: {
-        fontSize: fontSize.fontSize_14,
-        color: color.delivery.value,
-    },
-    righticon: {
-        width: scale(14),
-        height: verticalScale(14),
-        paddingRight: scale(17),
-    },
-    datelabel: {
-        marginBottom: verticalScale(6),
-        fontSize: fontSize.fontSize_13,
-        fontFamily: fontFamily.weight400,
-        color: color.textMuted
+  timetextStyle: {
+    fontSize: fontSize.fontSize_14,
+    color: color.delivery.value,
+  },
+  couriertextStyle: {
 
-    },
-    datefield: {
-        height: verticalScale(40),
-        paddingVertical: 0,
-        width: scale(154),
-    },
+    fontSize: fontSize.fontSize_14,
+    color: color.delivery.value,
+  },
+  datetextStyle: {
+    fontSize: fontSize.fontSize_14,
+    color: color.delivery.value,
+  },
+  righticon: {
+    width: scale(14),
+    height: verticalScale(14),
+    paddingRight: scale(17),
+  },
+  datelabel: {
+    marginBottom: verticalScale(6),
+    fontSize: fontSize.fontSize_13,
+    fontFamily: fontFamily.weight400,
+    color: color.textMuted
 
-    timefield: {
-        height: verticalScale(40),
-        paddingVertical: 0,
-        width: scale(158),
-        color: color.textMuted
-    },
-    timelabel: {
-        marginBottom: verticalScale(6),
-        fontSize: fontSize.fontSize_13,
-        fontFamily: fontFamily.weight400,
+  },
+  datefield: {
+    height: verticalScale(40),
+    paddingVertical: 0,
+    width: scale(154),
+  },
 
-    },
-    dateTimeRow: {
-        flexDirection: 'row',
+  timefield: {
+    height: verticalScale(40),
+    paddingVertical: 0,
+    width: scale(158),
+    color: color.textMuted
+  },
+  timelabel: {
+    marginBottom: verticalScale(6),
+    fontSize: fontSize.fontSize_13,
+    fontFamily: fontFamily.weight400,
 
-        marginBottom: verticalScale(24),
-        marginTop: verticalScale(8),
+  },
+  dateTimeRow: {
+    flexDirection: 'row',
 
-        gap: scale(16),
-    },
+    marginBottom: verticalScale(24),
+    marginTop: verticalScale(8),
 
-    pickupLocationTextStyle: {
-        fontSize: fontSize.fontSize_14,
+    gap: scale(16),
+  },
 
-        color: color.delivery.value,
+  pickupLocationTextStyle: {
+    fontSize: fontSize.fontSize_14,
 
-    },
-    imgview: {
-        width: scale(32),
-        height: scale(32),
-        borderRadius: scale(32),
-        backgroundColor: color.primary,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    mediumimage: {
-        width: scale(30),
-        height: verticalScale(30),
-    },
-    largeimage: {
-        width: scale(40),
-        height: verticalScale(40),
-    },
-    locationicon: {
-        width: scale(14),
-        height: verticalScale(14),
-        paddingLeft: scale(16),
-        paddingRight: scale(5),
-    },
-    labelimg: {
-        fontSize: fontSize.fontSize_12,
-        fontFamily: fontFamily.weight500,
+    color: color.delivery.value,
 
-        color: color.textSecondary,
-        marginBottom: verticalScale(11),
-        marginTop: verticalScale(25),
-    },
-    label: {
-        fontSize: fontSize.fontSize_12,
-        fontFamily: fontFamily.weight500,
+  },
+  imgview: {
+    width: scale(32),
+    height: scale(32),
+    borderRadius: scale(32),
+    backgroundColor: color.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  mediumimage: {
+    width: scale(30),
+    height: verticalScale(30),
+  },
+  largeimage: {
+    width: scale(40),
+    height: verticalScale(40),
+  },
+  locationicon: {
+    width: scale(14),
+    height: verticalScale(14),
+    paddingLeft: scale(16),
+    paddingRight: scale(5),
+  },
+  labelimg: {
+    fontSize: fontSize.fontSize_12,
+    fontFamily: fontFamily.weight500,
 
-        color: color.textSecondary,
-        marginBottom: verticalScale(12),
-        marginTop: verticalScale(8),
-    },
+    color: color.textSecondary,
+    marginBottom: verticalScale(11),
+    marginTop: verticalScale(25),
+  },
+  label: {
+    fontSize: fontSize.fontSize_12,
+    fontFamily: fontFamily.weight500,
 
-    input: {
-        marginBottom: verticalScale(16),
+    color: color.textSecondary,
+    marginBottom: verticalScale(12),
+    marginTop: verticalScale(8),
+  },
 
-    },
-    imgcamera: {
-        width: scale(16),
-        height: scale(16),
-    },
+  input: {
+    marginBottom: verticalScale(16),
 
-    icon: {
-        width: scale(10),
-        height: verticalScale(10),
-        borderRadius: scale(2),
-        paddingLeft: scale(16),
-        paddingRight: scale(5),
-    },
+  },
+  imgcamera: {
+    width: scale(16),
+    height: scale(16),
+  },
 
-    sizeRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: verticalScale(6),
-        gap: scale(17),
-    },
+  icon: {
+    width: scale(10),
+    height: verticalScale(10),
+    borderRadius: scale(2),
+    paddingLeft: scale(16),
+    paddingRight: scale(5),
+  },
 
-    sizeBox: {
-        width: '30%',
-        paddingVertical: verticalScale(16),
-        borderRadius: scale(6),
-        backgroundColor: color.primaryMuted,
-        alignItems: 'center',
-    },
+  sizeRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: verticalScale(6),
+    gap: scale(17),
+  },
 
-    sizeBoxActive: {
-        borderWidth: 1,
-        borderColor: color.primary,
-    },
+  sizeBox: {
+    width: '30%',
+    paddingVertical: verticalScale(16),
+    borderRadius: scale(6),
+    backgroundColor: color.primaryMuted,
+    alignItems: 'center',
+  },
 
-    sizeText: {
-        fontSize: fontSize.fontSize_12,
-        color: color.textSecondary,
-    },
+  sizeBoxActive: {
+    borderWidth: 1,
+    borderColor: color.primary,
+  },
 
-    sizeTextActive: {
+  sizeText: {
+    fontSize: fontSize.fontSize_12,
+    color: color.textSecondary,
+  },
 
-        fontFamily: fontFamily.Medium,
-    },
+  sizeTextActive: {
 
-    button: {
-        marginTop: verticalScale(105),
-    },
+    fontFamily: fontFamily.Medium,
+  },
+
+  button: {
+    marginTop: verticalScale(15),
+  },
 });

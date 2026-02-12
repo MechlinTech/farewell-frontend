@@ -294,44 +294,8 @@ function CustomRiderBottomTab({ state, navigation }: any) {
 function LoginStack() {
   return (
     <React.Suspense>
-      <Stack.Navigator id="LoginStack">
-        {/* <Stack.Screen
-          name="VehicleDetails"
-          component={VehicleDetails}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="NotificationSettings"
-          component={NotificationSettings}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Vehicles"
-          component={Vehicles}
-          options={{ headerShown: false }}
-        /> */}
-        {/* <Stack.Screen
-          name="AddBankDetails"
-          component={AddBankDetails}
-          options={{ headerShown: false }}
-        /> */}
-        {/* <Stack.Screen
-      name="InstantDelivery"
-      component={InstantDelivery}
-      options={{ headerShown: false }}
-    />
-      <Stack.Screen
-      name="DropOffPackage"
-      component={DropOffPackage}
-      options={{ headerShown: false }}
-    /> */}
-
-        <Stack.Screen
-          name="FAQScreen"
-          component={FAQScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
+      <Stack.Navigator id="LoginStack">      
+         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
@@ -356,11 +320,7 @@ function LoginStack() {
           component={ForgotPasswordScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="InstantDelivery"
-          component={InstantDelivery}
-          options={{ headerShown: false }}
-        />
+       
         <Stack.Screen
           name="DropOffPackage"
           component={DropOffPackage}
@@ -443,11 +403,7 @@ function RiderHomeStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="RiderHomeStack">
-        <Stack.Screen
-          name="DropOffPackage"
-          component={DropOffPackage}
-          options={{ headerShown: false }}
-        />
+  
         <Stack.Screen
           name="RiderBottomTabStack"
           component={RiderBottomTabStack}
@@ -496,6 +452,11 @@ function RiderHomeStack() {
         <Stack.Screen
           name="AddBankDetails"
           component={AddBankDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="DropOffPackage"
+          component={DropOffPackage}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
@@ -575,7 +536,13 @@ function CustomerHomeStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="CustomerHomeStack">
+      
         <Stack.Screen
+          name="CustomerBottomTabStack"
+          component={CustomerBottomTabStack}
+          options={{ headerShown: false }}
+        />
+          <Stack.Screen
           name="ScheduleDelivery"
           component={ScheduleDelivery}
           options={{ headerShown: false }}
