@@ -69,6 +69,7 @@ const lightColors = {
   notStartedBadgeText: '#FBBC04',
   profileBorder: '#B0B0B0',
   darkText: '#161616',
+  locationStepperDot: '#28B877',
 };
 
 const darkColors = {
@@ -138,6 +139,8 @@ const darkColors = {
   notStartedBadgeText: '#FBBC04',
   profileBorder: '#B0B0B0',
   darkText: '#161616',
+  locationStepperDot: '#28B877',
+
 };
 
 const color = scheme === 'dark' ? darkColors : lightColors;

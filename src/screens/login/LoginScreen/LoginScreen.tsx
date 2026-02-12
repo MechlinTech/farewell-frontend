@@ -76,7 +76,7 @@ const LoginScreen = ({ navigation }: any) => {
     if (userRole === 'rider') {
       Navigator.resetStackScreen(navigation, 'RiderHomeStack');
     } else {
-      Navigator.resetStackScreen(navigation, 'CustomerHomeStack');
+      Navigator.resetStackScreen(navigation, 'CustomerHomeStack', { screen: 'CustomerDeliveryDetails' });
     }
 
     if (!validateAll()) {

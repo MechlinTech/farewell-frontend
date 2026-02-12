@@ -1,6 +1,8 @@
 // import I18n from 'react-native-i18n';
 import {
   Keyboard,
+  Linking,
+  Platform,
   View,
 } from 'react-native';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
@@ -9,6 +11,7 @@ import messaging from '@react-native-firebase/messaging';
 import Navigator from './Navigator';
 import { EventType } from '@notifee/react-native';
 import notifee from '@notifee/react-native';
+import { showFlashMessage } from '@components/showFlashMessage';
 
 const SCREEN_WIDTH = 375;
 const SCREEN_HEIGHT = 812;
@@ -77,4 +80,29 @@ export class Utils {
       });
     console.log('pushNotificationToken token', token);
   };
+
+  static makePhoneCall = (phoneNumber) => {
+    if (!phoneNumber) {
+      console.log('Phone number missing');
+      return;
+    }
+
+    const url =
+      Platform.OS === 'ios'
+        ? `telprompt:${phoneNumber}`
+        : `tel:${phoneNumber}`;
+
+    Linking.canOpenURL(url)
+      .then(supported => {
+        if (supported) {
+          Linking.openURL(url);
+        } else {
+          showFlashMessage('Unable to open dialer');
+        }
+      })
+      .catch(err =>
+        console.log('Call error:', err)
+      );
+  };
+
 }

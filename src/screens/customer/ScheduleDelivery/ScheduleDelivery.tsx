@@ -40,12 +40,12 @@ const ScheduleDelivery = ({ navigation }: any) => {
 
   const [showDatePicker, setShowDatePicker] = useState(false);
   // const [showTimePicker, setShowTimePicker] = useState(false);
-  
 
 
 
 
- 
+
+
 
   return (
     <Base backgroundColor={color.background}>
@@ -82,7 +82,7 @@ const ScheduleDelivery = ({ navigation }: any) => {
           value="FedEx, 27 Samwell California, USA"
           editable={false}
           leftIcon={
-            <ImageComponent source={images.ellipse} style={styles.icon} />
+            <ImageComponent source={images.greenIndicator} style={styles.icon} />
           }
           containerStyle={styles.input}
           rightIcon={
@@ -132,12 +132,12 @@ const ScheduleDelivery = ({ navigation }: any) => {
             editable={false}
             onPress={
               () => {
-               if(!date){
-                showFlashMessage("Please select a date first")
-               }
+                if (!date) {
+                  showFlashMessage("Please select a date first")
+                }
               }
             }
-       
+
             onRightIconPress={() => console.log('🟢 Time input pressed')}
           />
         </View>
@@ -185,7 +185,7 @@ const ScheduleDelivery = ({ navigation }: any) => {
           onPress={() => {
             console.log({
               date,
-              
+
               packageSize,
               labelImage,
             });
@@ -195,21 +195,21 @@ const ScheduleDelivery = ({ navigation }: any) => {
 
 
 
-{showDatePicker && (
-  <DateTimePicker
-    value={date || new Date()}
-    mode="date"
-    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-    minimumDate={new Date(new Date().setHours(0, 0, 0, 0))}
-    onChange={(event, selectedDate) => {
-      setShowDatePicker(false);
-      if (selectedDate) setDate(selectedDate);
-    }}
-  />
-)}
-      
+      {showDatePicker && (
+        <DateTimePicker
+          value={date || new Date()}
+          mode="date"
+          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+          minimumDate={new Date(new Date().setHours(0, 0, 0, 0))}
+          onChange={(event, selectedDate) => {
+            setShowDatePicker(false);
+            if (selectedDate) setDate(selectedDate);
+          }}
+        />
+      )}
 
-   
+
+
 
 
     </Base>

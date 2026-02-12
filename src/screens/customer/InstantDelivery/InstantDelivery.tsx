@@ -58,7 +58,7 @@ const InstantDelivery = ({ navigation }: any) => {
 
           editable={false}
           leftIcon={
-            <ImageComponent source={images.ellipse} style={styles.icon} />
+            <ImageComponent source={images.greenIndicator} style={styles.icon} />
           }
           containerStyle={styles.input}
           rightIcon={
