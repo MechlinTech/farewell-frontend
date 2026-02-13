@@ -95,7 +95,7 @@ const FAQScreen = ({ navigation }: any) => {
       </ScrollView>
     </BaseWrapper>
   );
-}
+};
 
 export default FAQScreen;
 
