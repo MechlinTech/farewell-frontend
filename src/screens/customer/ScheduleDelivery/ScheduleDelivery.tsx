@@ -17,6 +17,8 @@ import CustomInput from '@components/CustomInput';
 import CustomButton from '@components/CustomButton';
 import UploadDocument from '@components/UploadDocument';
 import ImageComponent from '@components/ImageComponent';
+import ConfirmDetailsSheet from '@screens/components/ConfirmDetailsSheet';
+
 
 import color from '@color';
 import { scale, verticalScale } from '@scale';
@@ -30,8 +32,11 @@ const ScheduleDelivery = ({ navigation }: any) => {
   const [packageSize, setPackageSize] = useState<'Small' | 'Medium' | 'Large'>(
     'Small',
   );
+  const [showConfirmSheet, setShowConfirmSheet] = useState(false);
   const [labelImage, setLabelImage] = useState<any>(null);
   const [packageQuantity, setPackageQuantity] = useState<any>('1');
+    const [pickupLocation, setPickupLocation] = useState('2972 Westheimer, California');
+const [courierCompany, setCourierCompany] = useState('FedEx, 27 Samwell California, USA');
 
   /* ===================== DATE & TIME LOGIC ===================== */
 
@@ -41,7 +46,49 @@ const ScheduleDelivery = ({ navigation }: any) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   // const [showTimePicker, setShowTimePicker] = useState(false);
 
+const [errors, setErrors] = useState<any>({});
+const validatePickupLocation = () => {
+  if (!pickupLocation?.trim())
+    setErrors((p: any) => ({ ...p, pickupLocation: 'Pickup location required' }));
+};
+const validateCourier = () => {
+  if (!courierCompany?.trim())
+    setErrors((p: any) => ({ ...p, courier: 'Select courier company' }));
+};
+const validateQuantity = () => {
+  if (!packageQuantity)
+    setErrors((p: any) => ({ ...p, quantity: 'Quantity required' }));
+  else if (isNaN(packageQuantity))
+    setErrors((p: any) => ({ ...p, quantity: 'Must be a number' }));
+  else if (Number(packageQuantity) <= 0)
+    setErrors((p: any) => ({ ...p, quantity: 'Must be greater than 0' }));
+};
+const validateDate = () => {
+  if (!date)
+    setErrors((p: any) => ({ ...p, date: 'Select delivery date' }));
+};
+const validateImage = () => {
+  if (!labelImage)
+    setErrors((p: any) => ({ ...p, image: 'Upload label/QR image' }));
+};
+const validateAll = () => {
+  let err: any = {};
 
+  if (!packageQuantity) err.quantity = 'Quantity required';
+  else if (isNaN(packageQuantity)) err.quantity = 'Must be a number';
+  else if (Number(packageQuantity) <= 0) err.quantity = 'Must be greater than 0';
+
+  if (!date) err.date = 'Select delivery date';
+
+  if (!packageSize) err.packageSize = 'Select package size';
+
+  if (!labelImage) err.image = 'Upload label/QR image';
+  if(!pickupLocation) err.pickupLocation = 'Pickup location required';
+  if(!courierCompany) err.courier = 'Select courier company';
+
+  setErrors(err);
+  return Object.keys(err).length === 0;
+};
 
 
 
@@ -63,31 +110,34 @@ const ScheduleDelivery = ({ navigation }: any) => {
         {/* Pickup Location */}
         <CustomInput
           label="Pickup Location"
-          value="2972 Westheimer, California"
-          textStyle={styles.pickupLocationTextStyle}
-          editable={false}
+          value={pickupLocation}
+          textStyle={styles.commontextStyle}
+          // editable={false}
+          error={errors.pickupLocation}
           leftIcon={
             <ImageComponent
               source={images.location}
               style={styles.locationicon}
             />
           }
+          onChangeText={(text)=>setPickupLocation(text)}
           containerStyle={styles.input}
         />
 
         {/* Courier Company */}
         <CustomInput
           label="Courier Company"
-          textStyle={styles.couriertextStyle}
-          value="FedEx, 27 Samwell California, USA"
-          editable={false}
+          textStyle={styles.commontextStyle}
+          value={courierCompany}
+          error={errors.courier}
           leftIcon={
-            <ImageComponent source={images.greenIndicator} style={styles.icon} />
+            <ImageComponent source={images.  greenIndicator} style={styles.icon} />
           }
           containerStyle={styles.input}
           rightIcon={
             <ImageComponent source={images.downarrow} style={styles.righticon} />
           }
+          onChangeText={(text)=>setCourierCompany(text)}
           onRightIconPress={() => console.log('Courier Company pressed')}
         />
 
@@ -96,6 +146,7 @@ const ScheduleDelivery = ({ navigation }: any) => {
           value={packageQuantity}
           containerStyle={styles.input}
           label="Package Quantity"
+          error={errors.packageQuantity}
           onChangeText={text => setPackageQuantity(text)}
         />
 
@@ -104,13 +155,13 @@ const ScheduleDelivery = ({ navigation }: any) => {
           {/* DATE */}
           <CustomInput
             label="Date"
-            labelStyle={styles.datelabel}
+            labelStyle={styles.commonlabel}
             editable={false}
             placeholder="DD/MM/YYYY"
-
+            error={errors.date}
             value={date ? date.toLocaleDateString() : ''}
-            textStyle={styles.datetextStyle}
-            fieldStyle={styles.datefield}
+            textStyle={styles.commontextStyle}
+            fieldStyle={styles.commonfield}
 
             onPress={() => {
 
@@ -121,11 +172,11 @@ const ScheduleDelivery = ({ navigation }: any) => {
           {/* TIME */}
           <CustomInput
             label="Time"
-            labelStyle={styles.timelabel}
+            labelStyle={styles.commonlabel}
             placeholder="HH:MM"
             // value={getFormattedTime()}
-            textStyle={styles.timetextStyle}
-            fieldStyle={styles.timefield}
+            textStyle={styles.commontextStyle}
+            fieldStyle={styles.commonfield}
             rightIcon={
               <ImageComponent source={images.downarrow} style={styles.righticon} />
             }
@@ -175,6 +226,7 @@ const ScheduleDelivery = ({ navigation }: any) => {
           imageData={labelImage}
           centerImage={images.camera}
           centerImageStyle={styles.imgcamera}
+          error={errors.image}
           centerImageView={styles.imgview}
           onImageSelected={img => setLabelImage(img)}
         />
@@ -182,7 +234,12 @@ const ScheduleDelivery = ({ navigation }: any) => {
         <CustomButton
           title="Next"
           containerStyle={styles.button}
+
           onPress={() => {
+            if(!validateAll()){
+              return;
+            }
+            setShowConfirmSheet(true);
             console.log({
               date,
 
@@ -194,19 +251,23 @@ const ScheduleDelivery = ({ navigation }: any) => {
       </ScrollView>
 
 
+<ConfirmDetailsSheet
+  visible={showConfirmSheet}
+  onClose={() => setShowConfirmSheet(false)}
+/>
 
-      {showDatePicker && (
-        <DateTimePicker
-          value={date || new Date()}
-          mode="date"
-          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-          minimumDate={new Date(new Date().setHours(0, 0, 0, 0))}
-          onChange={(event, selectedDate) => {
-            setShowDatePicker(false);
-            if (selectedDate) setDate(selectedDate);
-          }}
-        />
-      )}
+{showDatePicker && (
+  <DateTimePicker
+    value={date || new Date()}
+    mode="date"
+    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+    minimumDate={new Date(new Date().setHours(0, 0, 0, 0))}
+    onChange={(event, selectedDate) => {
+      setShowDatePicker(false);
+      if (selectedDate) setDate(selectedDate);
+    }}
+  />
+)}
 
 
 
@@ -225,44 +286,25 @@ const styles = StyleSheet.create({
     paddingBottom: verticalScale(40),
   },
 
-  timetextStyle: {
+  commontextStyle: {
     fontSize: fontSize.fontSize_14,
     color: color.delivery.value,
   },
-  couriertextStyle: {
 
-    fontSize: fontSize.fontSize_14,
-    color: color.delivery.value,
-  },
-  datetextStyle: {
-    fontSize: fontSize.fontSize_14,
-    color: color.delivery.value,
-  },
   righticon: {
     width: scale(14),
     height: verticalScale(14),
     paddingRight: scale(17),
   },
-  datelabel: {
-    marginBottom: verticalScale(6),
-    fontSize: fontSize.fontSize_13,
-    fontFamily: fontFamily.weight400,
-    color: color.textMuted
 
-  },
-  datefield: {
+  commonfield: {
     height: verticalScale(40),
     paddingVertical: 0,
     width: scale(154),
+     color: color.primaryMuted
   },
 
-  timefield: {
-    height: verticalScale(40),
-    paddingVertical: 0,
-    width: scale(158),
-    color: color.textMuted
-  },
-  timelabel: {
+  commonlabel: {
     marginBottom: verticalScale(6),
     fontSize: fontSize.fontSize_13,
     fontFamily: fontFamily.weight400,
@@ -277,12 +319,7 @@ const styles = StyleSheet.create({
     gap: scale(16),
   },
 
-  pickupLocationTextStyle: {
-    fontSize: fontSize.fontSize_14,
 
-    color: color.delivery.value,
-
-  },
   imgview: {
     width: scale(32),
     height: scale(32),

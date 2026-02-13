@@ -8,6 +8,7 @@ import { fontFamily, fontSize } from '@constants';
 import color from '@color';
 import { useEffect, useState } from 'react';
 import CollapsibleAccordion from '@components/CollapsibleAccordion';
+import Navigator from '@Navigator';
 
 const faqDataArray = [
   {
@@ -56,6 +57,7 @@ const faqDataArray = [
   },
 ];
 const FAQScreen = ({ navigation }: any) => {
+
   const [faqData, setFaqData] = useState<any>([]);
   useEffect(() => {
     setFaqData(faqDataArray);
@@ -85,7 +87,9 @@ const FAQScreen = ({ navigation }: any) => {
             <Text style={styles.footerTitle}>
               Still Stuck ? We're just a mail away
             </Text>
-            <CustomButton title="Contact Us" onPress={() => {}} />
+            <CustomButton title="Contact Us" onPress={() => {
+              Navigator.pushScreen(navigation, 'ContactUs');
+            }} />
           </View>
         </View>
       </ScrollView>

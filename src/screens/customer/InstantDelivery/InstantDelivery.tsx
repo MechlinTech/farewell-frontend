@@ -13,6 +13,7 @@ import { scale, verticalScale } from '@scale';
 import { fontFamily, fontSize } from '@constants';
 import images from '@images';
 import CustomImageButton from '@components/CustomImageButton';
+import { showFlashMessage } from '@components/showFlashMessage';
 
 const InstantDelivery = ({ navigation }: any) => {
   const [packageSize, setPackageSize] = useState<'Small' | 'Medium' | 'Large'>(
@@ -20,6 +21,48 @@ const InstantDelivery = ({ navigation }: any) => {
   );
   const [labelImage, setLabelImage] = useState<any>(null);
   const [packageQuantity, setPackageQuantity] = useState<any>('1');
+  const[pickupLocation, setPickupLocation] = useState<any>('2972 Westheimer, California');
+  const[courierCompany, setCourierCompany] = useState<any>('FedEx, 27 Samwell California, USA');
+
+  const [errors, setErrors] = useState<any>({});
+  const validatePickupLocation = () => {
+  if (!pickupLocation?.trim())
+    setErrors((p: any) => ({ ...p, pickupLocation: 'Pickup location required' }));
+};
+const validateCourier = () => {
+  if (!courierCompany?.trim())
+    setErrors((p: any) => ({ ...p, courier: 'Select courier company' }));
+};
+const validateQuantity = () => {
+  if (!packageQuantity)
+    setErrors((p: any) => ({ ...p, quantity: 'Quantity required' }));
+  else if (isNaN(packageQuantity))
+    setErrors((p: any) => ({ ...p, quantity: 'Must be a number' }));
+  else if (Number(packageQuantity) <= 0)
+    setErrors((p: any) => ({ ...p, quantity: 'Must be greater than 0' }));
+};
+const validateImage = () => {
+  if (!labelImage)
+    setErrors((p: any) => ({ ...p, image: 'Upload label/QR image' }));
+};
+const validateAll = () => {
+  let err: any = {};
+
+  if (!packageQuantity) err.quantity = 'Quantity required';
+  else if (isNaN(packageQuantity)) err.quantity = 'Must be a number';
+  else if (Number(packageQuantity) <= 0) err.quantity = 'Must be greater than 0';
+
+
+
+  if (!packageSize) err.packageSize = 'Select package size';
+
+  if (!labelImage) err.image = 'Upload label/QR image';
+  if(!pickupLocation) err.pickupLocation = 'Pickup location required';
+  if(!courierCompany) err.courier = 'Select courier company';
+
+  setErrors(err);
+  return Object.keys(err).length === 0;
+};
 
 
   return (
@@ -28,6 +71,7 @@ const InstantDelivery = ({ navigation }: any) => {
         title="Instant Delivery"
         showLeftIcon
         onLeftPress={() => navigation.goBack()}
+
         navigation={navigation}
       />
 
@@ -39,8 +83,10 @@ const InstantDelivery = ({ navigation }: any) => {
 
         <CustomInput
           label='Pickup Location'
-          value="2972 Westheimer, California"
+          value={pickupLocation}
+          error={errors.pickupLocation}
           textStyle={styles.pickupLocationTextStyle}
+          onChangeText={(text)=>setPickupLocation(text)}
           // editable={false}
           leftIcon={
             <ImageComponent source={images.location} style={styles.locationicon} />
@@ -53,12 +99,13 @@ const InstantDelivery = ({ navigation }: any) => {
         <CustomInput
           label="Courier Company"
           textStyle={styles.couriertextStyle}
-          value="FedEx, 27 Samwell California, USA"
+          value={courierCompany}
 
-
-          editable={false}
+error={errors.courier}
+          // editable={false}
+          onChangeText={text=>setCourierCompany(text)}
           leftIcon={
-            <ImageComponent source={images.greenIndicator} style={styles.icon} />
+            <ImageComponent source={images.  greenIndicator} style={styles.icon} />
           }
           containerStyle={styles.input}
           rightIcon={
@@ -75,6 +122,7 @@ const InstantDelivery = ({ navigation }: any) => {
         <CustomInput value={packageQuantity} containerStyle={styles.input} label='Package Quantity'
 
           onChangeText={(text) => setPackageQuantity(text)}
+          error={errors.quantity}
         />
 
         {/* Package Size */}
@@ -111,7 +159,7 @@ const InstantDelivery = ({ navigation }: any) => {
           label='Take a picture of the Label/QR code'
           labelStyle={styles.labelimg}
           imageData={labelImage}
-
+          error={errors.image}
           centerImage={images.camera}
           centerImageStyle={styles.imgcamera}
           centerImageView={styles.imgview}
@@ -124,6 +172,10 @@ const InstantDelivery = ({ navigation }: any) => {
           title="Next"
           containerStyle={styles.button}
           onPress={() => {
+            if(!validateAll()){
+              return;
+            }
+
             console.log({
               packageSize,
               labelImage,
