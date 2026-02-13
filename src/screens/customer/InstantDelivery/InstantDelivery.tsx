@@ -14,8 +14,15 @@ import { fontFamily, fontSize } from '@constants';
 import images from '@images';
 import CustomImageButton from '@components/CustomImageButton';
 import { showFlashMessage } from '@components/showFlashMessage';
+import SelectionListBottomSheet from '@components/SelectionListBottomSheet';
 
 const InstantDelivery = ({ navigation }: any) => {
+
+  const courierdata=[
+    { id: 1, title: 'FedEx' },
+    { id: 2, title: 'UPS' },
+    { id: 3, title: 'DHL' },
+  ];
   const [packageSize, setPackageSize] = useState<'Small' | 'Medium' | 'Large'>(
     'Small',
   );
@@ -23,7 +30,8 @@ const InstantDelivery = ({ navigation }: any) => {
   const [packageQuantity, setPackageQuantity] = useState<any>('1');
   const[pickupLocation, setPickupLocation] = useState<any>('2972 Westheimer, California');
   const[courierCompany, setCourierCompany] = useState<any>('FedEx, 27 Samwell California, USA');
-  
+  const [showCourierSheet, setShowCourierSheet] = useState(false);
+
   const [errors, setErrors] = useState<any>({});
   const validatePickupLocation = () => {
   if (!pickupLocation?.trim())
@@ -52,7 +60,7 @@ const validateAll = () => {
   else if (isNaN(packageQuantity)) err.quantity = 'Must be a number';
   else if (Number(packageQuantity) <= 0) err.quantity = 'Must be greater than 0';
 
-  
+
 
   if (!packageSize) err.packageSize = 'Select package size';
 
@@ -71,7 +79,7 @@ const validateAll = () => {
         title="Instant Delivery"
         showLeftIcon
         onLeftPress={() => navigation.goBack()}
-        
+
         navigation={navigation}
       />
 
@@ -87,7 +95,7 @@ const validateAll = () => {
           error={errors.pickupLocation}
           textStyle={styles.pickupLocationTextStyle}
           onChangeText={(text)=>setPickupLocation(text)}
-          // editable={false}
+          editable={false}
           leftIcon={
             <ImageComponent source={images.location} style={styles.locationicon} />
           }
@@ -112,7 +120,7 @@ error={errors.courier}
             <ImageComponent source={images.downarrow} style={styles.righticon} />
           }
           onRightIconPress={() => {
-            console.log('Right icon pressed');
+           setShowCourierSheet(true);
           }}
         />
 
@@ -123,6 +131,7 @@ error={errors.courier}
 
           onChangeText={(text) => setPackageQuantity(text)}
           error={errors.quantity}
+          keyboardType="numeric"
         />
 
         {/* Package Size */}
@@ -175,7 +184,7 @@ error={errors.courier}
             if(!validateAll()){
               return;
             }
-            
+
             console.log({
               packageSize,
               labelImage,
@@ -183,6 +192,18 @@ error={errors.courier}
           }}
         />
       </ScrollView>
+      <SelectionListBottomSheet
+
+      visible={showCourierSheet}
+      onDismiss={() => setShowCourierSheet(false)}
+     
+      data={courierdata}
+       onPress={(item) => {
+        setCourierCompany(item.title);
+        setShowCourierSheet(false);
+      }}
+      selectedItem={courierCompany}
+    />
     </Base>
   );
 };
