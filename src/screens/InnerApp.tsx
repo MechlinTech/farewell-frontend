@@ -298,7 +298,12 @@ function LoginStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
-         <Stack.Screen
+        {/* <Stack.Screen
+          name="RiderEarnings"
+          component={RiderEarnings}
+          options={{ headerShown: false }}
+        /> */}
+        <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
