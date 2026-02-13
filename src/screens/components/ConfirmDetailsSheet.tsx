@@ -11,20 +11,21 @@ import images from '@images';
 interface Props {
   visible: boolean;
   onClose: () => void;
+  onContinue: () => void;
 }
 
-const ConfirmDetailsSheet = ({ visible, onClose }: Props) => {
+const ConfirmDetailsSheet = ({ visible, onClose, onContinue }: Props) => {
 
 
-    const [confirmData, setConfirmData] = React.useState({
-  pickupLocation: '2972 Westheimer, California',
-  deliveryLocation: 'FedEx, 27 Samwell California, USA',
-  packageWeight: '3KG-8KG',
-  quantity: '2000',
-  date: '22/02/2026',
-  time: '3:30 PM',
-  estimatedFee: '$160',
-});
+  const [confirmData, setConfirmData] = React.useState({
+    pickupLocation: '2972 Westheimer, California',
+    deliveryLocation: 'FedEx, 27 Samwell California, USA',
+    packageWeight: '3KG-8KG',
+    quantity: '2000',
+    date: '22/02/2026',
+    time: '3:30 PM',
+    estimatedFee: '$160',
+  });
   return (
     <BottomSheetCustom visible={visible} onClose={onClose} containerStyle={styles.container}>
       <ScrollView
@@ -46,7 +47,7 @@ const ConfirmDetailsSheet = ({ visible, onClose }: Props) => {
             <View style={styles.textContainer}>
               <Text style={styles.Commonlabel}>Pickup Location</Text>
               <Text style={styles.Commonvalue}>
-               {confirmData.pickupLocation}
+                {confirmData.pickupLocation}
               </Text>
             </View>
           </View>
@@ -62,7 +63,7 @@ const ConfirmDetailsSheet = ({ visible, onClose }: Props) => {
               <View>
                 <Text style={styles.Commonlabel}>Delivery Location</Text>
                 <Text style={styles.Commonvalue}>
-                 {confirmData.deliveryLocation}
+                  {confirmData.deliveryLocation}
                 </Text>
               </View>
 
@@ -102,18 +103,18 @@ const ConfirmDetailsSheet = ({ visible, onClose }: Props) => {
         <Text style={styles.estimatedlabel}>Estimated Delivery fee</Text>
         <Text style={styles.fee}>{confirmData.estimatedFee}</Text>
 
-        <ImageComponent 
-        source={images.dummyBarCode}
-        style={styles.imageBox}
-     
-        
+        <ImageComponent
+          source={images.dummyBarCode}
+          style={styles.imageBox}
+
+
         />
         <Text style={styles.editDetails} onPress={onClose}>Edit Details</Text>
 
         <CustomButton
           title="Continue to Payment"
-          onPress={() => console.log('Clicked Continue')}
-          
+          onPress={onContinue}
+
         />
       </ScrollView>
     </BottomSheetCustom>
@@ -127,44 +128,44 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(15),
     paddingBottom: verticalScale(30),
   },
-  timelabel:{
+  timelabel: {
     paddingRight: scale(66),
-     fontSize: fontSize.fontSize_12,
+    fontSize: fontSize.fontSize_12,
     color: color.textMuted,
 
   },
-  datetimerow:{
+  datetimerow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: verticalScale(14),
   },
 
-  datelabel:{
+  datelabel: {
     fontSize: fontSize.fontSize_12,
     color: color.textMuted,
-    marginTop:verticalScale(4)
-    
+    marginTop: verticalScale(4)
+
   },
-  datevalue:{
+  datevalue: {
     fontSize: fontSize.fontSize_14,
-    marginTop:verticalScale(4),
-    marginBottom:verticalScale(8)
+    marginTop: verticalScale(4),
+    marginBottom: verticalScale(8)
   },
-  packagevalue:{
+  packagevalue: {
     fontSize: fontSize.fontSize_14,
-    marginTop:verticalScale(4)
-    
+    marginTop: verticalScale(4)
+
   },
-  packagelabel:{
+  packagelabel: {
     fontSize: fontSize.fontSize_12,
     color: color.textMuted,
-marginTop:verticalScale(16)
+    marginTop: verticalScale(16)
   },
-  container:{
-    height:verticalScale(600)
+  container: {
+    height: verticalScale(600)
   },
-  estimatedlabel:{
-    marginTop:verticalScale(14)
+  estimatedlabel: {
+    marginTop: verticalScale(14)
   },
 
   title: {
@@ -179,11 +180,11 @@ marginTop:verticalScale(16)
   locationWrapper: {
     marginBottom: verticalScale(10),
   },
-  editDetails:{
+  editDetails: {
     textDecorationLine: 'underline',
-    marginBottom:verticalScale(20),
+    marginBottom: verticalScale(20),
     color: color.textContrast,
-    alignSelf:'center',
+    alignSelf: 'center',
     fontSize: fontSize.fontSize_16,
     fontFamily: fontFamily.weight500,
   },
@@ -212,10 +213,10 @@ marginTop:verticalScale(16)
     width: scale(14),
     height: scale(14),
     marginTop: scale(4),
-     marginRight: scale(3)
+    marginRight: scale(3)
   },
 
-    greenIndicatorIcon: {
+  greenIndicatorIcon: {
     width: scale(10),
     height: scale(10),
     marginTop: scale(6),
@@ -226,17 +227,17 @@ marginTop:verticalScale(16)
     width: scale(40),
     height: scale(40),
     resizeMode: 'cover',
-     transform: [{ translateY: verticalScale(8) },{translateX: scale(14)}],
-    
-    
+    transform: [{ translateY: verticalScale(8) }, { translateX: scale(14) }],
+
+
   },
 
   quanitylabel: {
     fontSize: fontSize.fontSize_12,
     color: color.textMuted,
     paddingRight: scale(45),
-    marginBottom:verticalScale(2),
-    marginTop:verticalScale(14)
+    marginBottom: verticalScale(2),
+    marginTop: verticalScale(14)
   },
 
   quantityvalue: {
@@ -256,26 +257,26 @@ marginTop:verticalScale(16)
   fee: {
     fontSize: fontSize.fontSize_18,
     fontFamily: fontFamily.weight700,
-    marginTop:verticalScale(8)
+    marginTop: verticalScale(8)
   },
 
   imageBox: {
-    width:scale(320),
+    width: scale(320),
     height: verticalScale(150),
     marginBottom: verticalScale(5),
 
     alignSelf: 'center',
     // backgroundColor:'red'
-    
+
   },
-Commonvalue:{
-   fontSize: fontSize.fontSize_14,
-    marginTop:verticalScale(4)
-},
-Commonlabel:{
-fontSize: fontSize.fontSize_12,
+  Commonvalue: {
+    fontSize: fontSize.fontSize_14,
+    marginTop: verticalScale(4)
+  },
+  Commonlabel: {
+    fontSize: fontSize.fontSize_12,
     color: color.textMuted,
-},
-  
+  },
+
 });
 

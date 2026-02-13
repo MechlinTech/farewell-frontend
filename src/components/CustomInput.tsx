@@ -18,6 +18,7 @@ interface CustomInputProps {
   value?: string;
   placeholder?: string;
   onPress?: () => void;
+    keyboardType?: any;
 
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
@@ -44,6 +45,7 @@ interface CustomInputProps {
 export const CustomInput = ({
   label,
   value,
+  keyboardType,
   placeholder,
   editable,
   onPress,
@@ -107,7 +109,8 @@ export const CustomInput = ({
             value={value}
             placeholder={placeholder}
             onChangeText={onChangeText}
-              editable={editable}
+            editable={editable}
+            keyboardType={keyboardType}
             placeholderTextColor={color.placeholderText}
             onFocus={() => {
               setIsFocused(true);

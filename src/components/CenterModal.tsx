@@ -64,6 +64,7 @@ const CenterModal = ({
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : undefined}
           >
+          
             <View
               style={[
                 styles.modal,
@@ -72,7 +73,8 @@ const CenterModal = ({
               ]}
             >
               {children}
-            </View>
+              </View>
+            
           </KeyboardAvoidingView>
         </Pressable>
       </Pressable>
@@ -88,14 +90,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
     alignItems: 'center',
+    
   },
   modal: {
     backgroundColor: color.background,
     borderRadius: scale(32),
-    paddingHorizontal: scale(24),
-    paddingTop: scale(42),
+ paddingHorizontal:scale(33),
+    paddingTop: scale(40),
     paddingBottom: scale(36),
-    marginHorizontal: scale(20),
+    marginTop: scale(30),
+    marginBottom: scale(30),
+    
 
   },
+  
+
 });
