@@ -297,7 +297,7 @@ function LoginStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
-        <Stack.Screen
+         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
@@ -424,6 +424,11 @@ function RiderHomeStack() {
         <Stack.Screen
           name="FAQScreen"
           component={FAQScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ContactUs"
+          component={ContactUs}
           options={{ headerShown: false }}
         />
         <Stack.Screen
