@@ -2,14 +2,15 @@ import color from '@color';
 import Base from '@components/Base';
 import CustomToolbar from '@components/CustomToolbar';
 import * as React from 'react';
-import { View, StyleSheet, Text, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, FlatList } from 'react-native';
 import ImageComponent from '@components/ImageComponent';
 import images from '@images';
 import { scale } from '@scale';
 import { verticalScale } from '@scale';
 import { fontFamily, fontSize } from '@constants';
-import { useEffect, useState } from 'react';
-
+import { useEffect, useRef, useState } from 'react';
+import BottomSheet from '@components/BottomSheetCustom';
+import EarningsFilterBottomSheet from '@screens/components/EarningsFilterBottomSheet';
 const data = {
   todayDate: '12/02/2026',
   balanceAmount: '$400',
@@ -35,7 +36,7 @@ const data = {
       date: '18/02/2026',
       bookingId: 'Booking91011',
       time: '2:43pm',
-      location: 'California - FedEx',
+      location: 'California - FedEx - Minnesota',
       amount: '100',
     },
     {
@@ -81,7 +82,7 @@ const data = {
     {
       id: 9,
       date: '10/02/2026',
-      bookingId: 'Booking121314',
+      bookingId: 'Booking121714',
       time: '2:43pm',
       location: 'Texas - DHL',
       amount: '50',
@@ -94,9 +95,115 @@ const RiderEarnings = ({ navigation }: any) => {
   const balanceAmount = showBalance ? `${data.balanceAmount}` : '';
   const [earningsData, setEarningsData] = useState<any>([]);
 
+  /* ---------------- PAGINATION ---------------- */
+  const [currentPage, setCurrentPage] = useState(1);
+  const [refreshing, setRefreshing] = useState(false);
+
   useEffect(() => {
     setEarningsData(data.earningsData);
   }, []);
+
+  const filterEarningsData = (
+    startDate: Date | undefined,
+    endDate: Date | undefined,
+  ) => {
+    if (!startDate || !endDate) {
+      setEarningsData(data.earningsData);
+      return;
+    }
+    const filteredData = data.earningsData.filter((item: any) => {
+      const itemDate = new Date(item.date);
+      return itemDate >= startDate && itemDate <= endDate;
+    });
+    setEarningsData(filteredData);
+  };
+
+  const filterBottomSheetRef = useRef<any>(null);
+  const [isFilterBottomSheetVisible, setIsFilterBottomSheetVisible] =
+    useState(true);
+
+  const openFilterBottomSheet = () => {
+    setIsFilterBottomSheetVisible(true);
+  };
+
+  const closeFilterBottomSheet = () => {
+    setIsFilterBottomSheetVisible(false);
+  };
+  const renderFilterBottomSheet = () => {
+    return (
+      // <BottomSheet
+      //   visible={isFilterBottomSheetVisible}
+      //   onClose={closeFilterBottomSheet}
+      //   children={
+      //     <>
+      //       <View>
+      //         <Text>Hi</Text>
+      //       </View>
+      //     </>
+      //   }
+      // />
+      <EarningsFilterBottomSheet
+        visible={isFilterBottomSheetVisible}
+        onClose={closeFilterBottomSheet}
+        onApply={filterEarningsData}
+      />
+    );
+  };
+  /* ---------------- REFRESH ---------------- */
+  const onRefresh = () => {
+    setRefreshing(true);
+
+    setTimeout(() => {
+      setEarningsData(data.earningsData);
+      setCurrentPage(1);
+      setRefreshing(false);
+    }, 1000);
+  };
+
+  /* ---------------- LOAD MORE ---------------- */
+  const loadMoreEarnings = () => {
+    setCurrentPage(prev => prev + 1);
+
+    setEarningsData((prev: any) => [
+      ...prev,
+      {
+        id: Math.random(),
+        date: '10/02/2026',
+        bookingId: `BookingNEW-${currentPage}`,
+        time: '2:43pm',
+        location: 'New Location - FedEx',
+        amount: '75',
+      },
+    ]);
+  };
+
+  /* ---------------- EMPTY LIST ---------------- */
+  const EmptyList = () => (
+    <View style={styles.emptyContainer}>
+      <Text style={styles.emptyTitle}>No Earnings Found</Text>
+      <Text style={styles.emptySubtitle}>
+        You have no earnings recorded yet.
+      </Text>
+    </View>
+  );
+
+  /* ---------------- LIST HEADER (Balance card - avoids nesting FlatList in ScrollView) ---------------- */
+  const ListHeader = () => (
+    <View style={styles.balanceContainer}>
+      <View style={styles.balanceDataContainer}>
+        <Text style={styles.balanceData}>Current Balance</Text>
+        <Text style={styles.balanceData}>As of {data.todayDate}</Text>
+      </View>
+      <View style={styles.balanceAmountContainer}>
+        <Text style={styles.balanceAmount}>{balanceAmount}</Text>
+        <ImageComponent
+          source={showBalance ? images.hide : images.unhide}
+          style={styles.hideIcon}
+          onClickImage={() => setShowBalance(!showBalance)}
+        />
+      </View>
+    </View>
+  );
 
   return (
     <Base backgroundColor={color.background} fullScreenMode>
@@ -105,30 +212,25 @@ const RiderEarnings = ({ navigation }: any) => {
         showLeftIcon
         navigation={navigation}
         rightIcon={images.filter}
-        onRightPress={() => {}}
+        onRightPress={openFilterBottomSheet}
       />
+      {renderFilterBottomSheet()}
       <View style={{ flex: 1 }}>
-        <View style={styles.balanceContainer}>
-          <View style={styles.balanceDataContainer}>
-            <Text style={styles.balanceData}>Current Balance</Text>
-            <Text style={styles.balanceData}>As of {data.todayDate}</Text>
-          </View>
-          <View style={styles.balanceAmountContainer}>
-            <Text style={styles.balanceAmount}>{balanceAmount}</Text>
-            <ImageComponent
-              source={showBalance ? images.hide : images.unhide}
-              style={styles.hideIcon}
-              onClickImage={() => setShowBalance(!showBalance)}
-            />
-          </View>
-        </View>
-        <ScrollView
-          style={styles.earningsDataContainer}
+        <FlatList
+          data={earningsData}
           showsVerticalScrollIndicator={false}
-          bounces={false}
-          overScrollMode="never"
-        >
-          {earningsData.map((item: any, index: number) => (
+          contentContainerStyle={[
+            styles.earningsDataContainer,
+            { flexGrow: 1 }, // important for center empty
+          ]}
+          keyExtractor={item => item.id.toString()}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          onEndReached={loadMoreEarnings}
+          onEndReachedThreshold={0.5}
+          ListHeaderComponent={ListHeader}
+          ListEmptyComponent={EmptyList}
+          renderItem={({ item }: { item: any }) => (
             <View style={styles.earningsDataItem}>
               <View style={styles.earningsBookingIdContainer}>
                 <Text style={styles.earningsBookingId}>{item.bookingId}</Text>
@@ -163,8 +265,8 @@ const RiderEarnings = ({ navigation }: any) => {
                 <Text style={styles.earningsAmount}>{item.amount}</Text>
               </View>
             </View>
-          ))}
-        </ScrollView>
+          )}
+        />
       </View>
     </Base>
   );
@@ -178,7 +280,6 @@ const styles = StyleSheet.create({
     height: verticalScale(30),
   },
   balanceContainer: {
-    marginHorizontal: scale(28),
     paddingHorizontal: scale(8),
     paddingVertical: verticalScale(14),
     flexDirection: 'row',
@@ -217,10 +318,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   earningsDataContainer: {
-    flex: 1,
-    marginHorizontal: scale(28),
-    marginTop: verticalScale(4),
-    marginBottom: verticalScale(14),
+    paddingHorizontal: scale(28),
+    paddingTop: verticalScale(4),
+    paddingBottom: verticalScale(14),
   },
   earningsBookingId: {
     fontSize: fontSize.fontSize_14,
@@ -293,5 +393,23 @@ const styles = StyleSheet.create({
     backgroundColor: color.primaryMuted,
     borderRadius: scale(5),
     // gap: scale(16),
+  },
+  emptyContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emptyTitle: {
+    fontSize: fontSize.fontSize_16,
+    fontFamily: fontFamily.weight600,
+    color: color.textMain,
+  },
+  emptySubtitle: {
+    fontSize: fontSize.fontSize_12,
+    fontFamily: fontFamily.weight400,
+    color: color.textSecondary,
+    marginTop: verticalScale(6),
+    textAlign: 'center',
+    paddingHorizontal: scale(40),
   },
 });
