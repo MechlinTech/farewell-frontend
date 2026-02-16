@@ -20,7 +20,6 @@
 		702137E41F2E4CFEBF87E6CD /* AvenirLTStd-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0FE4454C15F43BDAF1CC226 /* AvenirLTStd-Book.otf */; };
 		751AD558DDD04758A78755F2 /* AvenirLTStd-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DE1C7F112674421DB3C05F81 /* AvenirLTStd-Medium.otf */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
-		79298C842F3A18EA005BADCF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79298C832F3A18E8005BADCF /* LaunchScreen.storyboard */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9531578D53614735A28858E0 /* AvenirLTStd-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49312B00DD404DF5884DA162 /* AvenirLTStd-Heavy.otf */; };
 		BE0A910EE608B561369DA1EA /* Pods_Farewell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEBBD21ECCE6CB79F96FE096 /* Pods_Farewell.framework */; };
@@ -37,7 +36,6 @@
 		238EE8799B754CA9A8AE12EA /* AvenirLTStd-Oblique.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AvenirLTStd-Oblique.otf"; path = "../src/assets/fonts/AvenirLTStd-Oblique.otf"; sourceTree = "<group>"; };
 		49312B00DD404DF5884DA162 /* AvenirLTStd-Heavy.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AvenirLTStd-Heavy.otf"; path = "../src/assets/fonts/AvenirLTStd-Heavy.otf"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Farewell/AppDelegate.swift; sourceTree = "<group>"; };
-		79298C832F3A18E8005BADCF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Farewell/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		866A6957F62B4F5BA194EA22 /* AvenirLTStd-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AvenirLTStd-Light.otf"; path = "../src/assets/fonts/AvenirLTStd-Light.otf"; sourceTree = "<group>"; };
 		9FD54A0590E84E11B7C5A054 /* AvenirLTStd-Roman.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AvenirLTStd-Roman.otf"; path = "../src/assets/fonts/AvenirLTStd-Roman.otf"; sourceTree = "<group>"; };
@@ -73,7 +71,6 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
-				79298C832F3A18E8005BADCF /* LaunchScreen.storyboard */,
 			);
 			name = Farewell;
 			sourceTree = "<group>";
@@ -215,7 +212,6 @@
 				3BD109FFD22D496EB7622D0F /* AvenirLTStd-LightOblique.otf in Resources */,
 				9531578D53614735A28858E0 /* AvenirLTStd-Heavy.otf in Resources */,
 				D71B5A59EBAE460DA5566532 /* AvenirLTStd-HeavyOblique.otf in Resources */,
-				79298C842F3A18EA005BADCF /* LaunchScreen.storyboard in Resources */,
 				1C617686773B454B9F6CDBDF /* AvenirLTStd-Light.otf in Resources */,
 				42AD994983B542309EFB7E55 /* AvenirLTStd-BlackOblique.otf in Resources */,
 				20C4C5B94A464D3CA560B809 /* AvenirLTStd-Black.otf in Resources */,
