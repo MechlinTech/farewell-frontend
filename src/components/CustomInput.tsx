@@ -174,7 +174,7 @@ pressable: {
   label: {
     fontSize: fontSize.fontSize_13,
     fontFamily: fontFamily.Medium,
-    color: color.textSecondary,
+    color: color.delivery.label,
     marginBottom: verticalScale(6),
   }
 });
