@@ -298,11 +298,6 @@ function LoginStack() {
   return (
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
-        {/* <Stack.Screen
-          name="RiderEarnings"
-          component={RiderEarnings}
-          options={{ headerShown: false }}
-        /> */}
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
@@ -329,11 +324,7 @@ function LoginStack() {
           options={{ headerShown: false }}
         />
 
-        <Stack.Screen
-          name="DropOffPackage"
-          component={DropOffPackage}
-          options={{ headerShown: false }}
-        />
+
       </Stack.Navigator>
     </React.Suspense>
   );
@@ -594,7 +585,7 @@ export const checkApplicationPermission = async () => {
           }
         }
       }
-    } catch (error) {}
+    } catch (error) { }
   } else {
     try {
       const authStatus = await messaging().requestPermission();
