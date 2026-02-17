@@ -18,20 +18,26 @@ import { useEffect } from 'react';
 import color from '@color';
 import CustomButton from '@components/CustomButton';
 import { fontFamily, fontSize } from '@constants';
+import Navigator from '@Navigator';
 
-const OTPVerificationScreen = () => {
+const OTPVerificationScreen = ({navigation,route}:any) => {
   const ref = useRef<OTPInputRef>(null);
   const onComplete = (code: string) => {
     Alert.alert('Completed with code:', code);
     ref.current?.clear();
   };
+  const handlesend=()=>{
+    if(route.params.userRole==='rider'){
+      Navigator.resetStackScreen(navigation, 'AddVehicleDetails');
+    }
+  }
   return (
     <BaseWrapper container_style={styles.container} fullScreenMode={true}>
       <HeadingGroup
         heading="Enter the 4-digit code"
         subheading={
           <>
-            Please input the verification code sent to your email id{' '}
+            Please input the verification code sent to your email{' '}
             <Text style={{ fontFamily: fontFamily.Black }}>
               jacobsmith123@gmail.com
             </Text>
@@ -69,9 +75,7 @@ const OTPVerificationScreen = () => {
       <View style={styles.verifyButtonContainer}>
         <CustomButton
           title="Verify"
-          onPress={() => {
-            Alert.alert('Verify');
-          }}
+          onPress={handlesend}
         />
       </View>
     </BaseWrapper>

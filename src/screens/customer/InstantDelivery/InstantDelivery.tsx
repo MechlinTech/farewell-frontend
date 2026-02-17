@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Pressable, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 
 import Base from '@components/Base';
 import CustomToolbar from '@components/CustomToolbar';
@@ -21,7 +21,7 @@ const InstantDelivery = ({ navigation }: any) => {
   const courierdata=[
     { id: 1, title: 'FedEx' },
     { id: 2, title: 'UPS' },
-    { id: 3, title: 'DHL' },
+    { id: 3, title: 'USPS' },
   ];
   const [packageSize, setPackageSize] = useState<'Small' | 'Medium' | 'Large'>(
     'Small',
@@ -29,7 +29,7 @@ const InstantDelivery = ({ navigation }: any) => {
   const [labelImage, setLabelImage] = useState<any>(null);
   const [packageQuantity, setPackageQuantity] = useState<any>('1');
   const[pickupLocation, setPickupLocation] = useState<any>('2972 Westheimer, California');
-  const[courierCompany, setCourierCompany] = useState<any>('FedEx, 27 Samwell California, USA');
+  const[courierCompany, setCourierCompany] = useState<any>('');
   const [showCourierSheet, setShowCourierSheet] = useState(false);
 
   const [errors, setErrors] = useState<any>({});
@@ -76,16 +76,22 @@ const validateAll = () => {
   return (
     <Base backgroundColor={color.background}>
       <CustomToolbar
-        title="Instant Delivery"
+        title="Instant Pickup"
         showLeftIcon
         onLeftPress={() => navigation.goBack()}
 
         navigation={navigation}
       />
+        <KeyboardAvoidingView
+         style={{ flex: 1 }}
+         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
+       >
 
       <ScrollView
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps='handled'
       >
         {/* Pickup Location */}
 
@@ -100,18 +106,24 @@ const validateAll = () => {
             <ImageComponent source={images.location} style={styles.locationicon} />
           }
           containerStyle={styles.input}
+             onBlur={validatePickupLocation}
         />
 
         {/* Courier Company */}
 
         <CustomInput
           label="Courier Company"
+          placeholder='Select Company'
           textStyle={styles.couriertextStyle}
           value={courierCompany}
 
 error={errors.courier}
+   onBlur={validateCourier}
           // editable={false}
-          onChangeText={text=>setCourierCompany(text)}
+          onChangeText={text=>{setCourierCompany(text)
+
+            setErrors((p:any) => ({ ...p, courier: '' }));
+          }}
           leftIcon={
             <ImageComponent source={images.  greenIndicator} style={styles.icon} />
           }
@@ -122,6 +134,7 @@ error={errors.courier}
           onRightIconPress={() => {
            setShowCourierSheet(true);
           }}
+       
         />
 
 
@@ -129,9 +142,13 @@ error={errors.courier}
 
         <CustomInput value={packageQuantity} containerStyle={styles.input} label='Package Quantity'
 
-          onChangeText={(text) => setPackageQuantity(text)}
+          onChangeText={(text) =>{ setPackageQuantity(text)
+              setErrors((p:any) => ({ ...p, quantity: '' }));
+          }}
           error={errors.quantity}
           keyboardType="numeric"
+          onBlur={validateQuantity}
+            textStyle={styles.textpackage}
         />
 
         {/* Package Size */}
@@ -173,6 +190,7 @@ error={errors.courier}
           centerImageStyle={styles.imgcamera}
           centerImageView={styles.imgview}
           onImageSelected={img => setLabelImage(img)}
+          
 
         />
 
@@ -192,6 +210,7 @@ error={errors.courier}
           }}
         />
       </ScrollView>
+      </KeyboardAvoidingView>
       <SelectionListBottomSheet
 
       visible={showCourierSheet}
@@ -223,6 +242,10 @@ const styles = StyleSheet.create({
 
 
 
+  },
+  textpackage:{
+    fontSize: fontSize.fontSize_14,
+    color: color.delivery.value,
   },
   righticon: {
     width: scale(14),

@@ -23,6 +23,7 @@ interface Props {
     data: any[];
     header?: string;
     selectedItem: any;
+ 
 }
 
 const SelectionListBottomSheet: React.FC<Props> = ({
@@ -32,17 +33,18 @@ const SelectionListBottomSheet: React.FC<Props> = ({
     data,
     header,
     selectedItem,
+   
 }) => {
     const [selectData, setSelectData] =
-        useState<any>();
+        useState<any>(selectedItem);
+    
 
-    useEffect(() => {
-        setSelectData(selectedItem);
-    }, [selectedItem]);
+   
 
     const renderItem = ({ item }: any) => {
-        const isSelected =
-            selectData?.id === item?.id;
+const isSelected =
+  selectData?.id === item?.id ||
+  selectData?.title === item?.title;
 
         return (
             <Pressable
@@ -111,7 +113,8 @@ const itemPropsAreEqual = (
     return (
         prevProps.visible === nextProps.visible &&
         prevProps.selectedItem === nextProps.selectedItem &&
-        prevProps.data.length === nextProps.data.length
+        prevProps.data.length === nextProps.data.length 
+
     );
 };
 
@@ -129,6 +132,7 @@ const styles = StyleSheet.create({
         marginHorizontal: scale(6),
 
     },
+ 
 
     heading: {
         fontSize: fontSize.fontSize_16,

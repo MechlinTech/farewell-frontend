@@ -6,6 +6,8 @@ import {
   StatusBar,
   ScrollView,
   StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import CustomInput from '@components/CustomInput';
 import CustomButton from '@components/CustomButton';
@@ -103,7 +105,14 @@ else if (password.length < 8 || password.length > 16)
 
   return (
     <BaseWrapper fullScreenMode={true}>
-      <ScrollView style={{ flex: 1, marginTop: verticalScale(132) }}>
+        <KeyboardAvoidingView
+         style={{ flex: 1 }}
+         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
+       >
+      <ScrollView style={{ flex: 1, marginTop: verticalScale(150) }}
+      keyboardShouldPersistTaps="handled"
+      >
         <View style={styles.headerContainer}>
           <HeadingGroup
             heading="Forgot Password?"
@@ -161,6 +170,7 @@ else if (password.length < 8 || password.length > 16)
           />
         </View>
       </ScrollView>
+      </KeyboardAvoidingView>
     </BaseWrapper>
   );
 };
