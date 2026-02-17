@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { BackHandler, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Base from '@components/Base';
 import CustomToolbar from '@components/CustomToolbar';
 import CustomInput from '@components/CustomInput';
@@ -18,6 +18,7 @@ import BottomSheet from '@components/BottomSheetCustom';
 import SelectionListBottomSheet from '@components/SelectionListBottomSheet';
 
 const AddVehicleDetails = ({ navigation }: any) => {
+
   const [vehicleNumber, setVehicleNumber] = useState('');
   const [model, setModel] = useState('');
   const [capacity, setCapacity] = useState('');
@@ -35,6 +36,14 @@ const AddVehicleDetails = ({ navigation }: any) => {
     { id: 1, title: 'Car' },
     { id: 2, title: 'Truck' },
   ]);
+useEffect(() => {
+  const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+    Navigator.resetStackScreen(navigation, 'SignupScreen');
+    return true; // Prevent default back behavior
+  });
+ 
+  return () => backHandler.remove();
+}, []);
 
 
   /* 🔴 Field Validators */
@@ -90,6 +99,9 @@ const AddVehicleDetails = ({ navigation }: any) => {
     }
 
     console.log('Submitted ✅');
+  };
+  const handleSignUp = () => {
+    Navigator.resetStackScreen(navigation, 'SignupScreen');
   };
 
   const pendingModal = () => {
@@ -148,6 +160,7 @@ const AddVehicleDetails = ({ navigation }: any) => {
         title="Add Vehicle Details"
         showLeftIcon
         navigation={navigation}
+        onLeftPress={handleSignUp}
       />
 
       <ScrollView contentContainerStyle={styles.content}>

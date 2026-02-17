@@ -15,7 +15,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface BottomSheetProps {
   visible?: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   children: React.ReactNode;
   containerStyle?: StyleProp<ViewStyle>;
   backdropOpacity?: number;
