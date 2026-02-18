@@ -58,6 +58,7 @@ import VehicleDetails from './rider/VehicleDetails/VehicleDetails';
 import RiderDeliveryDetails from './rider/RiderDeliveryDetails/RiderDeliveryDetails';
 import CustomerDeliveryDetails from './customer/CustomerDeliveryDetails/CustomerDeliveryDetails';
 import RiderEarnings from './rider/RiderEarnings/RiderEarnings';
+import CustomerCurrentLocation from './customer/CustomerCurrentLocation/CustomerCurrentLocation';
 
 const Stack = createNativeStackNavigator();
 
@@ -323,8 +324,6 @@ function LoginStack() {
           component={ForgotPasswordScreen}
           options={{ headerShown: false }}
         />
-
-
       </Stack.Navigator>
     </React.Suspense>
   );
@@ -564,6 +563,11 @@ function CustomerHomeStack() {
           component={CustomerDeliveryDetails}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="CustomerCurrentLocation"
+          component={CustomerCurrentLocation}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </React.Suspense>
   );
@@ -585,7 +589,7 @@ export const checkApplicationPermission = async () => {
           }
         }
       }
-    } catch (error) { }
+    } catch (error) {}
   } else {
     try {
       const authStatus = await messaging().requestPermission();
