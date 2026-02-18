@@ -59,6 +59,7 @@ import RiderDeliveryDetails from './rider/RiderDeliveryDetails/RiderDeliveryDeta
 import CustomerDeliveryDetails from './customer/CustomerDeliveryDetails/CustomerDeliveryDetails';
 import CustomerSettings from './customer/CustomerSettings/CustomerSettings';
 import SavedAddress from './customer/SavedAddress/SavedAddress';
+import CustomerCurrentLocation from './customer/CustomerCurrentLocation/CustomerCurrentLocation';
 
 const Stack = createNativeStackNavigator();
 
@@ -229,7 +230,6 @@ function CustomRiderBottomTab({ state, navigation }: any) {
         flexDirection: 'row',
         backgroundColor: color.background,
 
-
         justifyContent: 'space-around',
         alignItems: 'center',
 
@@ -324,8 +324,6 @@ function LoginStack() {
           component={ForgotPasswordScreen}
           options={{ headerShown: false }}
         />
-
-
       </Stack.Navigator>
     </React.Suspense>
   );
@@ -585,6 +583,11 @@ function CustomerHomeStack() {
           component={SavedAddress}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="CustomerCurrentLocation"
+          component={CustomerCurrentLocation}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </React.Suspense>
   );
@@ -606,7 +609,7 @@ export const checkApplicationPermission = async () => {
           }
         }
       }
-    } catch (error) { }
+    } catch (error) {}
   } else {
     try {
       const authStatus = await messaging().requestPermission();
