@@ -17,6 +17,7 @@ import images from '@images';
 import BaseLine from '@components/BaseLine';
 import Navigator from '@Navigator';
 import LogoutModal from '@components/LogoutModal';
+import RNShare from 'react-native-share';
 
 const CustomerProfile = ({ navigation }: any) => {
   const [refreshing, setRefreshing] =
@@ -32,11 +33,20 @@ const CustomerProfile = ({ navigation }: any) => {
     }, 1200);
   };
 
+  const shareOptions = () => {
+    RNShare.open({
+      title: 'Farewell',
+      subject: 'Farewell App',
+      message: `Farewell App\n\nShare the app with your friends`,
+      url: 'https://www.google.com',
+    });
+  };
+
   const profileMenus = [
     { id: 1, title: 'Payments', icon: images.credit_card, route: 'CustomerPayments' },
-    { id: 5, title: 'Settings', icon: images.setting, route: 'RiderSettings' },
-    { id: 6, title: 'Support/FAQ', icon: images.faq, route: 'RiderSupportFAQ' },
-    { id: 7, title: 'Invite Friends', icon: images.invitation, route: 'RiderInviteFriends' },
+    { id: 5, title: 'Settings', icon: images.setting, route: 'CustomerSettings' },
+    { id: 6, title: 'Support/FAQ', icon: images.faq, route: 'FAQScreen' },
+    { id: 7, title: 'Invite Friends', icon: images.invitation, },
     { id: 8, title: 'Logout', icon: images.signout },
   ];
 
@@ -81,7 +91,7 @@ const CustomerProfile = ({ navigation }: any) => {
               title={item.title}
               icon={item.icon}
               onPress={() =>
-                item.title === 'Logout' ? handleLogout() : Navigator.pushScreen(navigation, item.route)
+                item.title === 'Logout' ? handleLogout() : item.title === 'Invite Friends' ? shareOptions() : Navigator.pushScreen(navigation, item.route)
               }
             />
           </View>
