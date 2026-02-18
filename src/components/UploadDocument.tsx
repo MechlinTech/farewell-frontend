@@ -14,6 +14,7 @@ import { scale, verticalScale } from '@scale';
 import images from '@images';
 import ImageComponent from './ImageComponent';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 interface Props {
   label?: string;
   imageData?: any;
@@ -76,6 +77,7 @@ const UploadDocument: React.FC<Props> = ({
     setImage(null);
     onImageSelected(null); // reset parent state
   };
+  const insets=useSafeAreaInsets();
  
   /* 🚫 Prevent opening picker if image exists */
   const handleUploadPress = () => {
@@ -129,7 +131,12 @@ const UploadDocument: React.FC<Props> = ({
           style={styles.modalOverlay}
           onPress={() => setShowSheet(false)}
         >
-          <View style={styles.modalBox}>
+         <View
+  style={[
+    styles.modalBox,
+    { paddingBottom: insets.bottom + scale(10) },
+  ]}
+>
             <Pressable style={styles.option} onPress={openCamera}>
               <Text style={styles.optionText}>Take Photo</Text>
             </Pressable>

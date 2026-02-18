@@ -30,6 +30,7 @@ const OTPVerificationScreen = ({navigation,route}:any) => {
     if(route.params.userRole==='rider'){
       Navigator.resetStackScreen(navigation, 'AddVehicleDetails');
     }
+   
   }
   return (
     <BaseWrapper container_style={styles.container} fullScreenMode={true}>

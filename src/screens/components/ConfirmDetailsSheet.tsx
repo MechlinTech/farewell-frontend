@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable, KeyboardAvoidingView, Platform} from 'react-native';
 import BottomSheetCustom from '@components/BottomSheetCustom';
 import CustomButton from '@components/CustomButton';
 import { scale, verticalScale } from '@scale';
@@ -87,6 +87,12 @@ const numericTip = Number(tipAmount) || 0;
                 <Text style={styles.sectionLabel}>
                    Confirm Details
                 </Text>
+                   <KeyboardAvoidingView
+                         style={{ flex: 1 }}
+                         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
+                       >
+
 
  
       <ScrollView showsVerticalScrollIndicator={false}
@@ -198,7 +204,7 @@ const numericTip = Number(tipAmount) || 0;
          
 
             </ScrollView>
-
+</KeyboardAvoidingView>
             {/* Bottom Button */}
          
         </BottomSheetCustom>
@@ -362,7 +368,7 @@ color:color.textMuted,
     content: {
         paddingHorizontal: scale(20),
         paddingTop: verticalScale(18),
-        paddingBottom: verticalScale(54),
+        paddingBottom: verticalScale(28),
     },
       editDetails: {
     textDecorationLine: 'underline',
