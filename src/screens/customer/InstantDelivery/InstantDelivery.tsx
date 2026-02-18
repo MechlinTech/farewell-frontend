@@ -89,9 +89,10 @@ const validateAll = () => {
        >
 
       <ScrollView
-        contentContainerStyle={styles.content}
+        contentContainerStyle={[styles.content, { paddingBottom: verticalScale(28) }]}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps='handled'
+        
       >
         {/* Pickup Location */}
 
@@ -231,8 +232,8 @@ export default InstantDelivery;
 const styles = StyleSheet.create({
   content: {
     paddingHorizontal: scale(24),
-    paddingTop: verticalScale(29),
-    paddingBottom: verticalScale(40),
+    paddingTop: verticalScale(28),
+    
   },
   couriertextStyle: {
 
