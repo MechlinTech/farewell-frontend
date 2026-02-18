@@ -5,6 +5,7 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Pressable,
 } from 'react-native';
 
 import Base from '../../../components/Base';
@@ -61,7 +62,9 @@ const CustomerHome = ({ navigation }: any) => {
             />
           </View>
 
-          <View>
+          <Pressable onPress={() => {
+            Navigator.pushScreen(navigation, 'SavedAddress');
+          }}>
             <Text style={styles.locationLabel}>
               Your Location
             </Text>
@@ -69,7 +72,7 @@ const CustomerHome = ({ navigation }: any) => {
             <Text style={styles.locationText} ellipsizeMode='tail' numberOfLines={1}>
               2972 Westheimer, California
             </Text>
-          </View>
+          </Pressable>
         </View>
 
         <TouchableOpacity style={styles.avatarBox} onPress={() => {

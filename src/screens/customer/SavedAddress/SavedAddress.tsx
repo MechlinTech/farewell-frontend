@@ -113,10 +113,11 @@ const styles = StyleSheet.create({
 
     typeContainer: {
         alignSelf: 'flex-start',
-        backgroundColor: color.primary + '20',
-        paddingHorizontal: scale(10),
-        paddingVertical: verticalScale(4),
-        borderRadius: scale(6),
+        borderColor: color.primary,
+        borderWidth: scale(1),
+        paddingHorizontal: scale(6),
+        paddingVertical: verticalScale(3),
+        borderRadius: scale(4),
         marginBottom: verticalScale(6),
     },
 
