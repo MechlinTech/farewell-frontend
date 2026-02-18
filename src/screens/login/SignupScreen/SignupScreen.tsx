@@ -20,6 +20,7 @@ import HeadingGroup from '@components/HeadingGroupComponent';
 import UserRoleComponent from '@components/UserRoleComponent';
 import images from '@images';
 import CheckBox from '@components/CustomCheckbox';
+import { showFlashMessage } from '@components/showFlashMessage';
 
 const SignupScreen = ({ navigation }: any) => {
   const [firstName, setFirstName] = useState('');
@@ -153,10 +154,15 @@ const SignupScreen = ({ navigation }: any) => {
 
 
   const handleSignup = () => {
+   
     if (!validateAll()) {
-
+// showFlashMessage("Please Fill All The Fields")
       return;
     }
+     Navigator.pushScreen(navigation, 'OTPVerificationScreen',{
+
+      userRole:userRole,
+     });
 
     console.log('Signup pressed', {
       firstName,
@@ -209,7 +215,7 @@ const SignupScreen = ({ navigation }: any) => {
               />
               <UserRoleComponent
                 imageSource={images.bike}
-                title="Rider"
+                title="Driver"
                 onPress={() => setUserRole('rider')}
                 selected={userRole === 'rider'}
               />
@@ -296,10 +302,11 @@ const SignupScreen = ({ navigation }: any) => {
                   fieldStyle={{ borderRadius: scale(5) }}
                 />
               </View>
-
+<View>
               <View style={styles.checkboxContainer}>
                 <CheckBox
                   isChecked={agreeToTerms}
+                  
                   onChange={(v: boolean) => {
                     setAgreeToTerms(v);
                     setErrors((p: any) => ({ ...p, agreeToTerms: '' }));
@@ -316,6 +323,10 @@ const SignupScreen = ({ navigation }: any) => {
                     Privacy Policy.
                   </Text>
                 </Text>
+                </View>
+                  {errors.agreeToTerms && (
+    <Text style={styles.errorText}>{errors.agreeToTerms}</Text>
+  )}
               </View>
 
               <CustomButton
@@ -347,6 +358,13 @@ const styles = StyleSheet.create({
     backgroundColor: color.background,
     paddingHorizontal: scale(20),
   },
+  errorText: {
+  color: color.error,
+  fontSize: fontSize.fontSize_12,
+  marginTop: verticalScale(10),
+  fontFamily: fontFamily.Medium,
+  
+},
   commoncontainer: {
     gap: verticalScale(20),
     marginTop: verticalScale(28),

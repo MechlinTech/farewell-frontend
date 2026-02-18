@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable} from 'react-native';
 import BottomSheetCustom from '@components/BottomSheetCustom';
 import CustomButton from '@components/CustomButton';
 import { scale, verticalScale } from '@scale';
@@ -82,8 +82,12 @@ const numericTip = Number(tipAmount) || 0;
     estimatedFee: '$160',
   });
   return (
-    <BottomSheetCustom visible={visible} onClose={onClose} containerStyle={styles.container}>
-      
+    <BottomSheetCustom visible={visible}  containerStyle={styles.container} onClose={onClose}>
+    
+                <Text style={styles.sectionLabel}>
+                   Confirm Details
+                </Text>
+
  
       <ScrollView showsVerticalScrollIndicator={false}
                 contentContainerStyle={styles.content}
@@ -91,10 +95,6 @@ const numericTip = Number(tipAmount) || 0;
             >
 
                
-
-                <Text style={styles.sectionLabel}>
-                   Confrim Details
-                </Text>
 
             
 
@@ -404,9 +404,10 @@ paddingLeft:scale(16)
     sectionLabel: {
         fontSize: fontSize.fontSize_20,
         fontFamily: fontFamily.weight800,
-        color: color.textSecondary,
+        color: color.textMain,
         marginBottom: verticalScale(16),
-       
+       marginTop:verticalScale(10),
+       marginLeft:scale(26)
     },
   
 

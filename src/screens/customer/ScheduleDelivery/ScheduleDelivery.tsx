@@ -7,6 +7,7 @@ import {
   ScrollView,
   Platform,
   Alert,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -38,7 +39,7 @@ const ScheduleDelivery = ({ navigation }: any) => {
   const [labelImage, setLabelImage] = useState<any>(null);
   const [packageQuantity, setPackageQuantity] = useState<any>('1');
   const [pickupLocation, setPickupLocation] = useState('2972 Westheimer, California');
-  const [courierCompany, setCourierCompany] = useState('FedEx, 27 Samwell California, USA');
+  const [courierCompany, setCourierCompany] = useState('');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showCourierSheet, setShowCourierSheet] = useState(false);
   const [time, setTime] = useState('');
@@ -55,7 +56,7 @@ const TIME_OPTIONS = [
 const courierdata=[
   { id: 1, title: 'FedEx' },
   { id: 2, title: 'UPS' },
-  { id: 3, title: 'DHL' },
+  { id: 3, title: 'USPS' },
 ];
   const [date, setDate] = useState<Date | null>(null);
   // const [time, setTime] = useState<Date | null>(null);
@@ -114,15 +115,20 @@ const courierdata=[
   return (
     <BaseWrapper >
       <CustomToolbar
-        title="Schedule Delivery"
+        title="Schedule Pickup"
         showLeftIcon
         onLeftPress={() => navigation.goBack()}
         navigation={navigation}
       />
-
+  <KeyboardAvoidingView
+         style={{ flex: 1 }}
+         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
+       >
       <ScrollView
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
       >
         {/* Pickup Location */}
         <CustomInput
@@ -145,6 +151,7 @@ const courierdata=[
         {/* Courier Company */}
         <CustomInput
           label="Courier Company"
+          placeholder='Select Company'
           textStyle={styles.commontextStyle}
           value={courierCompany}
           error={errors.courier}
@@ -155,7 +162,11 @@ const courierdata=[
           rightIcon={
             <ImageComponent source={images.downarrow} style={styles.righticon} />
           }
-          onChangeText={(text) => setCourierCompany(text)}
+      onChangeText={text=>{setCourierCompany(text)
+
+            setErrors((p:any) => ({ ...p, courier: '' }));
+          }}
+          onBlur={validateCourier}
           onRightIconPress={() => setShowCourierSheet(true)}
         />
 
@@ -167,7 +178,10 @@ const courierdata=[
           keyboardType="numeric"
           textStyle={styles.textpackage}
           error={errors.quantity}
-          onChangeText={text => setPackageQuantity(text)}
+         onChangeText={(text) =>{ setPackageQuantity(text)
+              setErrors((p:any) => ({ ...p, quantity: '' }));
+          }}
+          onBlur={validateQuantity}
         />
 
         {/* Date & Time */}
@@ -177,9 +191,9 @@ const courierdata=[
             label="Date"
             labelStyle={styles.commonlabel}
             editable={false}
-            placeholder="DD/MM/YYYY"
+            placeholder="MM/DD/YYYY"
             error={errors.date}
-            value={date ? date.toLocaleDateString() : ''}
+            value={date ? date.toLocaleDateString('en-US') : ''}
             textStyle={styles.commontextStyle}
             fieldStyle={styles.commonfield}
 
@@ -277,7 +291,7 @@ const courierdata=[
           }}
         />
       </ScrollView>
-
+</KeyboardAvoidingView>
 
       <ConfirmDetailsSheet
         visible={showConfirmSheet}
@@ -295,18 +309,26 @@ const courierdata=[
   
 />
 
-      {showDatePicker && (
-        <DateTimePicker
-          value={date || new Date()}
-          mode="date"
-          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-          minimumDate={new Date(new Date().setHours(0, 0, 0, 0))}
-          onChange={(event, selectedDate) => {
-            setShowDatePicker(false);
-            if (selectedDate) setDate(selectedDate);
-          }}
-        />
-      )}
+     {showDatePicker && (
+  <DateTimePicker
+    value={date || new Date()}
+    mode="date"
+    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+    minimumDate={new Date(new Date().setHours(0, 0, 0, 0))}
+    onChange={(event, selectedDate) => {
+      setShowDatePicker(false);
+
+      // ✅ if user pressed cancel → do nothing
+      if (event.type === 'dismissed') return;
+
+      // ✅ only update when OK pressed
+      if (event.type === 'set' && selectedDate) {
+        setDate(selectedDate);
+        setErrors((p:any)=>({...p, date:''}));
+      }
+    }}
+  />
+)}
 
 
 
@@ -321,6 +343,8 @@ const courierdata=[
         setShowCourierSheet(false);
       }}
       selectedItem={courierCompany}
+     
+  
     />
     <SelectionListBottomSheet
   visible={showTimeSheet}
@@ -329,8 +353,10 @@ const courierdata=[
     setTime(item.title);
     setShowTimeSheet(false);
   }}
+  
   data={TIME_OPTIONS}
   selectedItem={time}
+
 />
 
     </BaseWrapper>

@@ -5,9 +5,13 @@ import {
   StyleSheet,
   StatusBar,
   Platform,
+  
+  Keyboard,
+    TextInput,
 } from 'react-native';
 import TranslucentStatusBar from './TranslucentStatusBar';
 import color from '@color';
+import { useEffect } from 'react';
  
 export interface Props {
   container_style?: any;
@@ -29,6 +33,15 @@ const BaseWrapper: React.FC<Props> = ({
    * iOS fullscreen → KEEP top
    */
   const edges: any = ['top', 'left', 'right', 'bottom'];
+ 
+useEffect(() => {
+  const hideSub = Keyboard.addListener('keyboardDidHide', () => {
+    const input = TextInput.State.currentlyFocusedInput?.();
+    input?.blur?.(); // remove cursor when keyboard disappears
+  });
+
+  return () => hideSub.remove();
+}, []);
 
   return (
     <SafeAreaView
@@ -38,6 +51,7 @@ const BaseWrapper: React.FC<Props> = ({
         { backgroundColor: backgroundColor },
       ]}
     >
+    
       <View style={styles.contentContainer}>
         <TranslucentStatusBar
           container_style={container_style}
@@ -50,6 +64,7 @@ const BaseWrapper: React.FC<Props> = ({
           {children}
         </TranslucentStatusBar>
       </View>
+   
     </SafeAreaView>
   );
 };

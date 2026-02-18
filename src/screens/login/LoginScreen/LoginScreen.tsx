@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, Text, StatusBar, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, StatusBar, ScrollView, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import Base from '@components/Base';
 import CustomInput from '@components/CustomInput';
 import CustomButton from '@components/CustomButton';
@@ -73,16 +73,17 @@ const LoginScreen = ({ navigation }: any) => {
   };
 
   const handleLogin = () => {
-    if (userRole === 'rider') {
-      Navigator.resetStackScreen(navigation, 'RiderHomeStack');
-    } else {
-      Navigator.resetStackScreen(navigation, 'CustomerHomeStack', { screen: 'CustomerDeliveryDetails' });
-    }
-
+    
     if (!validateAll()) {
       // showFlashMessage('Please fill all required fields');
       return;
     }
+    if (userRole === 'rider') {
+      Navigator.resetStackScreen(navigation, 'RiderHomeStack');
+    } else {
+      Navigator.resetStackScreen(navigation, 'CustomerHomeStack');
+    }
+
 
     console.log('Login pressed', { email, password, userRole });
   };
@@ -97,14 +98,19 @@ const LoginScreen = ({ navigation }: any) => {
 
   return (
     <Base fullScreenMode={true}>
+   <KeyboardAvoidingView
+         style={{ flex: 1 }}
+         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
+       >
 
-      <ScrollView style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }}  keyboardShouldPersistTaps="handled">
         <View style={styles.content}>
           {/* Header */}
           <View style={styles.headerContainer}>
             <HeadingGroup
               heading="Let's get you Login!"
-              subheading="Enter your information below"
+              subheading="Enter your information below" 
             />
           </View>
 
@@ -117,7 +123,7 @@ const LoginScreen = ({ navigation }: any) => {
             />
             <UserRoleComponent
               imageSource={images.bike}
-              title="Rider"
+              title="Driver"
               onPress={() => setUserRole('rider')}
               selected={userRole === 'rider'}
             />
@@ -181,6 +187,7 @@ const LoginScreen = ({ navigation }: any) => {
           </View>
         </View>
       </ScrollView>
+      </KeyboardAvoidingView>
     </Base>
   );
 };
@@ -189,7 +196,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: color.background,
-    // paddingTop: verticalScale(70),
+    
     //  paddingHorizontal: scale(20),
   },
   userRoleContainer: {
@@ -197,10 +204,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     gap: scale(31),
     marginTop: verticalScale(22),
+    marginLeft:scale(4)
   },
   content: {
     flex: 1,
     paddingHorizontal: scale(20),
+     paddingTop: verticalScale(70),
 
   },
   headerContainer: {
