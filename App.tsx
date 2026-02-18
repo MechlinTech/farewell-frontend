@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import Orientation from 'react-native-orientation-locker';
 import store from '@redux/store';
 import InnerApp from 'screens/InnerApp';
-import HeadingGroup from 'components/HeadingGroupComponent';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const App = () => {
   useEffect(() => {
@@ -13,7 +13,9 @@ const App = () => {
   }, []);
   return (
     <Provider store={store}>
+           <SafeAreaProvider>
       <InnerApp />
+      </SafeAreaProvider>
     </Provider>
   );
 };

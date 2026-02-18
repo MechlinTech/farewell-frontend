@@ -148,13 +148,15 @@ const SignupScreen = ({ navigation }: any) => {
   };
 
   const handleSignup = () => {
-    if (!validateAll()) {
-      // showFlashMessage("Please Fill All The Fields")
-      return;
-    }
-    Navigator.pushScreen(navigation, 'OTPVerificationScreen', {
-      userRole: userRole,
-    });
+   
+//     if (!validateAll()) {
+//  showFlashMessage("Please Fill All The Fields")
+//       return;
+//     }
+     Navigator.pushScreen(navigation, 'OTPVerificationScreen',{
+
+      userRole:userRole,
+     });
 
     console.log('Signup pressed', {
       firstName,
@@ -172,8 +174,15 @@ const SignupScreen = ({ navigation }: any) => {
     Navigator.pushScreen(navigation, 'LoginScreen');
   };
 
-  const handleTermsPress = () => {};
-  const handlePrivacyPress = () => {};
+  const handleTermsPress = () => { 
+
+    Navigator.goToTab(navigation,'RiderHomeStack','TermsAndConditionsScreen')
+  };
+  const handlePrivacyPress = () => { 
+
+    Navigator.goToTab(navigation,'RiderHomeStack','PrivacyPolicyScreen')
+  };
+
 
   return (
     <Base backgroundColor={color.background} fullScreenMode={false}>
@@ -182,11 +191,12 @@ const SignupScreen = ({ navigation }: any) => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
       >
-        <ScrollView
-          style={{ flex: 1 }}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
-        >
+       <ScrollView
+  style={{ flex: 1 }}
+  contentContainerStyle={{ paddingBottom: verticalScale(20) }}
+  showsVerticalScrollIndicator={false}
+  keyboardShouldPersistTaps="handled"
+>
           <View style={styles.signupContainer}>
             <View style={styles.signupHeaderContainer}>
               <HeadingGroup
@@ -332,12 +342,9 @@ const SignupScreen = ({ navigation }: any) => {
                     </Text>
                   </Text>
                 </View>
-                {errors.agreeToTerms && (
-                  <Text style={styles.errorText}>{errors.agreeToTerms}</Text>
-                )}
-                {errors.agreeToTerms && (
-                  <Text style={styles.errorText}>{errors.agreeToTerms}</Text>
-                )}
+                  {/* {errors.agreeToTerms && (
+    <Text style={styles.errorText}>{errors.agreeToTerms}</Text>
+  )} */}
               </View>
 
               <CustomButton
@@ -363,10 +370,10 @@ const SignupScreen = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
   signupContainer: {
-    flex: 1,
+   
     backgroundColor: color.background,
-    paddingHorizontal: scale(20),
-    marginBottom: verticalScale(25),
+    paddingHorizontal: scale(20),   
+   
   },
   errorText: {
     color: color.error,
@@ -382,6 +389,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     paddingHorizontal: scale(4),
     marginTop: verticalScale(52),
+   
   },
   signupTitle: {
     color: color.textMain,
@@ -460,7 +468,7 @@ const styles = StyleSheet.create({
     color: color.textSecondary,
     marginLeft: scale(70),
     fontFamily: fontFamily.weight400,
-    marginTop: verticalScale(23),
+    marginTop: verticalScale(23),      
   },
   signinLink: {
     fontSize: fontSize.fontSize_14,

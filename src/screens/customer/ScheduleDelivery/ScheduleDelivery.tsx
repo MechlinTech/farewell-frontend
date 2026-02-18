@@ -46,12 +46,12 @@ const ScheduleDelivery = ({ navigation }: any) => {
 const [showTimeSheet, setShowTimeSheet] = useState(false);
 
   /* ===================== DATE & TIME LOGIC ===================== */
-const TIME_OPTIONS = [
+const [timeOptions, setTimeOptions] = React.useState([
   { id: 1, title: '10–12' },
   { id: 2, title: '12–2' },
   { id: 3, title: '2–4' },
   { id: 4, title: '4–6' },
-];
+]);
 
 const courierdata=[
   { id: 1, title: 'FedEx' },
@@ -85,6 +85,10 @@ const courierdata=[
     if (!date)
       setErrors((p: any) => ({ ...p, date: 'Select delivery date' }));
   };
+   const validateTime = () => {
+    if (!date)
+      setErrors((p: any) => ({ ...p, date: 'Select delivery Time' }));
+  };
   const validateImage = () => {
     if (!labelImage)
       setErrors((p: any) => ({ ...p, image: 'Upload label/QR image' }));
@@ -97,6 +101,7 @@ const courierdata=[
     else if (Number(packageQuantity) <= 0) err.quantity = 'Must be greater than 0';
 
     if (!date) err.date = 'Select delivery date';
+    if(!time) err.time = 'Select delivery time';
 
     if (!packageSize) err.packageSize = 'Select package size';
 
@@ -126,7 +131,7 @@ const courierdata=[
          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
        >
       <ScrollView
-        contentContainerStyle={styles.content}
+        contentContainerStyle={[styles.content, { paddingBottom: verticalScale(28) }]}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
@@ -193,6 +198,7 @@ const courierdata=[
             editable={false}
             placeholder="MM/DD/YYYY"
             error={errors.date}
+            
             value={date ? date.toLocaleDateString('en-US') : ''}
             textStyle={styles.commontextStyle}
             fieldStyle={styles.commonfield}
@@ -209,6 +215,7 @@ const courierdata=[
   labelStyle={styles.commonlabel}
   placeholder="HH:MM"
   value={time}
+  error={errors.time}
   textStyle={styles.commontextStyle}
   fieldStyle={styles.commonfield}
   rightIcon={
@@ -354,7 +361,7 @@ const courierdata=[
     setShowTimeSheet(false);
   }}
   
-  data={TIME_OPTIONS}
+  data={timeOptions}
   selectedItem={time}
 
 />
@@ -368,8 +375,8 @@ export default ScheduleDelivery;
 const styles = StyleSheet.create({
   content: {
     paddingHorizontal: scale(24),
-    paddingTop: verticalScale(29),
-    paddingBottom: verticalScale(20),
+    paddingTop: verticalScale(28),
+    // paddingBottom:verticalScale(18)
     
   
   },

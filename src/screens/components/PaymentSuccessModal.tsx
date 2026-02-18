@@ -42,7 +42,7 @@ const PaymentSuccessModal = ({ visible, onClose, navigation }: Props) => {
                 </View>
 
                 <Text style={styles.title}>Payment Successful!</Text>
-                <Text style={styles.text}>Your payment is successfull. Assigning a rider for your package pickup</Text>
+                <Text style={styles.text}>Your payment is successfull. Assigning a driver for your package pickup</Text>
 
                 <CustomButton title="Ok" onPress={handleOk} containerStyle={styles.buttoncontainer} textStyle={styles.buttontext} />
             </View>

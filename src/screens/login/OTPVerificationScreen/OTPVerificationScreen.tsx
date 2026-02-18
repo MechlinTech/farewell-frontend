@@ -47,7 +47,8 @@ const OTPVerificationScreen = ({ navigation, route }: any) => {
         screen: 'CustomerCurrentLocation',
       });
     }
-  };
+   
+  }
   return (
     <BaseWrapper container_style={styles.container} fullScreenMode={true}>
       <HeadingGroup

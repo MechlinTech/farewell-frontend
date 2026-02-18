@@ -20,8 +20,17 @@ import { fontFamily, fontSize } from '@constants';
 import HeadingGroup from '@components/HeadingGroupComponent';
 import UserRoleComponent from '@components/UserRoleComponent';
 import images from '@images';
+import { useFocusEffect } from '@react-navigation/native';
 
 const LoginScreen = ({ navigation }: any) => {
+
+//   useFocusEffect(
+//   React.useCallback(() => {
+//     setEmail('');
+//     setPassword('');
+//     setErrors({});
+//   }, [])
+// ); future prevention
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userRole, setUserRole] = React.useState<string>('customer');
@@ -220,12 +229,15 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     paddingHorizontal: scale(20),
-    paddingTop: verticalScale(70),
+     paddingTop: verticalScale(70),
+     marginBottom:verticalScale(25)
+
   },
   headerContainer: {
     alignItems: 'flex-start',
     marginBottom: verticalScale(6),
     marginTop: verticalScale(14),
+    marginLeft:scale(5)
   },
   commoncontainer: {
     gap: verticalScale(20),
@@ -271,13 +283,14 @@ const styles = StyleSheet.create({
   signUpText: {
     fontSize: fontSize.fontSize_14,
     color: color.textSecondary,
-    fontFamily: fontFamily.weight400,
+   
   },
   signUpLink: {
     fontSize: fontSize.fontSize_14,
     color: color.textAccent,
     fontFamily: fontFamily.weight800,
     marginLeft: scale(4),
+       
   },
 });
 

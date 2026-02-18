@@ -110,9 +110,11 @@ else if (password.length < 8 || password.length > 16)
          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
        >
-      <ScrollView style={{ flex: 1, marginTop: verticalScale(150) }}
-      keyboardShouldPersistTaps="handled"
-      >
+     <ScrollView
+  style={{ flex: 1 }}
+  contentContainerStyle={{ paddingTop: verticalScale(150) }}
+  keyboardShouldPersistTaps="handled"
+>
         <View style={styles.headerContainer}>
           <HeadingGroup
             heading="Forgot Password?"
@@ -151,6 +153,7 @@ else if (password.length < 8 || password.length > 16)
             <CustomInput
               placeholder="Confirm New Password"
               value={confirmPassword}
+              // secureTextEntry={true}
               onChangeText={t => {
                 setConfirmPassword(t);
                 setErrors((p: any) => ({ ...p, confirmPassword: '' }));
