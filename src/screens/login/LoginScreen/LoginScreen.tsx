@@ -73,7 +73,12 @@ const LoginScreen = ({ navigation }: any) => {
   };
 
   const handleLogin = () => {
-    
+    if (userRole === 'rider') {
+      Navigator.resetStackScreen(navigation, 'RiderHomeStack');
+    } else {
+      Navigator.resetStackScreen(navigation, 'CustomerHomeStack');
+    }
+
     if (!validateAll()) {
       // showFlashMessage('Please fill all required fields');
       return;
@@ -110,7 +115,7 @@ const LoginScreen = ({ navigation }: any) => {
           <View style={styles.headerContainer}>
             <HeadingGroup
               heading="Let's get you Login!"
-              subheading="Enter your information below" 
+              subheading="Enter your information below"
             />
           </View>
 
@@ -196,7 +201,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: color.background,
-    
+
     //  paddingHorizontal: scale(20),
   },
   userRoleContainer: {

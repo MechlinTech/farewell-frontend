@@ -44,20 +44,21 @@ import { scale, verticalScale } from '@scale';
 import ImageComponent from '@components/ImageComponent';
 import { fontFamily, fontSize } from '@constants';
 import TermsAndConditionsScreen from './shared/TermsAndConditions/TermsAndConditions';
-import ChangePasswordScreen from './shared/ChangePassword/ChangePassword';
+import ChangePassword from './shared/ChangePassword/ChangePassword';
 import RiderSettings from './rider/RiderSettings/RiderSettings';
 import ContactUs from './shared/Contact/Contact';
 import DropOffPackage from './rider/DropoffPackage/DropOffPackage';
 import AddBankDetails from './shared/BankDetails/AddBankDetails';
 import InstantDelivery from './customer/InstantDelivery/InstantDelivery';
 import ScheduleDelivery from './customer/ScheduleDelivery/ScheduleDelivery';
-import FAQScreen from './shared/FAQ/FAQ';
+import FAQScreen from './shared/FAQScreen/FAQScreen';
 import Vehicles from './rider/Vehicles/Vehicles';
 import NotificationSettings from './shared/NotificationSettings/NotificationSettings';
 import VehicleDetails from './rider/VehicleDetails/VehicleDetails';
 import RiderDeliveryDetails from './rider/RiderDeliveryDetails/RiderDeliveryDetails';
 import CustomerDeliveryDetails from './customer/CustomerDeliveryDetails/CustomerDeliveryDetails';
-import RiderEarnings from './rider/RiderEarnings/RiderEarnings';
+import CustomerSettings from './customer/CustomerSettings/CustomerSettings';
+import SavedAddress from './customer/SavedAddress/SavedAddress';
 
 const Stack = createNativeStackNavigator();
 
@@ -113,8 +114,6 @@ function CustomCustomerBottomTab({ state, navigation }: any) {
         backgroundColor: color.background,
 
         // ✅ Real height
-        height:
-          Platform.OS === 'android' ? verticalScale(80) : verticalScale(80),
 
         justifyContent: 'space-around',
         alignItems: 'center',
@@ -123,6 +122,8 @@ function CustomCustomerBottomTab({ state, navigation }: any) {
         shadowOpacity: 0.05,
         shadowOffset: { width: 0, height: -2 },
         shadowRadius: 5,
+        paddingTop: verticalScale(21),
+        paddingBottom: verticalScale(10),
       }}
     >
       {state.routes.map((route: any, index: number) => {
@@ -228,8 +229,6 @@ function CustomRiderBottomTab({ state, navigation }: any) {
         flexDirection: 'row',
         backgroundColor: color.background,
 
-        height:
-          Platform.OS === 'android' ? verticalScale(80) : verticalScale(80),
 
         justifyContent: 'space-around',
         alignItems: 'center',
@@ -239,6 +238,8 @@ function CustomRiderBottomTab({ state, navigation }: any) {
         shadowOpacity: 0.05,
         shadowOffset: { width: 0, height: -2 },
         shadowRadius: 5,
+        paddingTop: verticalScale(21),
+        paddingBottom: verticalScale(10),
       }}
     >
       {state.routes.map((route: any, index: number) => {
@@ -282,7 +283,7 @@ function CustomRiderBottomTab({ state, navigation }: any) {
                 fontSize: fontSize.fontSize_10,
                 fontFamily: fontFamily.Medium,
                 fontWeight: isFocused ? 'bold' : 'normal',
-                marginTop: verticalScale(12),
+                marginTop: verticalScale(10),
               }}
             >
               {tabConfig?.label}
@@ -444,7 +445,7 @@ function RiderHomeStack() {
         />
         <Stack.Screen
           name="ChangePassword"
-          component={ChangePasswordScreen}
+          component={ChangePassword}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -562,6 +563,26 @@ function CustomerHomeStack() {
         <Stack.Screen
           name="CustomerDeliveryDetails"
           component={CustomerDeliveryDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="FAQScreen"
+          component={FAQScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CustomerSettings"
+          component={CustomerSettings}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ChangePassword"
+          component={ChangePassword}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SavedAddress"
+          component={SavedAddress}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
