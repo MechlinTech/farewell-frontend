@@ -154,15 +154,15 @@ const SignupScreen = ({ navigation }: any) => {
 
 
   const handleSignup = () => {
-   
-    if (!validateAll()) {
-// showFlashMessage("Please Fill All The Fields")
-      return;
-    }
-     Navigator.pushScreen(navigation, 'OTPVerificationScreen',{
 
-      userRole:userRole,
-     });
+    //     if (!validateAll()) {
+    // // showFlashMessage("Please Fill All The Fields")
+    //       return;
+    //     }
+    Navigator.pushScreen(navigation, 'OTPVerificationScreen', {
+
+      userRole: userRole,
+    });
 
     console.log('Signup pressed', {
       firstName,
@@ -302,31 +302,31 @@ const SignupScreen = ({ navigation }: any) => {
                   fieldStyle={{ borderRadius: scale(5) }}
                 />
               </View>
-<View>
-              <View style={styles.checkboxContainer}>
-                <CheckBox
-                  isChecked={agreeToTerms}
-                  
-                  onChange={(v: boolean) => {
-                    setAgreeToTerms(v);
-                    setErrors((p: any) => ({ ...p, agreeToTerms: '' }));
-                  }}
-                />
+              <View>
+                <View style={styles.checkboxContainer}>
+                  <CheckBox
+                    isChecked={agreeToTerms}
 
-                <Text style={styles.text}>
-                  I agree to Farewell{' '}
-                  <Text style={styles.link} onPress={handleTermsPress}>
-                    Terms of Service
-                  </Text>{' '}
-                  and{' '}
-                  <Text style={styles.link} onPress={handlePrivacyPress}>
-                    Privacy Policy.
+                    onChange={(v: boolean) => {
+                      setAgreeToTerms(v);
+                      setErrors((p: any) => ({ ...p, agreeToTerms: '' }));
+                    }}
+                  />
+
+                  <Text style={styles.text}>
+                    I agree to Farewell{' '}
+                    <Text style={styles.link} onPress={handleTermsPress}>
+                      Terms of Service
+                    </Text>{' '}
+                    and{' '}
+                    <Text style={styles.link} onPress={handlePrivacyPress}>
+                      Privacy Policy.
+                    </Text>
                   </Text>
-                </Text>
                 </View>
-                  {errors.agreeToTerms && (
-    <Text style={styles.errorText}>{errors.agreeToTerms}</Text>
-  )}
+                {errors.agreeToTerms && (
+                  <Text style={styles.errorText}>{errors.agreeToTerms}</Text>
+                )}
               </View>
 
               <CustomButton
@@ -359,12 +359,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(20),
   },
   errorText: {
-  color: color.error,
-  fontSize: fontSize.fontSize_12,
-  marginTop: verticalScale(10),
-  fontFamily: fontFamily.Medium,
-  
-},
+    color: color.error,
+    fontSize: fontSize.fontSize_12,
+    marginTop: verticalScale(10),
+    fontFamily: fontFamily.Medium,
+
+  },
   commoncontainer: {
     gap: verticalScale(20),
     marginTop: verticalScale(28),
