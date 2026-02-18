@@ -7,11 +7,13 @@ import {
   Pressable,
   View,
   StyleSheet,
+  ImageStyle,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import colors from '../styles/color';
 import { fontFamily, fontSize } from '@constants';
 import { scale, verticalScale } from '@scale';
+import ImageComponent from './ImageComponent';
 
 interface CustomButtonProps {
   title: string;
@@ -38,6 +40,7 @@ interface CustomButtonProps {
   icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
   iconSpacing?: number;
+  iconStyle?: StyleProp<ImageStyle>;
 
   disabled?: boolean;
   pressOpacity?: number;
@@ -82,6 +85,7 @@ const CustomButton = ({
   iconPosition = 'left',
   iconSpacing = 8,
   pressOpacity = DEFAULTS.pressOpacity,
+  iconStyle,
 }: CustomButtonProps) => {
   return (
     <Pressable
@@ -113,7 +117,9 @@ const CustomButton = ({
       >
         <View style={styles.content}>
           {icon && iconPosition === 'left' && (
-            <View style={{ marginRight: iconSpacing }}>{icon}</View>
+            <View style={{ marginRight: iconSpacing }}>
+              <ImageComponent source={icon} style={[styles.icon, iconStyle]} />
+            </View>
           )}
 
           <Text
@@ -131,7 +137,9 @@ const CustomButton = ({
           </Text>
 
           {icon && iconPosition === 'right' && (
-            <View style={{ marginLeft: iconSpacing }}>{icon}</View>
+            <View style={{ marginLeft: iconSpacing }}>
+              <ImageComponent source={icon} style={[styles.icon, iconStyle]} />
+            </View>
           )}
         </View>
       </LinearGradient>
@@ -149,5 +157,9 @@ const styles = StyleSheet.create({
   content: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  icon: {
+    width: scale(10),
+    height: verticalScale(10),
   },
 });

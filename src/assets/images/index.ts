@@ -45,6 +45,9 @@ const images = {
     dummyBarCode: require("./dummyBarCode.svg"),
     dummyCompany: require("./dummyCompany.svg"),
     call: require("./call.svg"),
+    locationOutlined: require("./locationPinOutlined.svg"),
+    homeOutlined: require("./homeOutlined.svg"),
+    briefcaseOutlined: require("./briefcaseOutlined.svg"),
 };
 
 export default images;

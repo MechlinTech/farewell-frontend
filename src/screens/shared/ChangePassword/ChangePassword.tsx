@@ -7,7 +7,7 @@ import CustomButton from 'components/CustomButton';
 import { scale, verticalScale } from '@scale';
 import { showFlashMessage } from 'components/showFlashMessage';
 
-const ChangePasswordScreen = ({ navigation }: any) => {
+const ChangePassword = ({ navigation }: any) => {
     const [oldPassword, setOldPassword] = React.useState('');
     const [newPassword, setNewPassword] = React.useState('');
     const [confirmPassword, setConfirmPassword] = React.useState('');
@@ -138,7 +138,7 @@ const ChangePasswordScreen = ({ navigation }: any) => {
     );
 };
 
-export default ChangePasswordScreen;
+export default ChangePassword;
 
 const styles = StyleSheet.create({
     container: {

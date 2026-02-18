@@ -48,7 +48,6 @@ const SignupScreen = ({ navigation }: any) => {
       }));
   };
 
-
   const validateLastName = () => {
     if (!lastName)
       setErrors((p: any) => ({ ...p, lastName: 'Last name is required' }));
@@ -67,7 +66,6 @@ const SignupScreen = ({ navigation }: any) => {
         phone: 'Enter a valid 10 digit phone number',
       }));
   };
-
 
   const validateEmail = () => {
     const trimmedEmail = email.trim();
@@ -131,27 +129,23 @@ const SignupScreen = ({ navigation }: any) => {
     else if (!emailRegex.test(trimmedEmail))
       err.email = 'Enter a valid email address';
 
-
     if (!password) err.password = 'Password is required';
     else if (password.includes(' '))
       err.password = 'Password cannot contain spaces';
     else if (password.length < 8 || password.length > 16)
       err.password = 'Password must be 8–16 characters';
 
-    if (!confirmPassword)
-      err.confirmPassword = 'Confirm password is required';
+    if (!confirmPassword) err.confirmPassword = 'Confirm password is required';
     else if (password !== confirmPassword)
       err.confirmPassword = 'Passwords do not match';
     else if (confirmPassword.length < 8 || confirmPassword.length > 16)
       err.confirmPassword = 'Confirm Password must be 8–16 characters';
 
-    if (!agreeToTerms)
-      err.agreeToTerms = 'You must agree to the terms';
+    if (!agreeToTerms) err.agreeToTerms = 'You must agree to the terms';
 
     setErrors(err);
     return Object.keys(err).length === 0;
   };
-
 
   const handleSignup = () => {
    
@@ -189,9 +183,9 @@ const SignupScreen = ({ navigation }: any) => {
     Navigator.goToTab(navigation,'RiderHomeStack','PrivacyPolicyScreen')
   };
 
+
   return (
     <Base backgroundColor={color.background} fullScreenMode={false}>
-
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -257,7 +251,16 @@ const SignupScreen = ({ navigation }: any) => {
                 />
 
                 <CustomInput
-                  leftIcon={<Text style={{ fontSize: fontSize.fontSize_16, color: color.inputText }}>+1</Text>}
+                  leftIcon={
+                    <Text
+                      style={{
+                        fontSize: fontSize.fontSize_16,
+                        color: color.inputText,
+                      }}
+                    >
+                      +1
+                    </Text>
+                  }
                   placeholder="Phone number"
                   value={phone}
                   onChangeText={t => {
@@ -269,7 +272,6 @@ const SignupScreen = ({ navigation }: any) => {
                   containerStyle={styles.signupInputContainer}
                   fieldStyle={{ borderRadius: scale(5) }}
                 />
-
 
                 <CustomInput
                   placeholder="Your email"
@@ -309,27 +311,36 @@ const SignupScreen = ({ navigation }: any) => {
                   fieldStyle={{ borderRadius: scale(5) }}
                 />
               </View>
-<View>
-              <View style={styles.checkboxContainer}>
-                <CheckBox
-                  isChecked={agreeToTerms}
-                  
-                  onChange={(v: boolean) => {
-                    setAgreeToTerms(v);
-                    setErrors((p: any) => ({ ...p, agreeToTerms: '' }));
-                  }}
-                />
+              <View>
+                <View style={styles.checkboxContainer}>
+                  <CheckBox
+                    isChecked={agreeToTerms}
+                    onChange={(v: boolean) => {
+                      setAgreeToTerms(v);
+                      setErrors((p: any) => ({ ...p, agreeToTerms: '' }));
+                    }}
+                  />
 
-                <Text style={styles.text}>
-                  I agree to Farewell{' '}
-                  <Text style={styles.link} onPress={handleTermsPress}>
-                    Terms of Service
-                  </Text>{' '}
-                  and{' '}
-                  <Text style={styles.link} onPress={handlePrivacyPress}>
-                    Privacy Policy.
+                  <Text style={styles.text}>
+                    I agree to Farewell{' '}
+                    <Text style={styles.link} onPress={handleTermsPress}>
+                      Terms of Service
+                    </Text>{' '}
+                    and{' '}
+                    <Text style={styles.link} onPress={handlePrivacyPress}>
+                      Privacy Policy.
+                    </Text>
                   </Text>
-                </Text>
+                  <Text style={styles.text}>
+                    I agree to Farewell{' '}
+                    <Text style={styles.link} onPress={handleTermsPress}>
+                      Terms of Service
+                    </Text>{' '}
+                    and{' '}
+                    <Text style={styles.link} onPress={handlePrivacyPress}>
+                      Privacy Policy.
+                    </Text>
+                  </Text>
                 </View>
                   {/* {errors.agreeToTerms && (
     <Text style={styles.errorText}>{errors.agreeToTerms}</Text>
@@ -357,23 +368,19 @@ const SignupScreen = ({ navigation }: any) => {
   );
 };
 
-
-
 const styles = StyleSheet.create({
   signupContainer: {
    
     backgroundColor: color.background,
-    paddingHorizontal: scale(20),
+    paddingHorizontal: scale(20),   
    
-    
   },
   errorText: {
-  color: color.error,
-  fontSize: fontSize.fontSize_12,
-  marginTop: verticalScale(10),
-  fontFamily: fontFamily.Medium,
-  
-},
+    color: color.error,
+    fontSize: fontSize.fontSize_12,
+    marginTop: verticalScale(10),
+    fontFamily: fontFamily.Medium,
+  },
   commoncontainer: {
     gap: verticalScale(20),
     marginTop: verticalScale(28),
@@ -461,9 +468,7 @@ const styles = StyleSheet.create({
     color: color.textSecondary,
     marginLeft: scale(70),
     fontFamily: fontFamily.weight400,
-    marginTop: verticalScale(23),
-      
-    
+    marginTop: verticalScale(23),      
   },
   signinLink: {
     fontSize: fontSize.fontSize_14,

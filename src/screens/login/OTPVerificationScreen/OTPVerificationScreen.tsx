@@ -6,7 +6,7 @@ import { scale, verticalScale } from '@scale';
 import { Text, type ViewStyle, Alert, Pressable } from 'react-native';
 import { OTPInput, type SlotProps } from 'input-otp-native';
 import type { OTPInputRef } from 'input-otp-native';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Animated, {
   useAnimatedStyle,
   withRepeat,
@@ -20,15 +20,32 @@ import CustomButton from '@components/CustomButton';
 import { fontFamily, fontSize } from '@constants';
 import Navigator from '@Navigator';
 
-const OTPVerificationScreen = ({navigation,route}:any) => {
+const OTP_LENGTH = 4;
+
+const OTPVerificationScreen = ({ navigation, route }: any) => {
+  // const email = useSelector((state: any) => state.users.email);
+  const [otp, setOtp] = useState('');
   const ref = useRef<OTPInputRef>(null);
-  const onComplete = (code: string) => {
+
+  const handleVerify = (code: string) => {
+    if (code.length !== OTP_LENGTH) return;
+    setOtp(code);
+    // TODO: Call your OTP verification API here
     Alert.alert('Completed with code:', code);
-    ref.current?.clear();
+    handlesend();
   };
-  const handlesend=()=>{
-    if(route.params.userRole==='rider'){
+
+  const onComplete = (code: string) => {
+    setOtp(code);
+    handleVerify(code);
+  };
+  const handlesend = () => {
+    if (route.params.userRole === 'rider') {
       Navigator.resetStackScreen(navigation, 'AddVehicleDetails');
+    } else {
+      Navigator.resetStackScreen(navigation, 'CustomerHomeStack', {
+        screen: 'CustomerCurrentLocation',
+      });
     }
    
   }
@@ -49,9 +66,10 @@ const OTPVerificationScreen = ({navigation,route}:any) => {
       <OTPInput
         ref={ref}
         onComplete={onComplete}
+        onChange={text => setOtp(text)}
         pattern={/^[0-9]*$/}
         containerStyle={styles.OTPcontainer}
-        maxLength={4}
+        maxLength={OTP_LENGTH}
         render={({ slots }) => (
           <View style={styles.slotsContainer}>
             {slots.map((slot, idx) => (
@@ -76,7 +94,8 @@ const OTPVerificationScreen = ({navigation,route}:any) => {
       <View style={styles.verifyButtonContainer}>
         <CustomButton
           title="Verify"
-          onPress={handlesend}
+          disabled={otp.length !== OTP_LENGTH}
+          onPress={() => handleVerify(otp)}
         />
       </View>
     </BaseWrapper>

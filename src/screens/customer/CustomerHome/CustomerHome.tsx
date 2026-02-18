@@ -4,6 +4,8 @@ import {
   StyleSheet,
   View,
   Text,
+  TouchableOpacity,
+  Pressable,
 } from 'react-native';
 
 import Base from '../../../components/Base';
@@ -14,8 +16,9 @@ import { fontFamily, fontSize } from '@constants';
 import ImageComponent from '@components/ImageComponent';
 import images from '@images';
 import PackagesItem from './components/PackagesItem';
+import Navigator from '@Navigator';
 
-const CustomerHome = () => {
+const CustomerHome = ({ navigation }: any) => {
   const recentPackages = [
     {
       id: 1,
@@ -48,42 +51,53 @@ const CustomerHome = () => {
   ];
 
   return (
-    <Base backgroundColor={color.background} fullScreenMode>
-      <ScrollView
-        style={styles.container}
-        showsVerticalScrollIndicator={false}
-      >
-        {/* Location */}
-        <View style={styles.locationRow}>
-          <View style={styles.locationLeft}>
-            <View style={styles.locationIconBox}>
-              <ImageComponent
-                source={images.location}
-                style={styles.locationIcon}
-              />
-            </View>
-
-            <View>
-              <Text style={styles.locationLabel}>
-                Your Location
-              </Text>
-
-              <Text style={styles.locationText} ellipsizeMode='tail' numberOfLines={1}>
-                2972 Westheimer, California
-              </Text>
-            </View>
+    <Base backgroundColor={color.background} fullScreenMode container_style={styles.container}>
+      {/* Location */}
+      <View style={styles.locationRow}>
+        <View style={styles.locationLeft}>
+          <View style={styles.locationIconBox}>
+            <ImageComponent
+              source={images.location}
+              style={styles.locationIcon}
+            />
           </View>
 
-          <View style={styles.avatarBox}>
-            <Text style={styles.avatarText}>
-              JS
+          <Pressable onPress={() => {
+            Navigator.pushScreen(navigation, 'SavedAddress');
+          }}>
+            <Text style={styles.locationLabel}>
+              Your Location
             </Text>
-          </View>
 
+            <Text style={styles.locationText} ellipsizeMode='tail' numberOfLines={1}>
+              2972 Westheimer, California
+            </Text>
+          </Pressable>
         </View>
 
+        <TouchableOpacity style={styles.avatarBox} onPress={() => {
+          Navigator.switchToCustomerRootTab(navigation, 'Profile');
+        }}>
+          <Text style={styles.avatarText}>
+            JS
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      <ScrollView
+        style={{ flex: 1 }}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          // paddingBottom: verticalScale(40), // optional bottom space
+        }}
+      >
+
         {/* Pickup Right Now */}
-        <View style={styles.pickupCardPrimary}>
+        <TouchableOpacity style={styles.pickupCardPrimary}
+          onPress={() => {
+            Navigator.pushScreen(navigation, 'InstantDelivery');
+          }}
+        >
           <View style={styles.pickupRow}>
 
             <ImageComponent
@@ -106,13 +120,14 @@ const CustomerHome = () => {
               style={styles.pickupArrowPrimary}
             />
           </View>
-        </View>
-
-
-
+        </TouchableOpacity>
 
         {/* Schedule Pickup */}
-        <View style={styles.pickupCardSecondary}>
+        <TouchableOpacity
+          onPress={() => {
+            Navigator.pushScreen(navigation, 'ScheduleDelivery');
+          }}
+          style={styles.pickupCardSecondary}>
           <View style={styles.pickupRow}>
 
             <ImageComponent
@@ -135,12 +150,7 @@ const CustomerHome = () => {
               style={styles.pickupArrowSecondary}
             />
           </View>
-        </View>
-
-
-
-
-
+        </TouchableOpacity>
 
         {/* Section */}
         <View style={styles.sectionHeader}>
@@ -148,7 +158,9 @@ const CustomerHome = () => {
             Recent Packages
           </Text>
 
-          <Text style={styles.viewAll}>
+          <Text style={styles.viewAll} onPress={() => {
+            Navigator.switchToCustomerRootTab(navigation, 'History');
+          }}>
             View all
           </Text>
         </View>
@@ -156,6 +168,7 @@ const CustomerHome = () => {
         {recentPackages.map((item: any) => (
           <PackagesItem
             key={item.id}
+            navigation={navigation}
             item={item}
           />
         ))}
@@ -179,7 +192,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     marginTop: verticalScale(20),
-
+    paddingBottom: verticalScale(8),
   },
 
   locationLeft: {
@@ -240,7 +253,7 @@ const styles = StyleSheet.create({
     borderRadius: scale(14),
     paddingVertical: verticalScale(16),
     paddingHorizontal: scale(16),
-    marginTop: verticalScale(42),
+    marginTop: verticalScale(34),
   },
 
   pickupCardSecondary: {

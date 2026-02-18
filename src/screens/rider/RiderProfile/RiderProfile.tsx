@@ -17,7 +17,6 @@ import images from '@images';
 import BaseLine from '@components/BaseLine';
 import Navigator from '@Navigator';
 import LogoutModal from '@components/LogoutModal';
-import Share from 'react-native-share';
 import RNShare from 'react-native-share';
 
 const RiderProfile = ({ navigation }: any) => {
@@ -60,6 +59,7 @@ const RiderProfile = ({ navigation }: any) => {
   const handleLogout = () => {
     setShowLogout(true);
   };
+
   const shareOptions = () => {
     RNShare.open({
       title: 'Farewell',
@@ -99,8 +99,8 @@ const RiderProfile = ({ navigation }: any) => {
                 item.title === 'Logout'
                   ? handleLogout()
                   : item.title === 'Invite Friends'
-                  ? shareOptions()
-                  : Navigator.pushScreen(navigation, item.route)
+                    ? shareOptions()
+                    : Navigator.pushScreen(navigation, item.route)
               }
             />
           </View>
