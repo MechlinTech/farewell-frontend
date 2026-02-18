@@ -56,6 +56,12 @@ const lightColors = {
     answer: '#757575',
   },
   overlayText: '#00000080', // was iconButtonText
+  location: {
+    heading: '#1E1E1E',
+    locationText: '#343434',
+    subHeading: '#9D9D9D',
+    dividerLine: '#EBEBEB',
+  },
   placeholderText: '#757B7F',
   docBackground: '#B4E2FC',
   logoBackground: '#4D2161',
@@ -126,6 +132,12 @@ const darkColors = {
     answer: '#757575',
   },
   overlayText: '#00000080', // was iconButtonText
+  location: {
+    heading: '#1E1E1E',
+    locationText: '#343434',
+    subHeading: '#9D9D9D',
+    dividerLine: '#EBEBEB',
+  },
   placeholderText: '#757B7F',
   docBackground: '#B4E2FC',
   logoBackground: '#4D2161',
@@ -140,7 +152,6 @@ const darkColors = {
   profileBorder: '#B0B0B0',
   darkText: '#161616',
   locationStepperDot: '#28B877',
-
 };
 
 const color = scheme === 'dark' ? darkColors : lightColors;
