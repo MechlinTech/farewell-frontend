@@ -321,7 +321,20 @@ const SignupScreen = ({ navigation }: any) => {
                       Privacy Policy.
                     </Text>
                   </Text>
+                  <Text style={styles.text}>
+                    I agree to Farewell{' '}
+                    <Text style={styles.link} onPress={handleTermsPress}>
+                      Terms of Service
+                    </Text>{' '}
+                    and{' '}
+                    <Text style={styles.link} onPress={handlePrivacyPress}>
+                      Privacy Policy.
+                    </Text>
+                  </Text>
                 </View>
+                {errors.agreeToTerms && (
+                  <Text style={styles.errorText}>{errors.agreeToTerms}</Text>
+                )}
                 {errors.agreeToTerms && (
                   <Text style={styles.errorText}>{errors.agreeToTerms}</Text>
                 )}

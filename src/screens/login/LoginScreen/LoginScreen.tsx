@@ -81,6 +81,12 @@ const LoginScreen = ({ navigation }: any) => {
   };
 
   const handleLogin = () => {
+    if (userRole === 'rider') {
+      Navigator.resetStackScreen(navigation, 'RiderHomeStack');
+    } else {
+      Navigator.resetStackScreen(navigation, 'CustomerHomeStack');
+    }
+
     if (!validateAll()) {
       // showFlashMessage('Please fill all required fields');
       return;

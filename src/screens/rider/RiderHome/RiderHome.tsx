@@ -257,17 +257,18 @@ const RiderHome = ({ navigation }: any) => {
         <Base
             backgroundColor={color.background}
             fullScreenMode
+            container_style={styles.container}
         >
             <StatusBar
                 barStyle="dark-content"
                 backgroundColor={color.background}
             />
+            {HeaderSection}
 
             <ScrollView
-                style={styles.container}
                 showsVerticalScrollIndicator={false}
+                style={{ marginTop: verticalScale(8) }}
             >
-                {HeaderSection}
                 {StatusSection}
                 {BankingSection}
                 {EarningsSection}
@@ -331,7 +332,7 @@ const styles = StyleSheet.create({
         backgroundColor: color.errorSurface,
         padding: scale(8),
         borderRadius: scale(4),
-        marginTop: verticalScale(26),
+        marginTop: verticalScale(18),
         alignItems: 'center',
     },
 
@@ -434,7 +435,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: verticalScale(18),
+        marginTop: verticalScale(10),
     },
 
     statusLabel: {

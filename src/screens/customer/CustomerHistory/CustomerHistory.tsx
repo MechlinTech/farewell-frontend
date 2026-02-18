@@ -17,7 +17,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import InProgressCustomerBookingCard from './components/InProgressCustomerBookingCard';
 import CustomerBookingCard from './components/CustomerBookingCard';
 
-const CustomerHistory = () => {
+const CustomerHistory = ({ navigation }: any) => {
 
   useFocusEffect(
     React.useCallback(() => {
@@ -261,9 +261,10 @@ const CustomerHistory = () => {
             item.status === 'IN_PROGRESS' ? (
               <InProgressCustomerBookingCard
                 item={item}
+                navigation={navigation}
               />
             ) : (
-              <CustomerBookingCard item={item} />
+              <CustomerBookingCard item={item} navigation={navigation} />
             )
           }
           refreshing={refreshing}
