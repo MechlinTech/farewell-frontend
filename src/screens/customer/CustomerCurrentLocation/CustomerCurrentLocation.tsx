@@ -109,7 +109,7 @@ export default function CustomerCurrentLocation({ navigation }: any) {
             </View>
             <CustomButton
               title="Continue"
-              onPress={() => {}}
+              onPress={() => { }}
               containerStyle={{ marginBottom: verticalScale(22) }}
             />
           </View>

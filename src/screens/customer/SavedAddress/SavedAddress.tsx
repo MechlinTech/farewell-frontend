@@ -6,6 +6,7 @@ import {
     FlatList,
     TouchableOpacity,
     StyleSheet,
+    Pressable,
 } from 'react-native';
 
 import Base from '@components/Base';
@@ -14,6 +15,7 @@ import { scale, verticalScale } from '@scale';
 import { fontFamily, fontSize } from '@constants';
 import CustomToolbar from '@components/CustomToolbar';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Navigator from '@Navigator';
 
 const SavedAddress = ({ navigation }: any) => {
     const [addressList, setAddressList] = useState([
@@ -35,19 +37,19 @@ const SavedAddress = ({ navigation }: any) => {
 
     // ➕ Add Address Click
     const onAddAddress = () => {
-        navigation.navigate('AddNewAddress'); // Change route if needed
+        Navigator.pushScreen(navigation, 'CustomerCurrentLocation');
     };
 
     // 📋 Address Card
     const renderAddressItem = ({ item }: any) => {
         return (
-            <View style={styles.card}>
+            <Pressable style={styles.card} onPress={() => { Navigator.goBack(navigation) }}>
                 {/* Address Type */}
                 <View style={styles.cardHeader}>
                     <View style={styles.typeContainer}>
                         <Text style={styles.typeText}>{item.type}</Text>
                     </View>
-                    <Text style={styles.editText}>Edit</Text>
+                    <Text style={styles.editText} onPress={() => { Navigator.pushScreen(navigation, 'CustomerCurrentLocation') }}>Edit</Text>
                 </View>
 
                 {/* Name */}
@@ -55,7 +57,7 @@ const SavedAddress = ({ navigation }: any) => {
 
                 {/* Full Address */}
                 <Text style={styles.addressText}>{item.address}</Text>
-            </View>
+            </Pressable>
         );
     };
 

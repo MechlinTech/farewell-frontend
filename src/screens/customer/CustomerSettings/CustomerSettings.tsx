@@ -28,7 +28,7 @@ const CustomerSettings = ({ navigation }: any) => {
                     onPress={() =>
                         Navigator.pushScreen(navigation, 'SavedAddress')
                     }
-                  
+
                 />
             </View>
         </BaseWrapper>
