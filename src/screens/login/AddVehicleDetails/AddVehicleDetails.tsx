@@ -38,7 +38,7 @@ const AddVehicleDetails = ({ navigation }: any) => {
   ]);
 useEffect(() => {
   const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-    Navigator.resetStackScreen(navigation, 'SignupScreen');
+    Navigator.replaceScreen(navigation, 'LoginScreen');
     return true; // Prevent default back behavior
   });
  
@@ -101,7 +101,7 @@ useEffect(() => {
     console.log('Submitted ✅');
   };
   const handleSignUp = () => {
-    Navigator.resetStackScreen(navigation, 'SignupScreen');
+    Navigator.replaceScreen(navigation, 'LoginScreen');
   };
 
   const pendingModal = () => {

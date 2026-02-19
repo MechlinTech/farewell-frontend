@@ -153,11 +153,7 @@ const SignupScreen = ({ navigation }: any) => {
 //  showFlashMessage("Please Fill All The Fields")
 //       return;
 //     }
-     Navigator.pushScreen(navigation, 'OTPVerificationScreen',{
-
-      userRole:userRole,
-     });
-
+    Navigator.pushScreen(navigation,'OTPVerificationScreen')
     console.log('Signup pressed', {
       firstName,
       lastName,
@@ -176,11 +172,11 @@ const SignupScreen = ({ navigation }: any) => {
 
   const handleTermsPress = () => { 
 
-    Navigator.goToTab(navigation,'RiderHomeStack','TermsAndConditionsScreen')
+    Navigator.pushScreen(navigation,'TermsAndConditionsScreen')
   };
   const handlePrivacyPress = () => { 
-
-    Navigator.goToTab(navigation,'RiderHomeStack','PrivacyPolicyScreen')
+ Navigator.pushScreen(navigation,'PrivacyPolicyScreen')
+ 
   };
 
 
@@ -331,16 +327,8 @@ const SignupScreen = ({ navigation }: any) => {
                       Privacy Policy.
                     </Text>
                   </Text>
-                  <Text style={styles.text}>
-                    I agree to Farewell{' '}
-                    <Text style={styles.link} onPress={handleTermsPress}>
-                      Terms of Service
-                    </Text>{' '}
-                    and{' '}
-                    <Text style={styles.link} onPress={handlePrivacyPress}>
-                      Privacy Policy.
-                    </Text>
-                  </Text>
+                
+                  
                 </View>
                   {/* {errors.agreeToTerms && (
     <Text style={styles.errorText}>{errors.agreeToTerms}</Text>

@@ -193,17 +193,19 @@ const numericTip = Number(tipAmount) || 0;
 
                      <Text style={styles.editDetails} onPress={onClose}>Edit Details</Text>
 
-                        <CustomButton
-          title="Continue to Payment"
-          onPress={onContinue}
-
-        />
+         
                     
 
                 {/* ================= QR ================= */}
          
 
             </ScrollView>
+                           <CustomButton
+          title="Continue to Payment"
+          onPress={onContinue}
+          containerStyle={styles.buttoncontainer}
+
+        />
 </KeyboardAvoidingView>
             {/* Bottom Button */}
          
@@ -346,6 +348,10 @@ flexDirection:'row',
 gap:scale(11),
 marginLeft:scale(2)
     },
+    buttoncontainer:{
+marginHorizontal:scale(16),
+marginBottom:verticalScale(10)
+    },
     belowcont:{
       width:scale(45),
       height:verticalScale(40),
@@ -372,7 +378,7 @@ color:color.textMuted,
     },
       editDetails: {
     textDecorationLine: 'underline',
-    marginBottom: verticalScale(20),
+    // marginBottom: verticalScale(10),
     color: color.textContrast,
     alignSelf: 'center',
     fontSize: fontSize.fontSize_16,
