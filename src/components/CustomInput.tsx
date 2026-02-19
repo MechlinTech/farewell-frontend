@@ -18,7 +18,7 @@ interface CustomInputProps {
   value?: string;
   placeholder?: string;
   onPress?: () => void;
-    keyboardType?: any;
+  keyboardType?: any;
 
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
@@ -31,7 +31,7 @@ interface CustomInputProps {
   textStyle?: StyleProp<TextStyle>;
 
   enableFocusStyle?: boolean;
- editable?: boolean;
+  editable?: boolean;
   /* 🔴 Validation */
   error?: string;
   showError?: boolean;
@@ -62,7 +62,7 @@ export const CustomInput = ({
   showError = true,
   onBlur,
   onFocus,
-  onRightIconPress
+  onRightIconPress,
 }: CustomInputProps) => {
   const [isFocused, setIsFocused] = React.useState(false);
 
@@ -80,7 +80,8 @@ export const CustomInput = ({
               color: color.textSecondary,
               marginBottom: verticalScale(6),
             },
-            labelStyle, styles.label
+            labelStyle,
+            styles.label,
           ]}
         >
           {label}
@@ -133,7 +134,6 @@ export const CustomInput = ({
               {rightIcon}
             </Pressable>
           ))}
-
       </Pressable>
 
       {/* Error */}
@@ -145,19 +145,19 @@ export const CustomInput = ({
 export default CustomInput;
 
 const styles = StyleSheet.create({
-pressable: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  paddingVertical: verticalScale(10),
-  paddingLeft: scale(12),   // ✅ left stays same
-  paddingRight: scale(12),   // 👈 reduce this
-  backgroundColor: color.primaryMuted,
-  borderRadius: scale(5),
-  minHeight: verticalScale(50),
-  borderWidth: 1,
-  borderColor: 'transparent',
-},
+  pressable: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    // paddingVertical: verticalScale(10),
+    paddingLeft: scale(12), // ✅ left stays same
+    paddingRight: scale(12), // 👈 reduce this
+    backgroundColor: color.primaryMuted,
+    borderRadius: scale(5),
+    minHeight: verticalScale(50),
+    borderWidth: 1,
+    borderColor: 'transparent',
+  },
 
   focused: {
     borderColor: color.primary,
@@ -176,5 +176,5 @@ pressable: {
     fontFamily: fontFamily.Medium,
     color: color.delivery.label,
     marginBottom: verticalScale(6),
-  }
+  },
 });

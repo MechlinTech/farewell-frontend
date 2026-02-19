@@ -3,7 +3,7 @@ import CustomToolbar from '@components/CustomToolbar';
 import images from '@images';
 import { scale, verticalScale } from '@scale';
 import * as React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import ImageComponent from '@components/ImageComponent';
 import color from '@color';
 import { fontFamily, fontSize } from '@constants';
@@ -11,18 +11,21 @@ import { useEffect, useState } from 'react';
 
 const vehicleData = [
   {
+    id: 1,
     name: 'Toyota Corolla 2007',
     plateNumber: 'EPE 123 YT',
     type: 'car',
     isVerified: true,
   },
   {
+    id: 2,
     name: 'Toyota Corolla 2007',
     plateNumber: 'EPE 123 YT',
     type: 'truck',
     isVerified: false,
   },
   {
+    id: 3,
     name: 'Toyota Corolla 2007',
     plateNumber: 'EPE 123 YT',
     type: 'bike',
@@ -35,14 +38,16 @@ const VehicleItem = ({
   plateNumber,
   type,
   isVerified,
+  onPress,
 }: {
   name: string;
   plateNumber: string;
   type: string;
   isVerified: boolean;
+  onPress: () => void;
 }) => {
   return (
-    <View style={styles.vehicleCard}>
+    <Pressable style={styles.vehicleCard} onPress={onPress}>
       <View style={styles.vehicleInfo}>
         <ImageComponent
           source={
@@ -67,7 +72,7 @@ const VehicleItem = ({
           />
         </View>
       )}
-    </View>
+    </Pressable>
   );
 };
 
@@ -76,6 +81,9 @@ const Vehicles = ({ navigation }: any) => {
   useEffect(() => {
     setVehicles(vehicleData);
   }, []);
+  const handleVehiclePress = (vehicle: any) => {
+    navigation.navigate('VehicleDetails', { vehicleId: vehicle.id });
+  };
   return (
     <BaseWrapper>
       <CustomToolbar title="Vehicles" showLeftIcon navigation={navigation} />
@@ -94,6 +102,7 @@ const Vehicles = ({ navigation }: any) => {
               plateNumber={item.plateNumber}
               type={item.type}
               isVerified={item.isVerified}
+              onPress={() => handleVehiclePress(item)}
             />
           ))}
         </View>

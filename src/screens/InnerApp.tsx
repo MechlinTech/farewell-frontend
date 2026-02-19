@@ -30,6 +30,7 @@ import SignupScreen from './login/SignupScreen/SignupScreen';
 import ForgotPasswordScreen from './login/ForgotPassword/ForgotPassword';
 import OTPVerificationScreen from './login/OTPVerificationScreen/OTPVerificationScreen';
 import AddVehicleDetails from './login/AddVehicleDetails/AddVehicleDetails';
+import CurrentLocationDetails from './customer/CurrentLocationDetails/CurrentLocationDetails';
 import PrivacyPolicyScreen from './shared/PrivacyPolicy/PrivacyPolicy';
 import Toast, { toastConfig } from 'components/showFlashMessage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -59,6 +60,7 @@ import RiderDeliveryDetails from './rider/RiderDeliveryDetails/RiderDeliveryDeta
 import CustomerDeliveryDetails from './customer/CustomerDeliveryDetails/CustomerDeliveryDetails';
 import CustomerSettings from './customer/CustomerSettings/CustomerSettings';
 import SavedAddress from './customer/SavedAddress/SavedAddress';
+import RiderEarnings from './rider/RiderEarnings/RiderEarnings';
 import CustomerCurrentLocation from './customer/CustomerCurrentLocation/CustomerCurrentLocation';
 
 const Stack = createNativeStackNavigator();
@@ -324,6 +326,11 @@ function LoginStack() {
           component={ForgotPasswordScreen}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="CustomerCurrentLocation"
+          component={CustomerCurrentLocation}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </React.Suspense>
   );
@@ -429,6 +436,11 @@ function RiderHomeStack() {
         <Stack.Screen
           name="VehicleDetails"
           component={VehicleDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="RiderEarnings"
+          component={RiderEarnings}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -586,6 +598,11 @@ function CustomerHomeStack() {
         <Stack.Screen
           name="CustomerCurrentLocation"
           component={CustomerCurrentLocation}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CurrentLocationDetails"
+          component={CurrentLocationDetails}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
