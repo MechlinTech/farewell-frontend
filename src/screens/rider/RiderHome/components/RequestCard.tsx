@@ -4,6 +4,7 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
+    Pressable,
 } from 'react-native';
 
 import color from '@color';
@@ -11,9 +12,11 @@ import { fontFamily, fontSize } from '@constants';
 import { scale, verticalScale } from '@scale';
 import ImageComponent from '@components/ImageComponent';
 import images from '@images';
+import Navigator from '@Navigator';
 
 interface Props {
     item: any;
+    navigation: any;
     onAccept?: () => void;
     onReject?: () => void;
 }
@@ -22,9 +25,16 @@ const RequestCard: React.FC<Props> = ({
     item,
     onAccept,
     onReject,
+    navigation,
 }) => {
     return (
-        <View style={styles.card}>
+        <Pressable style={styles.card} onPress={() => {
+            Navigator.pushScreen(
+                navigation,
+                'RiderDeliveryDetails',
+                { id: item.id }
+            );
+        }}>
             {/* Left */}
             <View style={{ flex: 1 }}>
                 <Text style={styles.bookingId}>
@@ -75,7 +85,7 @@ const RequestCard: React.FC<Props> = ({
                     </Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </Pressable>
     );
 };
 

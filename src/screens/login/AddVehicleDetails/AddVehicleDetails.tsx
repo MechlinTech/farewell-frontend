@@ -36,14 +36,14 @@ const AddVehicleDetails = ({ navigation }: any) => {
     { id: 1, title: 'Car' },
     { id: 2, title: 'Truck' },
   ]);
-useEffect(() => {
-  const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-    Navigator.resetStackScreen(navigation, 'SignupScreen');
-    return true; // Prevent default back behavior
-  });
- 
-  return () => backHandler.remove();
-}, []);
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      Navigator.replaceScreen(navigation, 'LoginScreen');
+      return true; // Prevent default back behavior
+    });
+
+    return () => backHandler.remove();
+  }, []);
 
 
   /* 🔴 Field Validators */
@@ -93,27 +93,23 @@ useEffect(() => {
   };
 
   const handleSubmit = () => {
-    if (!validateAll()) {
-      showFlashMessage('Please fill all required fields');
-      return;
-    }
-
-    console.log('Submitted ✅');
+    // if (!validateAll()) {
+    //   return;
+    // }
+    setShowPendingModal(true);
   };
-  const handleSignUp = () => {
-    Navigator.resetStackScreen(navigation, 'SignupScreen');
+
+  const handleBack = () => {
+    Navigator.replaceScreen(navigation, 'LoginScreen');
   };
 
   const pendingModal = () => {
     return (
       <CenterModal
         visible={showPendingModal}
-        onClose={() => {
-          setShowPendingModal(false);
-          Navigator.resetStackScreen(navigation, 'LoginStack');
-        }}
+        containerStyle={{ paddingHorizontal: scale(20) }}
       >
-        <View style={{ alignItems: 'center' }}>
+        <View style={{ alignItems: 'center', }}>
           {/* Icon Circle */}
           <View style={styles.iconCircle}>
             <ImageComponent
@@ -135,7 +131,7 @@ useEffect(() => {
             title="Continue"
             onPress={() => {
               setShowPendingModal(false);
-              Navigator.resetStackScreen(navigation, 'LoginStack');
+              Navigator.resetStackScreen(navigation, 'RiderHomeStack');
             }}
             containerStyle={styles.modalButton}
           />
@@ -160,7 +156,7 @@ useEffect(() => {
         title="Add Vehicle Details"
         showLeftIcon
         navigation={navigation}
-        onLeftPress={handleSignUp}
+        onLeftPress={handleBack}
       />
 
       <ScrollView contentContainerStyle={styles.content}>
@@ -439,9 +435,9 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(12),
     fontSize: fontSize.fontSize_16,
     fontFamily: fontFamily.Roman,
-    textAlign: 'center',
-    marginHorizontal: scale(24),
     lineHeight: verticalScale(22),
+    textAlign: 'center',
+    marginHorizontal: scale(20),
   },
   modalButton: {
     marginTop: verticalScale(28),

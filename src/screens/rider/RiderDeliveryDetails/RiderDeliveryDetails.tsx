@@ -302,11 +302,10 @@ const styles = StyleSheet.create({
     content: {
         paddingHorizontal: scale(20),
         paddingTop: verticalScale(18),
-        paddingBottom: verticalScale(54),
     },
 
     button: {
-        margin: verticalScale(20),
+        // margin: verticalScale(20),
     },
 
     /* Owner */

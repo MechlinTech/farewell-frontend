@@ -41,11 +41,9 @@ const OTPVerificationScreen = ({ navigation, route }: any) => {
   };
   const handlesend = () => {
     if (route.params.userRole === 'rider') {
-      Navigator.resetStackScreen(navigation, 'AddVehicleDetails');
+      Navigator.pushScreen(navigation, 'AddVehicleDetails');
     } else {
-      Navigator.resetStackScreen(navigation, 'CustomerHomeStack', {
-        screen: 'CustomerCurrentLocation',
-      });
+      Navigator.pushScreen(navigation, 'CustomerCurrentLocation');
     }
   };
   return (

@@ -1,7 +1,6 @@
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
 import { StyleSheet, View, Text } from 'react-native';
 import * as React from 'react';
-import BottomSheet from '@components/BottomSheetCustom';
 import { fontFamily, fontSize } from '@constants';
 import color from '@color';
 import BaseLine from '@components/BaseLine';
@@ -10,8 +9,6 @@ import CustomButton from '@components/CustomButton';
 import images from '@images';
 import { useState } from 'react';
 import LocationBottomSheet from './components/LocationBottomSheet';
-import CustomToolbar from '@components/CustomToolbar';
-import Navigator from '@Navigator';
 import BaseWrapper from '@components/Base';
 
 const customButtonUsage = (
@@ -109,7 +106,7 @@ export default function CustomerCurrentLocation({ navigation }: any) {
             </View>
             <CustomButton
               title="Continue"
-              onPress={() => {}}
+              onPress={() => { }}
               containerStyle={{ marginBottom: verticalScale(22) }}
             />
           </View>
