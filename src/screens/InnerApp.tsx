@@ -32,7 +32,6 @@ import OTPVerificationScreen from './login/OTPVerificationScreen/OTPVerification
 import AddVehicleDetails from './login/AddVehicleDetails/AddVehicleDetails';
 import PrivacyPolicyScreen from './shared/PrivacyPolicy/PrivacyPolicy';
 import CurrentLocationDetails from './customer/CurrentLocationDetails/CurrentLocationDetails';
-import PrivacyPolicyScreen from './shared/PrivacyPolicy/PrivacyPolicy';
 import Toast, { toastConfig } from 'components/showFlashMessage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import images from '@images';
@@ -102,21 +101,14 @@ const CustomerTabs = [
   },
 ];
 
-
 function CustomerBottomTabStack() {
   return (
     <Tab.Navigator
       screenOptions={{ headerShown: false }}
-      tabBar={(props: any) => (
-        <CustomCustomerBottomTab {...props} />
-      )}
+      tabBar={(props: any) => <CustomCustomerBottomTab {...props} />}
     >
       {CustomerTabs.map(tab => (
-        <Tab.Screen
-          key={tab.key}
-          name={tab.name}
-          component={tab.component}
-        />
+        <Tab.Screen key={tab.key} name={tab.name} component={tab.component} />
       ))}
     </Tab.Navigator>
   );
@@ -144,9 +136,7 @@ function CustomCustomerBottomTab({ state, navigation }: any) {
         const isFocused = state.index === index;
 
         // Get tab config
-        const tabConfig = CustomerTabs.find(
-          tab => tab.name === route.name,
-        );
+        const tabConfig = CustomerTabs.find(tab => tab.name === route.name);
 
         // Get icon
         const tabIcon =
@@ -174,24 +164,16 @@ function CustomCustomerBottomTab({ state, navigation }: any) {
                 width: scale(18),
                 height: verticalScale(18),
               }}
-              tintColor={
-                isFocused
-                  ? color.primary
-                  : color.tabInactive
-              }
+              tintColor={isFocused ? color.primary : color.tabInactive}
             />
 
             {/* Label */}
             <Text
               style={{
-                color: isFocused
-                  ? color.textContrast
-                  : color.tabInactive,
+                color: isFocused ? color.textContrast : color.tabInactive,
                 fontSize: fontSize.fontSize_10,
                 fontFamily: fontFamily.Medium,
-                fontWeight: isFocused
-                  ? 'bold'
-                  : 'normal',
+                fontWeight: isFocused ? 'bold' : 'normal',
                 marginTop: verticalScale(12),
               }}
             >
@@ -203,7 +185,6 @@ function CustomCustomerBottomTab({ state, navigation }: any) {
     </View>
   );
 }
-
 
 const RiderScreenIcons: Record<string, { active: any }> = {
   RIDERHOME: {
@@ -278,7 +259,9 @@ function CustomRiderBottomTab({ state, navigation }: any) {
         const tabConfig = RiderTabs.find(tab => tab.name === route.name);
 
         // 🔹 Get icon
-        const tabIcon = tabConfig ? RiderScreenIcons[tabConfig.name.toUpperCase()] : null;
+        const tabIcon = tabConfig
+          ? RiderScreenIcons[tabConfig.name.toUpperCase()]
+          : null;
 
         const onPress = () => {
           if (!isFocused) navigation.navigate(route.name);
@@ -565,7 +548,6 @@ function RiderHomeStack() {
           component={RiderDeliveryDetails}
           options={{ headerShown: false }}
         />
-
       </Stack.Navigator>
     </React.Suspense>
   );
@@ -714,7 +696,7 @@ export const checkApplicationPermission = async () => {
           }
         }
       }
-    } catch (error) { }
+    } catch (error) {}
   } else {
     try {
       const authStatus = await messaging().requestPermission();
