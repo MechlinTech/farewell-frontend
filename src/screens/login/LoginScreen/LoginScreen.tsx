@@ -22,6 +22,8 @@ import UserRoleComponent from '@components/UserRoleComponent';
 import images from '@images';
 import { useFocusEffect } from '@react-navigation/native';
 
+import BaseWrapper from '@components/Base';
+
 const LoginScreen = ({ navigation }: any) => {
   //   useFocusEffect(
   //   React.useCallback(() => {
@@ -122,7 +124,7 @@ const LoginScreen = ({ navigation }: any) => {
   };
 
   return (
-    <Base fullScreenMode={true}>
+    <BaseWrapper>
    <KeyboardAvoidingView
          style={{ flex: 1 }}
          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -213,7 +215,7 @@ const LoginScreen = ({ navigation }: any) => {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-    </Base>
+    </BaseWrapper>
   );
 };
 

@@ -148,12 +148,12 @@ const SignupScreen = ({ navigation }: any) => {
   };
 
   const handleSignup = () => {
-   
-//     if (!validateAll()) {
-//  showFlashMessage("Please Fill All The Fields")
-//       return;
-//     }
-    Navigator.pushScreen(navigation,'OTPVerificationScreen')
+
+    //     if (!validateAll()) {
+    //  showFlashMessage("Please Fill All The Fields")
+    //       return;
+    //     }
+    Navigator.pushScreen(navigation, 'OTPVerificationScreen')
     console.log('Signup pressed', {
       firstName,
       lastName,
@@ -172,28 +172,27 @@ const SignupScreen = ({ navigation }: any) => {
 
   const handleTermsPress = () => {
 
-    Navigator.pushScreen(navigation,'TermsAndConditionsScreen')
+    Navigator.pushScreen(navigation, 'TermsAndConditionsScreen')
   };
-  const handlePrivacyPress = () => { 
- Navigator.pushScreen(navigation,'PrivacyPolicyScreen')
- 
+  const handlePrivacyPress = () => {
+    Navigator.pushScreen(navigation, 'PrivacyPolicyScreen')
+
   };
 
 
   return (
-    <Base backgroundColor={color.background} fullScreenMode={false}>
-
+    <Base  >
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(40)}
       >
-       <ScrollView
-  style={{ flex: 1 }}
-  contentContainerStyle={{ paddingBottom: verticalScale(20) }}
-  showsVerticalScrollIndicator={false}
-  keyboardShouldPersistTaps="handled"
->
+        <ScrollView
+          style={{ flexGrow: 1, }}
+          contentContainerStyle={{}}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
           <View style={styles.signupContainer}>
             <View style={styles.signupHeaderContainer}>
               <HeadingGroup
@@ -222,7 +221,7 @@ const SignupScreen = ({ navigation }: any) => {
             <View style={styles.commoncontainer}>
               <View style={styles.signupFormContainer}>
                 <CustomInput
-                  placeholder="Jacob"
+                  placeholder="First Name"
                   value={firstName}
                   onChangeText={t => {
                     setFirstName(t);
@@ -359,9 +358,7 @@ const SignupScreen = ({ navigation }: any) => {
 const styles = StyleSheet.create({
   signupContainer: {
 
-    backgroundColor: color.background,
     paddingHorizontal: scale(20),
-
   },
   errorText: {
     color: color.error,
@@ -456,7 +453,7 @@ const styles = StyleSheet.create({
     color: color.textSecondary,
     marginLeft: scale(70),
     fontFamily: fontFamily.weight400,
-    marginTop: verticalScale(23),
+    marginVertical: verticalScale(23),
   },
   signinLink: {
     fontSize: fontSize.fontSize_14,

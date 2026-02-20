@@ -43,21 +43,21 @@ const ScheduleDelivery = ({ navigation }: any) => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showCourierSheet, setShowCourierSheet] = useState(false);
   const [time, setTime] = useState('');
-const [showTimeSheet, setShowTimeSheet] = useState(false);
+  const [showTimeSheet, setShowTimeSheet] = useState(false);
 
   /* ===================== DATE & TIME LOGIC ===================== */
-const [timeOptions, setTimeOptions] = React.useState([
-  { id: 1, title: '10–12' },
-  { id: 2, title: '12–2' },
-  { id: 3, title: '2–4' },
-  { id: 4, title: '4–6' },
-]);
+  const [timeOptions, setTimeOptions] = React.useState([
+    { id: 1, title: '10–12' },
+    { id: 2, title: '12–2' },
+    { id: 3, title: '2–4' },
+    { id: 4, title: '4–6' },
+  ]);
 
-const courierdata=[
-  { id: 1, title: 'FedEx' },
-  { id: 2, title: 'UPS' },
-  { id: 3, title: 'USPS' },
-];
+  const courierdata = [
+    { id: 1, title: 'FedEx' },
+    { id: 2, title: 'UPS' },
+    { id: 3, title: 'USPS' },
+  ];
   const [date, setDate] = useState<Date | null>(null);
   // const [time, setTime] = useState<Date | null>(null);
 
@@ -85,7 +85,7 @@ const courierdata=[
     if (!date)
       setErrors((p: any) => ({ ...p, date: 'Select delivery date' }));
   };
-   const validateTime = () => {
+  const validateTime = () => {
     if (!date)
       setErrors((p: any) => ({ ...p, date: 'Select delivery Time' }));
   };
@@ -101,7 +101,7 @@ const courierdata=[
     else if (Number(packageQuantity) <= 0) err.quantity = 'Must be greater than 0';
 
     if (!date) err.date = 'Select delivery date';
-    if(!time) err.time = 'Select delivery time';
+    if (!time) err.time = 'Select delivery time';
 
     if (!packageSize) err.packageSize = 'Select package size';
 
@@ -125,248 +125,253 @@ const courierdata=[
         onLeftPress={() => navigation.goBack()}
         navigation={navigation}
       />
-  <KeyboardAvoidingView
-         style={{ flex: 1 }}
-         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
-       >
-      <ScrollView
-        contentContainerStyle={[styles.content, { paddingBottom: verticalScale(28) }]}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(40)}
       >
-        {/* Pickup Location */}
-        <CustomInput
-          label="Pickup Location"
-          value={pickupLocation}
-          editable={false}
-          textStyle={styles.commontextStyle}
-          // editable={false}
-          error={errors.pickupLocation}
-          leftIcon={
-            <ImageComponent
-              source={images.location}
-              style={styles.locationicon}
-            />
-          }
-          onChangeText={(text) => setPickupLocation(text)}
-          containerStyle={styles.input}
-        />
-
-        {/* Courier Company */}
-        <CustomInput
-          label="Courier Company"
-          placeholder='Select Company'
-          textStyle={styles.commontextStyle}
-          value={courierCompany}
-          error={errors.courier}
-          leftIcon={
-            <ImageComponent source={images.greenIndicator} style={styles.icon} />
-          }
-          containerStyle={styles.input}
-          rightIcon={
-            <ImageComponent source={images.downarrow} style={styles.righticon} />
-          }
-      onChangeText={text=>{setCourierCompany(text)
-
-            setErrors((p:any) => ({ ...p, courier: '' }));
-          }}
-          onBlur={validateCourier}
-          onRightIconPress={() => setShowCourierSheet(true)}
-        />
-
-        {/* Package Quantity */}
-        <CustomInput
-          value={packageQuantity}
-          containerStyle={styles.input}
-          label="Package Quantity"
-          keyboardType="numeric"
-          textStyle={styles.textpackage}
-          error={errors.quantity}
-         onChangeText={(text) =>{ setPackageQuantity(text)
-              setErrors((p:any) => ({ ...p, quantity: '' }));
-          }}
-          onBlur={validateQuantity}
-        />
-
-        {/* Date & Time */}
-        <View style={styles.dateTimeRow}>
-          {/* DATE */}
+        <ScrollView
+          contentContainerStyle={[styles.content, { paddingBottom: verticalScale(28) }]}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
+          {/* Pickup Location */}
           <CustomInput
-            label="Date"
-            labelStyle={styles.commonlabel}
+            label="Pickup Location"
+            value={pickupLocation}
             editable={false}
-            placeholder="MM/DD/YYYY"
-            error={errors.date}
-            
-            value={date ? date.toLocaleDateString('en-US') : ''}
             textStyle={styles.commontextStyle}
-            fieldStyle={styles.commonfield}
+            // editable={false}
+            error={errors.pickupLocation}
+            leftIcon={
+              <ImageComponent
+                source={images.location}
+                style={styles.locationicon}
+              />
+            }
+            onChangeText={(text) => setPickupLocation(text)}
+            containerStyle={styles.input}
+          />
+
+          {/* Courier Company */}
+          <CustomInput
+            label="Courier Company"
+            placeholder='Select Company'
+            textStyle={styles.commontextStyle}
+            value={courierCompany}
+            error={errors.courier}
+            leftIcon={
+              <ImageComponent source={images.greenIndicator} style={styles.icon} />
+            }
+            containerStyle={styles.input}
+            rightIcon={
+              <ImageComponent source={images.downarrow} style={styles.righticon} />
+            }
+            onChangeText={text => {
+              setCourierCompany(text)
+
+              setErrors((p: any) => ({ ...p, courier: '' }));
+            }}
+            onBlur={validateCourier}
+            onRightIconPress={() => setShowCourierSheet(true)}
+          />
+
+          {/* Package Quantity */}
+          <CustomInput
+            value={packageQuantity}
+            containerStyle={styles.input}
+            label="Package Quantity"
+            keyboardType="numeric"
+            textStyle={styles.textpackage}
+            error={errors.quantity}
+            onChangeText={(text) => {
+              setPackageQuantity(text)
+              setErrors((p: any) => ({ ...p, quantity: '' }));
+            }}
+            onBlur={validateQuantity}
+          />
+
+          {/* Date & Time */}
+          <View style={styles.dateTimeRow}>
+            {/* DATE */}
+            <CustomInput
+              label="Date"
+              labelStyle={styles.commonlabel}
+              editable={false}
+              placeholder="MM/DD/YYYY"
+              error={errors.date}
+
+              value={date ? date.toLocaleDateString('en-US') : ''}
+              textStyle={styles.commontextStyle}
+              fieldStyle={styles.commonfield}
+
+              onPress={() => {
+
+                setShowDatePicker(true);
+              }}
+            />
+
+            {/* TIME */}
+            <CustomInput
+              label="Time"
+              labelStyle={styles.commonlabel}
+              placeholder="HH:MM"
+              value={time}
+              error={errors.time}
+              textStyle={styles.commontextStyle}
+              fieldStyle={styles.commonfield}
+              rightIcon={
+                <ImageComponent source={images.downarrow} style={styles.righticon} />
+              }
+              editable={false}
+              onPress={() => {
+                if (!date) {
+                  showFlashMessage("Please select a date first");
+                  return;
+                }
+                setShowTimeSheet(true);
+              }}
+              onRightIconPress={() => {
+
+                if (!date) {
+                  showFlashMessage("Please select a date first");
+                  return;
+                }
+                setShowTimeSheet(true)
+              }}
+
+            />
+
+          </View>
+
+          {/* Package Size */}
+          <Text style={styles.label}>Package Size</Text>
+          <View style={styles.sizeRow}>
+            <CustomImageButton
+              title="Small"
+              containerStyle={styles.smallContainer}
+              imageSource={images.small}
+              selected={packageSize === 'Small'}
+              onPress={() => setPackageSize('Small')}
+            />
+
+            <CustomImageButton
+              title="Medium"
+              imageSource={images.small}
+              containerStyle={styles.mediumContainer}
+              imageStyle={styles.mediumimage}
+              selected={packageSize === 'Medium'}
+              onPress={() => setPackageSize('Medium')}
+            />
+
+            <CustomImageButton
+              title="Large"
+              imageSource={images.small}
+              containerStyle={styles.largeContainer}
+              imageStyle={styles.largeimage}
+              selected={packageSize === 'Large'}
+              onPress={() => setPackageSize('Large')}
+            />
+          </View>
+
+          <UploadDocument
+            label="Take a picture of the Label/QR code"
+            labelStyle={styles.labelimg}
+            imageData={labelImage}
+            centerImage={images.camera}
+            centerImageStyle={styles.imgcamera}
+            error={errors.image}
+            centerImageView={styles.imgview}
+            onImageSelected={img => setLabelImage(img)}
+          />
+
+          <CustomButton
+            title="Next"
+            containerStyle={styles.button}
 
             onPress={() => {
+              if (!validateAll()) {
+                return;
+              }
+              setShowConfirmSheet(true);
+              console.log({
+                date,
 
-              setShowDatePicker(true);
+                packageSize,
+                labelImage,
+              });
             }}
           />
-
-          {/* TIME */}
-         <CustomInput
-  label="Time"
-  labelStyle={styles.commonlabel}
-  placeholder="HH:MM"
-  value={time}
-  error={errors.time}
-  textStyle={styles.commontextStyle}
-  fieldStyle={styles.commonfield}
-  rightIcon={
-    <ImageComponent source={images.downarrow} style={styles.righticon} />
-  }
-  editable={false}
-  onPress={() => {
-    if (!date) {
-      showFlashMessage("Please select a date first");
-      return;
-    }
-    setShowTimeSheet(true);
-  }}
-  onRightIconPress={()=>{
-    
-      if (!date) {
-      showFlashMessage("Please select a date first");
-      return;
-    }
-    setShowTimeSheet(true)
-  }}
- 
-/>
-
-        </View>
-
-        {/* Package Size */}
-        <Text style={styles.label}>Package Size</Text>
-        <View style={styles.sizeRow}>
-          <CustomImageButton
-            title="Small"
-            imageSource={images.small}
-            selected={packageSize === 'Small'}
-            onPress={() => setPackageSize('Small')}
-          />
-
-          <CustomImageButton
-            title="Medium"
-            imageSource={images.small}
-            imageStyle={styles.mediumimage}
-            selected={packageSize === 'Medium'}
-            onPress={() => setPackageSize('Medium')}
-          />
-
-          <CustomImageButton
-            title="Large"
-            imageSource={images.small}
-            imageStyle={styles.largeimage}
-            selected={packageSize === 'Large'}
-            onPress={() => setPackageSize('Large')}
-          />
-        </View>
-
-        <UploadDocument
-          label="Take a picture of the Label/QR code"
-          labelStyle={styles.labelimg}
-          imageData={labelImage}
-          centerImage={images.camera}
-          centerImageStyle={styles.imgcamera}
-          error={errors.image}
-          centerImageView={styles.imgview}
-          onImageSelected={img => setLabelImage(img)}
-        />
-
-        <CustomButton
-          title="Next"
-          containerStyle={styles.button}
-
-          onPress={() => {
-            if (!validateAll()) {
-              return;
-            }
-            setShowConfirmSheet(true);
-            console.log({
-              date,
-
-              packageSize,
-              labelImage,
-            });
-          }}
-        />
-      </ScrollView>
-</KeyboardAvoidingView>
+        </ScrollView>
+      </KeyboardAvoidingView>
 
       <ConfirmDetailsSheet
         visible={showConfirmSheet}
         onClose={() => setShowConfirmSheet(false)}
-          onContinue={() => {
-    setShowConfirmSheet(false);
-    setShowSuccessModal(true);
-  }}
+        onContinue={() => {
+          setShowConfirmSheet(false);
+          setShowSuccessModal(true);
+        }}
       />
-      
-<PaymentSuccessModal
-  visible={showSuccessModal}
-  onClose={() => setShowSuccessModal(false)}
-  navigation={navigation}
-  
-/>
 
-     {showDatePicker && (
-  <DateTimePicker
-    value={date || new Date()}
-    mode="date"
-    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-    minimumDate={new Date(new Date().setHours(0, 0, 0, 0))}
-    onChange={(event, selectedDate) => {
-      setShowDatePicker(false);
+      <PaymentSuccessModal
+        visible={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        navigation={navigation}
 
-      // ✅ if user pressed cancel → do nothing
-      if (event.type === 'dismissed') return;
+      />
 
-      // ✅ only update when OK pressed
-      if (event.type === 'set' && selectedDate) {
-        setDate(selectedDate);
-        setErrors((p:any)=>({...p, date:''}));
-      }
-    }}
-  />
-)}
+      {showDatePicker && (
+        <DateTimePicker
+          value={date || new Date()}
+          mode="date"
+          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+          minimumDate={new Date(new Date().setHours(0, 0, 0, 0))}
+          onChange={(event, selectedDate) => {
+            setShowDatePicker(false);
+
+            // ✅ if user pressed cancel → do nothing
+            if (event.type === 'dismissed') return;
+
+            // ✅ only update when OK pressed
+            if (event.type === 'set' && selectedDate) {
+              setDate(selectedDate);
+              setErrors((p: any) => ({ ...p, date: '' }));
+            }
+          }}
+        />
+      )}
 
 
 
       <SelectionListBottomSheet
 
-      visible={showCourierSheet}
-      onDismiss={() => setShowCourierSheet(false)}
-    
-      data={courierdata}
-        onPress={(item) => {
-           setErrors((p: any) => ({ ...p, courier: '' }));
-        setCourierCompany(item.title);
-        setShowCourierSheet(false);
-      }}
-      selectedItem={courierCompany}
-     
-  
-    />
-    <SelectionListBottomSheet
-  visible={showTimeSheet}
-  onDismiss={() => setShowTimeSheet(false)}
-  onPress={(item) => {
-    setErrors((p: any) => ({ ...p, time: '' }));
-    setTime(item.title);
-    setShowTimeSheet(false);
-  }}
-  
-  data={timeOptions}
-  selectedItem={time}
+        visible={showCourierSheet}
+        onDismiss={() => setShowCourierSheet(false)}
 
-/>
+        data={courierdata}
+        onPress={(item) => {
+          setErrors((p: any) => ({ ...p, courier: '' }));
+          setCourierCompany(item.title);
+          setShowCourierSheet(false);
+        }}
+        selectedItem={courierCompany}
+
+
+      />
+      <SelectionListBottomSheet
+        visible={showTimeSheet}
+        onDismiss={() => setShowTimeSheet(false)}
+        onPress={(item) => {
+          setErrors((p: any) => ({ ...p, time: '' }));
+          setTime(item.title);
+          setShowTimeSheet(false);
+        }}
+
+        data={timeOptions}
+        selectedItem={time}
+
+      />
 
     </BaseWrapper>
   );
@@ -377,25 +382,40 @@ export default ScheduleDelivery;
 const styles = StyleSheet.create({
   content: {
     paddingHorizontal: scale(24),
-    paddingTop: verticalScale(45),
-    // paddingBottom:verticalScale(18)
-    
-  
+    paddingTop: verticalScale(21),
+
+
   },
 
   commontextStyle: {
     fontSize: fontSize.fontSize_14,
     color: color.delivery.value,
   },
-  textpackage:{
-fontSize: fontSize.fontSize_14,
-paddingLeft:scale(8)
+  textpackage: {
+    fontSize: fontSize.fontSize_14,
+    paddingLeft: scale(8)
+  },
+  mediumContainer:{
+  paddingTop:verticalScale(18),
+    gap:verticalScale(6),
+    paddingBottom:verticalScale(8)
   },
 
   righticon: {
     width: scale(14),
     height: verticalScale(14),
     paddingRight: scale(17),
+  },
+    smallContainer:{
+    paddingTop:verticalScale(21),
+    gap:verticalScale(9),
+    paddingBottom:verticalScale(8)
+
+  },
+  largeContainer:{
+    paddingTop:verticalScale(12),
+    gap:verticalScale(2),
+    paddingBottom:verticalScale(8)
   },
 
   commonfield: {
