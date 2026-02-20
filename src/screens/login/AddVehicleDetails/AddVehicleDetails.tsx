@@ -14,7 +14,6 @@ import ImageComponent from '@components/ImageComponent';
 import images from '@images';
 import { fontFamily, fontSize } from '@constants';
 import Navigator from '@Navigator';
-import BottomSheet from '@components/BottomSheetCustom';
 import SelectionListBottomSheet from '@components/SelectionListBottomSheet';
 
 const AddVehicleDetails = ({ navigation }: any) => {

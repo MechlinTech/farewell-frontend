@@ -60,6 +60,7 @@ import CustomerDeliveryDetails from './customer/CustomerDeliveryDetails/Customer
 import CustomerSettings from './customer/CustomerSettings/CustomerSettings';
 import SavedAddress from './customer/SavedAddress/SavedAddress';
 import CustomerCurrentLocation from './customer/CustomerCurrentLocation/CustomerCurrentLocation';
+import RiderEarnings from './rider/RiderEarnings/RiderEarnings';
 
 const Stack = createNativeStackNavigator();
 
@@ -496,6 +497,11 @@ function RiderHomeStack() {
         <Stack.Screen
           name="RiderDeliveryDetails"
           component={RiderDeliveryDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="RiderEarnings"
+          component={RiderEarnings}
           options={{ headerShown: false }}
         />
 
