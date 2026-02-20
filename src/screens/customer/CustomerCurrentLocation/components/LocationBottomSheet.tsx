@@ -22,24 +22,12 @@ interface BottomSheetProps {
 
 const LocationBottomSheet = ({
   children,
-  containerStyle,
-  backdropOpacity = 0.4,
-}: //   borderRadius = scale(18),
-BottomSheetProps) => {
-  const insets = useSafeAreaInsets();
-
+}: BottomSheetProps) => {
   return (
-    // <Modal transparent>
     <View
       style={[
         styles.sheet,
-        // styles.sheet,
-        // {
-        //   borderTopLeftRadius: borderRadius,
-        //   borderTopRightRadius: borderRadius,
-        //   paddingBottom: scale(16) + insets.bottom,
-        // },
-        // containerStyle,
+
       ]}
     >
       {children}
