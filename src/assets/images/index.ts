@@ -48,6 +48,7 @@ const images = {
     locationOutlined: require("./locationPinOutlined.svg"),
     homeOutlined: require("./homeOutlined.svg"),
     briefcaseOutlined: require("./briefcaseOutlined.svg"),
+    shareLocation: require("./shareLocation.svg"),
 };
 
 export default images;

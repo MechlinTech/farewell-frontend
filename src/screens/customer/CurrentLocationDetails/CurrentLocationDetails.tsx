@@ -7,17 +7,18 @@ import { fontFamily, fontSize } from '@constants';
 import CustomInput from '@components/CustomInput';
 import CustomButton from '@components/CustomButton';
 import color from '@color';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import images from '@images';
 import ImageComponent from '@components/ImageComponent';
 import SelectionListBottomSheet from '@components/SelectionListBottomSheet';
 import Navigator from '@Navigator';
-const CurrentLocationDetails = ({ navigation }: any) => {
+const CurrentLocationDetails = ({ navigation, route }: any) => {
+  const { addressType, lat, lng } = route.params || {};
   const [locationData, setLocationData] = useState({
     addressId: '',
-    addressType: '',
-    latitude: 0,
-    longitude: 0,
+    addressType: addressType || '',
+    latitude: lat || 0,
+    longitude: lng || 0,
     addressLine1: '',
     addressLine2: '',
     city: 'California',
@@ -29,7 +30,27 @@ const CurrentLocationDetails = ({ navigation }: any) => {
     addressLine1: '',
     addressType: '',
   });
+  const ADDRESS_TYPE_OPTIONS = [
+    { id: 1, title: 'Home' },
+    { id: 2, title: 'Office' },
+    { id: 3, title: 'Others' },
+  ];
+  const initialSelectedItem =
+    ADDRESS_TYPE_OPTIONS.find(item => item.title === addressType) || null;
 
+  const [selectedAddressType, setSelectedAddressType] =
+    useState<any>(initialSelectedItem);
+
+  useEffect(() => {
+    if (route.params) {
+      setLocationData(prev => ({
+        ...prev,
+        addressType: route.params.addressType ?? prev.addressType,
+        latitude: route.params.lat ?? prev.latitude,
+        longitude: route.params.lng ?? prev.longitude,
+      }));
+    }
+  }, [route.params]);
   // Validation (individual fields)
   const validateField = (key: string) => {
     let err: any = { ...errors };
@@ -166,15 +187,13 @@ const CurrentLocationDetails = ({ navigation }: any) => {
         <SelectionListBottomSheet
           visible={showAddressTypeSheet}
           onDismiss={() => setShowAddressTypeSheet(false)}
-          data={[
-            { id: 1, title: 'Home' },
-            { id: 2, title: 'Office' },
-            { id: 3, title: 'Others' },
-          ]}
+          data={ADDRESS_TYPE_OPTIONS}
           onPress={item => {
-            handleChange('addressType', item.title);
+            setSelectedAddressType(item);
+            setLocationData(prev => ({ ...prev, addressType: item.title }));
+            setShowAddressTypeSheet(false);
           }}
-          selectedItem={locationData.addressType}
+          selectedItem={selectedAddressType}
         />
       </View>
     </BaseWrapper>

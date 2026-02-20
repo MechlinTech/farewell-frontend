@@ -62,6 +62,7 @@ import CustomerSettings from './customer/CustomerSettings/CustomerSettings';
 import SavedAddress from './customer/SavedAddress/SavedAddress';
 import RiderEarnings from './rider/RiderEarnings/RiderEarnings';
 import CustomerCurrentLocation from './customer/CustomerCurrentLocation/CustomerCurrentLocation';
+import Navigator from '@Navigator';
 
 const Stack = createNativeStackNavigator();
 
@@ -143,7 +144,7 @@ function CustomCustomerBottomTab({ state, navigation }: any) {
           tabConfig && CustomerScreenIcons[tabConfig.name.toUpperCase()];
 
         const onPress = () => {
-          if (!isFocused) navigation.navigate(route.name);
+          if (!isFocused) Navigator.pushScreen(navigation, route.name);
         };
 
         return (
@@ -264,7 +265,7 @@ function CustomRiderBottomTab({ state, navigation }: any) {
           : null;
 
         const onPress = () => {
-          if (!isFocused) navigation.navigate(route.name);
+          if (!isFocused) Navigator.pushScreen(navigation, route.name);
         };
 
         return (
@@ -336,11 +337,11 @@ function LoginStack() {
           component={ForgotPasswordScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="CustomerCurrentLocation"
           component={CustomerCurrentLocation}
           options={{ headerShown: false }}
-        />
+        /> */}
       </Stack.Navigator>
     </React.Suspense>
   );

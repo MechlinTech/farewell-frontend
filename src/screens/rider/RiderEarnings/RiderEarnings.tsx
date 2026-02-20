@@ -21,7 +21,7 @@ const data = {
       bookingId: 'Booking1234',
       time: '2:43pm',
       location: 'California - FedEx',
-      amount: '100',
+      amount: '1000',
     },
     {
       id: 2,
@@ -29,7 +29,7 @@ const data = {
       bookingId: 'Booking5678',
       time: '2:43pm',
       location: 'Texas - DHL',
-      amount: '50',
+      amount: '1234',
     },
     {
       id: 3,
@@ -262,7 +262,9 @@ const RiderEarnings = ({ navigation }: any) => {
                   source={images.earningsDollar}
                   style={styles.earningsDollar}
                 />
-                <Text style={styles.earningsAmount}>{item.amount}</Text>
+                <Text style={styles.earningsAmount}>
+                  {item.amount > 999 ? `${item.amount / 1000}k` : item.amount}
+                </Text>
               </View>
             </View>
           )}
@@ -318,7 +320,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   earningsDataContainer: {
-    paddingHorizontal: scale(28),
+    paddingHorizontal: scale(20),
     paddingTop: verticalScale(4),
     paddingBottom: verticalScale(14),
   },
@@ -389,10 +391,11 @@ const styles = StyleSheet.create({
   earningsAmountContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: scale(8),
+    justifyContent: 'center',
+    width: scale(70),
+    height: verticalScale(40),
     backgroundColor: color.primaryMuted,
     borderRadius: scale(5),
-    // gap: scale(16),
   },
   emptyContainer: {
     flex: 1,
