@@ -14,7 +14,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Utils } from '@Utils';
 import SplashScreen from 'react-native-splash-screen';
 import messaging from '@react-native-firebase/messaging';
-
 import color from '@color';
 import { AysncStorageHelper } from '@AsyncStoreHelper';
 import {
@@ -60,9 +59,9 @@ import RiderDeliveryDetails from './rider/RiderDeliveryDetails/RiderDeliveryDeta
 import CustomerDeliveryDetails from './customer/CustomerDeliveryDetails/CustomerDeliveryDetails';
 import CustomerSettings from './customer/CustomerSettings/CustomerSettings';
 import SavedAddress from './customer/SavedAddress/SavedAddress';
-import RiderEarnings from './rider/RiderEarnings/RiderEarnings';
 import CustomerCurrentLocation from './customer/CustomerCurrentLocation/CustomerCurrentLocation';
 import Navigator from '@Navigator';
+import RiderEarnings from './rider/RiderEarnings/RiderEarnings';
 
 const Stack = createNativeStackNavigator();
 
@@ -116,7 +115,6 @@ function CustomerBottomTabStack() {
 }
 
 function CustomCustomerBottomTab({ state, navigation }: any) {
-  const insets = useSafeAreaInsets();
   return (
     <View
       style={{
@@ -487,6 +485,16 @@ function RiderHomeStack() {
         <Stack.Screen
           name="DropOffPackage"
           component={DropOffPackage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="RiderDeliveryDetails"
+          component={RiderDeliveryDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="RiderEarnings"
+          component={RiderEarnings}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

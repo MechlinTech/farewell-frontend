@@ -97,10 +97,10 @@ const LoginScreen = ({ navigation }: any) => {
       });
     }
 
-    if (!validateAll()) {
-      // showFlashMessage('Please fill all required fields');
-      return;
-    }
+    // if (!validateAll()) {
+    //   // showFlashMessage('Please fill all required fields');
+    //   return;
+    // }
     if (userRole === 'rider') {
       Navigator.resetStackScreen(navigation, 'RiderHomeStack');
     } else {
@@ -111,6 +111,7 @@ const LoginScreen = ({ navigation }: any) => {
 
     console.log('Login pressed', { email, password, userRole });
   };
+   
 
   const handleForgotPassword = () => {
     Navigator.pushScreen(navigation, 'ForgotPasswordScreen');

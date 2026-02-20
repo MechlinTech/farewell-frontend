@@ -148,16 +148,12 @@ const SignupScreen = ({ navigation }: any) => {
   };
 
   const handleSignup = () => {
-
-    //     if (!validateAll()) {
-    // // showFlashMessage("Please Fill All The Fields")
-    //       return;
-    //     }
-    Navigator.pushScreen(navigation, 'OTPVerificationScreen', {
-
-      userRole: userRole,
-    });
-
+   
+//     if (!validateAll()) {
+//  showFlashMessage("Please Fill All The Fields")
+//       return;
+//     }
+    Navigator.pushScreen(navigation,'OTPVerificationScreen')
     console.log('Signup pressed', {
       firstName,
       lastName,
@@ -176,11 +172,11 @@ const SignupScreen = ({ navigation }: any) => {
 
   const handleTermsPress = () => {
 
-    Navigator.goToTab(navigation,'RiderHomeStack','TermsAndConditionsScreen')
+    Navigator.pushScreen(navigation,'TermsAndConditionsScreen')
   };
-  const handlePrivacyPress = () => {
-
-    Navigator.goToTab(navigation,'RiderHomeStack','PrivacyPolicyScreen')
+  const handlePrivacyPress = () => { 
+ Navigator.pushScreen(navigation,'PrivacyPolicyScreen')
+ 
   };
 
 
