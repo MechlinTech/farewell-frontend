@@ -487,16 +487,6 @@ function RiderHomeStack() {
           component={DropOffPackage}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="RiderDeliveryDetails"
-          component={RiderDeliveryDetails}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="RiderEarnings"
-          component={RiderEarnings}
-          options={{ headerShown: false }}
-        />
       </Stack.Navigator>
     </React.Suspense>
   );
