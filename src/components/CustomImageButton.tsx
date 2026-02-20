@@ -21,6 +21,7 @@ interface CustomImageButtonProps {
   selected?: boolean;
   selectedStyle?: StyleProp<ViewStyle>;
   onPress: () => void;
+  containerStyle?: StyleProp<ViewStyle>;
 }
 
 const CustomImageButton = ({
@@ -31,11 +32,12 @@ const CustomImageButton = ({
   selectedStyle,
   imageStyle,
   titleStyle,
+  containerStyle
 }: CustomImageButtonProps) => {
   return (
       <Pressable
         onPress={onPress}
-        style={[styles.pressable, selected && styles.selectedStyle]}
+        style={[styles.pressable, selected && styles.selectedStyle,containerStyle]}
       >
         <ImageComponent
           source={imageSource}

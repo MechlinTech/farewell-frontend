@@ -47,11 +47,12 @@ export default class Navigator {
     routeName?: string,
     params?: object,
   ) {
-    navigation.navigate(tabName as never, {
+    navigation.navigate(tabName, {
       screen: routeName,
-      params,
-    } as never);
+      params: params,
+    });
   }
+
 
   static goBack(navigation: NavigationProp<ParamListBase>) {
     navigation.goBack();

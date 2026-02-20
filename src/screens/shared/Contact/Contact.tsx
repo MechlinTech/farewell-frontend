@@ -3,6 +3,8 @@ import {
   View,
   ScrollView,
   StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import Base from 'components/Base';
 import CustomToolbar from 'components/CustomToolbar';
@@ -77,7 +79,7 @@ const ContactUs = ({ navigation }: any) => {
   };
 
   return (
-    <Base backgroundColor={color.background}>
+    <Base >
       <CustomToolbar
         title="Contact Us"
         showLeftIcon
@@ -85,56 +87,71 @@ const ContactUs = ({ navigation }: any) => {
         navigation={navigation}
       />
 
-      <ScrollView
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : "height"}
+        keyboardVerticalOffset={Platform.OS === 'android' ? verticalScale(40) : 0}
+
       >
-        <CustomInput
-          placeholder="Name"
-          value={name}
-          onChangeText={t => {
-            setName(t);
-            setErrors((p: any) => ({ ...p, name: '' }));
-          }}
-          onBlur={validateName}
-          error={errors.name}
-          containerStyle={styles.input}
-        />
+        <ScrollView
+          contentContainerStyle={[
+            styles.content,
+            { flexGrow: 1 }
+          ]}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View style={{ flex: 1 }}>
+            <CustomInput
+              placeholder="Name"
+              value={name}
+              onChangeText={t => {
+                setName(t);
+                setErrors((p: any) => ({ ...p, name: '' }));
+              }}
+              onBlur={validateName}
+              error={errors.name}
+              containerStyle={styles.input}
+            />
 
-        <CustomInput
-          placeholder="Email ID"
-          value={email}
-          onChangeText={t => {
-            setEmail(t);
-            setErrors((p: any) => ({ ...p, email: '' }));
-          }}
-          onBlur={validateEmail}
-          error={errors.email}
-          containerStyle={styles.input}
-        />
+            <CustomInput
+              placeholder="Email ID"
+              value={email}
+              onChangeText={t => {
+                setEmail(t);
+                setErrors((p: any) => ({ ...p, email: '' }));
+              }}
+              onBlur={validateEmail}
+              error={errors.email}
+              containerStyle={styles.input}
+            />
 
-        <CustomInput
-          placeholder="Message"
-          value={message}
-          onChangeText={t => {
-            setMessage(t);
-            setErrors((p: any) => ({ ...p, message: '' }));
-          }}
-          onBlur={validateMessage}
-          error={errors.message}
-          multiline
-          containerStyle={styles.messageInput}
-          fieldStyle={styles.messageField}
-        />
-      </ScrollView>
+            <CustomInput
+              placeholder="Message"
+              value={message}
+              onChangeText={t => {
+                setMessage(t);
+                setErrors((p: any) => ({ ...p, message: '' }));
+              }}
+              onBlur={validateMessage}
+              error={errors.message}
+              multiline
+              containerStyle={styles.messageInput}
+              fieldStyle={styles.messageField}
+            />
+          </View>
+          <CustomButton
+            title="Send Message"
+            onPress={handleSubmit}
+            pressableStyle={styles.buttonContainer}
+          />
+        </ScrollView>
 
-      <View style={styles.buttonContainer}>
-        <CustomButton
-          title="Send Message"
-          onPress={handleSubmit}
-        />
-      </View>
+      </KeyboardAvoidingView>
+
+
     </Base>
+
   );
 };
 
@@ -145,31 +162,24 @@ export default ContactUs;
 
 const styles = StyleSheet.create({
   content: {
-     paddingHorizontal: scale(24),
+
+    paddingHorizontal: scale(24),
     paddingTop: verticalScale(34),
-    paddingBottom: verticalScale(20),
   },
   input: {
     marginBottom: verticalScale(14),
   },
   messageInput: {
-    // marginTop: verticalScale(4),
-//    paddingHorizontal: scale(8),
 
   },
   messageField: {
 
     textAlignVertical: 'top',
 
-    paddingBottom: verticalScale(144),
-    
-    
     height: verticalScale(203),
- 
+    paddingBottom: verticalScale(144)
   },
   buttonContainer: {
-    paddingHorizontal: scale(24),
-    paddingBottom: verticalScale(22),
-    paddingTop: verticalScale(10),
+    marginVertical: verticalScale(20),
   },
 });

@@ -120,7 +120,7 @@ const RiderEarnings = ({ navigation }: any) => {
 
   const filterBottomSheetRef = useRef<any>(null);
   const [isFilterBottomSheetVisible, setIsFilterBottomSheetVisible] =
-    useState(true);
+    useState(false);
 
   const openFilterBottomSheet = () => {
     setIsFilterBottomSheetVisible(true);

@@ -14,7 +14,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Utils } from '@Utils';
 import SplashScreen from 'react-native-splash-screen';
 import messaging from '@react-native-firebase/messaging';
-
 import color from '@color';
 import { AysncStorageHelper } from '@AsyncStoreHelper';
 import {
@@ -31,6 +30,7 @@ import ForgotPasswordScreen from './login/ForgotPassword/ForgotPassword';
 import OTPVerificationScreen from './login/OTPVerificationScreen/OTPVerificationScreen';
 import AddVehicleDetails from './login/AddVehicleDetails/AddVehicleDetails';
 import PrivacyPolicyScreen from './shared/PrivacyPolicy/PrivacyPolicy';
+import CurrentLocationDetails from './customer/CurrentLocationDetails/CurrentLocationDetails';
 import Toast, { toastConfig } from 'components/showFlashMessage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import images from '@images';
@@ -60,6 +60,7 @@ import CustomerDeliveryDetails from './customer/CustomerDeliveryDetails/Customer
 import CustomerSettings from './customer/CustomerSettings/CustomerSettings';
 import SavedAddress from './customer/SavedAddress/SavedAddress';
 import CustomerCurrentLocation from './customer/CustomerCurrentLocation/CustomerCurrentLocation';
+import RiderEarnings from './rider/RiderEarnings/RiderEarnings';
 
 const Stack = createNativeStackNavigator();
 
@@ -78,44 +79,53 @@ const CustomerScreenIcons: Record<string, { active: any }> = {
 };
 
 //Define screens & map icons explicitly
-const CUSTOMERTABS = [
-  { key: 'CustomerHome', name: 'Home', component: CustomerHome },
+const CustomerTabs = [
+  {
+    key: 'CustomerHome',
+    name: 'CustomerHome',
+    component: CustomerHome,
+    label: 'Home',
+  },
   {
     key: 'CustomerHistory',
-    name: 'History',
+    name: 'CustomerHistory',
     component: CustomerHistory,
+    label: 'History',
   },
   {
     key: 'CustomerProfile',
-    name: 'Profile',
+    name: 'CustomerProfile',
     component: CustomerProfile,
+    label: 'Profile',
   },
 ];
+
 
 function CustomerBottomTabStack() {
   return (
     <Tab.Navigator
       screenOptions={{ headerShown: false }}
-      tabBar={(props: any) => <CustomCustomerBottomTab {...props} />}
+      tabBar={(props: any) => (
+        <CustomCustomerBottomTab {...props} />
+      )}
     >
-      {CUSTOMERTABS.map(tab => (
-        <Tab.Screen key={tab.key} name={tab.name} component={tab.component} />
+      {CustomerTabs.map(tab => (
+        <Tab.Screen
+          key={tab.key}
+          name={tab.name}
+          component={tab.component}
+        />
       ))}
     </Tab.Navigator>
   );
 }
 
 function CustomCustomerBottomTab({ state, navigation }: any) {
-  const insets = useSafeAreaInsets();
-
   return (
     <View
       style={{
         flexDirection: 'row',
         backgroundColor: color.background,
-
-        // ✅ Real height
-
         justifyContent: 'space-around',
         alignItems: 'center',
         elevation: 5,
@@ -130,43 +140,59 @@ function CustomCustomerBottomTab({ state, navigation }: any) {
       {state.routes.map((route: any, index: number) => {
         const isFocused = state.index === index;
 
-        // Map the route name to the icon using the TABS array
-        const tabConfig = CUSTOMERTABS.find(tab => tab.name === route.name);
-        const tabIcon: any = tabConfig
-          ? CustomerScreenIcons[tabConfig.key.toUpperCase()]
-          : null;
+        // Get tab config
+        const tabConfig = CustomerTabs.find(
+          tab => tab.name === route.name,
+        );
+
+        // Get icon
+        const tabIcon =
+          tabConfig && CustomerScreenIcons[tabConfig.name.toUpperCase()];
 
         const onPress = () => {
           if (!isFocused) navigation.navigate(route.name);
         };
 
-        console.log('data3132231', Utils.notification_count);
         return (
           <TouchableOpacity
             key={route.key}
             onPress={onPress}
-            style={{ justifyContent: 'center', alignItems: 'center' }}
             activeOpacity={0.7}
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
           >
+            {/* Icon */}
             <ImageComponent
-              source={tabIcon.active}
+              source={tabIcon?.active}
               resizeMode="contain"
               style={{
                 width: scale(18),
                 height: verticalScale(18),
               }}
-              tintColor={isFocused ? color.primary : color.tabInactive}
+              tintColor={
+                isFocused
+                  ? color.primary
+                  : color.tabInactive
+              }
             />
+
+            {/* Label */}
             <Text
               style={{
-                color: isFocused ? color.textContrast : color.tabInactive,
+                color: isFocused
+                  ? color.textContrast
+                  : color.tabInactive,
                 fontSize: fontSize.fontSize_10,
                 fontFamily: fontFamily.Medium,
-                fontWeight: isFocused ? 'bold' : 'normal',
+                fontWeight: isFocused
+                  ? 'bold'
+                  : 'normal',
                 marginTop: verticalScale(12),
               }}
             >
-              {route.name}
+              {tabConfig?.label}
             </Text>
           </TouchableOpacity>
         );
@@ -174,6 +200,7 @@ function CustomCustomerBottomTab({ state, navigation }: any) {
     </View>
   );
 }
+
 
 const RiderScreenIcons: Record<string, { active: any }> = {
   RIDERHOME: {
@@ -190,19 +217,19 @@ const RiderScreenIcons: Record<string, { active: any }> = {
 const RiderTabs = [
   {
     key: 'RiderHome',
-    name: 'RIDERHOME',
+    name: 'RiderHome',
     component: RiderHome,
     label: 'Home',
   },
   {
     key: 'RiderBookings',
-    name: 'RIDERBOOKINGS',
+    name: 'RiderBookings',
     component: RiderBookings,
     label: 'Bookings',
   },
   {
     key: 'RiderProfile',
-    name: 'RIDERPROFILE',
+    name: 'RiderProfile',
     component: RiderProfile,
     label: 'Profile',
   },
@@ -229,7 +256,6 @@ function CustomRiderBottomTab({ state, navigation }: any) {
       style={{
         flexDirection: 'row',
         backgroundColor: color.background,
-
         justifyContent: 'space-around',
         alignItems: 'center',
 
@@ -249,7 +275,9 @@ function CustomRiderBottomTab({ state, navigation }: any) {
         const tabConfig = RiderTabs.find(tab => tab.name === route.name);
 
         // 🔹 Get icon
-        const tabIcon = tabConfig ? RiderScreenIcons[tabConfig.name] : null;
+        const tabIcon = tabConfig
+          ? RiderScreenIcons[tabConfig.name.toUpperCase()]
+          : null;
 
         const onPress = () => {
           if (!isFocused) navigation.navigate(route.name);
@@ -322,6 +350,21 @@ function LoginStack() {
         <Stack.Screen
           name="ForgotPasswordScreen"
           component={ForgotPasswordScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CustomerCurrentLocation"
+          component={CustomerCurrentLocation}
+          options={{ headerShown: false }}
+        />
+          <Stack.Screen
+          name="PrivacyPolicyScreen"
+          component={PrivacyPolicyScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="TermsAndConditionsScreen"
+          component={TermsAndConditionsScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
@@ -422,23 +465,38 @@ function RiderHomeStack() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="ContactUs"
-          component={ContactUs}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
           name="VehicleDetails"
           component={VehicleDetails}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="RiderSettings"
-          component={RiderSettings}
+          name="RiderEarnings"
+          component={RiderEarnings}
           options={{ headerShown: false }}
         />
         <Stack.Screen
           name="NotificationSettings"
           component={NotificationSettings}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="RiderDeliveryDetails"
+          component={RiderDeliveryDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="TermsAndConditionsScreen"
+          component={TermsAndConditionsScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ContactUs"
+          component={ContactUs}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="RiderSettings"
+          component={RiderSettings}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -466,6 +524,12 @@ function RiderHomeStack() {
           component={RiderDeliveryDetails}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="RiderEarnings"
+          component={RiderEarnings}
+          options={{ headerShown: false }}
+        />
+
       </Stack.Navigator>
     </React.Suspense>
   );
@@ -588,6 +652,11 @@ function CustomerHomeStack() {
           component={CustomerCurrentLocation}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="CurrentLocationDetails"
+          component={CurrentLocationDetails}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </React.Suspense>
   );
@@ -609,7 +678,7 @@ export const checkApplicationPermission = async () => {
           }
         }
       }
-    } catch (error) {}
+    } catch (error) { }
   } else {
     try {
       const authStatus = await messaging().requestPermission();

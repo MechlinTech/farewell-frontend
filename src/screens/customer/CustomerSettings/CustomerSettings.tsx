@@ -24,10 +24,11 @@ const CustomerSettings = ({ navigation }: any) => {
                 />
                 <CustomNavigationItem
                     title="Saved Address"
-                    icon={images.location}
+                    icon={images.setting}
                     onPress={() =>
                         Navigator.pushScreen(navigation, 'SavedAddress')
                     }
+
                 />
             </View>
         </BaseWrapper>

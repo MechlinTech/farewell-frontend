@@ -1,5 +1,5 @@
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Pressable } from 'react-native';
 import * as React from 'react';
 import BottomSheet from '@components/BottomSheetCustom';
 import { fontFamily, fontSize } from '@constants';
@@ -13,6 +13,7 @@ import LocationBottomSheet from './components/LocationBottomSheet';
 import CustomToolbar from '@components/CustomToolbar';
 import Navigator from '@Navigator';
 import BaseWrapper from '@components/Base';
+import ImageComponent from '@components/ImageComponent';
 
 const customButtonUsage = (
   title: string,
@@ -48,6 +49,25 @@ export default function CustomerCurrentLocation({ navigation }: any) {
   return (
     <BaseWrapper backgroundColor="transparent">
       <View style={styles.container}>
+        <Pressable
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: scale(16),
+            right: 0,
+            bottom: 0,
+          }}
+          onPress={() => {
+            Navigator.pushScreen(navigation, 'LoginStack', {
+              screen: 'LoginScreen',
+            });
+          }}
+        >
+          <ImageComponent
+            source={images.backArrow}
+            style={{ width: scale(20), height: verticalScale(20) }}
+          />
+        </Pressable>
         {/* <MapView
           provider={PROVIDER_GOOGLE} // remove if not using Google Maps
           style={styles.map}
@@ -109,7 +129,9 @@ export default function CustomerCurrentLocation({ navigation }: any) {
             </View>
             <CustomButton
               title="Continue"
-              onPress={() => {}}
+              onPress={() => {
+                Navigator.pushScreen(navigation, 'CurrentLocationDetails');
+              }}
               containerStyle={{ marginBottom: verticalScale(22) }}
             />
           </View>

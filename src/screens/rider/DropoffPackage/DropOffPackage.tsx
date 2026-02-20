@@ -10,6 +10,7 @@ import { scale, verticalScale } from '@scale';
 import { fontFamily, fontSize } from '@constants';
 import images from '@images';
 import { showFlashMessage } from '@components/showFlashMessage';
+import Navigator from '@Navigator';
 
 const DropOffPackage = ({ navigation }: any) => {
   const [receiptImage, setReceiptImage] = useState<any>(null);
@@ -40,6 +41,7 @@ const DropOffPackage = ({ navigation }: any) => {
     //   showFlashMessage('Please upload receipt image');
       return;
     }
+    Navigator.pushScreen(navigation,'RiderDeliveryDetails')
 
     console.log('Receipt uploaded:', receiptImage);
   };
@@ -59,7 +61,7 @@ const DropOffPackage = ({ navigation }: any) => {
        
 
         <UploadDocument
-        label='Upload Receipt'
+        label='Take a picture of the receipt'
         labelStyle={styles.label}
           imageData={receiptImage}
           error={errors.receipt}
@@ -88,7 +90,7 @@ export default DropOffPackage;
 const styles = StyleSheet.create({
   content: {
     paddingHorizontal: scale(25),
-    paddingTop: verticalScale(24),
+    paddingTop: verticalScale(33),
   },
   label: {
     fontSize: fontSize.fontSize_12,

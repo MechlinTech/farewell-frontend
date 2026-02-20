@@ -22,15 +22,16 @@ import UserRoleComponent from '@components/UserRoleComponent';
 import images from '@images';
 import { useFocusEffect } from '@react-navigation/native';
 
-const LoginScreen = ({ navigation }: any) => {
+import BaseWrapper from '@components/Base';
 
-//   useFocusEffect(
-//   React.useCallback(() => {
-//     setEmail('');
-//     setPassword('');
-//     setErrors({});
-//   }, [])
-// ); future prevention
+const LoginScreen = ({ navigation }: any) => {
+  //   useFocusEffect(
+  //   React.useCallback(() => {
+  //     setEmail('');
+  //     setPassword('');
+  //     setErrors({});
+  //   }, [])
+  // ); future prevention
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userRole, setUserRole] = React.useState<string>('customer');
@@ -93,21 +94,26 @@ const LoginScreen = ({ navigation }: any) => {
     if (userRole === 'rider') {
       Navigator.resetStackScreen(navigation, 'RiderHomeStack');
     } else {
-      Navigator.resetStackScreen(navigation, 'CustomerHomeStack');
+      Navigator.resetStackScreen(navigation, 'CustomerHomeStack', {
+        screen: 'CustomerCurrentLocation',
+      });
     }
 
-    if (!validateAll()) {
-      // showFlashMessage('Please fill all required fields');
-      return;
-    }
+    // if (!validateAll()) {
+    //   // showFlashMessage('Please fill all required fields');
+    //   return;
+    // }
     if (userRole === 'rider') {
       Navigator.resetStackScreen(navigation, 'RiderHomeStack');
     } else {
-      Navigator.resetStackScreen(navigation, 'CustomerHomeStack');
+      Navigator.resetStackScreen(navigation, 'CustomerHomeStack', {
+        screen: 'CustomerCurrentLocation',
+      });
     }
 
     console.log('Login pressed', { email, password, userRole });
   };
+   
 
   const handleForgotPassword = () => {
     Navigator.pushScreen(navigation, 'ForgotPasswordScreen');
@@ -118,21 +124,22 @@ const LoginScreen = ({ navigation }: any) => {
   };
 
   return (
-    <Base fullScreenMode={true}>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
-      >
-        <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled">
-          <View style={styles.content}>
-            {/* Header */}
-            <View style={styles.headerContainer}>
-              <HeadingGroup
-                heading="Let's get you Login!"
-                subheading="Enter your information below"
-              />
-            </View>
+    <BaseWrapper>
+   <KeyboardAvoidingView
+         style={{ flex: 1 }}
+         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
+       >
+
+      <ScrollView style={{ flex: 1 }}  keyboardShouldPersistTaps="handled">
+        <View style={styles.content}>
+          {/* Header */}
+          <View style={styles.headerContainer}>
+            <HeadingGroup
+              heading="Let's get you Login!"
+              subheading="Enter your information below"
+            />
+          </View>
 
             <View style={styles.userRoleContainer}>
               <UserRoleComponent
@@ -208,7 +215,7 @@ const LoginScreen = ({ navigation }: any) => {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-    </Base>
+    </BaseWrapper>
   );
 };
 
@@ -224,20 +231,19 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     gap: scale(31),
     marginTop: verticalScale(22),
-    marginLeft: scale(4),
+    marginLeft:scale(4)
   },
   content: {
     flex: 1,
     paddingHorizontal: scale(20),
      paddingTop: verticalScale(70),
-     marginBottom:verticalScale(25)
 
   },
   headerContainer: {
     alignItems: 'flex-start',
     marginBottom: verticalScale(6),
     marginTop: verticalScale(14),
-    marginLeft:scale(5)
+    marginLeft: scale(5),
   },
   commoncontainer: {
     gap: verticalScale(20),
@@ -283,14 +289,12 @@ const styles = StyleSheet.create({
   signUpText: {
     fontSize: fontSize.fontSize_14,
     color: color.textSecondary,
-   
   },
   signUpLink: {
     fontSize: fontSize.fontSize_14,
     color: color.textAccent,
     fontFamily: fontFamily.weight800,
     marginLeft: scale(4),
-       
   },
 });
 

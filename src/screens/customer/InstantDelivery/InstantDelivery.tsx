@@ -15,6 +15,9 @@ import images from '@images';
 import CustomImageButton from '@components/CustomImageButton';
 import { showFlashMessage } from '@components/showFlashMessage';
 import SelectionListBottomSheet from '@components/SelectionListBottomSheet';
+import ConfirmDetailsSheet from '@screens/components/ConfirmDetailsSheet';
+import PaymentSuccessModal from '@screens/components/PaymentSuccessModal';
+import BaseWrapper from '@components/Base';
 
 const InstantDelivery = ({ navigation }: any) => {
 
@@ -31,6 +34,8 @@ const InstantDelivery = ({ navigation }: any) => {
   const[pickupLocation, setPickupLocation] = useState<any>('2972 Westheimer, California');
   const[courierCompany, setCourierCompany] = useState<any>('');
   const [showCourierSheet, setShowCourierSheet] = useState(false);
+  const[showPackageSheet, setShowPackageSheet] = useState(false);
+  const[showsuccessmodal,setshowsuccessmodal] = useState(false);
 
   const [errors, setErrors] = useState<any>({});
   const validatePickupLocation = () => {
@@ -71,10 +76,14 @@ const validateAll = () => {
   setErrors(err);
   return Object.keys(err).length === 0;
 };
+const handlesend=()=>{
+
+setShowPackageSheet(true);
+}
 
 
   return (
-    <Base backgroundColor={color.background}>
+    <BaseWrapper>
       <CustomToolbar
         title="Instant Pickup"
         showLeftIcon
@@ -126,7 +135,7 @@ error={errors.courier}
             setErrors((p:any) => ({ ...p, courier: '' }));
           }}
           leftIcon={
-            <ImageComponent source={images.  greenIndicator} style={styles.icon} />
+            <ImageComponent source={images.greenIndicator} style={styles.icon} />
           }
           containerStyle={styles.input}
           rightIcon={
@@ -160,6 +169,7 @@ error={errors.courier}
             imageSource={images.small}   // svg / image
             selected={packageSize === 'Small'}
             onPress={() => setPackageSize('Small')}
+            containerStyle={styles.smallContainer}
           />
 
           <CustomImageButton
@@ -168,6 +178,7 @@ error={errors.courier}
             imageStyle={styles.mediumimage}
             selected={packageSize === 'Medium'}
             onPress={() => setPackageSize('Medium')}
+             containerStyle={styles.mediumContainer}
           />
 
           <CustomImageButton
@@ -176,6 +187,7 @@ error={errors.courier}
             imageStyle={styles.largeimage}
             selected={packageSize === 'Large'}
             onPress={() => setPackageSize('Large')}
+             containerStyle={styles.largeContainer}
           />
         </View>
 
@@ -190,7 +202,10 @@ error={errors.courier}
           centerImage={images.camera}
           centerImageStyle={styles.imgcamera}
           centerImageView={styles.imgview}
-          onImageSelected={img => setLabelImage(img)}
+          onImageSelected={img => {
+            setLabelImage(img)
+            setErrors((p:any) => ({ ...p, image: '' }));
+          }}
           
 
         />
@@ -203,6 +218,7 @@ error={errors.courier}
             if(!validateAll()){
               return;
             }
+            handlesend();
 
             console.log({
               packageSize,
@@ -219,12 +235,28 @@ error={errors.courier}
      
       data={courierdata}
        onPress={(item) => {
+          setErrors((p: any) => ({ ...p, courier: '' }));
         setCourierCompany(item.title);
         setShowCourierSheet(false);
       }}
       selectedItem={courierCompany}
     />
-    </Base>
+    <ConfirmDetailsSheet
+    visible={showPackageSheet}
+ 
+    onClose={() => setShowPackageSheet(false)}
+    onContinue={() => {
+      setShowPackageSheet(false);
+      setshowsuccessmodal(true);
+    }}
+    />
+    <PaymentSuccessModal
+    
+    visible={showsuccessmodal}
+   onClose={() => setshowsuccessmodal(false)}
+    navigation={navigation}
+    />
+    </BaseWrapper>
   );
 };
 
@@ -232,8 +264,14 @@ export default InstantDelivery;
 const styles = StyleSheet.create({
   content: {
     paddingHorizontal: scale(24),
-    paddingTop: verticalScale(28),
+    paddingTop: verticalScale(21),
     
+  },
+  mediumContainer:{
+paddingTop:verticalScale(18),
+gap:verticalScale(6),
+paddingBottom:verticalScale(8)
+
   },
   couriertextStyle: {
 
@@ -247,6 +285,17 @@ const styles = StyleSheet.create({
   textpackage:{
     fontSize: fontSize.fontSize_14,
     color: color.delivery.value,
+  },
+  smallContainer:{
+    paddingTop:verticalScale(21),
+    gap:verticalScale(9),
+    paddingBottom:verticalScale(8)
+
+  },
+  largeContainer:{
+    paddingTop:verticalScale(12),
+    gap:verticalScale(2),
+    paddingBottom:verticalScale(8)
   },
   righticon: {
     width: scale(14),
