@@ -235,8 +235,8 @@ const validateAll = () => {
 
 
         <UploadDocument
-        label='Upload Document'
-        labelStyle={styles.uploadLabel}
+          label='Upload Document'
+          labelStyle={styles.uploadLabel}
           imageData={document}
           error={errors.document}
           onImageSelected={img => {
@@ -245,7 +245,7 @@ const validateAll = () => {
           }}
         />
 
-      
+
 
       
       </ScrollView>
@@ -286,37 +286,34 @@ const validateAll = () => {
 
 export default BankDetails;
 const styles = StyleSheet.create({
-    content: {
-        paddingHorizontal: scale(24),
-        paddingTop: verticalScale(27),
-        paddingBottom: verticalScale(40),
-    },
+  content: {
+    paddingHorizontal: scale(24),
+    paddingTop: verticalScale(40),
+    paddingBottom: verticalScale(40),
+  },
 
-    input: {
-        marginBottom: verticalScale(14),
-
-
-    },
-    downarrowimg: {
-        width: scale(14),
-        height: verticalScale(14),
-        paddingRight: scale(17),
-    },
+  input: {
+    marginBottom: verticalScale(14),
 
 
-    uploadLabel: {
-        marginTop: verticalScale(15),
-        marginBottom: verticalScale(18),
-        
-        
-        color: color.textSecondary,
-        fontSize: fontSize.fontSize_15,
-        fontFamily: fontFamily.weight300,
-    },
+  },
+  downarrowimg: {
+    width: scale(14),
+    height: verticalScale(14),
+    paddingRight: scale(17),
+  },
 
 
+  uploadLabel: {
+    marginTop: verticalScale(15),
+    marginBottom: verticalScale(18),
 
-    button: {
+
+    color: color.textSecondary,
+    fontSize: fontSize.fontSize_15,
+    fontFamily: fontFamily.weight300,
+  },
+   button: {
       marginBottom: verticalScale(20),
       marginHorizontal: scale(24),
     },

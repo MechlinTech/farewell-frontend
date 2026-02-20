@@ -40,8 +40,8 @@ useEffect(() => {
     input?.blur?.(); // remove cursor when keyboard disappears
   });
 
-  return () => hideSub.remove();
-}, []);
+    return () => hideSub.remove();
+  }, []);
 
   return (
     <SafeAreaView

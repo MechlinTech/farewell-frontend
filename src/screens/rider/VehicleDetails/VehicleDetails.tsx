@@ -10,42 +10,35 @@ import { useEffect, useState } from 'react';
 import { RootState } from '@redux/store';
 import { useSelector } from 'react-redux';
 
-const vehicleDetailsData = [
-  {
-    title: 'Vehicle Number',
-    value: '1234567890',
-  },
-  {
-    title: 'Vehicle Model',
-    value: 'Toyota Corolla',
-  },
-  {
-    title: 'Vehicle Capacity',
-    value: '5',
-  },
-];
-
-const documentsData = [
-  {
-    id: '1',
-    title: 'Licence',
-    image:
-      'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400&q=80',
-  },
-  {
-    id: '2',
-    title: 'RC',
-    image:
-      'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400&q=80',
-  },
-  {
-    id: '3',
-    title: 'Insurance',
-    image:
-      'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400&q=80',
-  },
-];
-const VehicleDetails = ({ navigation }: any) => {
+const vehicleDeets = {
+  id: 1,
+  type: 'car',
+  brand: 'Toyota',
+  model: 'Corolla',
+  capacity: '5',
+  documents: [
+    {
+      id: '1',
+      title: 'Licence',
+      image:
+        'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400&q=80',
+    },
+    {
+      id: '2',
+      title: 'RC',
+      image:
+        'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400&q=80',
+    },
+    {
+      id: '3',
+      title: 'Insurance',
+      image:
+        'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400&q=80',
+    },
+  ],
+};
+const VehicleDetails = ({ navigation, route }: any) => {
+  const { vehicleId } = route.params;
   const [vehicleDetails, setVehicleDetails] = useState<any>([]);
   const [documents, setDocuments] = useState<any>([]);
   const isRequesting = useSelector(
@@ -53,9 +46,20 @@ const VehicleDetails = ({ navigation }: any) => {
   );
 
   useEffect(() => {
-    setVehicleDetails(vehicleDetailsData);
-    setDocuments(documentsData);
-  }, []);
+    handleVehicleData();
+  }, [vehicleId]);
+
+  const handleVehicleData = () => {
+    if (vehicleId === vehicleDeets.id) {
+      setVehicleDetails([
+        { title: 'Vehicle Type', value: vehicleDeets.type },
+        { title: 'Brand', value: vehicleDeets.brand },
+        { title: 'Model', value: vehicleDeets.model },
+        { title: 'Capacity', value: vehicleDeets.capacity },
+      ]);
+      setDocuments(vehicleDeets.documents);
+    }
+  };
 
   const VehicleDetailsItem = ({
     title,
@@ -95,7 +99,7 @@ const VehicleDetails = ({ navigation }: any) => {
             <View>
               <Text style={styles.documentsTitle}>Documents</Text>
               <FlatList
-                data={documentsData}
+                data={documents}
                 keyExtractor={item => item.id}
                 numColumns={2}
                 scrollEnabled={false}
