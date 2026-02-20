@@ -23,28 +23,73 @@ const EarningsFilterBottomSheet = ({ visible, onClose, onApply }: Props) => {
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
 
-  const validateDates = () => {
-    if (!startDate) {
-      showFlashMessage('Please select start date');
-      return false;
-    }
-    if (startDate && endDate && startDate > endDate) {
-      showFlashMessage('End date must be after start date');
-      return false;
+  const [errors, setErrors] = useState<any>({
+    startDate: '',
+    endDate: '',
+  });
+
+  // Validation (individual fields) - clear error when valid, set when invalid
+  const validateField = (key: string) => {
+    let err: any = { ...errors };
+
+    if (key === 'startDate') {
+      if (!startDate) {
+        err.startDate = 'Start date is required';
+      } else {
+        err.startDate = '';
+        if (endDate && endDate < startDate) {
+          err.endDate = 'End date must be on or after start date';
+        } else if (endDate) {
+          err.endDate = '';
+        }
+      }
     }
 
-    return true;
+    if (key === 'endDate') {
+      if (!endDate) {
+        err.endDate = 'End date is required';
+      } else if (startDate && endDate < startDate) {
+        err.endDate = 'End date must be on or after start date';
+      } else {
+        err.endDate = '';
+      }
+    }
+
+    setErrors(err);
   };
+
+  // Validate all fields
+  const validateAll = () => {
+    let err: any = {};
+
+    if (!startDate) {
+      err.startDate = 'Start date is required';
+    }
+
+    if (!endDate) {
+      err.endDate = 'End date is required';
+    }
+
+    if (startDate && endDate && endDate < startDate) {
+      err.endDate = 'End date must be on or after start date';
+    }
+
+    setErrors(err);
+    return Object.keys(err).length === 0;
+  };
+
   const handleApply = () => {
-    if (!validateDates()) {
+    if (!validateAll()) {
       return;
     }
     onApply(startDate, endDate);
     onClose();
   };
+
   const handleClear = () => {
     setStartDate(undefined);
     setEndDate(undefined);
+    setErrors({ startDate: '', endDate: '' });
     onClose();
   };
   return (
@@ -71,14 +116,20 @@ const EarningsFilterBottomSheet = ({ visible, onClose, onApply }: Props) => {
             <View style={styles.inputContainer}>
               <CustomInput
                 label="Start Date"
+                placeholder="Enter start date"
+                error={errors.startDate}
                 value={startDate ? startDate.toLocaleDateString() : ''}
                 onPress={() => setShowStartDatePicker(true)}
+                onBlur={() => validateField('startDate')}
                 editable={false}
               />
               <CustomInput
                 label="End Date"
+                placeholder="Enter end date"
+                error={errors.endDate}
                 value={endDate ? endDate.toLocaleDateString() : ''}
                 onPress={() => setShowEndDatePicker(true)}
+                onBlur={() => validateField('endDate')}
                 editable={false}
               />
             </View>
@@ -114,18 +165,25 @@ const EarningsFilterBottomSheet = ({ visible, onClose, onApply }: Props) => {
           display={Platform.OS === 'ios' ? 'spinner' : 'default'}
           onChange={(event, selectedDate) => {
             setShowStartDatePicker(false);
-            if (selectedDate) setStartDate(selectedDate);
+            if (selectedDate) {
+              setStartDate(selectedDate);
+              setErrors((prev: any) => ({ ...prev, startDate: '' }));
+            }
           }}
         />
       )}
-      {startDate && showEndDatePicker && (
+      {showEndDatePicker && (
         <DateTimePicker
-          value={endDate || new Date()}
+          value={endDate || startDate || new Date()}
           mode="date"
           display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+          minimumDate={startDate}
           onChange={(event, selectedDate) => {
             setShowEndDatePicker(false);
-            if (selectedDate) setEndDate(selectedDate);
+            if (selectedDate) {
+              setEndDate(selectedDate);
+              setErrors((prev: any) => ({ ...prev, endDate: '' }));
+            }
           }}
         />
       )}

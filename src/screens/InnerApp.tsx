@@ -60,6 +60,7 @@ import CustomerDeliveryDetails from './customer/CustomerDeliveryDetails/Customer
 import CustomerSettings from './customer/CustomerSettings/CustomerSettings';
 import SavedAddress from './customer/SavedAddress/SavedAddress';
 import CustomerCurrentLocation from './customer/CustomerCurrentLocation/CustomerCurrentLocation';
+import Navigator from '@Navigator';
 import RiderEarnings from './rider/RiderEarnings/RiderEarnings';
 
 const Stack = createNativeStackNavigator();
@@ -100,21 +101,14 @@ const CustomerTabs = [
   },
 ];
 
-
 function CustomerBottomTabStack() {
   return (
     <Tab.Navigator
       screenOptions={{ headerShown: false }}
-      tabBar={(props: any) => (
-        <CustomCustomerBottomTab {...props} />
-      )}
+      tabBar={(props: any) => <CustomCustomerBottomTab {...props} />}
     >
       {CustomerTabs.map(tab => (
-        <Tab.Screen
-          key={tab.key}
-          name={tab.name}
-          component={tab.component}
-        />
+        <Tab.Screen key={tab.key} name={tab.name} component={tab.component} />
       ))}
     </Tab.Navigator>
   );
@@ -141,16 +135,14 @@ function CustomCustomerBottomTab({ state, navigation }: any) {
         const isFocused = state.index === index;
 
         // Get tab config
-        const tabConfig = CustomerTabs.find(
-          tab => tab.name === route.name,
-        );
+        const tabConfig = CustomerTabs.find(tab => tab.name === route.name);
 
         // Get icon
         const tabIcon =
           tabConfig && CustomerScreenIcons[tabConfig.name.toUpperCase()];
 
         const onPress = () => {
-          if (!isFocused) navigation.navigate(route.name);
+          if (!isFocused) Navigator.pushScreen(navigation, route.name);
         };
 
         return (
@@ -171,24 +163,16 @@ function CustomCustomerBottomTab({ state, navigation }: any) {
                 width: scale(18),
                 height: verticalScale(18),
               }}
-              tintColor={
-                isFocused
-                  ? color.primary
-                  : color.tabInactive
-              }
+              tintColor={isFocused ? color.primary : color.tabInactive}
             />
 
             {/* Label */}
             <Text
               style={{
-                color: isFocused
-                  ? color.textContrast
-                  : color.tabInactive,
+                color: isFocused ? color.textContrast : color.tabInactive,
                 fontSize: fontSize.fontSize_10,
                 fontFamily: fontFamily.Medium,
-                fontWeight: isFocused
-                  ? 'bold'
-                  : 'normal',
+                fontWeight: isFocused ? 'bold' : 'normal',
                 marginTop: verticalScale(12),
               }}
             >
@@ -200,7 +184,6 @@ function CustomCustomerBottomTab({ state, navigation }: any) {
     </View>
   );
 }
-
 
 const RiderScreenIcons: Record<string, { active: any }> = {
   RIDERHOME: {
@@ -280,7 +263,7 @@ function CustomRiderBottomTab({ state, navigation }: any) {
           : null;
 
         const onPress = () => {
-          if (!isFocused) navigation.navigate(route.name);
+          if (!isFocused) Navigator.pushScreen(navigation, route.name);
         };
 
         return (
@@ -352,10 +335,11 @@ function LoginStack() {
           component={ForgotPasswordScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="CustomerCurrentLocation"
           component={CustomerCurrentLocation}
           options={{ headerShown: false }}
+        /> */}
         />
           <Stack.Screen
           name="PrivacyPolicyScreen"
@@ -519,17 +503,6 @@ function RiderHomeStack() {
           component={DropOffPackage}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="RiderDeliveryDetails"
-          component={RiderDeliveryDetails}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="RiderEarnings"
-          component={RiderEarnings}
-          options={{ headerShown: false }}
-        />
-
       </Stack.Navigator>
     </React.Suspense>
   );
@@ -678,7 +651,7 @@ export const checkApplicationPermission = async () => {
           }
         }
       }
-    } catch (error) { }
+    } catch (error) {}
   } else {
     try {
       const authStatus = await messaging().requestPermission();
