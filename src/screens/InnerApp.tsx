@@ -356,6 +356,16 @@ function LoginStack() {
           component={CustomerCurrentLocation}
           options={{ headerShown: false }}
         />
+          <Stack.Screen
+          name="PrivacyPolicyScreen"
+          component={PrivacyPolicyScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="TermsAndConditionsScreen"
+          component={TermsAndConditionsScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </React.Suspense>
   );
@@ -438,16 +448,7 @@ function RiderHomeStack() {
           component={RiderBottomTabStack}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="PrivacyPolicyScreen"
-          component={PrivacyPolicyScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="TermsAndConditionsScreen"
-          component={TermsAndConditionsScreen}
-          options={{ headerShown: false }}
-        />
+      
         <Stack.Screen
           name="FAQScreen"
           component={FAQScreen}

@@ -17,6 +17,7 @@ import { showFlashMessage } from '@components/showFlashMessage';
 import SelectionListBottomSheet from '@components/SelectionListBottomSheet';
 import ConfirmDetailsSheet from '@screens/components/ConfirmDetailsSheet';
 import PaymentSuccessModal from '@screens/components/PaymentSuccessModal';
+import BaseWrapper from '@components/Base';
 
 const InstantDelivery = ({ navigation }: any) => {
 
@@ -82,7 +83,7 @@ setShowPackageSheet(true);
 
 
   return (
-    <Base backgroundColor={color.background}>
+    <BaseWrapper>
       <CustomToolbar
         title="Instant Pickup"
         showLeftIcon
@@ -168,6 +169,7 @@ error={errors.courier}
             imageSource={images.small}   // svg / image
             selected={packageSize === 'Small'}
             onPress={() => setPackageSize('Small')}
+            containerStyle={styles.smallContainer}
           />
 
           <CustomImageButton
@@ -176,6 +178,7 @@ error={errors.courier}
             imageStyle={styles.mediumimage}
             selected={packageSize === 'Medium'}
             onPress={() => setPackageSize('Medium')}
+             containerStyle={styles.mediumContainer}
           />
 
           <CustomImageButton
@@ -184,6 +187,7 @@ error={errors.courier}
             imageStyle={styles.largeimage}
             selected={packageSize === 'Large'}
             onPress={() => setPackageSize('Large')}
+             containerStyle={styles.largeContainer}
           />
         </View>
 
@@ -252,7 +256,7 @@ error={errors.courier}
    onClose={() => setshowsuccessmodal(false)}
     navigation={navigation}
     />
-    </Base>
+    </BaseWrapper>
   );
 };
 
@@ -262,6 +266,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(24),
     paddingTop: verticalScale(21),
     
+  },
+  mediumContainer:{
+paddingTop:verticalScale(18),
+gap:verticalScale(6),
+paddingBottom:verticalScale(8)
+
   },
   couriertextStyle: {
 
@@ -275,6 +285,17 @@ const styles = StyleSheet.create({
   textpackage:{
     fontSize: fontSize.fontSize_14,
     color: color.delivery.value,
+  },
+  smallContainer:{
+    paddingTop:verticalScale(21),
+    gap:verticalScale(9),
+    paddingBottom:verticalScale(8)
+
+  },
+  largeContainer:{
+    paddingTop:verticalScale(12),
+    gap:verticalScale(2),
+    paddingBottom:verticalScale(8)
   },
   righticon: {
     width: scale(14),

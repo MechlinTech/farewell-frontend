@@ -7,7 +7,7 @@ import {
   Platform,
 
   Keyboard,
-    TextInput,
+  TextInput,
 } from 'react-native';
 import TranslucentStatusBar from './TranslucentStatusBar';
 import color from '@color';
@@ -32,16 +32,16 @@ const BaseWrapper: React.FC<Props> = ({
    * Android fullscreen → remove top
    * iOS fullscreen → KEEP top
    */
-  const edges: any = ['top', 'left', 'right', 'bottom'];
+  const edges: any = ['top', 'left', 'right'];
 
-useEffect(() => {
-  const hideSub = Keyboard.addListener('keyboardDidHide', () => {
-    const input = TextInput.State.currentlyFocusedInput?.();
-    input?.blur?.(); // remove cursor when keyboard disappears
-  });
+  useEffect(() => {
+    const hideSub = Keyboard.addListener('keyboardDidHide', () => {
+      const input = TextInput.State.currentlyFocusedInput?.();
+      input?.blur?.(); // remove cursor when keyboard disappears
+    });
 
-  return () => hideSub.remove();
-}, []);
+    return () => hideSub.remove();
+  }, []);
 
   return (
     <SafeAreaView
