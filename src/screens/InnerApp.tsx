@@ -429,18 +429,8 @@ function RiderHomeStack() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="TermsAndConditionsScreen"
-          component={TermsAndConditionsScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
           name="FAQScreen"
           component={FAQScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="ContactUs"
-          component={ContactUs}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -454,43 +444,13 @@ function RiderHomeStack() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="RiderSettings"
-          component={RiderSettings}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
           name="NotificationSettings"
           component={NotificationSettings}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="ChangePassword"
-          component={ChangePassword}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Vehicles"
-          component={Vehicles}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="AddBankDetails"
-          component={AddBankDetails}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="DropOffPackage"
-          component={DropOffPackage}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
           name="RiderDeliveryDetails"
           component={RiderDeliveryDetails}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="PrivacyPolicyScreen"
-          component={PrivacyPolicyScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -499,28 +459,13 @@ function RiderHomeStack() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="FAQScreen"
-          component={FAQScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
           name="ContactUs"
           component={ContactUs}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="VehicleDetails"
-          component={VehicleDetails}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
           name="RiderSettings"
           component={RiderSettings}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="NotificationSettings"
-          component={NotificationSettings}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -541,11 +486,6 @@ function RiderHomeStack() {
         <Stack.Screen
           name="DropOffPackage"
           component={DropOffPackage}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="RiderDeliveryDetails"
-          component={RiderDeliveryDetails}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

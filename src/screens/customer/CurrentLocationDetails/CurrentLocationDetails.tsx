@@ -11,6 +11,7 @@ import { useState } from 'react';
 import images from '@images';
 import ImageComponent from '@components/ImageComponent';
 import SelectionListBottomSheet from '@components/SelectionListBottomSheet';
+import Navigator from '@Navigator';
 const CurrentLocationDetails = ({ navigation }: any) => {
   const [locationData, setLocationData] = useState({
     addressId: '',
@@ -64,7 +65,7 @@ const CurrentLocationDetails = ({ navigation }: any) => {
   const handleSave = () => {
     console.log(locationData);
     // Call API to save location data
-    navigation.navigate('CustomerHomeStack', {
+    Navigator.pushScreen(navigation, 'CustomerHomeStack', {
       screen: 'CustomerBottomTabStack',
       params: {
         screen: 'CustomerHome',

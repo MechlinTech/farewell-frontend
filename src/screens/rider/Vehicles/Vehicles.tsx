@@ -8,6 +8,7 @@ import ImageComponent from '@components/ImageComponent';
 import color from '@color';
 import { fontFamily, fontSize } from '@constants';
 import { useEffect, useState } from 'react';
+import Navigator from '@Navigator';
 
 const vehicleData = [
   {
@@ -82,7 +83,9 @@ const Vehicles = ({ navigation }: any) => {
     setVehicles(vehicleData);
   }, []);
   const handleVehiclePress = (vehicle: any) => {
-    navigation.navigate('VehicleDetails', { vehicleId: vehicle.id });
+    Navigator.pushScreen(navigation, 'VehicleDetails', {
+      vehicleId: vehicle.id,
+    });
   };
   return (
     <BaseWrapper>

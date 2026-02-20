@@ -58,7 +58,7 @@ export default function CustomerCurrentLocation({ navigation }: any) {
             bottom: 0,
           }}
           onPress={() => {
-            navigation.navigate('LoginStack', {
+            Navigator.pushScreen(navigation, 'LoginStack', {
               screen: 'LoginScreen',
             });
           }}
@@ -130,7 +130,7 @@ export default function CustomerCurrentLocation({ navigation }: any) {
             <CustomButton
               title="Continue"
               onPress={() => {
-                navigation.navigate('CurrentLocationDetails');
+                Navigator.pushScreen(navigation, 'CurrentLocationDetails');
               }}
               containerStyle={{ marginBottom: verticalScale(22) }}
             />
