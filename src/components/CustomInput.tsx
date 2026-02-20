@@ -18,7 +18,7 @@ interface CustomInputProps {
   value?: string;
   placeholder?: string;
   onPress?: () => void;
-  keyboardType?: any;
+    keyboardType?: any;
 
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
@@ -62,7 +62,7 @@ export const CustomInput = ({
   showError = true,
   onBlur,
   onFocus,
-  onRightIconPress,
+  onRightIconPress
 }: CustomInputProps) => {
   const [isFocused, setIsFocused] = React.useState(false);
 
@@ -145,20 +145,19 @@ export const CustomInput = ({
 export default CustomInput;
 
 const styles = StyleSheet.create({
-  pressable: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    // paddingVertical: verticalScale(10),
+pressable: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  // paddingVertical: verticalScale(10),
     paddingLeft: scale(12), // ✅ left stays same
     paddingRight: scale(12), // 👈 reduce this
-    backgroundColor: color.primaryMuted,
-    borderRadius: scale(5),
+  backgroundColor: color.primaryMuted,
+  borderRadius: scale(5),
     minHeight: verticalScale(50),
     borderWidth: 1,
     borderColor: 'transparent',
   },
-
   focused: {
     borderColor: color.primary,
   },
@@ -177,4 +176,10 @@ const styles = StyleSheet.create({
     color: color.delivery.label,
     marginBottom: verticalScale(6),
   },
+  label: {
+    fontSize: fontSize.fontSize_13,
+    fontFamily: fontFamily.Medium,
+    color: color.delivery.label,
+    marginBottom: verticalScale(6),
+  }
 });

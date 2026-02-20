@@ -122,20 +122,21 @@ const LoginScreen = ({ navigation }: any) => {
 
   return (
     <Base fullScreenMode={true}>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
-      >
-        <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled">
-          <View style={styles.content}>
-            {/* Header */}
-            <View style={styles.headerContainer}>
-              <HeadingGroup
-                heading="Let's get you Login!"
-                subheading="Enter your information below"
-              />
-            </View>
+   <KeyboardAvoidingView
+         style={{ flex: 1 }}
+         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
+       >
+
+      <ScrollView style={{ flex: 1 }}  keyboardShouldPersistTaps="handled">
+        <View style={styles.content}>
+          {/* Header */}
+          <View style={styles.headerContainer}>
+            <HeadingGroup
+              heading="Let's get you Login!"
+              subheading="Enter your information below"
+            />
+          </View>
 
             <View style={styles.userRoleContainer}>
               <UserRoleComponent
@@ -227,13 +228,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     gap: scale(31),
     marginTop: verticalScale(22),
-    marginLeft: scale(4),
+    marginLeft:scale(4)
   },
   content: {
     flex: 1,
     paddingHorizontal: scale(20),
-    paddingTop: verticalScale(70),
-    marginBottom: verticalScale(25),
+     paddingTop: verticalScale(70),
+
   },
   headerContainer: {
     alignItems: 'flex-start',

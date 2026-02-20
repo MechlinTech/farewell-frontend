@@ -148,15 +148,15 @@ const SignupScreen = ({ navigation }: any) => {
   };
 
   const handleSignup = () => {
-   
-//     if (!validateAll()) {
-//  showFlashMessage("Please Fill All The Fields")
-//       return;
-//     }
-     Navigator.pushScreen(navigation, 'OTPVerificationScreen',{
 
-      userRole:userRole,
-     });
+    //     if (!validateAll()) {
+    // // showFlashMessage("Please Fill All The Fields")
+    //       return;
+    //     }
+    Navigator.pushScreen(navigation, 'OTPVerificationScreen', {
+
+      userRole: userRole,
+    });
 
     console.log('Signup pressed', {
       firstName,
@@ -174,11 +174,11 @@ const SignupScreen = ({ navigation }: any) => {
     Navigator.pushScreen(navigation, 'LoginScreen');
   };
 
-  const handleTermsPress = () => { 
+  const handleTermsPress = () => {
 
     Navigator.goToTab(navigation,'RiderHomeStack','TermsAndConditionsScreen')
   };
-  const handlePrivacyPress = () => { 
+  const handlePrivacyPress = () => {
 
     Navigator.goToTab(navigation,'RiderHomeStack','PrivacyPolicyScreen')
   };
@@ -186,6 +186,7 @@ const SignupScreen = ({ navigation }: any) => {
 
   return (
     <Base backgroundColor={color.background} fullScreenMode={false}>
+
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -315,6 +316,7 @@ const SignupScreen = ({ navigation }: any) => {
                 <View style={styles.checkboxContainer}>
                   <CheckBox
                     isChecked={agreeToTerms}
+
                     onChange={(v: boolean) => {
                       setAgreeToTerms(v);
                       setErrors((p: any) => ({ ...p, agreeToTerms: '' }));
@@ -331,20 +333,10 @@ const SignupScreen = ({ navigation }: any) => {
                       Privacy Policy.
                     </Text>
                   </Text>
-                  <Text style={styles.text}>
-                    I agree to Farewell{' '}
-                    <Text style={styles.link} onPress={handleTermsPress}>
-                      Terms of Service
-                    </Text>{' '}
-                    and{' '}
-                    <Text style={styles.link} onPress={handlePrivacyPress}>
-                      Privacy Policy.
-                    </Text>
-                  </Text>
                 </View>
-                  {/* {errors.agreeToTerms && (
-    <Text style={styles.errorText}>{errors.agreeToTerms}</Text>
-  )} */}
+                {errors.agreeToTerms && (
+                  <Text style={styles.errorText}>{errors.agreeToTerms}</Text>
+                )}
               </View>
 
               <CustomButton
@@ -370,10 +362,10 @@ const SignupScreen = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
   signupContainer: {
-   
+
     backgroundColor: color.background,
-    paddingHorizontal: scale(20),   
-   
+    paddingHorizontal: scale(20),
+
   },
   errorText: {
     color: color.error,
@@ -389,7 +381,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     paddingHorizontal: scale(4),
     marginTop: verticalScale(52),
-   
+
   },
   signupTitle: {
     color: color.textMain,
@@ -468,7 +460,7 @@ const styles = StyleSheet.create({
     color: color.textSecondary,
     marginLeft: scale(70),
     fontFamily: fontFamily.weight400,
-    marginTop: verticalScale(23),      
+    marginTop: verticalScale(23),
   },
   signinLink: {
     fontSize: fontSize.fontSize_14,

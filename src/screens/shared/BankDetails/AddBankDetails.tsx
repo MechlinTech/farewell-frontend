@@ -38,10 +38,10 @@ const BankDetails = ({ navigation }: any) => {
     return Object.keys(err).length === 0;
   };
   const handleDone = () => {
-    if (!validate()){
-        showFlashMessage('Please fill all the fields');
-        return;
-    } 
+    if (!validate()) {
+      showFlashMessage('Please fill all the fields');
+      return;
+    }
     console.log('Basic validation passed ✅');
   };
 
@@ -133,8 +133,8 @@ const BankDetails = ({ navigation }: any) => {
 
 
         <UploadDocument
-        label='Upload Document'
-        labelStyle={styles.uploadLabel}
+          label='Upload Document'
+          labelStyle={styles.uploadLabel}
           imageData={document}
           error={errors.document}
           onImageSelected={img => {
@@ -143,7 +143,7 @@ const BankDetails = ({ navigation }: any) => {
           }}
         />
 
-      
+
 
         <CustomButton
           title="Save"
@@ -157,39 +157,39 @@ const BankDetails = ({ navigation }: any) => {
 
 export default BankDetails;
 const styles = StyleSheet.create({
-    content: {
-        paddingHorizontal: scale(24),
-        paddingTop: verticalScale(40),
-        paddingBottom: verticalScale(40),
-    },
+  content: {
+    paddingHorizontal: scale(24),
+    paddingTop: verticalScale(40),
+    paddingBottom: verticalScale(40),
+  },
 
-    input: {
-        marginBottom: verticalScale(14),
-
-
-    },
-    downarrowimg: {
-        width: scale(14),
-        height: verticalScale(14),
-        paddingRight: scale(17),
-    },
+  input: {
+    marginBottom: verticalScale(14),
 
 
-    uploadLabel: {
-        marginTop: verticalScale(15),
-        marginBottom: verticalScale(18),
-        
-        
-        color: color.textSecondary,
-        fontSize: fontSize.fontSize_15,
-        fontFamily: fontFamily.weight300,
-    },
+  },
+  downarrowimg: {
+    width: scale(14),
+    height: verticalScale(14),
+    paddingRight: scale(17),
+  },
+
+
+  uploadLabel: {
+    marginTop: verticalScale(15),
+    marginBottom: verticalScale(18),
+
+
+    color: color.textSecondary,
+    fontSize: fontSize.fontSize_15,
+    fontFamily: fontFamily.weight300,
+  },
 
 
 
-    button: {
-        marginTop: verticalScale(155),
+  button: {
+    marginTop: verticalScale(155),
 
 
-    },
+  },
 });

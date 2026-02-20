@@ -6,6 +6,7 @@ import {
     View,
     Text,
     TouchableOpacity,
+    Pressable,
 } from 'react-native';
 
 import Base from '../../../components/Base';
@@ -25,6 +26,7 @@ import Animated, {
 
 } from 'react-native-reanimated';
 import RequestCard from './components/RequestCard';
+import Navigator from '@Navigator';
 
 
 const RiderHome = ({ navigation }: any) => {
@@ -94,11 +96,18 @@ const RiderHome = ({ navigation }: any) => {
                     </Text>
                 </View>
 
-                <View style={styles.avatarBox}>
+                <Pressable style={styles.avatarBox}
+                    onPress={() => {
+                        Navigator.goToTab(
+                            navigation,
+                            'RiderBottomTabStack',
+                            'RiderProfile'
+                        );
+                    }}>
                     <Text style={styles.avatarText}>
                         AS
                     </Text>
-                </View>
+                </Pressable>
             </View>
         ),
         []
@@ -138,7 +147,12 @@ const RiderHome = ({ navigation }: any) => {
     /** 🔹 Banking Card */
     const BankingSection = React.useMemo(
         () => (
-            <View style={styles.bankCard}>
+            <Pressable style={styles.bankCard} onPress={() => {
+                Navigator.pushScreen(
+                    navigation,
+                    'AddBankDetails'
+                );
+            }}>
                 <View style={{ flex: 1 }}>
                     <Text style={styles.bankTitle}>
                         Add Banking Details
@@ -154,7 +168,7 @@ const RiderHome = ({ navigation }: any) => {
                     source={images.warning}
                     style={styles.warningIcon}
                 />
-            </View>
+            </Pressable>
         ),
         []
     );
@@ -207,11 +221,14 @@ const RiderHome = ({ navigation }: any) => {
                     Available Requests
                 </Text>
 
-                <TouchableOpacity>
-                    <Text style={styles.viewAll}>
-                        View all
-                    </Text>
-                </TouchableOpacity>
+                <Text style={styles.viewAll} onPress={() => {
+                    Navigator.switchToRiderRootTab(
+                        navigation,
+                        'RiderBookings'
+                    );
+                }}>
+                    View all
+                </Text>
             </View>
         ),
         []
@@ -230,6 +247,7 @@ const RiderHome = ({ navigation }: any) => {
                         <RequestCard
                             key={item.id}
                             item={item}
+                            navigation={navigation}
                         />
                     ))}
                 </View>
