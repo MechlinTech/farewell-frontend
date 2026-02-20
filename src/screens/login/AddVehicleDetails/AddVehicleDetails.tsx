@@ -35,14 +35,14 @@ const AddVehicleDetails = ({ navigation }: any) => {
     { id: 1, title: 'Car' },
     { id: 2, title: 'Truck' },
   ]);
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      Navigator.replaceScreen(navigation, 'LoginScreen');
-      return true; // Prevent default back behavior
-    });
+useEffect(() => {
+  const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+    Navigator.replaceScreen(navigation, 'LoginScreen');
+    return true; // Prevent default back behavior
+  });
 
-    return () => backHandler.remove();
-  }, []);
+  return () => backHandler.remove();
+}, []);
 
 
   /* 🔴 Field Validators */
@@ -99,6 +99,9 @@ const AddVehicleDetails = ({ navigation }: any) => {
   };
 
   const handleBack = () => {
+    Navigator.replaceScreen(navigation, 'LoginScreen');
+  };
+  const handleSignUp = () => {
     Navigator.replaceScreen(navigation, 'LoginScreen');
   };
 

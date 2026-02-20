@@ -48,7 +48,6 @@ const SignupScreen = ({ navigation }: any) => {
       }));
   };
 
-
   const validateLastName = () => {
     if (!lastName)
       setErrors((p: any) => ({ ...p, lastName: 'Last name is required' }));
@@ -67,7 +66,6 @@ const SignupScreen = ({ navigation }: any) => {
         phone: 'Enter a valid 10 digit phone number',
       }));
   };
-
 
   const validateEmail = () => {
     const trimmedEmail = email.trim();
@@ -131,39 +129,31 @@ const SignupScreen = ({ navigation }: any) => {
     else if (!emailRegex.test(trimmedEmail))
       err.email = 'Enter a valid email address';
 
-
     if (!password) err.password = 'Password is required';
     else if (password.includes(' '))
       err.password = 'Password cannot contain spaces';
     else if (password.length < 8 || password.length > 16)
       err.password = 'Password must be 8–16 characters';
 
-    if (!confirmPassword)
-      err.confirmPassword = 'Confirm password is required';
+    if (!confirmPassword) err.confirmPassword = 'Confirm password is required';
     else if (password !== confirmPassword)
       err.confirmPassword = 'Passwords do not match';
     else if (confirmPassword.length < 8 || confirmPassword.length > 16)
       err.confirmPassword = 'Confirm Password must be 8–16 characters';
 
-    if (!agreeToTerms)
-      err.agreeToTerms = 'You must agree to the terms';
+    if (!agreeToTerms) err.agreeToTerms = 'You must agree to the terms';
 
     setErrors(err);
     return Object.keys(err).length === 0;
   };
 
-
   const handleSignup = () => {
-
-    //     if (!validateAll()) {
-    // // showFlashMessage("Please Fill All The Fields")
-    //       return;
-    //     }
-    Navigator.pushScreen(navigation, 'OTPVerificationScreen', {
-
-      userRole: userRole,
-    });
-
+   
+//     if (!validateAll()) {
+//  showFlashMessage("Please Fill All The Fields")
+//       return;
+//     }
+    Navigator.pushScreen(navigation,'OTPVerificationScreen')
     console.log('Signup pressed', {
       firstName,
       lastName,
@@ -180,22 +170,29 @@ const SignupScreen = ({ navigation }: any) => {
     Navigator.pushScreen(navigation, 'LoginScreen');
   };
 
-  const handleTermsPress = () => { };
-  const handlePrivacyPress = () => { };
+  const handleTermsPress = () => { 
+
+    Navigator.pushScreen(navigation,'TermsAndConditionsScreen')
+  };
+  const handlePrivacyPress = () => { 
+ Navigator.pushScreen(navigation,'PrivacyPolicyScreen')
+ 
+  };
+
 
   return (
     <Base backgroundColor={color.background} fullScreenMode={false}>
-
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
       >
-        <ScrollView
-          style={{ flex: 1 }}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
-        >
+       <ScrollView
+  style={{ flex: 1 }}
+  contentContainerStyle={{ paddingBottom: verticalScale(20) }}
+  showsVerticalScrollIndicator={false}
+  keyboardShouldPersistTaps="handled"
+>
           <View style={styles.signupContainer}>
             <View style={styles.signupHeaderContainer}>
               <HeadingGroup
@@ -250,7 +247,16 @@ const SignupScreen = ({ navigation }: any) => {
                 />
 
                 <CustomInput
-                  leftIcon={<Text style={{ fontSize: fontSize.fontSize_16, color: color.inputText }}>+1</Text>}
+                  leftIcon={
+                    <Text
+                      style={{
+                        fontSize: fontSize.fontSize_16,
+                        color: color.inputText,
+                      }}
+                    >
+                      +1
+                    </Text>
+                  }
                   placeholder="Phone number"
                   value={phone}
                   onChangeText={t => {
@@ -262,7 +268,6 @@ const SignupScreen = ({ navigation }: any) => {
                   containerStyle={styles.signupInputContainer}
                   fieldStyle={{ borderRadius: scale(5) }}
                 />
-
 
                 <CustomInput
                   placeholder="Your email"
@@ -306,7 +311,6 @@ const SignupScreen = ({ navigation }: any) => {
                 <View style={styles.checkboxContainer}>
                   <CheckBox
                     isChecked={agreeToTerms}
-
                     onChange={(v: boolean) => {
                       setAgreeToTerms(v);
                       setErrors((p: any) => ({ ...p, agreeToTerms: '' }));
@@ -323,10 +327,12 @@ const SignupScreen = ({ navigation }: any) => {
                       Privacy Policy.
                     </Text>
                   </Text>
+                
+                  
                 </View>
-                {errors.agreeToTerms && (
-                  <Text style={styles.errorText}>{errors.agreeToTerms}</Text>
-                )}
+                  {/* {errors.agreeToTerms && (
+    <Text style={styles.errorText}>{errors.agreeToTerms}</Text>
+  )} */}
               </View>
 
               <CustomButton
@@ -350,20 +356,18 @@ const SignupScreen = ({ navigation }: any) => {
   );
 };
 
-
-
 const styles = StyleSheet.create({
   signupContainer: {
-    flex: 1,
+   
     backgroundColor: color.background,
-    paddingHorizontal: scale(20),
+    paddingHorizontal: scale(20),   
+   
   },
   errorText: {
     color: color.error,
     fontSize: fontSize.fontSize_12,
     marginTop: verticalScale(10),
     fontFamily: fontFamily.Medium,
-
   },
   commoncontainer: {
     gap: verticalScale(20),
@@ -373,6 +377,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     paddingHorizontal: scale(4),
     marginTop: verticalScale(52),
+   
   },
   signupTitle: {
     color: color.textMain,
@@ -382,14 +387,14 @@ const styles = StyleSheet.create({
   signupSubtitle: {
     color: color.textSecondary,
 
-    marginLeft: scale(4),
+    marginLeft: scale(2),
   },
   userRoleContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     gap: scale(33),
     marginLeft: scale(4),
-    marginTop: verticalScale(37),
+    marginTop: verticalScale(30),
   },
   signupFormContainer: {
     // marginBottom: verticalScale(20),
@@ -451,8 +456,7 @@ const styles = StyleSheet.create({
     color: color.textSecondary,
     marginLeft: scale(70),
     fontFamily: fontFamily.weight400,
-    marginTop: verticalScale(23),
-    marginBottom: verticalScale(62),
+    marginTop: verticalScale(23),      
   },
   signinLink: {
     fontSize: fontSize.fontSize_14,

@@ -346,6 +346,7 @@ const courierdata=[
     
       data={courierdata}
         onPress={(item) => {
+           setErrors((p: any) => ({ ...p, courier: '' }));
         setCourierCompany(item.title);
         setShowCourierSheet(false);
       }}
@@ -357,6 +358,7 @@ const courierdata=[
   visible={showTimeSheet}
   onDismiss={() => setShowTimeSheet(false)}
   onPress={(item) => {
+    setErrors((p: any) => ({ ...p, time: '' }));
     setTime(item.title);
     setShowTimeSheet(false);
   }}
@@ -375,7 +377,7 @@ export default ScheduleDelivery;
 const styles = StyleSheet.create({
   content: {
     paddingHorizontal: scale(24),
-    paddingTop: verticalScale(28),
+    paddingTop: verticalScale(45),
     // paddingBottom:verticalScale(18)
     
   

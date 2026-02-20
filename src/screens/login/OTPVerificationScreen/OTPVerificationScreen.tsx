@@ -22,7 +22,7 @@ import Navigator from '@Navigator';
 
 const OTP_LENGTH = 4;
 
-const OTPVerificationScreen = ({ navigation, route }: any) => {
+const OTPVerificationScreen = ({ navigation}: any) => {
   // const email = useSelector((state: any) => state.users.email);
   const [otp, setOtp] = useState('');
   const ref = useRef<OTPInputRef>(null);
@@ -40,12 +40,12 @@ const OTPVerificationScreen = ({ navigation, route }: any) => {
     handleVerify(code);
   };
   const handlesend = () => {
-    if (route.params.userRole === 'rider') {
-      Navigator.pushScreen(navigation, 'AddVehicleDetails');
-    } else {
-      Navigator.pushScreen(navigation, 'CustomerCurrentLocation');
-    }
-  };
+ 
+  
+      Navigator.replaceScreen(navigation, 'LoginScreen');
+    
+   
+  }
   return (
     <BaseWrapper container_style={styles.container} fullScreenMode={true}>
       <HeadingGroup

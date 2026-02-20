@@ -1,6 +1,14 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, Text, StatusBar, ScrollView, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import {
+  View,
+  Text,
+  StatusBar,
+  ScrollView,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import Base from '@components/Base';
 import CustomInput from '@components/CustomInput';
 import CustomButton from '@components/CustomButton';
@@ -12,8 +20,17 @@ import { fontFamily, fontSize } from '@constants';
 import HeadingGroup from '@components/HeadingGroupComponent';
 import UserRoleComponent from '@components/UserRoleComponent';
 import images from '@images';
+import { useFocusEffect } from '@react-navigation/native';
 
 const LoginScreen = ({ navigation }: any) => {
+
+//   useFocusEffect(
+//   React.useCallback(() => {
+//     setEmail('');
+//     setPassword('');
+//     setErrors({});
+//   }, [])
+// ); future prevention
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userRole, setUserRole] = React.useState<string>('customer');
@@ -73,25 +90,21 @@ const LoginScreen = ({ navigation }: any) => {
   };
 
   const handleLogin = () => {
+ 
+
+    // if (!validateAll()) {
+    //   // showFlashMessage('Please fill all required fields');
+    //   return;
+    // }
     if (userRole === 'rider') {
       Navigator.resetStackScreen(navigation, 'RiderHomeStack');
     } else {
       Navigator.resetStackScreen(navigation, 'CustomerHomeStack');
     }
-
-    if (!validateAll()) {
-      // showFlashMessage('Please fill all required fields');
-      return;
-    }
-    if (userRole === 'rider') {
-      Navigator.resetStackScreen(navigation, 'RiderHomeStack');
-    } else {
-      Navigator.resetStackScreen(navigation, 'CustomerHomeStack');
-    }
-
 
     console.log('Login pressed', { email, password, userRole });
   };
+   
 
   const handleForgotPassword = () => {
     Navigator.pushScreen(navigation, 'ForgotPasswordScreen');
@@ -103,95 +116,94 @@ const LoginScreen = ({ navigation }: any) => {
 
   return (
     <Base fullScreenMode={true}>
-   <KeyboardAvoidingView
-         style={{ flex: 1 }}
-         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
-       >
-
-      <ScrollView style={{ flex: 1 }}  keyboardShouldPersistTaps="handled">
-        <View style={styles.content}>
-          {/* Header */}
-          <View style={styles.headerContainer}>
-            <HeadingGroup
-              heading="Let's get you Login!"
-              subheading="Enter your information below"
-            />
-          </View>
-
-          <View style={styles.userRoleContainer}>
-            <UserRoleComponent
-              imageSource={images.package}
-              title="Customer"
-              onPress={() => setUserRole('customer')}
-              selected={userRole === 'customer'}
-            />
-            <UserRoleComponent
-              imageSource={images.bike}
-              title="Driver"
-              onPress={() => setUserRole('rider')}
-              selected={userRole === 'rider'}
-            />
-          </View>
-
-          {/* Form */}
-          <View style={styles.formContainer}>
-            <View style={styles.commoncontainer}>
-              <CustomInput
-                placeholder="Enter your Email id"
-                value={email}
-                onChangeText={text => {
-                  setEmail(text);
-                  setErrors((p: any) => ({ ...p, email: '' }));
-                }}
-                onBlur={validateEmail}
-                error={errors.email}
-                containerStyle={styles.inputContainer}
-                fieldStyle={{ borderRadius: scale(5) }}
-              />
-
-              <CustomInput
-                placeholder="Password"
-                value={password}
-                onChangeText={text => {
-                  setPassword(text);
-                  setErrors((p: any) => ({ ...p, password: '' }));
-                }}
-                onBlur={validatePassword}
-                error={errors.password}
-                containerStyle={styles.inputContainer}
-                fieldStyle={{ borderRadius: scale(5) }}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
+      >
+        <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled">
+          <View style={styles.content}>
+            {/* Header */}
+            <View style={styles.headerContainer}>
+              <HeadingGroup
+                heading="Let's get you Login!"
+                subheading="Enter your information below"
               />
             </View>
 
-            {/* Forgot Password */}
-            <View style={styles.forgotPasswordContainer}>
-              <Text
-                style={styles.forgotPasswordText}
-                onPress={handleForgotPassword}
-              >
-                Forgot Password?
+            <View style={styles.userRoleContainer}>
+              <UserRoleComponent
+                imageSource={images.package}
+                title="Customer"
+                onPress={() => setUserRole('customer')}
+                selected={userRole === 'customer'}
+              />
+              <UserRoleComponent
+                imageSource={images.bike}
+                title="Driver"
+                onPress={() => setUserRole('rider')}
+                selected={userRole === 'rider'}
+              />
+            </View>
+
+            {/* Form */}
+            <View style={styles.formContainer}>
+              <View style={styles.commoncontainer}>
+                <CustomInput
+                  placeholder="Enter your Email id"
+                  value={email}
+                  onChangeText={text => {
+                    setEmail(text);
+                    setErrors((p: any) => ({ ...p, email: '' }));
+                  }}
+                  onBlur={validateEmail}
+                  error={errors.email}
+                  containerStyle={styles.inputContainer}
+                  fieldStyle={{ borderRadius: scale(5) }}
+                />
+
+                <CustomInput
+                  placeholder="Password"
+                  value={password}
+                  onChangeText={text => {
+                    setPassword(text);
+                    setErrors((p: any) => ({ ...p, password: '' }));
+                  }}
+                  onBlur={validatePassword}
+                  error={errors.password}
+                  containerStyle={styles.inputContainer}
+                  fieldStyle={{ borderRadius: scale(5) }}
+                />
+              </View>
+
+              {/* Forgot Password */}
+              <View style={styles.forgotPasswordContainer}>
+                <Text
+                  style={styles.forgotPasswordText}
+                  onPress={handleForgotPassword}
+                >
+                  Forgot Password?
+                </Text>
+              </View>
+
+              {/* Login Button */}
+              <CustomButton
+                title="Get Started"
+                onPress={handleLogin}
+                containerStyle={styles.loginButton}
+                textStyle={styles.loginButtonText}
+              />
+            </View>
+
+            {/* Sign Up */}
+            <View style={styles.signUpContainer}>
+              <Text style={styles.signUpText}>Need an account? </Text>
+              <Text style={styles.signUpLink} onPress={handleSignUp}>
+                Sign up
               </Text>
             </View>
-
-            {/* Login Button */}
-            <CustomButton
-              title="Get Started"
-              onPress={handleLogin}
-              containerStyle={styles.loginButton}
-              textStyle={styles.loginButtonText}
-            />
           </View>
-
-          {/* Sign Up */}
-          <View style={styles.signUpContainer}>
-            <Text style={styles.signUpText}>Need an account? </Text>
-            <Text style={styles.signUpLink} onPress={handleSignUp}>
-              Sign up
-            </Text>
-          </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
       </KeyboardAvoidingView>
     </Base>
   );
@@ -209,18 +221,20 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     gap: scale(31),
     marginTop: verticalScale(22),
-    marginLeft:scale(4)
+    marginLeft: scale(4),
   },
   content: {
     flex: 1,
     paddingHorizontal: scale(20),
      paddingTop: verticalScale(70),
+     marginBottom:verticalScale(25)
 
   },
   headerContainer: {
     alignItems: 'flex-start',
     marginBottom: verticalScale(6),
     marginTop: verticalScale(14),
+    marginLeft:scale(5)
   },
   commoncontainer: {
     gap: verticalScale(20),
@@ -266,13 +280,14 @@ const styles = StyleSheet.create({
   signUpText: {
     fontSize: fontSize.fontSize_14,
     color: color.textSecondary,
-    fontFamily: fontFamily.weight400,
+   
   },
   signUpLink: {
     fontSize: fontSize.fontSize_14,
     color: color.textAccent,
     fontFamily: fontFamily.weight800,
     marginLeft: scale(4),
+       
   },
 });
 
