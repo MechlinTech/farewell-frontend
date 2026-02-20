@@ -340,8 +340,7 @@ function LoginStack() {
           component={CustomerCurrentLocation}
           options={{ headerShown: false }}
         /> */}
-        />
-          <Stack.Screen
+        <Stack.Screen
           name="PrivacyPolicyScreen"
           component={PrivacyPolicyScreen}
           options={{ headerShown: false }}
@@ -651,7 +650,7 @@ export const checkApplicationPermission = async () => {
           }
         }
       }
-    } catch (error) {}
+    } catch (error) { }
   } else {
     try {
       const authStatus = await messaging().requestPermission();

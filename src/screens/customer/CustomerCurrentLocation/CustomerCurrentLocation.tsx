@@ -56,11 +56,10 @@ export default function CustomerCurrentLocation({ navigation }: any) {
             position: 'absolute',
             top: 0,
             left: scale(16),
-            right: 0,
-            bottom: 0,
+
           }}
           onPress={() => {
-            Navigator.pushScreen(navigation, 'LoginStack', {
+            Navigator.replaceScreen(navigation, 'LoginStack', {
               screen: 'LoginScreen',
             });
           }}
