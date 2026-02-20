@@ -55,8 +55,8 @@ const VehicleItem = ({
             type === 'car'
               ? images.car
               : type === 'truck'
-              ? images.truck
-              : images.bike
+                ? images.truck
+                : images.bike
           }
           style={styles.vehicleIcon}
         />
@@ -89,19 +89,20 @@ const Vehicles = ({ navigation }: any) => {
   };
   return (
     <BaseWrapper>
-      <CustomToolbar title="Vehicles" showLeftIcon navigation={navigation} />
+      <CustomToolbar title="Vehicles" showLeftIcon navigation={navigation}
+        containerStyle={{ paddingHorizontal: scale(20) }}
+      />
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.container}>
           {vehicles.map((item: any, index: number) => (
             <VehicleItem
               key={index}
-              name={`${
-                item.type === 'car'
-                  ? 'Car'
-                  : item.type === 'truck'
+              name={`${item.type === 'car'
+                ? 'Car'
+                : item.type === 'truck'
                   ? 'Truck'
                   : 'Bike'
-              } • ${item.name}`}
+                } • ${item.name}`}
               plateNumber={item.plateNumber}
               type={item.type}
               isVerified={item.isVerified}
@@ -117,7 +118,7 @@ export default Vehicles;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: scale(30),
+    paddingHorizontal: scale(24),
     paddingVertical: verticalScale(16),
     gap: verticalScale(14),
   },

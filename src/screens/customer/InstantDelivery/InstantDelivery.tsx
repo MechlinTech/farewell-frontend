@@ -15,6 +15,8 @@ import images from '@images';
 import CustomImageButton from '@components/CustomImageButton';
 import { showFlashMessage } from '@components/showFlashMessage';
 import SelectionListBottomSheet from '@components/SelectionListBottomSheet';
+import ConfirmDetailsSheet from '@screens/components/ConfirmDetailsSheet';
+import PaymentSuccessModal from '@screens/components/PaymentSuccessModal';
 
 const InstantDelivery = ({ navigation }: any) => {
 
@@ -31,6 +33,8 @@ const InstantDelivery = ({ navigation }: any) => {
   const[pickupLocation, setPickupLocation] = useState<any>('2972 Westheimer, California');
   const[courierCompany, setCourierCompany] = useState<any>('');
   const [showCourierSheet, setShowCourierSheet] = useState(false);
+  const[showPackageSheet, setShowPackageSheet] = useState(false);
+  const[showsuccessmodal,setshowsuccessmodal] = useState(false);
 
   const [errors, setErrors] = useState<any>({});
   const validatePickupLocation = () => {
@@ -71,6 +75,10 @@ const validateAll = () => {
   setErrors(err);
   return Object.keys(err).length === 0;
 };
+const handlesend=()=>{
+
+setShowPackageSheet(true);
+}
 
 
   return (
@@ -126,7 +134,7 @@ error={errors.courier}
             setErrors((p:any) => ({ ...p, courier: '' }));
           }}
           leftIcon={
-            <ImageComponent source={images.  greenIndicator} style={styles.icon} />
+            <ImageComponent source={images.greenIndicator} style={styles.icon} />
           }
           containerStyle={styles.input}
           rightIcon={
@@ -190,7 +198,10 @@ error={errors.courier}
           centerImage={images.camera}
           centerImageStyle={styles.imgcamera}
           centerImageView={styles.imgview}
-          onImageSelected={img => setLabelImage(img)}
+          onImageSelected={img => {
+            setLabelImage(img)
+            setErrors((p:any) => ({ ...p, image: '' }));
+          }}
           
 
         />
@@ -203,6 +214,7 @@ error={errors.courier}
             if(!validateAll()){
               return;
             }
+            handlesend();
 
             console.log({
               packageSize,
@@ -219,10 +231,26 @@ error={errors.courier}
      
       data={courierdata}
        onPress={(item) => {
+          setErrors((p: any) => ({ ...p, courier: '' }));
         setCourierCompany(item.title);
         setShowCourierSheet(false);
       }}
       selectedItem={courierCompany}
+    />
+    <ConfirmDetailsSheet
+    visible={showPackageSheet}
+ 
+    onClose={() => setShowPackageSheet(false)}
+    onContinue={() => {
+      setShowPackageSheet(false);
+      setshowsuccessmodal(true);
+    }}
+    />
+    <PaymentSuccessModal
+    
+    visible={showsuccessmodal}
+   onClose={() => setshowsuccessmodal(false)}
+    navigation={navigation}
     />
     </Base>
   );
@@ -232,7 +260,7 @@ export default InstantDelivery;
 const styles = StyleSheet.create({
   content: {
     paddingHorizontal: scale(24),
-    paddingTop: verticalScale(28),
+    paddingTop: verticalScale(21),
     
   },
   couriertextStyle: {
