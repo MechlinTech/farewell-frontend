@@ -31,7 +31,7 @@ interface CustomInputProps {
   textStyle?: StyleProp<TextStyle>;
 
   enableFocusStyle?: boolean;
- editable?: boolean;
+  editable?: boolean;
   /* 🔴 Validation */
   error?: string;
   showError?: boolean;
@@ -80,7 +80,8 @@ export const CustomInput = ({
               color: color.textSecondary,
               marginBottom: verticalScale(6),
             },
-            labelStyle, styles.label
+            labelStyle,
+            styles.label,
           ]}
         >
           {label}
@@ -133,7 +134,6 @@ export const CustomInput = ({
               {rightIcon}
             </Pressable>
           ))}
-
       </Pressable>
 
       {/* Error */}
@@ -149,16 +149,15 @@ pressable: {
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
-  paddingVertical: verticalScale(10),
-  paddingLeft: scale(12),   // ✅ left stays same
-  paddingRight: scale(12),   // 👈 reduce this
+  // paddingVertical: verticalScale(10),
+    paddingLeft: scale(12), // ✅ left stays same
+    paddingRight: scale(12), // 👈 reduce this
   backgroundColor: color.primaryMuted,
   borderRadius: scale(5),
-  minHeight: verticalScale(50),
-  borderWidth: 1,
-  borderColor: 'transparent',
-},
-
+    minHeight: verticalScale(50),
+    borderWidth: 1,
+    borderColor: 'transparent',
+  },
   focused: {
     borderColor: color.primary,
   },
@@ -170,6 +169,12 @@ pressable: {
     fontSize: fontSize.fontSize_12,
     color: color.error,
     fontFamily: fontFamily.Medium,
+  },
+  label: {
+    fontSize: fontSize.fontSize_13,
+    fontFamily: fontFamily.Medium,
+    color: color.delivery.label,
+    marginBottom: verticalScale(6),
   },
   label: {
     fontSize: fontSize.fontSize_13,

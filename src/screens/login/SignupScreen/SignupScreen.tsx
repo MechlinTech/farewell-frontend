@@ -311,6 +311,7 @@ const SignupScreen = ({ navigation }: any) => {
                 <View style={styles.checkboxContainer}>
                   <CheckBox
                     isChecked={agreeToTerms}
+
                     onChange={(v: boolean) => {
                       setAgreeToTerms(v);
                       setErrors((p: any) => ({ ...p, agreeToTerms: '' }));
@@ -327,12 +328,10 @@ const SignupScreen = ({ navigation }: any) => {
                       Privacy Policy.
                     </Text>
                   </Text>
-
-
                 </View>
-                {/* {errors.agreeToTerms && (
-    <Text style={styles.errorText}>{errors.agreeToTerms}</Text>
-  )} */}
+                {errors.agreeToTerms && (
+                  <Text style={styles.errorText}>{errors.agreeToTerms}</Text>
+                )}
               </View>
 
               <CustomButton
@@ -360,7 +359,6 @@ const styles = StyleSheet.create({
   signupContainer: {
 
     paddingHorizontal: scale(20),
-
   },
   errorText: {
     color: color.error,
@@ -456,7 +454,6 @@ const styles = StyleSheet.create({
     marginLeft: scale(70),
     fontFamily: fontFamily.weight400,
     marginVertical: verticalScale(23),
-
   },
   signinLink: {
     fontSize: fontSize.fontSize_14,

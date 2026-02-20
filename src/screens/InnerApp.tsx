@@ -14,7 +14,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Utils } from '@Utils';
 import SplashScreen from 'react-native-splash-screen';
 import messaging from '@react-native-firebase/messaging';
-
 import color from '@color';
 import { AysncStorageHelper } from '@AsyncStoreHelper';
 import {
@@ -31,6 +30,7 @@ import ForgotPasswordScreen from './login/ForgotPassword/ForgotPassword';
 import OTPVerificationScreen from './login/OTPVerificationScreen/OTPVerificationScreen';
 import AddVehicleDetails from './login/AddVehicleDetails/AddVehicleDetails';
 import PrivacyPolicyScreen from './shared/PrivacyPolicy/PrivacyPolicy';
+import CurrentLocationDetails from './customer/CurrentLocationDetails/CurrentLocationDetails';
 import Toast, { toastConfig } from 'components/showFlashMessage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import images from '@images';
@@ -60,6 +60,7 @@ import CustomerDeliveryDetails from './customer/CustomerDeliveryDetails/Customer
 import CustomerSettings from './customer/CustomerSettings/CustomerSettings';
 import SavedAddress from './customer/SavedAddress/SavedAddress';
 import CustomerCurrentLocation from './customer/CustomerCurrentLocation/CustomerCurrentLocation';
+import RiderEarnings from './rider/RiderEarnings/RiderEarnings';
 
 const Stack = createNativeStackNavigator();
 
@@ -255,8 +256,6 @@ function CustomRiderBottomTab({ state, navigation }: any) {
       style={{
         flexDirection: 'row',
         backgroundColor: color.background,
-
-
         justifyContent: 'space-around',
         alignItems: 'center',
 
@@ -276,7 +275,9 @@ function CustomRiderBottomTab({ state, navigation }: any) {
         const tabConfig = RiderTabs.find(tab => tab.name === route.name);
 
         // 🔹 Get icon
-        const tabIcon = tabConfig ? RiderScreenIcons[tabConfig.name.toUpperCase()] : null;
+        const tabIcon = tabConfig
+          ? RiderScreenIcons[tabConfig.name.toUpperCase()]
+          : null;
 
         const onPress = () => {
           if (!isFocused) navigation.navigate(route.name);
@@ -448,15 +449,19 @@ function RiderHomeStack() {
           component={RiderBottomTabStack}
           options={{ headerShown: false }}
         />
-      
         <Stack.Screen
-          name="FAQScreen"
-          component={FAQScreen}
+          name="PrivacyPolicyScreen"
+          component={PrivacyPolicyScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="ContactUs"
-          component={ContactUs}
+          name="TermsAndConditionsScreen"
+          component={TermsAndConditionsScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="FAQScreen"
+          component={FAQScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -465,13 +470,33 @@ function RiderHomeStack() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="RiderSettings"
-          component={RiderSettings}
+          name="RiderEarnings"
+          component={RiderEarnings}
           options={{ headerShown: false }}
         />
         <Stack.Screen
           name="NotificationSettings"
           component={NotificationSettings}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="RiderDeliveryDetails"
+          component={RiderDeliveryDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="TermsAndConditionsScreen"
+          component={TermsAndConditionsScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ContactUs"
+          component={ContactUs}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="RiderSettings"
+          component={RiderSettings}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -497,6 +522,11 @@ function RiderHomeStack() {
         <Stack.Screen
           name="RiderDeliveryDetails"
           component={RiderDeliveryDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="RiderEarnings"
+          component={RiderEarnings}
           options={{ headerShown: false }}
         />
 
@@ -620,6 +650,11 @@ function CustomerHomeStack() {
         <Stack.Screen
           name="CustomerCurrentLocation"
           component={CustomerCurrentLocation}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CurrentLocationDetails"
+          component={CurrentLocationDetails}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

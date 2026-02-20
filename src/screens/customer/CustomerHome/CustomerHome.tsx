@@ -76,7 +76,7 @@ const CustomerHome = ({ navigation }: any) => {
         </View>
 
         <TouchableOpacity style={styles.avatarBox} onPress={() => {
-          Navigator.switchToCustomerRootTab(navigation, 'Profile');
+          Navigator.goToTab(navigation, 'CustomerProfile');
         }}>
           <Text style={styles.avatarText}>
             JS
@@ -159,7 +159,7 @@ const CustomerHome = ({ navigation }: any) => {
           </Text>
 
           <Text style={styles.viewAll} onPress={() => {
-            Navigator.switchToCustomerRootTab(navigation, 'History');
+            Navigator.goToTab(navigation, 'CustomerHistory');
           }}>
             View all
           </Text>

@@ -14,7 +14,6 @@ import ImageComponent from '@components/ImageComponent';
 import images from '@images';
 import { fontFamily, fontSize } from '@constants';
 import Navigator from '@Navigator';
-import BottomSheet from '@components/BottomSheetCustom';
 import SelectionListBottomSheet from '@components/SelectionListBottomSheet';
 
 const AddVehicleDetails = ({ navigation }: any) => {
@@ -36,14 +35,14 @@ const AddVehicleDetails = ({ navigation }: any) => {
     { id: 1, title: 'Car' },
     { id: 2, title: 'Truck' },
   ]);
-useEffect(() => {
-  const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-    Navigator.replaceScreen(navigation, 'LoginScreen');
-    return true; // Prevent default back behavior
-  });
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      Navigator.replaceScreen(navigation, 'LoginScreen');
+      return true; // Prevent default back behavior
+    });
 
-  return () => backHandler.remove();
-}, []);
+    return () => backHandler.remove();
+  }, []);
 
 
   /* 🔴 Field Validators */

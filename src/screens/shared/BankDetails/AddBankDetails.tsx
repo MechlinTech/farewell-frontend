@@ -300,7 +300,7 @@ export default BankDetails;
 const styles = StyleSheet.create({
   content: {
     paddingHorizontal: scale(24),
-    paddingTop: verticalScale(27),
+    paddingTop: verticalScale(40),
   },
 
   input: {
