@@ -135,7 +135,7 @@ const ContactUs = ({ navigation }: any) => {
               }}
               onBlur={validateMessage}
               error={errors.message}
-              multiline
+              multiline={true}
               containerStyle={styles.messageInput}
               fieldStyle={styles.messageField}
             />
@@ -172,14 +172,14 @@ const styles = StyleSheet.create({
   messageInput: {
 
   },
-  messageField: {
-
-    textAlignVertical: 'top',
-
-    height: verticalScale(203),
-    paddingBottom: verticalScale(144)
-  },
+messageField: {
+  minHeight: verticalScale(203), // fixed textarea height
+  textAlignVertical: 'top',      // pushes text + placeholder to top
+  paddingTop: verticalScale(12.64), // spacing from top like figma
+ 
+},
   buttonContainer: {
     marginVertical: verticalScale(20),
+    height:verticalScale(56)
   },
 });

@@ -168,7 +168,7 @@ else if (password.length < 8 || password.length > 16)
           <CustomButton
             title="Send"
             onPress={handlesend}
-            containerStyle={styles.SendButton}
+            pressableStyle={styles.SendButton}
             textStyle={styles.SendButtonText}
           />
         </View>
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
   },
   SendButton: {
     marginBottom: verticalScale(20),
-    height: verticalScale(55),
+    height: verticalScale(56),
     marginTop: verticalScale(24),
     width: '90%',
     alignSelf: 'center',

@@ -402,7 +402,7 @@ fontFamily:fontFamily.weight400,
 
     },
     addtipcont:{
-height:verticalScale(40),
+height:verticalScale(41),
 marginBottom:verticalScale(20),
 paddingVertical:0,
 color:color.delivery.value,
@@ -465,6 +465,7 @@ paddingLeft:scale(16)
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-end',
+        
     },
 
     locationLabel: {
@@ -495,6 +496,7 @@ paddingLeft:scale(16)
         width: scale(42),
         height: verticalScale(18),
         resizeMode: 'contain',
+        
         
     },
 

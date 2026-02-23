@@ -204,6 +204,10 @@ const BankDetails = ({ navigation }: any) => {
                   style={styles.downarrowimg}
                 />
               }
+              onPress={()=>{
+
+                setshowbanksheet(true)
+              }}
               onRightIconPress={() => {
                 setshowbanksheet(true);
               }}
@@ -239,6 +243,10 @@ const BankDetails = ({ navigation }: any) => {
               }
               onRightIconPress={() => {
                 setshowaccountsheet(true);
+              }}
+                onPress={()=>{
+
+                setshowaccountsheet(true)
               }}
               error={errors.accountType}
               containerStyle={styles.input}
@@ -300,7 +308,7 @@ export default BankDetails;
 const styles = StyleSheet.create({
   content: {
     paddingHorizontal: scale(24),
-    paddingTop: verticalScale(40),
+    paddingTop: verticalScale(33),
   },
 
   input: {
@@ -316,7 +324,7 @@ const styles = StyleSheet.create({
 
 
   uploadLabel: {
-    marginTop: verticalScale(15),
+    marginTop: verticalScale(13),
     marginBottom: verticalScale(18),
 
 

@@ -113,7 +113,7 @@ const LoginScreen = ({ navigation }: any) => {
 
     console.log('Login pressed', { email, password, userRole });
   };
-   
+
 
   const handleForgotPassword = () => {
     Navigator.pushScreen(navigation, 'ForgotPasswordScreen');
@@ -125,21 +125,21 @@ const LoginScreen = ({ navigation }: any) => {
 
   return (
     <BaseWrapper>
-   <KeyboardAvoidingView
-         style={{ flex: 1 }}
-         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
-       >
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
+      >
 
-      <ScrollView style={{ flex: 1 }}  keyboardShouldPersistTaps="handled">
-        <View style={styles.content}>
-          {/* Header */}
-          <View style={styles.headerContainer}>
-            <HeadingGroup
-              heading="Let's get you Login!"
-              subheading="Enter your information below"
-            />
-          </View>
+        <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled">
+          <View style={styles.content}>
+            {/* Header */}
+            <View style={styles.headerContainer}>
+              <HeadingGroup
+                heading="Let's get you Login!"
+                subheading="Enter your information below"
+              />
+            </View>
 
             <View style={styles.userRoleContainer}>
               <UserRoleComponent
@@ -200,7 +200,7 @@ const LoginScreen = ({ navigation }: any) => {
               <CustomButton
                 title="Get Started"
                 onPress={handleLogin}
-                containerStyle={styles.loginButton}
+               pressableStyle={styles.loginButton}
                 textStyle={styles.loginButtonText}
               />
             </View>
@@ -231,12 +231,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     gap: scale(31),
     marginTop: verticalScale(22),
-    marginLeft:scale(4)
+    marginLeft: scale(4)
   },
   content: {
     flex: 1,
     paddingHorizontal: scale(20),
-     paddingTop: verticalScale(70),
+    paddingTop: verticalScale(70),
 
   },
   headerContainer: {
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     marginBottom: verticalScale(4),
-    height: verticalScale(55),
+    height: verticalScale(56),
     marginTop: verticalScale(10),
   },
   loginButtonText: {

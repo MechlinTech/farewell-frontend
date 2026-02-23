@@ -130,11 +130,11 @@ const ScheduleDelivery = ({ navigation }: any) => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(40)}
       >
-        <ScrollView
-          contentContainerStyle={[styles.content, { paddingBottom: verticalScale(28) }]}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
-        >
+       <ScrollView
+  contentContainerStyle={[styles.content, { flexGrow: 1, paddingBottom: verticalScale(28) }]}
+  showsVerticalScrollIndicator={false}
+  keyboardShouldPersistTaps="handled"
+>
           {/* Pickup Location */}
           <CustomInput
             label="Pickup Location"
@@ -219,6 +219,7 @@ const ScheduleDelivery = ({ navigation }: any) => {
               value={time}
               error={errors.time}
               textStyle={styles.commontextStyle}
+             
               fieldStyle={styles.commonfield}
               rightIcon={
                 <ImageComponent source={images.downarrow} style={styles.righticon} />
@@ -393,7 +394,8 @@ const styles = StyleSheet.create({
   },
   textpackage: {
     fontSize: fontSize.fontSize_14,
-    paddingLeft: scale(8)
+    paddingLeft: scale(8),
+    color:color.delivery.value
   },
   mediumContainer:{
   paddingTop:verticalScale(18),
@@ -421,8 +423,9 @@ const styles = StyleSheet.create({
   commonfield: {
     height: verticalScale(40),
     paddingVertical: 0,
-    width: scale(154),
-    color: color.primaryMuted
+    width: scale(154.4),
+    color: color.primaryMuted,
+   
   },
 
   commonlabel: {
@@ -438,6 +441,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(8),
 
     gap: scale(16),
+   
   },
 
 
@@ -467,7 +471,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize.fontSize_12,
     fontFamily: fontFamily.weight500,
 
-    color: color.textSecondary,
+    color: color.delivery.label,
     marginBottom: verticalScale(11),
     marginTop: verticalScale(25),
   },
@@ -475,7 +479,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize.fontSize_12,
     fontFamily: fontFamily.weight500,
 
-    color: color.textSecondary,
+    color: color.delivery.label,
     marginBottom: verticalScale(12),
     marginTop: verticalScale(8),
   },
@@ -529,5 +533,6 @@ const styles = StyleSheet.create({
 
   button: {
     marginTop: verticalScale(15),
+    height:verticalScale(56)
   },
 });
