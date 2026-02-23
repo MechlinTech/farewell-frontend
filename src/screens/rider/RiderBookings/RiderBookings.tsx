@@ -17,7 +17,7 @@ import RiderBookingCard from './components/RiderBookingCard';
 import InProgressBookingCard from './components/InProgressBookingCard';
 import { useFocusEffect } from '@react-navigation/native';
 
-const RiderBookings = () => {
+const RiderBookings = ({ navigation }: any) => {
   useFocusEffect(
     React.useCallback(() => {
       // /* Reset pages */
@@ -223,9 +223,9 @@ const RiderBookings = () => {
           }}
           renderItem={({ item }) =>
             item.status === 'IN_PROGRESS' ? (
-              <InProgressBookingCard item={item} />
+              <InProgressBookingCard item={item} navigation={navigation} />
             ) : (
-              <RiderBookingCard item={item} />
+              <RiderBookingCard item={item} navigation={navigation} />
             )
           }
           refreshing={refreshing}
