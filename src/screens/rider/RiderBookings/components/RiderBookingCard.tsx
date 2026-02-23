@@ -3,6 +3,7 @@ import {
     View,
     Text,
     StyleSheet,
+    TouchableOpacity,
 } from 'react-native';
 
 import color from '@color';
@@ -10,8 +11,10 @@ import { fontFamily, fontSize } from '@constants';
 import { scale, verticalScale } from '@scale';
 import ImageComponent from '@components/ImageComponent';
 import images from '@images';
+import Navigator from '@Navigator';
 
 interface Props {
+    navigation: any;
     item: {
         bookingId: string;
         location: string;
@@ -20,9 +23,11 @@ interface Props {
     };
 }
 
-const RiderBookingCard: React.FC<Props> = ({ item }) => {
+const RiderBookingCard: React.FC<Props> = ({ item, navigation }: any) => {
     return (
-        <View style={styles.card}>
+        <TouchableOpacity activeOpacity={0.8} onPress={() => {
+            Navigator.pushScreen(navigation, 'RiderDeliveryDetails', { id: item.id });
+        }} style={styles.card}>
             <View style={styles.headerRow}>
                 {/* 🔹 Left Content */}
                 <View style={{ flex: 1 }}>
@@ -81,7 +86,7 @@ const RiderBookingCard: React.FC<Props> = ({ item }) => {
                     </Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 

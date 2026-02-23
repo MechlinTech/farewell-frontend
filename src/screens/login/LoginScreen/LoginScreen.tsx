@@ -94,21 +94,17 @@ const LoginScreen = ({ navigation }: any) => {
     if (userRole === 'rider') {
       Navigator.resetStackScreen(navigation, 'RiderHomeStack');
     } else {
-      Navigator.resetStackScreen(navigation, 'CustomerHomeStack', {
-        screen: 'CustomerCurrentLocation',
-      });
+      Navigator.resetStackScreen(navigation, 'CustomerHomeStack');
     }
 
-    // if (!validateAll()) {
-    //   // showFlashMessage('Please fill all required fields');
-    //   return;
-    // }
+    if (!validateAll()) {
+      // showFlashMessage('Please fill all required fields');
+      return;
+    }
     if (userRole === 'rider') {
       Navigator.resetStackScreen(navigation, 'RiderHomeStack');
     } else {
-      Navigator.resetStackScreen(navigation, 'CustomerHomeStack', {
-        screen: 'CustomerCurrentLocation',
-      });
+      Navigator.resetStackScreen(navigation, 'CustomerHomeStack');
     }
 
     console.log('Login pressed', { email, password, userRole });

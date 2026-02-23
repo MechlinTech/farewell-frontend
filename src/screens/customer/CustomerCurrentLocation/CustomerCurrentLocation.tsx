@@ -14,6 +14,7 @@ import CustomToolbar from '@components/CustomToolbar';
 import Navigator from '@Navigator';
 import BaseWrapper from '@components/Base';
 import ImageComponent from '@components/ImageComponent';
+import CustomInput from '@components/CustomInput';
 
 const customButtonUsage = (
   title: string,
@@ -46,6 +47,7 @@ const customButtonUsage = (
 };
 export default function CustomerCurrentLocation({ navigation }: any) {
   const [selected, setSelected] = useState('Home');
+  const [search, setSearch] = useState('');
   return (
     <BaseWrapper backgroundColor="transparent">
       <View style={styles.container}>
@@ -54,11 +56,10 @@ export default function CustomerCurrentLocation({ navigation }: any) {
             position: 'absolute',
             top: 0,
             left: scale(16),
-            right: 0,
-            bottom: 0,
+
           }}
           onPress={() => {
-            Navigator.pushScreen(navigation, 'LoginStack', {
+            Navigator.replaceScreen(navigation, 'LoginStack', {
               screen: 'LoginScreen',
             });
           }}
@@ -68,6 +69,36 @@ export default function CustomerCurrentLocation({ navigation }: any) {
             style={{ width: scale(20), height: verticalScale(20) }}
           />
         </Pressable>
+        <View
+          style={{
+            paddingHorizontal: scale(20),
+            position: 'absolute',
+            top: verticalScale(24),
+            left: 0,
+            right: 0,
+            justifyContent: 'center',
+            marginTop: verticalScale(20),
+          }}
+        >
+          <CustomInput
+            placeholder="Search here..."
+            value={search}
+            onChangeText={text => setSearch(text)}
+            fieldStyle={{
+              backgroundColor: color.background,
+              borderColor: color.primary,
+            }}
+            rightIcon={
+              <ImageComponent
+                source={images.shareLocation}
+                style={{ width: scale(24), height: verticalScale(24) }}
+              />
+            }
+            onRightIconPress={() => {
+              console.log('share location clicked');
+            }}
+          />
+        </View>
         {/* <MapView
           provider={PROVIDER_GOOGLE} // remove if not using Google Maps
           style={styles.map}
@@ -94,7 +125,7 @@ export default function CustomerCurrentLocation({ navigation }: any) {
             <View style={styles.locationContainer}>
               <Text style={styles.heading}>Current Location</Text>
               <Text style={styles.locationText}>
-                2972 Westheimer Rd, California
+                {search || '2972 Westheimer Rd, California'}
               </Text>
               <BaseLine style={styles.dividerLine} />
             </View>
@@ -118,21 +149,25 @@ export default function CustomerCurrentLocation({ navigation }: any) {
                   selected === 'Office',
                 )}
                 {customButtonUsage(
-                  'Other',
+                  'Others',
                   images.locationOutlined,
                   () => {
-                    setSelected('Other');
+                    setSelected('Others');
                   },
-                  selected === 'Other',
+                  selected === 'Others',
                 )}
               </View>
             </View>
             <CustomButton
               title="Continue"
               onPress={() => {
-                Navigator.pushScreen(navigation, 'CurrentLocationDetails');
+                Navigator.pushScreen(navigation, 'CurrentLocationDetails', {
+                  addressType: selected,
+                  lat: 0,
+                  lng: 0,
+                });
               }}
-              containerStyle={{ marginBottom: verticalScale(22) }}
+              containerStyle={{ marginBottom: verticalScale(10) }}
             />
           </View>
         </LocationBottomSheet>
