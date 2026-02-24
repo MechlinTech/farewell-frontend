@@ -62,6 +62,7 @@ import SavedAddress from './customer/SavedAddress/SavedAddress';
 import CustomerCurrentLocation from './customer/CustomerCurrentLocation/CustomerCurrentLocation';
 import Navigator from '@Navigator';
 import RiderEarnings from './rider/RiderEarnings/RiderEarnings';
+import TripDetails from './rider/TripDetails/TripDetails';
 
 const Stack = createNativeStackNavigator();
 
@@ -438,11 +439,6 @@ function RiderHomeStack() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="TermsAndConditionsScreen"
-          component={TermsAndConditionsScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
           name="FAQScreen"
           component={FAQScreen}
           options={{ headerShown: false }}
@@ -500,6 +496,11 @@ function RiderHomeStack() {
         <Stack.Screen
           name="DropOffPackage"
           component={DropOffPackage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="TripDetails"
+          component={TripDetails}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

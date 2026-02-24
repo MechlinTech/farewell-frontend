@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import color from '@color';
 import { fontFamily, fontSize } from '@constants';
@@ -7,8 +7,10 @@ import { scale, verticalScale } from '@scale';
 import ImageComponent from '@components/ImageComponent';
 import images from '@images';
 import BaseLine from '@components/BaseLine';
+import Navigator from '@Navigator';
 
 interface Props {
+    navigation: any;
     item: {
         bookingId: string;
         location: string;
@@ -17,9 +19,14 @@ interface Props {
     };
 }
 
-const InProgressBookingCard: React.FC<Props> = ({ item }) => {
+const InProgressBookingCard: React.FC<Props> = ({ item, navigation }: any) => {
     return (
-        <View style={styles.card}>
+        <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => {
+                Navigator.pushScreen(navigation, 'RiderDeliveryDetails', { id: item.id });
+            }}
+            style={styles.card}>
             {/* 🔹 Header */}
             <View style={styles.headerRow}>
                 <View style={styles.leftContent}>
@@ -77,7 +84,7 @@ const InProgressBookingCard: React.FC<Props> = ({ item }) => {
                     Waiting to deliver the package
                 </Text>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 
