@@ -63,6 +63,7 @@ import CustomerCurrentLocation from './customer/CustomerCurrentLocation/Customer
 import Navigator from '@Navigator';
 import RiderEarnings from './rider/RiderEarnings/RiderEarnings';
 import TripDetails from './rider/TripDetails/TripDetails';
+import RiderMap from './rider/RiderMap/RiderMap';
 
 const Stack = createNativeStackNavigator();
 
@@ -503,6 +504,11 @@ function RiderHomeStack() {
           component={TripDetails}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="RiderMap"
+          component={RiderMap}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </React.Suspense>
   );
@@ -651,7 +657,7 @@ export const checkApplicationPermission = async () => {
           }
         }
       }
-    } catch (error) { }
+    } catch (error) {}
   } else {
     try {
       const authStatus = await messaging().requestPermission();
