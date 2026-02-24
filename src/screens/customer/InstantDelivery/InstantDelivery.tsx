@@ -80,7 +80,15 @@ const handlesend=()=>{
 
 setShowPackageSheet(true);
 }
-
+const isFormValid =
+  packageQuantity &&
+  !isNaN(packageQuantity) &&
+  Number(packageQuantity) > 0 &&
+ 
+  packageSize &&
+  labelImage &&
+  pickupLocation?.trim() &&
+  courierCompany?.trim();
 
   return (
     <BaseWrapper>
@@ -214,6 +222,7 @@ error={errors.courier}
         <CustomButton
           title="Next"
           containerStyle={styles.button}
+          disabled={!isFormValid}
           onPress={() => {
             if(!validateAll()){
               return;

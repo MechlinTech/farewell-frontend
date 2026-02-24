@@ -113,7 +113,16 @@ const ScheduleDelivery = ({ navigation }: any) => {
     return Object.keys(err).length === 0;
   };
 
-
+const isFormValid =
+  packageQuantity &&
+  !isNaN(packageQuantity) &&
+  Number(packageQuantity) > 0 &&
+  date &&
+  time &&
+  packageSize &&
+  labelImage &&
+  pickupLocation?.trim() &&
+  courierCompany?.trim();
 
 
 
@@ -283,12 +292,16 @@ const ScheduleDelivery = ({ navigation }: any) => {
             centerImageStyle={styles.imgcamera}
             error={errors.image}
             centerImageView={styles.imgview}
-            onImageSelected={img => setLabelImage(img)}
+            onImageSelected={img => {
+            setLabelImage(img)
+            setErrors((p:any) => ({ ...p, image: '' }));
+          }}
           />
 
           <CustomButton
             title="Next"
             containerStyle={styles.button}
+            disabled={!isFormValid}
 
             onPress={() => {
               if (!validateAll()) {
