@@ -285,6 +285,7 @@ paddingBottom:verticalScale(8)
   textpackage:{
     fontSize: fontSize.fontSize_14,
     color: color.delivery.value,
+    paddingLeft:scale(8)
   },
   smallContainer:{
     paddingTop:verticalScale(21),
@@ -334,7 +335,7 @@ paddingBottom:verticalScale(8)
     fontSize: fontSize.fontSize_12,
     fontFamily: fontFamily.weight500,
 
-    color: color.textSecondary,
+    color: color.delivery.label,
     marginBottom: verticalScale(11),
     marginTop: verticalScale(33),
   },
@@ -342,7 +343,7 @@ paddingBottom:verticalScale(8)
     fontSize: fontSize.fontSize_12,
     fontFamily: fontFamily.weight500,
 
-    color: color.textSecondary,
+    color: color.delivery.label,
     marginBottom: verticalScale(13),
     marginTop: verticalScale(8),
   },

@@ -196,7 +196,7 @@ const LoginScreen = ({ navigation }: any) => {
               <CustomButton
                 title="Get Started"
                 onPress={handleLogin}
-                containerStyle={styles.loginButton}
+               pressableStyle={styles.loginButton}
                 textStyle={styles.loginButtonText}
               />
             </View>
@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     marginBottom: verticalScale(4),
-    height: verticalScale(55),
+    height: verticalScale(56),
     marginTop: verticalScale(10),
   },
   loginButtonText: {
