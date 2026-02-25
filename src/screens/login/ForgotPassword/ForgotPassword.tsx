@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
   },
   SendButton: {
     marginBottom: verticalScale(20),
-    height: verticalScale(55),
+    height: verticalScale(56),
     marginTop: verticalScale(24),
     width: '90%',
     alignSelf: 'center',

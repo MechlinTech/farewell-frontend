@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: color.background,
     padding: scale(16),
-    borderRadius: scale(25),
+    borderTopLeftRadius: scale(25),
+    borderTopRightRadius: scale(25),
     position: 'absolute',
   },
 });

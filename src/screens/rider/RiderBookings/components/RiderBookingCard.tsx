@@ -6,6 +6,7 @@ import { fontFamily, fontSize } from '@constants';
 import { scale, verticalScale } from '@scale';
 import ImageComponent from '@components/ImageComponent';
 import images from '@images';
+import Navigator from '@Navigator';
 
 interface Props {
   item: {

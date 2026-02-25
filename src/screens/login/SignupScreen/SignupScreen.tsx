@@ -331,7 +331,7 @@ const SignupScreen = ({ navigation }: any) => {
               <CustomButton
                 title="Continue"
                 onPress={handleSignup}
-                containerStyle={styles.signupButton}
+                pressableStyle={styles.signupButton}
                 textStyle={styles.signupButtonText}
               />
             </View>
@@ -432,7 +432,7 @@ const styles = StyleSheet.create({
   },
 
   signupButton: {
-    height: verticalScale(55),
+    height: verticalScale(56),
     marginTop: verticalScale(8),
   },
   signupButtonText: {

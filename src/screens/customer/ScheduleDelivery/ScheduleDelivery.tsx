@@ -224,6 +224,7 @@ const ScheduleDelivery = ({ navigation }: any) => {
               value={time}
               error={errors.time}
               textStyle={styles.commontextStyle}
+             
               fieldStyle={styles.commonfield}
               rightIcon={
                 <ImageComponent
@@ -428,6 +429,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(8),
 
     gap: scale(16),
+   
   },
 
   imgview: {
@@ -456,7 +458,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize.fontSize_12,
     fontFamily: fontFamily.weight500,
 
-    color: color.textSecondary,
+    color: color.delivery.label,
     marginBottom: verticalScale(11),
     marginTop: verticalScale(25),
   },
@@ -464,7 +466,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize.fontSize_12,
     fontFamily: fontFamily.weight500,
 
-    color: color.textSecondary,
+    color: color.delivery.label,
     marginBottom: verticalScale(12),
     marginTop: verticalScale(8),
   },
@@ -516,5 +518,6 @@ const styles = StyleSheet.create({
 
   button: {
     marginTop: verticalScale(15),
+    height:verticalScale(56)
   },
 });

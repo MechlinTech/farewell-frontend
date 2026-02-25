@@ -282,6 +282,7 @@ const styles = StyleSheet.create({
   couriertextStyle: {
     fontSize: fontSize.fontSize_14,
     color: color.delivery.value,
+    paddingLeft:scale(8)
   },
   textpackage: {
     fontSize: fontSize.fontSize_14,
@@ -333,7 +334,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize.fontSize_12,
     fontFamily: fontFamily.weight500,
 
-    color: color.textSecondary,
+    color: color.delivery.label,
     marginBottom: verticalScale(11),
     marginTop: verticalScale(33),
   },
@@ -341,7 +342,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize.fontSize_12,
     fontFamily: fontFamily.weight500,
 
-    color: color.textSecondary,
+    color: color.delivery.label,
     marginBottom: verticalScale(13),
     marginTop: verticalScale(8),
   },

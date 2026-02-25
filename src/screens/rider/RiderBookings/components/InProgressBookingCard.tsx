@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import color from '@color';
 import { fontFamily, fontSize } from '@constants';
@@ -7,6 +7,7 @@ import { scale, verticalScale } from '@scale';
 import ImageComponent from '@components/ImageComponent';
 import images from '@images';
 import BaseLine from '@components/BaseLine';
+import Navigator from '@Navigator';
 
 interface Props {
   item: {

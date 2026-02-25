@@ -39,7 +39,7 @@ const style = StyleSheet.create({
   heading: {
     color: color.textMain,
     fontSize: fontSize.fontSize_20,
-    fontFamily: fontFamily.weight800,
+    fontFamily: fontFamily.Heavy,
     marginBottom: verticalScale(6),
   },
   subheading: {
