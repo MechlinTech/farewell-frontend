@@ -36,7 +36,7 @@ const SignupScreen = ({ navigation }: any) => {
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
   const strongPasswordRegex =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
 
   /* 🔴 Field validators */
 
@@ -95,11 +95,11 @@ const SignupScreen = ({ navigation }: any) => {
         password: 'Password must be 8–16 characters',
       }));
     else if (!strongPasswordRegex.test(password))
-    setErrors((p: any) => ({
-      ...p,
-      password:
-        'Weak password — use uppercase, lowercase, number & special character',
-    }));
+      setErrors((p: any) => ({
+        ...p,
+        password:
+          'Weak password — use uppercase, lowercase, number & special character',
+      }));
   };
 
   const validateConfirmPassword = () => {
@@ -143,8 +143,8 @@ const SignupScreen = ({ navigation }: any) => {
     else if (password.length < 8 || password.length > 16)
       err.password = 'Password must be 8–16 characters';
     else if (!strongPasswordRegex.test(password))
-    err.password =
-      'Weak password — use uppercase, lowercase, number & special character';
+      err.password =
+        'Weak password — use uppercase, lowercase, number & special character';
 
     if (!confirmPassword) err.confirmPassword = 'Confirm password is required';
     else if (password !== confirmPassword)
@@ -160,10 +160,10 @@ const SignupScreen = ({ navigation }: any) => {
 
   const handleSignup = () => {
 
-        if (!validateAll()) {
-     showFlashMessage("Please Correctly Fill All The Fields")
-          return;
-        }
+    if (!validateAll()) {
+      showFlashMessage("Please Correctly Fill All The Fields")
+      return;
+    }
     Navigator.pushScreen(navigation, 'OTPVerificationScreen')
     console.log('Signup pressed', {
       firstName,

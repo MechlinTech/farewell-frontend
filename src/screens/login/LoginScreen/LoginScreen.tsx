@@ -196,7 +196,7 @@ const LoginScreen = ({ navigation }: any) => {
               <CustomButton
                 title="Get Started"
                 onPress={handleLogin}
-               pressableStyle={styles.loginButton}
+                pressableStyle={styles.loginButton}
                 textStyle={styles.loginButtonText}
               />
             </View>

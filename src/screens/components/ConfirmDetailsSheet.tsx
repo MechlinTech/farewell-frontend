@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, KeyboardAvoidingView, Platform} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable, KeyboardAvoidingView, Platform } from 'react-native';
 import BottomSheetCustom from '@components/BottomSheetCustom';
 import CustomButton from '@components/CustomButton';
 import { scale, verticalScale } from '@scale';
@@ -11,204 +11,204 @@ import CustomInput from '@components/CustomInput';
 import { Keyboard } from "react-native";
 
 interface Props {
-  visible: boolean;
-  onClose: () => void;
-  onContinue: () => void;
+    visible: boolean;
+    onClose: () => void;
+    onContinue: () => void;
 }
 
 const ConfirmDetailsSheet = ({ visible, onClose, onContinue }: Props) => {
-  const [contentHeight, setContentHeight] = React.useState(0);
-  const [tipAmount, setTipAmount] = React.useState('0');
-  const [selectedTip, setSelectedTip] = React.useState<string | null>(null);
-const [error, setError] = React.useState('');
-const [boxValues, setBoxValues] = React.useState([
-    '$3',
-  '$5',
-  '$7',
-  '$9',
-]);
-const handlePresetTip = (value: string) => {
-  const numeric = value.replace('$', '');
+    const [contentHeight, setContentHeight] = React.useState(0);
+    const [tipAmount, setTipAmount] = React.useState('0');
+    const [selectedTip, setSelectedTip] = React.useState<string | null>(null);
+    const [error, setError] = React.useState('');
+    const [boxValues, setBoxValues] = React.useState([
+        '$3',
+        '$5',
+        '$7',
+        '$9',
+    ]);
+    const handlePresetTip = (value: string) => {
+        const numeric = value.replace('$', '');
 
-  setTipAmount(Number(numeric).toFixed(2)); // always formatted
-  setSelectedTip(value);
-  setError('');
-Keyboard.dismiss();
-};
-const handleTipChange = (text: string) => {
-  let value = text.replace(/[^0-9.]/g, ''); // allow numbers + dot
+        setTipAmount(Number(numeric).toFixed(2)); // always formatted
+        setSelectedTip(value);
+        setError('');
+        Keyboard.dismiss();
+    };
+    const handleTipChange = (text: string) => {
+        let value = text.replace(/[^0-9.]/g, ''); // allow numbers + dot
 
-  // ❌ block more than one dot
-  const dotCount = (value.match(/\./g) || []).length;
-  if (dotCount > 1) return;
+        // ❌ block more than one dot
+        const dotCount = (value.match(/\./g) || []).length;
+        if (dotCount > 1) return;
 
-  // ❌ remove leading zeros (but allow 0.x)
-  if (value.length > 1 && value.startsWith('0') && value[1] !== '.') {
-    value = value.replace(/^0+/, '');
-  }
+        // ❌ remove leading zeros (but allow 0.x)
+        if (value.length > 1 && value.startsWith('0') && value[1] !== '.') {
+            value = value.replace(/^0+/, '');
+        }
 
-  const parts = value.split('.');
+        const parts = value.split('.');
 
-  // allow only 2 decimal places
-  if (parts.length === 2) {
-    value = parts[0] + '.' + parts[1].slice(0, 2);
-  }
+        // allow only 2 decimal places
+        if (parts.length === 2) {
+            value = parts[0] + '.' + parts[1].slice(0, 2);
+        }
 
-  // ❌ block decimal if 1000
-  if (parts[0] === '1000' && parts.length === 2) return;
+        // ❌ block decimal if 1000
+        if (parts[0] === '1000' && parts.length === 2) return;
 
-  // ❌ block values > 1000
-  const numericValue = Number(value);
-  if (!isNaN(numericValue) && numericValue > 1000) {
-    setError('Tip cannot exceed $1000');
-    return;
-  }
+        // ❌ block values > 1000
+        const numericValue = Number(value);
+        if (!isNaN(numericValue) && numericValue > 1000) {
+            setError('Tip cannot exceed $1000');
+            return;
+        }
 
-  setTipAmount(value);
-  setSelectedTip(null); // typing removes preset selection
-  setError('');
-};
-const numericTip = Number(tipAmount) || 0;
-
-
-
-  const [confirmData, setConfirmData] = React.useState({
-    pickupLocation: '2972 Westheimer, California',
-    deliveryLocation: 'FedEx, 27 Samwell California, USA',
-    packageWeight: '3KG-8KG',
-    quantity: '2000',
-    date: '22/02/2026',
-    time: '3:30 PM',
-    estimatedFee: '$160',
-  });
-  return (
-    <BottomSheetCustom visible={visible}  containerStyle={styles.container} onClose={onClose}>
-    
-                <Text style={styles.sectionLabel}>
-                   Confirm Details
-                </Text>
-                   <KeyboardAvoidingView
-                         style={{ flex: 1 }}
-                         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
-                       >
+        setTipAmount(value);
+        setSelectedTip(null); // typing removes preset selection
+        setError('');
+    };
+    const numericTip = Number(tipAmount) || 0;
 
 
- 
-      <ScrollView showsVerticalScrollIndicator={false}
-                contentContainerStyle={styles.content}
-                  keyboardShouldPersistTaps="handled"
+
+    const [confirmData, setConfirmData] = React.useState({
+        pickupLocation: '2972 Westheimer, California',
+        deliveryLocation: 'FedEx, 27 Samwell California, USA',
+        packageWeight: '3KG-8KG',
+        quantity: '2000',
+        date: '22/02/2026',
+        time: '3:30 PM',
+        estimatedFee: '$160',
+    });
+    return (
+        <BottomSheetCustom visible={visible} containerStyle={styles.container} onClose={onClose}>
+
+            <Text style={styles.sectionLabel}>
+                Confirm Details
+            </Text>
+            <KeyboardAvoidingView
+                style={{ flex: 1 }}
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
             >
 
-               
 
-            
 
-                
-
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'flex-start',
-                    }}
+                <ScrollView showsVerticalScrollIndicator={false}
+                    contentContainerStyle={styles.content}
+                    keyboardShouldPersistTaps="handled"
                 >
-                    <LocationStepper contentHeight={contentHeight} />
+
+
+
+
+
+
 
                     <View
-                        style={{ flex: 1 }}
-                        onLayout={(e) => {
-                            setContentHeight(
-                                e.nativeEvent.layout.height
-                            );
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'flex-start',
                         }}
                     >
-                        <LocationBlock
-                            label="Pickup Location"
-                            value="2972 Westheimer, California"
-                        />
+                        <LocationStepper contentHeight={contentHeight} />
 
-                        <LocationBlock
-                            label="Delivery Location"
-                            value="FedEx, 27 Samwell California, USA"
-                            showVendor
+                        <View
+                            style={{ flex: 1 }}
+                            onLayout={(e) => {
+                                setContentHeight(
+                                    e.nativeEvent.layout.height
+                                );
+                            }}
+                        >
+                            <LocationBlock
+                                label="Pickup Location"
+                                value="2972 Westheimer, California"
+                            />
+
+                            <LocationBlock
+                                label="Delivery Location"
+                                value="FedEx, 27 Samwell California, USA"
+                                showVendor
+                            />
+                        </View>
+                    </View>
+
+
+                    {/* ================= GRID ================= */}
+
+                    <View style={styles.gridRow}>
+                        <InfoItem
+                            label="Package Weight"
+                            value="3KG-8KG"
+                        />
+                        <InfoItem
+                            label="Quantity"
+                            value="1"
                         />
                     </View>
-                </View>
 
+                    <View style={styles.gridRow}>
+                        <InfoItem
+                            label="Date"
+                            value="22/02/2026"
+                        />
+                        <InfoItem
+                            label="Time"
+                            value="3:30 PM"
+                        />
+                    </View>
 
-                {/* ================= GRID ================= */}
-
-                <View style={styles.gridRow}>
                     <InfoItem
-                        label="Package Weight"
-                        value="3KG-8KG"
+                        label="Estimated Delivery fee:"
+                        value="$160"
+                        full
+                        valueStyle={styles.estimatedDeliveryFee}
+                        labelStyle={styles.infodelivery}
                     />
-                    <InfoItem
-                        label="Quantity"
-                        value="1"
+                    <CustomInput label='Add Tip' value={tipAmount} onChangeText={handleTipChange}
+                        editable
+                        keyboardType="numeric"
+                        labelStyle={styles.addtip} fieldStyle={styles.addtipcont}
+                        leftIcon={<ImageComponent source={images.dollar} style={styles.dollarsymbol} />}
                     />
-                </View>
+                    <View style={styles.mainbelowcont}>
 
-                <View style={styles.gridRow}>
-                    <InfoItem
-                        label="Date"
-                        value="22/02/2026"
-                    />
-                    <InfoItem
-                        label="Time"
-                        value="3:30 PM"
-                    />
-                </View>
+                        {boxValues.map((value, index) => (
+                            <Pressable
+                                key={index}
+                                onPress={() => {
+                                    handlePresetTip(value);
 
-                <InfoItem
-                    label="Estimated Delivery fee:"
-                    value="$160"
-                    full
-                    valueStyle={styles.estimatedDeliveryFee}
-                    labelStyle={styles.infodelivery}
+
+                                }}
+                                style={styles.belowcont}
+                            >
+                                <Text style={styles.boxText}>{value}</Text>
+                            </Pressable>
+                        ))}
+                    </View>
+                    <BarcodeBlock />
+
+                    <Text style={styles.editDetails} onPress={onClose}>Edit Details</Text>
+
+
+
+
+                    {/* ================= QR ================= */}
+
+
+                </ScrollView>
+                <CustomButton
+                    title="Continue to Payment"
+                    onPress={onContinue}
+                    containerStyle={styles.buttoncontainer}
+
                 />
-                <CustomInput   label='Add Tip'  value ={tipAmount}  onChangeText={handleTipChange}
-                editable
-                keyboardType="numeric"
-                labelStyle={styles.addtip} fieldStyle ={styles.addtipcont}
-                leftIcon={<ImageComponent source={images.dollar} style={styles.dollarsymbol}/>}
-                />
-        <View style={styles.mainbelowcont}>
-          
-{boxValues.map((value, index) => (
-  <Pressable
-    key={index}
-    onPress={() => {
-          handlePresetTip(value);
-      
-  
-    }}
-    style={styles.belowcont}
-  >
-    <Text style={styles.boxText}>{value}</Text>
-  </Pressable>
-))}
-</View>
-                <BarcodeBlock/>
-
-                     <Text style={styles.editDetails} onPress={onClose}>Edit Details</Text>
-
-         
-                    
-
-                {/* ================= QR ================= */}
-         
-
-            </ScrollView>
-                           <CustomButton
-          title="Continue to Payment"
-          onPress={onContinue}
-          containerStyle={styles.buttoncontainer}
-
-        />
-</KeyboardAvoidingView>
+            </KeyboardAvoidingView>
             {/* Bottom Button */}
-         
+
         </BottomSheetCustom>
     );
 };
@@ -269,7 +269,7 @@ const LocationBlock = ({
     label,
     value,
     showVendor,
-    
+
 }: any) => {
     return (
         <View style={styles.locationBlock}>
@@ -295,7 +295,7 @@ const LocationBlock = ({
                 />
             )}
         </View>
-   );
+    );
 };
 const InfoItem = ({
     label,
@@ -339,74 +339,74 @@ const BarcodeBlock = ({ title }: any) => {
 
 export default ConfirmDetailsSheet;
 const styles = StyleSheet.create({
- container: {
+    container: {
         paddingHorizontal: scale(10),
-       height:verticalScale(650)
+        height: verticalScale(650)
     },
-    mainbelowcont:{
-flexDirection:'row',
-gap:scale(11),
-marginLeft:scale(2)
+    mainbelowcont: {
+        flexDirection: 'row',
+        gap: scale(11),
+        marginLeft: scale(2)
     },
-    buttoncontainer:{
-marginHorizontal:scale(16),
-marginBottom:verticalScale(10)
+    buttoncontainer: {
+        marginHorizontal: scale(16),
+        marginBottom: verticalScale(10)
     },
-    belowcont:{
-      width:scale(45),
-      height:verticalScale(40),
-      borderRadius:scale(5),
-      borderColor:color.primary,
-      borderWidth:scale(1),
-      alignItems:'center',
-      justifyContent:'center',  
-     
-    },
-    dollarsymbol:{
-height:scale(14),
-width:scale(14),
-paddingRight:scale(2),
+    belowcont: {
+        width: scale(45),
+        height: verticalScale(40),
+        borderRadius: scale(5),
+        borderColor: color.primary,
+        borderWidth: scale(1),
+        alignItems: 'center',
+        justifyContent: 'center',
 
     },
-    infodelivery:{
-color:color.textMuted,
+    dollarsymbol: {
+        height: scale(14),
+        width: scale(14),
+        paddingRight: scale(2),
+
+    },
+    infodelivery: {
+        color: color.textMuted,
     },
     content: {
         paddingHorizontal: scale(20),
         paddingTop: verticalScale(18),
         paddingBottom: verticalScale(28),
     },
-      editDetails: {
-    textDecorationLine: 'underline',
-    // marginBottom: verticalScale(10),
-    color: color.textContrast,
-    alignSelf: 'center',
-    fontSize: fontSize.fontSize_16,
-    fontFamily: fontFamily.weight500,
-  },
-  boxText:{
-fontSize:fontSize.fontSize_12,
-fontFamily:fontFamily.weight400,
-color:color.textMuted,
-  },
-  
+    editDetails: {
+        textDecorationLine: 'underline',
+        // marginBottom: verticalScale(10),
+        color: color.textContrast,
+        alignSelf: 'center',
+        fontSize: fontSize.fontSize_16,
+        fontFamily: fontFamily.weight500,
+    },
+    boxText: {
+        fontSize: fontSize.fontSize_12,
+        fontFamily: fontFamily.weight400,
+        color: color.textMuted,
+    },
+
 
     button: {
         margin: verticalScale(20),
     },
-    addtip:{
-marginTop:verticalScale(20),
-color:color.error,
-fontSize:fontSize.fontSize_13,
-fontFamily:fontFamily.weight400,
+    addtip: {
+        marginTop: verticalScale(20),
+        color: color.error,
+        fontSize: fontSize.fontSize_13,
+        fontFamily: fontFamily.weight400,
 
     },
-    addtipcont:{
-height:verticalScale(41),
-marginBottom:verticalScale(20),
-paddingVertical:0,
-color:color.delivery.value,
-paddingLeft:scale(16)
+    addtipcont: {
+        height: verticalScale(41),
+        marginBottom: verticalScale(20),
+        paddingVertical: 0,
+        color: color.delivery.value,
+        paddingLeft: scale(16)
 
 
     },
@@ -418,10 +418,10 @@ paddingLeft:scale(16)
         fontFamily: fontFamily.weight800,
         color: color.textMain,
         marginBottom: verticalScale(16),
-       marginTop:verticalScale(10),
-       marginLeft:scale(26)
+        marginTop: verticalScale(10),
+        marginLeft: scale(26)
     },
-  
+
 
     ownerRow: {
         flexDirection: 'row',
@@ -441,7 +441,7 @@ paddingLeft:scale(16)
         fontFamily: fontFamily.weight500,
         color: color.textMain,
         marginTop: verticalScale(4),
-        
+
     },
 
     callBox: {
@@ -465,7 +465,7 @@ paddingLeft:scale(16)
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-end',
-        
+
     },
 
     locationLabel: {
@@ -496,8 +496,8 @@ paddingLeft:scale(16)
         width: scale(42),
         height: verticalScale(18),
         resizeMode: 'contain',
-        
-        
+
+
     },
 
     greenIndicatorIcon: {
@@ -512,8 +512,8 @@ paddingLeft:scale(16)
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: verticalScale(14),
-        gap:scale(48),
-       
+        gap: scale(48),
+
     },
 
     infoItem: {
@@ -524,7 +524,7 @@ paddingLeft:scale(16)
         fontSize: fontSize.fontSize_12,
         fontFamily: fontFamily.weight400,
         color: color.textMuted,
-        
+
     },
 
     infoValue: {
@@ -539,8 +539,8 @@ paddingLeft:scale(16)
         fontSize: fontSize.fontSize_16,
         fontFamily: fontFamily.weight800,
         marginTop: verticalScale(2),
-      
-        
+
+
     },
 
     /* Barcode */
@@ -560,7 +560,7 @@ paddingLeft:scale(16)
         height: verticalScale(102),
         resizeMode: 'contain',
         marginBottom: verticalScale(18),
-        
+
     },
     avatarBox: {
         width: scale(56),

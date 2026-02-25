@@ -204,7 +204,7 @@ const BankDetails = ({ navigation }: any) => {
                   style={styles.downarrowimg}
                 />
               }
-              onPress={()=>{
+              onPress={() => {
 
                 setshowbanksheet(true)
               }}
@@ -244,7 +244,7 @@ const BankDetails = ({ navigation }: any) => {
               onRightIconPress={() => {
                 setshowaccountsheet(true);
               }}
-                onPress={()=>{
+              onPress={() => {
 
                 setshowaccountsheet(true)
               }}

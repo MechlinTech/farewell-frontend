@@ -20,7 +20,7 @@ import HeadingGroup from '@components/HeadingGroupComponent';
 import BaseWrapper from '@components/Base';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const strongPasswordRegex =
+const strongPasswordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
 
 const ForgotPasswordScreen = ({ navigation }: any) => {
@@ -31,39 +31,39 @@ const ForgotPasswordScreen = ({ navigation }: any) => {
 
   /* 🔴 Validators */
 
- const validateEmail = () => {
-  const trimmedEmail = email.trim();
+  const validateEmail = () => {
+    const trimmedEmail = email.trim();
 
-  if (!trimmedEmail)
-    setErrors((p: any) => ({ ...p, email: 'Email is required' }));
-  else if (!emailRegex.test(trimmedEmail))
-    setErrors((p: any) => ({
-      ...p,
-      email: 'Enter a valid email address',
-    }));
-};
+    if (!trimmedEmail)
+      setErrors((p: any) => ({ ...p, email: 'Email is required' }));
+    else if (!emailRegex.test(trimmedEmail))
+      setErrors((p: any) => ({
+        ...p,
+        email: 'Enter a valid email address',
+      }));
+  };
 
- 
- const validatePassword = () => {
-  if (!password)
-    setErrors((p: any) => ({ ...p, password: 'Password is required' }));
-  else if (password.includes(' '))
-    setErrors((p: any) => ({
-      ...p,
-      password: 'Password cannot contain spaces',
-    }));
-  else if (password.length < 8 || password.length > 16)
-    setErrors((p: any) => ({
-      ...p,
-      password: 'Password must be 8–16 characters',
-    }));
-         else if (!strongPasswordRegex.test(password))
-    setErrors((p: any) => ({
-      ...p,
-      password:
-        'Weak password',
-    }));
-};
+
+  const validatePassword = () => {
+    if (!password)
+      setErrors((p: any) => ({ ...p, password: 'Password is required' }));
+    else if (password.includes(' '))
+      setErrors((p: any) => ({
+        ...p,
+        password: 'Password cannot contain spaces',
+      }));
+    else if (password.length < 8 || password.length > 16)
+      setErrors((p: any) => ({
+        ...p,
+        password: 'Password must be 8–16 characters',
+      }));
+    else if (!strongPasswordRegex.test(password))
+      setErrors((p: any) => ({
+        ...p,
+        password:
+          'Weak password',
+      }));
+  };
 
   const validateConfirmPassword = () => {
     if (!confirmPassword)
@@ -76,25 +76,25 @@ const ForgotPasswordScreen = ({ navigation }: any) => {
         ...p,
         confirmPassword: 'Passwords do not match',
       }));
-   
+
   };
 
   const validateAll = () => {
     let err: any = {};
     const trimmedEmail = email.trim();
 
-      if (!trimmedEmail) err.email = 'Email is required';
-  else if (!emailRegex.test(trimmedEmail))
-    err.email = 'Enter a valid email address';
+    if (!trimmedEmail) err.email = 'Email is required';
+    else if (!emailRegex.test(trimmedEmail))
+      err.email = 'Enter a valid email address';
 
-  if (!password) err.password = 'Password is required';
-else if (password.includes(' '))
-  err.password = 'Password cannot contain spaces';
-else if (password.length < 8 || password.length > 16)
-  err.password = 'Password must be 8–16 characters';
-else if (!strongPasswordRegex.test(password))
-    err.password =
-      'Weak password — use uppercase, lowercase, number & special character';
+    if (!password) err.password = 'Password is required';
+    else if (password.includes(' '))
+      err.password = 'Password cannot contain spaces';
+    else if (password.length < 8 || password.length > 16)
+      err.password = 'Password must be 8–16 characters';
+    else if (!strongPasswordRegex.test(password))
+      err.password =
+        'Weak password — use uppercase, lowercase, number & special character';
 
     if (!confirmPassword)
       err.confirmPassword = 'Confirm password is required';
@@ -117,74 +117,74 @@ else if (!strongPasswordRegex.test(password))
 
   return (
     <BaseWrapper fullScreenMode={true}>
-        <KeyboardAvoidingView
-         style={{ flex: 1 }}
-         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
-       >
-     <ScrollView
-  style={{ flex: 1 }}
-  contentContainerStyle={{ paddingTop: verticalScale(150) }}
-  keyboardShouldPersistTaps="handled"
->
-        <View style={styles.headerContainer}>
-          <HeadingGroup
-            heading="Forgot Password?"
-            subheading="Enter your registered email id below"
-          />
-        </View>
-
-        <View style={styles.formContainer}>
-          <View style={styles.commoncontainer}>
-            <CustomInput
-              placeholder={'Enter your Email id'}
-              value={email}
-              onChangeText={t => {
-                setEmail(t);
-                setErrors((p: any) => ({ ...p, email: '' }));
-              }}
-              onBlur={validateEmail}
-              error={errors.email}
-              containerStyle={styles.inputContainer}
-              fieldStyle={{ borderRadius: scale(5) }}
-            />
-
-            <CustomInput
-              placeholder="New Password"
-              value={password}
-              onChangeText={t => {
-                setPassword(t);
-                setErrors((p: any) => ({ ...p, password: '' }));
-              }}
-              onBlur={validatePassword}
-              error={errors.password}
-              containerStyle={styles.inputContainer}
-              fieldStyle={{ borderRadius: scale(5) }}
-            />
-
-            <CustomInput
-              placeholder="Confirm New Password"
-              value={confirmPassword}
-              // secureTextEntry={true}
-              onChangeText={t => {
-                setConfirmPassword(t);
-                setErrors((p: any) => ({ ...p, confirmPassword: '' }));
-              }}
-              onBlur={validateConfirmPassword}
-              error={errors.confirmPassword}
-              containerStyle={styles.inputContainer}
-              fieldStyle={{ borderRadius: scale(5) }}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
+      >
+        <ScrollView
+          style={{ flex: 1 }}
+          contentContainerStyle={{ paddingTop: verticalScale(150) }}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View style={styles.headerContainer}>
+            <HeadingGroup
+              heading="Forgot Password?"
+              subheading="Enter your registered email id below"
             />
           </View>
 
-          <CustomButton
-            title="Send"
-            onPress={handlesend}
-            pressableStyle={styles.SendButton}
-            textStyle={styles.SendButtonText}
-          />
-        </View>
-      </ScrollView>
+          <View style={styles.formContainer}>
+            <View style={styles.commoncontainer}>
+              <CustomInput
+                placeholder={'Enter your Email id'}
+                value={email}
+                onChangeText={t => {
+                  setEmail(t);
+                  setErrors((p: any) => ({ ...p, email: '' }));
+                }}
+                onBlur={validateEmail}
+                error={errors.email}
+                containerStyle={styles.inputContainer}
+                fieldStyle={{ borderRadius: scale(5) }}
+              />
+
+              <CustomInput
+                placeholder="New Password"
+                value={password}
+                onChangeText={t => {
+                  setPassword(t);
+                  setErrors((p: any) => ({ ...p, password: '' }));
+                }}
+                onBlur={validatePassword}
+                error={errors.password}
+                containerStyle={styles.inputContainer}
+                fieldStyle={{ borderRadius: scale(5) }}
+              />
+
+              <CustomInput
+                placeholder="Confirm New Password"
+                value={confirmPassword}
+                // secureTextEntry={true}
+                onChangeText={t => {
+                  setConfirmPassword(t);
+                  setErrors((p: any) => ({ ...p, confirmPassword: '' }));
+                }}
+                onBlur={validateConfirmPassword}
+                error={errors.confirmPassword}
+                containerStyle={styles.inputContainer}
+                fieldStyle={{ borderRadius: scale(5) }}
+              />
+            </View>
+
+            <CustomButton
+              title="Send"
+              onPress={handlesend}
+              pressableStyle={styles.SendButton}
+              textStyle={styles.SendButtonText}
+            />
+          </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </BaseWrapper>
   );

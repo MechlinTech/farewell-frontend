@@ -113,16 +113,16 @@ const ScheduleDelivery = ({ navigation }: any) => {
     return Object.keys(err).length === 0;
   };
 
-const isFormValid =
-  packageQuantity &&
-  !isNaN(packageQuantity) &&
-  Number(packageQuantity) > 0 &&
-  date &&
-  time &&
-  packageSize &&
-  labelImage &&
-  pickupLocation?.trim() &&
-  courierCompany?.trim();
+  const isFormValid =
+    packageQuantity &&
+    !isNaN(packageQuantity) &&
+    Number(packageQuantity) > 0 &&
+    date &&
+    time &&
+    packageSize &&
+    labelImage &&
+    pickupLocation?.trim() &&
+    courierCompany?.trim();
 
 
 
@@ -139,11 +139,11 @@ const isFormValid =
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(40)}
       >
-       <ScrollView
-  contentContainerStyle={[styles.content, { flexGrow: 1, paddingBottom: verticalScale(28) }]}
-  showsVerticalScrollIndicator={false}
-  keyboardShouldPersistTaps="handled"
->
+        <ScrollView
+          contentContainerStyle={[styles.content, { flexGrow: 1, paddingBottom: verticalScale(28) }]}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
           {/* Pickup Location */}
           <CustomInput
             label="Pickup Location"
@@ -228,7 +228,7 @@ const isFormValid =
               value={time}
               error={errors.time}
               textStyle={styles.commontextStyle}
-             
+
               fieldStyle={styles.commonfield}
               rightIcon={
                 <ImageComponent source={images.downarrow} style={styles.righticon} />
@@ -293,9 +293,9 @@ const isFormValid =
             error={errors.image}
             centerImageView={styles.imgview}
             onImageSelected={img => {
-            setLabelImage(img)
-            setErrors((p:any) => ({ ...p, image: '' }));
-          }}
+              setLabelImage(img)
+              setErrors((p: any) => ({ ...p, image: '' }));
+            }}
           />
 
           <CustomButton
@@ -408,12 +408,12 @@ const styles = StyleSheet.create({
   textpackage: {
     fontSize: fontSize.fontSize_14,
     paddingLeft: scale(8),
-    color:color.delivery.value
+    color: color.delivery.value
   },
-  mediumContainer:{
-  paddingTop:verticalScale(18),
-    gap:verticalScale(6),
-    paddingBottom:verticalScale(8)
+  mediumContainer: {
+    paddingTop: verticalScale(18),
+    gap: verticalScale(6),
+    paddingBottom: verticalScale(8)
   },
 
   righticon: {
@@ -421,16 +421,16 @@ const styles = StyleSheet.create({
     height: verticalScale(14),
     paddingRight: scale(17),
   },
-    smallContainer:{
-    paddingTop:verticalScale(21),
-    gap:verticalScale(9),
-    paddingBottom:verticalScale(8)
+  smallContainer: {
+    paddingTop: verticalScale(21),
+    gap: verticalScale(9),
+    paddingBottom: verticalScale(8)
 
   },
-  largeContainer:{
-    paddingTop:verticalScale(12),
-    gap:verticalScale(2),
-    paddingBottom:verticalScale(8)
+  largeContainer: {
+    paddingTop: verticalScale(12),
+    gap: verticalScale(2),
+    paddingBottom: verticalScale(8)
   },
 
   commonfield: {
@@ -438,7 +438,7 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     width: scale(154.4),
     color: color.primaryMuted,
-   
+
   },
 
   commonlabel: {
@@ -454,7 +454,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(8),
 
     gap: scale(16),
-   
+
   },
 
 
@@ -546,6 +546,6 @@ const styles = StyleSheet.create({
 
   button: {
     marginTop: verticalScale(15),
-    height:verticalScale(56)
+    height: verticalScale(56)
   },
 });

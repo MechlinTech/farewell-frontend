@@ -38,10 +38,10 @@ const DropOffPackage = ({ navigation }: any) => {
 
   const handleDone = () => {
     if (!validateAll()) {
-    //   showFlashMessage('Please upload receipt image');
+      //   showFlashMessage('Please upload receipt image');
       return;
     }
-    Navigator.pushScreen(navigation,'RiderDeliveryDetails')
+    Navigator.pushScreen(navigation, 'RiderDeliveryDetails')
 
     console.log('Receipt uploaded:', receiptImage);
   };
@@ -58,11 +58,11 @@ const DropOffPackage = ({ navigation }: any) => {
 
       {/* Content */}
       <View style={styles.content}>
-       
+
 
         <UploadDocument
-        label='Take a picture of the receipt'
-        labelStyle={styles.label}
+          label='Take a picture of the receipt'
+          labelStyle={styles.label}
           imageData={receiptImage}
           error={errors.receipt}
           centerImage={images.camera}
@@ -100,12 +100,12 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: verticalScale(15),
-    
+
   },
-    cameraWrapper: {
+  cameraWrapper: {
     width: scale(32),
     height: scale(32),
-    borderRadius: scale(32), 
+    borderRadius: scale(32),
     borderWidth: scale(1),
     borderColor: color.primary,
     justifyContent: 'center',
