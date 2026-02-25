@@ -13,8 +13,8 @@ const App = () => {
   }, []);
   return (
     <Provider store={store}>
-           <SafeAreaProvider>
-      <InnerApp />
+      <SafeAreaProvider>
+        <InnerApp />
       </SafeAreaProvider>
     </Provider>
   );

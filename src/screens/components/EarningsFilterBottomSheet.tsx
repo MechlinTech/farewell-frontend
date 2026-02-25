@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import BottomSheet from '@components/BottomSheetCustom';
-import { Alert, Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import CustomButton from '@components/CustomButton';
 import { useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -9,7 +9,6 @@ import { fontFamily, fontSize } from '@constants';
 import color from '@color';
 import CustomInput from '@components/CustomInput';
 import { scale, verticalScale } from '@scale';
-import { showFlashMessage } from '@components/showFlashMessage';
 
 interface Props {
   visible: boolean;

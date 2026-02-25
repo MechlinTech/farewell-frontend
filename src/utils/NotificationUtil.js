@@ -2,16 +2,14 @@ import { Platform } from 'react-native';
 import notifee, { AndroidImportance } from '@notifee/react-native';
 
 async function createChannel() {
-  {
-    await notifee.createChannel({
-      id: 'Farewell',
-      name: 'Farewell',
-      lights: false,
-      vibration: true,
-      importance: AndroidImportance.HIGH,
-    });
-    console.log(`Notification channel Farewell created successfully.`);
-  }
+  await notifee.createChannel({
+    id: 'Farewell',
+    name: 'Farewell',
+    lights: false,
+    vibration: true,
+    importance: AndroidImportance.HIGH,
+  });
+  console.log(`Notification channel Farewell created successfully.`);
 }
 
 class NotificationUtil {

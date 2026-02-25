@@ -9,7 +9,6 @@ import { scale } from '@scale';
 import { verticalScale } from '@scale';
 import { fontFamily, fontSize } from '@constants';
 import { useEffect, useRef, useState } from 'react';
-import BottomSheet from '@components/BottomSheetCustom';
 import EarningsFilterBottomSheet from '@screens/components/EarningsFilterBottomSheet';
 const data = {
   todayDate: '12/02/2026',
@@ -118,7 +117,8 @@ const RiderEarnings = ({ navigation }: any) => {
     setEarningsData(filteredData);
   };
 
-  const filterBottomSheetRef = useRef<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _filterBottomSheetRef = useRef<any>(null);
   const [isFilterBottomSheetVisible, setIsFilterBottomSheetVisible] =
     useState(false);
 

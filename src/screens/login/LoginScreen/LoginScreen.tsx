@@ -3,13 +3,11 @@ import { useState } from 'react';
 import {
   View,
   Text,
-  StatusBar,
   ScrollView,
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import Base from '@components/Base';
 import CustomInput from '@components/CustomInput';
 import CustomButton from '@components/CustomButton';
 import color from '@color';
@@ -20,7 +18,6 @@ import { fontFamily, fontSize } from '@constants';
 import HeadingGroup from '@components/HeadingGroupComponent';
 import UserRoleComponent from '@components/UserRoleComponent';
 import images from '@images';
-import { useFocusEffect } from '@react-navigation/native';
 
 import BaseWrapper from '@components/Base';
 
@@ -70,11 +67,13 @@ const LoginScreen = ({ navigation }: any) => {
 
   /* 🔴 Submit validation */
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const validateAll = () => {
     let err: any = {};
 
     const trimmedEmail = email.trim();
-    const trimmedPassword = password.trim();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const _trimmedPassword = password.trim();
 
     if (!trimmedEmail) err.email = 'Email is required';
     else if (!emailRegex.test(trimmedEmail))
@@ -94,9 +93,7 @@ const LoginScreen = ({ navigation }: any) => {
     if (userRole === 'rider') {
       Navigator.resetStackScreen(navigation, 'RiderHomeStack');
     } else {
-      Navigator.resetStackScreen(navigation, 'CustomerHomeStack', {
-        screen: 'CustomerCurrentLocation',
-      });
+      Navigator.resetStackScreen(navigation, 'CustomerHomeStack');
     }
 
     // if (!validateAll()) {
@@ -113,7 +110,6 @@ const LoginScreen = ({ navigation }: any) => {
 
     console.log('Login pressed', { email, password, userRole });
   };
-   
 
   const handleForgotPassword = () => {
     Navigator.pushScreen(navigation, 'ForgotPasswordScreen');
@@ -125,21 +121,20 @@ const LoginScreen = ({ navigation }: any) => {
 
   return (
     <BaseWrapper>
-   <KeyboardAvoidingView
-         style={{ flex: 1 }}
-         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
-       >
-
-      <ScrollView style={{ flex: 1 }}  keyboardShouldPersistTaps="handled">
-        <View style={styles.content}>
-          {/* Header */}
-          <View style={styles.headerContainer}>
-            <HeadingGroup
-              heading="Let's get you Login!"
-              subheading="Enter your information below"
-            />
-          </View>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
+      >
+        <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled">
+          <View style={styles.content}>
+            {/* Header */}
+            <View style={styles.headerContainer}>
+              <HeadingGroup
+                heading="Let's get you Login!"
+                subheading="Enter your information below"
+              />
+            </View>
 
             <View style={styles.userRoleContainer}>
               <UserRoleComponent
@@ -231,13 +226,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     gap: scale(31),
     marginTop: verticalScale(22),
-    marginLeft:scale(4)
+    marginLeft: scale(4),
   },
   content: {
     flex: 1,
     paddingHorizontal: scale(20),
-     paddingTop: verticalScale(70),
-
+    paddingTop: verticalScale(70),
   },
   headerContainer: {
     alignItems: 'flex-start',

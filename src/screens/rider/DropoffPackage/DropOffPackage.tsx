@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Base from '@components/Base';
 import CustomToolbar from '@components/CustomToolbar';
 import CustomButton from '@components/CustomButton';
@@ -9,7 +9,6 @@ import color from '@color';
 import { scale, verticalScale } from '@scale';
 import { fontFamily, fontSize } from '@constants';
 import images from '@images';
-import { showFlashMessage } from '@components/showFlashMessage';
 import Navigator from '@Navigator';
 
 const DropOffPackage = ({ navigation }: any) => {
@@ -17,7 +16,8 @@ const DropOffPackage = ({ navigation }: any) => {
   const [errors, setErrors] = useState<any>({});
 
   /* 🔴 Field Validator */
-  const validateReceipt = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _validateReceipt = () => {
     if (!receiptImage) {
       setErrors((p: any) => ({
         ...p,
@@ -38,10 +38,10 @@ const DropOffPackage = ({ navigation }: any) => {
 
   const handleDone = () => {
     if (!validateAll()) {
-    //   showFlashMessage('Please upload receipt image');
+      //   showFlashMessage('Please upload receipt image');
       return;
     }
-    Navigator.pushScreen(navigation,'RiderDeliveryDetails')
+    Navigator.pushScreen(navigation, 'RiderDeliveryDetails');
 
     console.log('Receipt uploaded:', receiptImage);
   };
@@ -58,11 +58,9 @@ const DropOffPackage = ({ navigation }: any) => {
 
       {/* Content */}
       <View style={styles.content}>
-       
-
         <UploadDocument
-        label='Take a picture of the receipt'
-        labelStyle={styles.label}
+          label="Take a picture of the receipt"
+          labelStyle={styles.label}
           imageData={receiptImage}
           error={errors.receipt}
           centerImage={images.camera}
@@ -86,7 +84,6 @@ const DropOffPackage = ({ navigation }: any) => {
 
 export default DropOffPackage;
 
-
 const styles = StyleSheet.create({
   content: {
     paddingHorizontal: scale(25),
@@ -100,12 +97,11 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: verticalScale(15),
-    
   },
-    cameraWrapper: {
+  cameraWrapper: {
     width: scale(32),
     height: scale(32),
-    borderRadius: scale(32), 
+    borderRadius: scale(32),
     borderWidth: scale(1),
     borderColor: color.primary,
     justifyContent: 'center',

@@ -51,7 +51,11 @@ const CustomerHome = ({ navigation }: any) => {
   ];
 
   return (
-    <Base backgroundColor={color.background} fullScreenMode container_style={styles.container}>
+    <Base
+      backgroundColor={color.background}
+      fullScreenMode
+      container_style={styles.container}
+    >
       {/* Location */}
       <View style={styles.locationRow}>
         <View style={styles.locationLeft}>
@@ -62,53 +66,54 @@ const CustomerHome = ({ navigation }: any) => {
             />
           </View>
 
-          <Pressable onPress={() => {
-            Navigator.pushScreen(navigation, 'SavedAddress');
-          }}>
-            <Text style={styles.locationLabel}>
-              Your Location
-            </Text>
+          <Pressable
+            onPress={() => {
+              Navigator.pushScreen(navigation, 'SavedAddress');
+            }}
+          >
+            <Text style={styles.locationLabel}>Your Location</Text>
 
-            <Text style={styles.locationText} ellipsizeMode='tail' numberOfLines={1}>
+            <Text
+              style={styles.locationText}
+              ellipsizeMode="tail"
+              numberOfLines={1}
+            >
               2972 Westheimer, California
             </Text>
           </Pressable>
         </View>
 
-        <TouchableOpacity style={styles.avatarBox} onPress={() => {
-          Navigator.goToTab(navigation, 'CustomerProfile');
-        }}>
-          <Text style={styles.avatarText}>
-            JS
-          </Text>
+        <TouchableOpacity
+          style={styles.avatarBox}
+          onPress={() => {
+            Navigator.goToTab(navigation, 'CustomerProfile');
+          }}
+        >
+          <Text style={styles.avatarText}>JS</Text>
         </TouchableOpacity>
       </View>
 
       <ScrollView
         style={{ flex: 1 }}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          // paddingBottom: verticalScale(40), // optional bottom space
-        }}
+        contentContainerStyle={
+          {
+            // paddingBottom: verticalScale(40), // optional bottom space
+          }
+        }
       >
-
         {/* Pickup Right Now */}
-        <TouchableOpacity style={styles.pickupCardPrimary}
+        <TouchableOpacity
+          style={styles.pickupCardPrimary}
           onPress={() => {
             Navigator.pushScreen(navigation, 'InstantDelivery');
           }}
         >
           <View style={styles.pickupRow}>
-
-            <ImageComponent
-              source={images.spark}
-              style={styles.pickupIcon}
-            />
+            <ImageComponent source={images.spark} style={styles.pickupIcon} />
 
             <View style={styles.pickupTextBox}>
-              <Text style={styles.pickupTitlePrimary}>
-                Pickup Right Now
-              </Text>
+              <Text style={styles.pickupTitlePrimary}>Pickup Right Now</Text>
 
               <Text style={styles.pickupDescPrimary}>
                 Rider takes your package and delivers instantly
@@ -127,18 +132,16 @@ const CustomerHome = ({ navigation }: any) => {
           onPress={() => {
             Navigator.pushScreen(navigation, 'ScheduleDelivery');
           }}
-          style={styles.pickupCardSecondary}>
+          style={styles.pickupCardSecondary}
+        >
           <View style={styles.pickupRow}>
-
             <ImageComponent
               source={images.time}
               style={styles.pickupIconSecondary}
             />
 
             <View style={styles.pickupTextBox}>
-              <Text style={styles.pickupTitleSecondary}>
-                Schedule a Pickup
-              </Text>
+              <Text style={styles.pickupTitleSecondary}>Schedule a Pickup</Text>
 
               <Text style={styles.pickupDescSecondary}>
                 Rider comes to pick up on your specified date and time
@@ -154,23 +157,20 @@ const CustomerHome = ({ navigation }: any) => {
 
         {/* Section */}
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>
-            Recent Packages
-          </Text>
+          <Text style={styles.sectionTitle}>Recent Packages</Text>
 
-          <Text style={styles.viewAll} onPress={() => {
-            Navigator.goToTab(navigation, 'CustomerHistory');
-          }}>
+          <Text
+            style={styles.viewAll}
+            onPress={() => {
+              Navigator.goToTab(navigation, 'CustomerHistory');
+            }}
+          >
             View all
           </Text>
         </View>
 
         {recentPackages.map((item: any) => (
-          <PackagesItem
-            key={item.id}
-            navigation={navigation}
-            item={item}
-          />
+          <PackagesItem key={item.id} navigation={navigation} item={item} />
         ))}
       </ScrollView>
     </Base>
@@ -301,7 +301,6 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(4),
     lineHeight: verticalScale(16),
     width: '97%',
-
   },
 
   pickupArrowPrimary: {

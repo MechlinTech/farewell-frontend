@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { BackHandler, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  BackHandler,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import Base from '@components/Base';
 import CustomToolbar from '@components/CustomToolbar';
 import CustomInput from '@components/CustomInput';
@@ -8,7 +15,6 @@ import UploadDocument from '@components/UploadDocument';
 
 import color from '@color';
 import { scale, verticalScale } from '@scale';
-import { showFlashMessage } from '@components/showFlashMessage';
 import CenterModal from '@components/CenterModal';
 import ImageComponent from '@components/ImageComponent';
 import images from '@images';
@@ -17,7 +23,6 @@ import Navigator from '@Navigator';
 import SelectionListBottomSheet from '@components/SelectionListBottomSheet';
 
 const AddVehicleDetails = ({ navigation }: any) => {
-
   const [vehicleNumber, setVehicleNumber] = useState('');
   const [model, setModel] = useState('');
   const [capacity, setCapacity] = useState('');
@@ -26,24 +31,25 @@ const AddVehicleDetails = ({ navigation }: any) => {
   const [insurance, setInsurance] = useState<any>();
   const [errors, setErrors] = useState<any>({});
   const [showPendingModal, setShowPendingModal] = useState<boolean>(false);
-  const [vehicleType, setVehicleType] =
-    useState<any>(undefined);
+  const [vehicleType, setVehicleType] = useState<any>(undefined);
 
-  const [showVehicleSheet, setShowVehicleSheet] =
-    useState(false);
-  const [vehicleTypes, setVehicleTypes] = useState<any[]>([
+  const [showVehicleSheet, setShowVehicleSheet] = useState(false);
+  const [vehicleTypes, _setVehicleTypes] = useState<any[]>([
     { id: 1, title: 'Car' },
     { id: 2, title: 'Truck' },
   ]);
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      Navigator.replaceScreen(navigation, 'LoginScreen');
-      return true; // Prevent default back behavior
-    });
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => {
+        Navigator.replaceScreen(navigation, 'LoginScreen');
+        return true; // Prevent default back behavior
+      },
+    );
 
     return () => backHandler.remove();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- navigation is stable from stack
   }, []);
-
 
   /* 🔴 Field Validators */
 
@@ -73,12 +79,12 @@ const AddVehicleDetails = ({ navigation }: any) => {
 
   /* 🔴 Submit Validation */
 
-  const validateAll = () => {
+  // Reserved for future use when form is wired
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _validateAll = () => {
     let err: any = {};
 
-    if (!vehicleType)
-      err.vehicleType =
-        'Vehicle type is required';
+    if (!vehicleType) err.vehicleType = 'Vehicle type is required';
     if (!vehicleNumber) err.vehicleNumber = 'Vehicle number is required';
     if (!model) err.model = 'Model is required';
     if (!capacity) err.capacity = 'Capacity is required';
@@ -101,7 +107,8 @@ const AddVehicleDetails = ({ navigation }: any) => {
   const handleBack = () => {
     Navigator.replaceScreen(navigation, 'LoginScreen');
   };
-  const handleSignUp = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _handleSignUp = () => {
     Navigator.replaceScreen(navigation, 'LoginScreen');
   };
 
@@ -111,7 +118,7 @@ const AddVehicleDetails = ({ navigation }: any) => {
         visible={showPendingModal}
         containerStyle={{ paddingHorizontal: scale(20) }}
       >
-        <View style={{ alignItems: 'center', }}>
+        <View style={{ alignItems: 'center' }}>
           {/* Icon Circle */}
           <View style={styles.iconCircle}>
             <ImageComponent
@@ -150,8 +157,6 @@ const AddVehicleDetails = ({ navigation }: any) => {
     }));
   };
 
-
-
   return (
     <Base backgroundColor={color.background}>
       <CustomToolbar
@@ -166,7 +171,9 @@ const AddVehicleDetails = ({ navigation }: any) => {
 
         <View style={styles.input}>
           <Pressable
-            style={[styles.dropdownField, errors.vehicleType && styles.errorBorder,
+            style={[
+              styles.dropdownField,
+              errors.vehicleType && styles.errorBorder,
             ]}
             onPress={() => setShowVehicleSheet(true)}
           >
@@ -186,12 +193,9 @@ const AddVehicleDetails = ({ navigation }: any) => {
           </Pressable>
 
           {errors.vehicleType && (
-            <Text style={styles.errorText}>
-              {errors.vehicleType}
-            </Text>
+            <Text style={styles.errorText}>{errors.vehicleType}</Text>
           )}
         </View>
-
 
         <CustomInput
           placeholder="Vehicle Number"
@@ -276,15 +280,9 @@ const AddVehicleDetails = ({ navigation }: any) => {
         visible={showVehicleSheet}
         data={vehicleTypes}
         header="Select Vehicle Type"
-        selectedItem={
-          vehicleTypes.find(
-            (v: any) => v.id === vehicleType?.id
-          )
-        }
+        selectedItem={vehicleTypes.find((v: any) => v.id === vehicleType?.id)}
         onPress={handleVehicleSelect}
-        onDismiss={() =>
-          setShowVehicleSheet(false)
-        }
+        onDismiss={() => setShowVehicleSheet(false)}
       />
     </Base>
   );
@@ -445,4 +443,3 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(28),
   },
 });
-

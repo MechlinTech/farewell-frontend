@@ -20,10 +20,8 @@ import LogoutModal from '@components/LogoutModal';
 import RNShare from 'react-native-share';
 
 const CustomerProfile = ({ navigation }: any) => {
-  const [refreshing, setRefreshing] =
-    React.useState(false);
-  const [showLogout, setShowLogout] =
-    React.useState(false);
+  const [refreshing, setRefreshing] = React.useState(false);
+  const [showLogout, setShowLogout] = React.useState(false);
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -43,10 +41,20 @@ const CustomerProfile = ({ navigation }: any) => {
   };
 
   const profileMenus = [
-    { id: 1, title: 'Payments', icon: images.credit_card, route: 'CustomerPayments' },
-    { id: 5, title: 'Settings', icon: images.setting, route: 'CustomerSettings' },
+    {
+      id: 1,
+      title: 'Payments',
+      icon: images.credit_card,
+      route: 'CustomerPayments',
+    },
+    {
+      id: 5,
+      title: 'Settings',
+      icon: images.setting,
+      route: 'CustomerSettings',
+    },
     { id: 6, title: 'Support/FAQ', icon: images.faq, route: 'FAQScreen' },
-    { id: 7, title: 'Invite Friends', icon: images.invitation, },
+    { id: 7, title: 'Invite Friends', icon: images.invitation },
     { id: 8, title: 'Logout', icon: images.signout },
   ];
 
@@ -60,38 +68,32 @@ const CustomerProfile = ({ navigation }: any) => {
         style={styles.container}
         showsVerticalScrollIndicator={false}
         refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
         {/* Profile Header */}
         <View style={styles.profileHeader}>
           <View style={styles.avatar}>
-            <Text style={styles.avatarText}>
-              JS
-            </Text>
+            <Text style={styles.avatarText}>JS</Text>
           </View>
 
-          <Text style={styles.userName}>
-            Jacob Smith
-          </Text>
+          <Text style={styles.userName}>Jacob Smith</Text>
         </View>
 
         <BaseLine style={styles.divider} />
 
         {/* Menu List */}
         {profileMenus.map((item: any) => (
-          <View
-            key={item.id}
-            style={styles.menuItem}
-          >
+          <View key={item.id} style={styles.menuItem}>
             <CustomNavigationItem
               title={item.title}
               icon={item.icon}
               onPress={() =>
-                item.title === 'Logout' ? handleLogout() : item.title === 'Invite Friends' ? shareOptions() : Navigator.pushScreen(navigation, item.route)
+                item.title === 'Logout'
+                  ? handleLogout()
+                  : item.title === 'Invite Friends'
+                  ? shareOptions()
+                  : Navigator.pushScreen(navigation, item.route)
               }
             />
           </View>
@@ -106,7 +108,6 @@ const CustomerProfile = ({ navigation }: any) => {
           Navigator.resetStackScreen(navigation, 'LoginStack');
         }}
       />
-
     </Base>
   );
 };
@@ -141,7 +142,6 @@ const styles = StyleSheet.create({
     color: color.textSecondary,
     lineHeight: verticalScale(34),
     marginTop: verticalScale(8),
-
   },
 
   userName: {

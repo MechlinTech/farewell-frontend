@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   PermissionsAndroid,
   Platform,
   StatusBar,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -232,7 +231,8 @@ function RiderBottomTabStack() {
 }
 
 function CustomRiderBottomTab({ state, navigation }: any) {
-  const insets = useSafeAreaInsets();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _insets = useSafeAreaInsets();
 
   return (
     <View
@@ -356,7 +356,8 @@ function LoginStack() {
 }
 
 function RiderHomeStack() {
-  let navigation = useNavigation();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  let _navigation = useNavigation();
 
   // const handledNotificationRef: any = useRef<string | null>(null);
 
@@ -508,7 +509,8 @@ function RiderHomeStack() {
 }
 
 function CustomerHomeStack() {
-  let navigation = useNavigation();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  let _navigation = useNavigation();
 
   // const handledNotificationRef: any = useRef<string | null>(null);
 
@@ -650,7 +652,10 @@ export const checkApplicationPermission = async () => {
           }
         }
       }
-    } catch (error) { }
+    } catch (
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      _error
+    ) {}
   } else {
     try {
       const authStatus = await messaging().requestPermission();
@@ -770,5 +775,3 @@ const InnerApp = () => {
 };
 
 export default InnerApp;
-
-const styles = StyleSheet.create({});

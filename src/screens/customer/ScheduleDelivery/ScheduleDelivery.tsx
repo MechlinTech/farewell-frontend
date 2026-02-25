@@ -1,18 +1,15 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  Pressable,
   ScrollView,
   Platform,
-  Alert,
   KeyboardAvoidingView,
 } from 'react-native';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import Base from '@components/Base';
 import CustomToolbar from '@components/CustomToolbar';
 import CustomInput from '@components/CustomInput';
 import CustomButton from '@components/CustomButton';
@@ -20,14 +17,12 @@ import UploadDocument from '@components/UploadDocument';
 import ImageComponent from '@components/ImageComponent';
 import ConfirmDetailsSheet from '@screens/components/ConfirmDetailsSheet';
 
-
 import color from '@color';
 import { scale, verticalScale } from '@scale';
 import { fontFamily, fontSize } from '@constants';
 import images from '@images';
 import CustomImageButton from '@components/CustomImageButton';
 import SelectionListBottomSheet from '@components/SelectionListBottomSheet';
-import { showFlashMessage } from '@components/showFlashMessage';
 import PaymentSuccessModal from '@screens/components/PaymentSuccessModal';
 import BaseWrapper from '@components/Base';
 
@@ -38,7 +33,9 @@ const ScheduleDelivery = ({ navigation }: any) => {
   const [showConfirmSheet, setShowConfirmSheet] = useState(false);
   const [labelImage, setLabelImage] = useState<any>(null);
   const [packageQuantity, setPackageQuantity] = useState<any>('1');
-  const [pickupLocation, setPickupLocation] = useState('2972 Westheimer, California');
+  const [pickupLocation, setPickupLocation] = useState(
+    '2972 Westheimer, California',
+  );
   const [courierCompany, setCourierCompany] = useState('');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showCourierSheet, setShowCourierSheet] = useState(false);
@@ -46,7 +43,7 @@ const ScheduleDelivery = ({ navigation }: any) => {
   const [showTimeSheet, setShowTimeSheet] = useState(false);
 
   /* ===================== DATE & TIME LOGIC ===================== */
-  const [timeOptions, setTimeOptions] = React.useState([
+  const [timeOptions, _setTimeOptions] = React.useState([
     { id: 1, title: '10–12' },
     { id: 2, title: '12–2' },
     { id: 3, title: '2–4' },
@@ -65,9 +62,13 @@ const ScheduleDelivery = ({ navigation }: any) => {
   // const [showTimePicker, setShowTimePicker] = useState(false);
 
   const [errors, setErrors] = useState<any>({});
-  const validatePickupLocation = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _validatePickupLocation = () => {
     if (!pickupLocation?.trim())
-      setErrors((p: any) => ({ ...p, pickupLocation: 'Pickup location required' }));
+      setErrors((p: any) => ({
+        ...p,
+        pickupLocation: 'Pickup location required',
+      }));
   };
   const validateCourier = () => {
     if (!courierCompany?.trim())
@@ -81,15 +82,16 @@ const ScheduleDelivery = ({ navigation }: any) => {
     else if (Number(packageQuantity) <= 0)
       setErrors((p: any) => ({ ...p, quantity: 'Must be greater than 0' }));
   };
-  const validateDate = () => {
-    if (!date)
-      setErrors((p: any) => ({ ...p, date: 'Select delivery date' }));
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _validateDate = () => {
+    if (!date) setErrors((p: any) => ({ ...p, date: 'Select delivery date' }));
   };
-  const validateTime = () => {
-    if (!date)
-      setErrors((p: any) => ({ ...p, date: 'Select delivery Time' }));
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _validateTime = () => {
+    if (!date) setErrors((p: any) => ({ ...p, date: 'Select delivery Time' }));
   };
-  const validateImage = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _validateImage = () => {
     if (!labelImage)
       setErrors((p: any) => ({ ...p, image: 'Upload label/QR image' }));
   };
@@ -98,7 +100,8 @@ const ScheduleDelivery = ({ navigation }: any) => {
 
     if (!packageQuantity) err.quantity = 'Quantity required';
     else if (isNaN(packageQuantity)) err.quantity = 'Must be a number';
-    else if (Number(packageQuantity) <= 0) err.quantity = 'Must be greater than 0';
+    else if (Number(packageQuantity) <= 0)
+      err.quantity = 'Must be greater than 0';
 
     if (!date) err.date = 'Select delivery date';
     if (!time) err.time = 'Select delivery time';
@@ -113,12 +116,8 @@ const ScheduleDelivery = ({ navigation }: any) => {
     return Object.keys(err).length === 0;
   };
 
-
-
-
-
   return (
-    <BaseWrapper >
+    <BaseWrapper>
       <CustomToolbar
         title="Schedule Pickup"
         showLeftIcon
@@ -131,7 +130,10 @@ const ScheduleDelivery = ({ navigation }: any) => {
         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(40)}
       >
         <ScrollView
-          contentContainerStyle={[styles.content, { paddingBottom: verticalScale(28) }]}
+          contentContainerStyle={[
+            styles.content,
+            { paddingBottom: verticalScale(28) },
+          ]}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
@@ -149,26 +151,32 @@ const ScheduleDelivery = ({ navigation }: any) => {
                 style={styles.locationicon}
               />
             }
-            onChangeText={(text) => setPickupLocation(text)}
+            onChangeText={text => setPickupLocation(text)}
             containerStyle={styles.input}
           />
 
           {/* Courier Company */}
           <CustomInput
             label="Courier Company"
-            placeholder='Select Company'
+            placeholder="Select Company"
             textStyle={styles.commontextStyle}
             value={courierCompany}
             error={errors.courier}
             leftIcon={
-              <ImageComponent source={images.greenIndicator} style={styles.icon} />
+              <ImageComponent
+                source={images.greenIndicator}
+                style={styles.icon}
+              />
             }
             containerStyle={styles.input}
             rightIcon={
-              <ImageComponent source={images.downarrow} style={styles.righticon} />
+              <ImageComponent
+                source={images.downarrow}
+                style={styles.righticon}
+              />
             }
             onChangeText={text => {
-              setCourierCompany(text)
+              setCourierCompany(text);
 
               setErrors((p: any) => ({ ...p, courier: '' }));
             }}
@@ -184,8 +192,8 @@ const ScheduleDelivery = ({ navigation }: any) => {
             keyboardType="numeric"
             textStyle={styles.textpackage}
             error={errors.quantity}
-            onChangeText={(text) => {
-              setPackageQuantity(text)
+            onChangeText={text => {
+              setPackageQuantity(text);
               setErrors((p: any) => ({ ...p, quantity: '' }));
             }}
             onBlur={validateQuantity}
@@ -200,13 +208,10 @@ const ScheduleDelivery = ({ navigation }: any) => {
               editable={false}
               placeholder="MM/DD/YYYY"
               error={errors.date}
-
               value={date ? date.toLocaleDateString('en-US') : ''}
               textStyle={styles.commontextStyle}
               fieldStyle={styles.commonfield}
-
               onPress={() => {
-
                 setShowDatePicker(true);
               }}
             />
@@ -221,27 +226,27 @@ const ScheduleDelivery = ({ navigation }: any) => {
               textStyle={styles.commontextStyle}
               fieldStyle={styles.commonfield}
               rightIcon={
-                <ImageComponent source={images.downarrow} style={styles.righticon} />
+                <ImageComponent
+                  source={images.downarrow}
+                  style={styles.righticon}
+                />
               }
               editable={false}
               onPress={() => {
                 if (!date) {
-                  showFlashMessage("Please select a date first");
+                  showFlashMessage('Please select a date first');
                   return;
                 }
                 setShowTimeSheet(true);
               }}
               onRightIconPress={() => {
-
                 if (!date) {
-                  showFlashMessage("Please select a date first");
+                  showFlashMessage('Please select a date first');
                   return;
                 }
-                setShowTimeSheet(true)
+                setShowTimeSheet(true);
               }}
-
             />
-
           </View>
 
           {/* Package Size */}
@@ -288,7 +293,6 @@ const ScheduleDelivery = ({ navigation }: any) => {
           <CustomButton
             title="Next"
             containerStyle={styles.button}
-
             onPress={() => {
               if (!validateAll()) {
                 return;
@@ -318,7 +322,6 @@ const ScheduleDelivery = ({ navigation }: any) => {
         visible={showSuccessModal}
         onClose={() => setShowSuccessModal(false)}
         navigation={navigation}
-
       />
 
       {showDatePicker && (
@@ -342,37 +345,28 @@ const ScheduleDelivery = ({ navigation }: any) => {
         />
       )}
 
-
-
       <SelectionListBottomSheet
-
         visible={showCourierSheet}
         onDismiss={() => setShowCourierSheet(false)}
-
         data={courierdata}
-        onPress={(item) => {
+        onPress={item => {
           setErrors((p: any) => ({ ...p, courier: '' }));
           setCourierCompany(item.title);
           setShowCourierSheet(false);
         }}
         selectedItem={courierCompany}
-
-
       />
       <SelectionListBottomSheet
         visible={showTimeSheet}
         onDismiss={() => setShowTimeSheet(false)}
-        onPress={(item) => {
+        onPress={item => {
           setErrors((p: any) => ({ ...p, time: '' }));
           setTime(item.title);
           setShowTimeSheet(false);
         }}
-
         data={timeOptions}
         selectedItem={time}
-
       />
-
     </BaseWrapper>
   );
 };
@@ -383,8 +377,6 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: scale(24),
     paddingTop: verticalScale(21),
-
-
   },
 
   commontextStyle: {
@@ -393,12 +385,12 @@ const styles = StyleSheet.create({
   },
   textpackage: {
     fontSize: fontSize.fontSize_14,
-    paddingLeft: scale(8)
+    paddingLeft: scale(8),
   },
-  mediumContainer:{
-  paddingTop:verticalScale(18),
-    gap:verticalScale(6),
-    paddingBottom:verticalScale(8)
+  mediumContainer: {
+    paddingTop: verticalScale(18),
+    gap: verticalScale(6),
+    paddingBottom: verticalScale(8),
   },
 
   righticon: {
@@ -406,30 +398,28 @@ const styles = StyleSheet.create({
     height: verticalScale(14),
     paddingRight: scale(17),
   },
-    smallContainer:{
-    paddingTop:verticalScale(21),
-    gap:verticalScale(9),
-    paddingBottom:verticalScale(8)
-
+  smallContainer: {
+    paddingTop: verticalScale(21),
+    gap: verticalScale(9),
+    paddingBottom: verticalScale(8),
   },
-  largeContainer:{
-    paddingTop:verticalScale(12),
-    gap:verticalScale(2),
-    paddingBottom:verticalScale(8)
+  largeContainer: {
+    paddingTop: verticalScale(12),
+    gap: verticalScale(2),
+    paddingBottom: verticalScale(8),
   },
 
   commonfield: {
     height: verticalScale(40),
     paddingVertical: 0,
     width: scale(154),
-    color: color.primaryMuted
+    color: color.primaryMuted,
   },
 
   commonlabel: {
     marginBottom: verticalScale(6),
     fontSize: fontSize.fontSize_13,
     fontFamily: fontFamily.weight400,
-
   },
   dateTimeRow: {
     flexDirection: 'row',
@@ -439,7 +429,6 @@ const styles = StyleSheet.create({
 
     gap: scale(16),
   },
-
 
   imgview: {
     width: scale(32),
@@ -482,7 +471,6 @@ const styles = StyleSheet.create({
 
   input: {
     marginBottom: verticalScale(16),
-
   },
   imgcamera: {
     width: scale(16),
@@ -523,7 +511,6 @@ const styles = StyleSheet.create({
   },
 
   sizeTextActive: {
-
     fontFamily: fontFamily.Medium,
   },
 

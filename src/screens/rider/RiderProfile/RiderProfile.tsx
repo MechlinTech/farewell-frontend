@@ -99,8 +99,8 @@ const RiderProfile = ({ navigation }: any) => {
                 item.title === 'Logout'
                   ? handleLogout()
                   : item.title === 'Invite Friends'
-                    ? shareOptions()
-                    : Navigator.pushScreen(navigation, item.route)
+                  ? shareOptions()
+                  : Navigator.pushScreen(navigation, item.route)
               }
             />
           </View>
