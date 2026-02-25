@@ -116,6 +116,19 @@ const ScheduleDelivery = ({ navigation }: any) => {
     return Object.keys(err).length === 0;
   };
 
+  const isFormValid =
+    packageQuantity &&
+    !isNaN(packageQuantity) &&
+    Number(packageQuantity) > 0 &&
+    date &&
+    time &&
+    packageSize &&
+    labelImage &&
+    pickupLocation?.trim() &&
+    courierCompany?.trim();
+
+
+
   return (
     <BaseWrapper>
       <CustomToolbar
@@ -224,7 +237,7 @@ const ScheduleDelivery = ({ navigation }: any) => {
               value={time}
               error={errors.time}
               textStyle={styles.commontextStyle}
-             
+
               fieldStyle={styles.commonfield}
               rightIcon={
                 <ImageComponent
@@ -288,12 +301,17 @@ const ScheduleDelivery = ({ navigation }: any) => {
             centerImageStyle={styles.imgcamera}
             error={errors.image}
             centerImageView={styles.imgview}
-            onImageSelected={img => setLabelImage(img)}
+            onImageSelected={img => {
+              setLabelImage(img)
+              setErrors((p: any) => ({ ...p, image: '' }));
+            }}
           />
 
           <CustomButton
             title="Next"
             containerStyle={styles.button}
+            disabled={!isFormValid}
+
             onPress={() => {
               if (!validateAll()) {
                 return;
@@ -387,6 +405,7 @@ const styles = StyleSheet.create({
   textpackage: {
     fontSize: fontSize.fontSize_14,
     paddingLeft: scale(8),
+    color: color.delivery.value
   },
   mediumContainer: {
     paddingTop: verticalScale(18),
@@ -415,6 +434,7 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     width: scale(154),
     color: color.primaryMuted,
+
   },
 
   commonlabel: {
@@ -429,7 +449,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(8),
 
     gap: scale(16),
-   
+
   },
 
   imgview: {
@@ -518,6 +538,6 @@ const styles = StyleSheet.create({
 
   button: {
     marginTop: verticalScale(15),
-    height:verticalScale(56)
+    height: verticalScale(56)
   },
 });

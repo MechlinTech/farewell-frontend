@@ -161,14 +161,14 @@ const styles = StyleSheet.create({
   messageInput: {
 
   },
-messageField: {
-  minHeight: verticalScale(203), // fixed textarea height
-  textAlignVertical: 'top',      // pushes text + placeholder to top
-  paddingTop: verticalScale(12.64), // spacing from top like figma
- 
-},
+  messageField: {
+    minHeight: verticalScale(203), // fixed textarea height
+    textAlignVertical: 'top',      // pushes text + placeholder to top
+    paddingTop: verticalScale(12.64), // spacing from top like figma
+
+  },
   buttonContainer: {
     marginVertical: verticalScale(20),
-    height:verticalScale(56)
+    height: verticalScale(56)
   },
 });

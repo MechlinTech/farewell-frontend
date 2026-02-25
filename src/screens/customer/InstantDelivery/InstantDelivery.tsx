@@ -46,10 +46,7 @@ const InstantDelivery = ({ navigation }: any) => {
   const [errors, setErrors] = useState<any>({});
   const validatePickupLocation = () => {
     if (!pickupLocation?.trim())
-      setErrors((p: any) => ({
-        ...p,
-        pickupLocation: 'Pickup location required',
-      }));
+      setErrors((p: any) => ({ ...p, pickupLocation: 'Pickup location required', }));
   };
   const validateCourier = () => {
     if (!courierCompany?.trim())
@@ -86,8 +83,18 @@ const InstantDelivery = ({ navigation }: any) => {
     return Object.keys(err).length === 0;
   };
   const handlesend = () => {
+
     setShowPackageSheet(true);
-  };
+  }
+  const isFormValid =
+    packageQuantity &&
+    !isNaN(packageQuantity) &&
+    Number(packageQuantity) > 0 &&
+
+    packageSize &&
+    labelImage &&
+    pickupLocation?.trim() &&
+    courierCompany?.trim();
 
   return (
     <BaseWrapper>
@@ -102,13 +109,12 @@ const InstantDelivery = ({ navigation }: any) => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(20)}
       >
+
         <ScrollView
-          contentContainerStyle={[
-            styles.content,
-            { paddingBottom: verticalScale(28) },
-          ]}
-          showsVerticalScrollIndicator={false}
+          contentContainerStyle={[styles.content, { paddingBottom: verticalScale(28) },
+          ]}showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
+
         >
           {/* Pickup Location */}
 
@@ -117,13 +123,10 @@ const InstantDelivery = ({ navigation }: any) => {
             value={pickupLocation}
             error={errors.pickupLocation}
             textStyle={styles.pickupLocationTextStyle}
-            onChangeText={text => setPickupLocation(text)}
+            onChangeText={text  => setPickupLocation(text)}
             editable={false}
             leftIcon={
-              <ImageComponent
-                source={images.location}
-                style={styles.locationicon}
-              />
+              <ImageComponent source={images.location} style={styles.locationicon} />
             }
             containerStyle={styles.input}
             onBlur={validatePickupLocation}
@@ -136,6 +139,7 @@ const InstantDelivery = ({ navigation }: any) => {
             placeholder="Select Company"
             textStyle={styles.couriertextStyle}
             value={courierCompany}
+
             error={errors.courier}
             onBlur={validateCourier}
             // editable={false}
@@ -145,29 +149,22 @@ const InstantDelivery = ({ navigation }: any) => {
               setErrors((p: any) => ({ ...p, courier: '' }));
             }}
             leftIcon={
-              <ImageComponent
-                source={images.greenIndicator}
-                style={styles.icon}
-              />
+              <ImageComponent source={images.greenIndicator} style={styles.icon} />
             }
             containerStyle={styles.input}
             rightIcon={
-              <ImageComponent
-                source={images.downarrow}
-                style={styles.righticon}
-              />
+              <ImageComponent source={images.downarrow} style={styles.righticon} />
             }
             onRightIconPress={() => {
               setShowCourierSheet(true);
             }}
+
           />
 
           {/* Package Quantity */}
 
-          <CustomInput
-            value={packageQuantity}
-            containerStyle={styles.input}
-            label="Package Quantity"
+          <CustomInput value={packageQuantity} containerStyle={styles.input} label="Package Quantity"
+
             onChangeText={text => {
               setPackageQuantity(text);
               setErrors((p: any) => ({ ...p, quantity: '' }));
@@ -208,7 +205,10 @@ const InstantDelivery = ({ navigation }: any) => {
             />
           </View>
 
+
+
           <UploadDocument
+
             label="Take a picture of the Label/QR code"
             labelStyle={styles.labelimg}
             imageData={labelImage}
@@ -220,12 +220,15 @@ const InstantDelivery = ({ navigation }: any) => {
               setLabelImage(img);
               setErrors((p: any) => ({ ...p, image: '' }));
             }}
+
+
           />
 
           {/* Button */}
           <CustomButton
             title="Next"
             containerStyle={styles.button}
+            disabled={!isFormValid}
             onPress={() => {
               if (!validateAll()) {
                 return;
@@ -241,8 +244,10 @@ const InstantDelivery = ({ navigation }: any) => {
         </ScrollView>
       </KeyboardAvoidingView>
       <SelectionListBottomSheet
+
         visible={showCourierSheet}
         onDismiss={() => setShowCourierSheet(false)}
+
         data={courierdata}
         onPress={item => {
           setErrors((p: any) => ({ ...p, courier: '' }));
@@ -253,6 +258,7 @@ const InstantDelivery = ({ navigation }: any) => {
       />
       <ConfirmDetailsSheet
         visible={showPackageSheet}
+
         onClose={() => setShowPackageSheet(false)}
         onContinue={() => {
           setShowPackageSheet(false);
@@ -260,6 +266,7 @@ const InstantDelivery = ({ navigation }: any) => {
         }}
       />
       <PaymentSuccessModal
+
         visible={showsuccessmodal}
         onClose={() => setshowsuccessmodal(false)}
         navigation={navigation}
@@ -273,6 +280,7 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: scale(24),
     paddingTop: verticalScale(21),
+
   },
   mediumContainer: {
     paddingTop: verticalScale(18),
@@ -287,6 +295,7 @@ const styles = StyleSheet.create({
   textpackage: {
     fontSize: fontSize.fontSize_14,
     color: color.delivery.value,
+    paddingLeft: scale(8)
   },
   smallContainer: {
     paddingTop: verticalScale(21),
