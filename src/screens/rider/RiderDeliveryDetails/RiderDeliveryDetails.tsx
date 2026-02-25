@@ -305,7 +305,8 @@ const styles = StyleSheet.create({
     },
 
     button: {
-        // margin: verticalScale(20),
+        marginHorizontal: verticalScale(20),
+
     },
 
     /* Owner */

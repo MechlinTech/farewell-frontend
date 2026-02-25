@@ -40,12 +40,14 @@ interface CustomInputProps {
   onBlur?: () => void;
   onFocus?: () => void;
   onRightIconPress?: () => void;
+  multiline?: boolean;
 }
 
 export const CustomInput = ({
   label,
   value,
   keyboardType,
+    multiline = false,
   placeholder,
   editable,
   onPress,
@@ -95,6 +97,7 @@ export const CustomInput = ({
         style={[
           styles.pressable,
           fieldStyle,
+   
           enableFocusStyle && isFocused && styles.focused,
           isError && styles.errorBorder,
         ]}
@@ -104,7 +107,10 @@ export const CustomInput = ({
         <View style={{ flex: 1 }}>
           <TextInput
             style={[
-              { fontSize: fontSize.fontSize_16, color: color.inputText },
+              { fontSize: fontSize.fontSize_16, color: color.inputText,flex: 1,
+
+                  textAlignVertical: multiline ? 'top' : 'center',
+              },
               textStyle,
             ]}
             value={value}
@@ -112,6 +118,7 @@ export const CustomInput = ({
             onChangeText={onChangeText}
             editable={editable}
             keyboardType={keyboardType}
+            multiline={multiline}
             placeholderTextColor={color.placeholderText}
             onFocus={() => {
               setIsFocused(true);
@@ -176,10 +183,6 @@ pressable: {
     color: color.delivery.label,
     marginBottom: verticalScale(6),
   },
-  label: {
-    fontSize: fontSize.fontSize_13,
-    fontFamily: fontFamily.Medium,
-    color: color.delivery.label,
-    marginBottom: verticalScale(6),
-  }
+
+ 
 });

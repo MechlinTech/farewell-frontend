@@ -20,16 +20,9 @@ interface BottomSheetProps {
   borderRadius?: number;
 }
 
-const LocationBottomSheet = ({
-  children,
-}: BottomSheetProps) => {
+const LocationBottomSheet = ({ children }: BottomSheetProps) => {
   return (
-    <View
-      style={[
-        styles.sheet,
-
-      ]}
-    >
+    <View style={[styles.sheet]}>
       {children}
       {/* </KeyboardAvoidingView> */}
     </View>
@@ -51,7 +44,8 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: color.background,
     padding: scale(16),
-    borderRadius: scale(25),
+    borderTopLeftRadius: scale(25),
+    borderTopRightRadius: scale(25),
     position: 'absolute',
   },
 });

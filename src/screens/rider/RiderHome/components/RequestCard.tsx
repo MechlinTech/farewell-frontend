@@ -31,8 +31,8 @@ const RequestCard: React.FC<Props> = ({
         <Pressable style={styles.card} onPress={() => {
             Navigator.pushScreen(
                 navigation,
-                'RiderDeliveryDetails',
-                { id: item.id }
+                'TripDetails',
+                { id: item.id, }
             );
         }}>
             {/* Left */}
