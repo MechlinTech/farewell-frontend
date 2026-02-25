@@ -1,20 +1,11 @@
 // import I18n from 'react-native-i18n';
-import {
-  Keyboard,
-  Linking,
-  Platform,
-  View,
-} from 'react-native';
-import { responsiveWidth } from 'react-native-responsive-dimensions';
+import { Keyboard, Linking, Platform, View } from 'react-native';
 import LoadingView from './loadingView';
 import messaging from '@react-native-firebase/messaging';
 import Navigator from './Navigator';
 import { EventType } from '@notifee/react-native';
 import notifee from '@notifee/react-native';
 import { showFlashMessage } from '@components/showFlashMessage';
-
-const SCREEN_WIDTH = 375;
-const SCREEN_HEIGHT = 812;
 
 export class Utils {
   static isLive = false;
@@ -41,7 +32,7 @@ export class Utils {
 
       if (
         data?.id &&
-        data?.notificationType == 'enquiry' &&
+        data?.notificationType === 'enquiry' &&
         type === EventType?.PRESS
       ) {
         Navigator.pushScreen(navigation, 'EnquiryDetail', {
@@ -81,16 +72,14 @@ export class Utils {
     console.log('pushNotificationToken token', token);
   };
 
-  static makePhoneCall = (phoneNumber) => {
+  static makePhoneCall = phoneNumber => {
     if (!phoneNumber) {
       console.log('Phone number missing');
       return;
     }
 
     const url =
-      Platform.OS === 'ios'
-        ? `telprompt:${phoneNumber}`
-        : `tel:${phoneNumber}`;
+      Platform.OS === 'ios' ? `telprompt:${phoneNumber}` : `tel:${phoneNumber}`;
 
     Linking.canOpenURL(url)
       .then(supported => {
@@ -100,9 +89,6 @@ export class Utils {
           showFlashMessage('Unable to open dialer');
         }
       })
-      .catch(err =>
-        console.log('Call error:', err)
-      );
+      .catch(err => console.log('Call error:', err));
   };
-
 }

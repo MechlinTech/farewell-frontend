@@ -4,7 +4,6 @@ import {
   ParamListBase,
 } from '@react-navigation/native';
 
-
 /**
  * Common navigation helper class
  */
@@ -33,11 +32,7 @@ export default class Navigator {
     );
   }
 
-  static replaceScreen(
-    navigation: any,
-    routeName: string,
-    params?: object,
-  ) {
+  static replaceScreen(navigation: any, routeName: string, params?: object) {
     navigation.replace(routeName as never, params as never);
   }
 
@@ -53,23 +48,15 @@ export default class Navigator {
     });
   }
 
-
   static goBack(navigation: NavigationProp<ParamListBase>) {
     navigation.goBack();
   }
 
-  static pushScreen(
-    navigation: any,
-    routeName: string,
-    params?: object,
-  ) {
+  static pushScreen(navigation: any, routeName: string, params?: object) {
     navigation.navigate(routeName as never, params as never);
   }
 
-  static goBackToScreen(
-    navigation: any,
-    howManyScreenBack: number,
-  ) {
+  static goBackToScreen(navigation: any, howManyScreenBack: number) {
     navigation.pop(howManyScreenBack);
   }
 
@@ -77,11 +64,7 @@ export default class Navigator {
     navigation.popToTop();
   }
 
-  static showModal(
-    navigation: any,
-    routeName: string,
-    params?: object,
-  ) {
+  static showModal(navigation: any, routeName: string, params?: object) {
     navigation.navigate(routeName as never, params as never);
   }
 
@@ -119,11 +102,7 @@ export default class Navigator {
     );
   }
 
-  static resetStackScreen(
-    navigation: any,
-    routeName: string,
-    params?: object,
-  ) {
+  static resetStackScreen(navigation: any, routeName: string, params?: object) {
     navigation.dispatch(
       CommonActions.reset({ index: 0, routes: [{ name: routeName, params }] }),
     );

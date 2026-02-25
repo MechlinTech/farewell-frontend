@@ -2,8 +2,6 @@ import * as React from 'react';
 import { useState } from 'react';
 import {
   View,
-  Text,
-  StatusBar,
   ScrollView,
   StyleSheet,
   KeyboardAvoidingView,
@@ -96,8 +94,7 @@ const ForgotPasswordScreen = ({ navigation }: any) => {
       err.password =
         'Weak password — use uppercase, lowercase, number & special character';
 
-    if (!confirmPassword)
-      err.confirmPassword = 'Confirm password is required';
+    if (!confirmPassword) err.confirmPassword = 'Confirm password is required';
     else if (password !== confirmPassword)
       err.confirmPassword = 'Passwords do not match';
 
@@ -180,7 +177,7 @@ const ForgotPasswordScreen = ({ navigation }: any) => {
             <CustomButton
               title="Send"
               onPress={handlesend}
-              pressableStyle={styles.SendButton}
+              containerStyle={styles.SendButton}
               textStyle={styles.SendButtonText}
             />
           </View>

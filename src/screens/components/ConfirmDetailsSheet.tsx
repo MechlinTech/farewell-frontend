@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable, KeyboardAvoidingView, Platform ,
+} from 'react-native';
 import BottomSheetCustom from '@components/BottomSheetCustom';
 import CustomButton from '@components/CustomButton';
 import { scale, verticalScale } from '@scale';
@@ -8,7 +9,7 @@ import { fontFamily, fontSize } from '@constants';
 import ImageComponent from '@components/ImageComponent';
 import images from '@images';
 import CustomInput from '@components/CustomInput';
-import { Keyboard } from "react-native";
+import { Keyboard } from 'react-native';
 
 interface Props {
     visible: boolean;
@@ -19,13 +20,13 @@ interface Props {
 const ConfirmDetailsSheet = ({ visible, onClose, onContinue }: Props) => {
     const [contentHeight, setContentHeight] = React.useState(0);
     const [tipAmount, setTipAmount] = React.useState('0');
-    const [selectedTip, setSelectedTip] = React.useState<string | null>(null);
-    const [error, setError] = React.useState('');
-    const [boxValues, setBoxValues] = React.useState([
+    const [_selectedTip, setSelectedTip] = React.useState<string | null>(null);
+    const [_error, setError] = React.useState('');
+    const [boxValues, _setBoxValues] = React.useState([
         '$3',
         '$5',
         '$7',
-        '$9',
+        '$9'
     ]);
     const handlePresetTip = (value: string) => {
         const numeric = value.replace('$', '');
@@ -68,11 +69,10 @@ const ConfirmDetailsSheet = ({ visible, onClose, onContinue }: Props) => {
         setSelectedTip(null); // typing removes preset selection
         setError('');
     };
-    const numericTip = Number(tipAmount) || 0;
 
 
 
-    const [confirmData, setConfirmData] = React.useState({
+    const [_confirmData, _setConfirmData] = React.useState({
         pickupLocation: '2972 Westheimer, California',
         deliveryLocation: 'FedEx, 27 Samwell California, USA',
         packageWeight: '3KG-8KG',
@@ -82,8 +82,8 @@ const ConfirmDetailsSheet = ({ visible, onClose, onContinue }: Props) => {
         estimatedFee: '$160',
     });
     return (
-        <BottomSheetCustom visible={visible} containerStyle={styles.container} onClose={onClose}>
-
+        <BottomSheetCustom visible={visible} containerStyle={styles.container} onClose={onClose}
+>
             <Text style={styles.sectionLabel}>
                 Confirm Details
             </Text>
@@ -94,11 +94,10 @@ const ConfirmDetailsSheet = ({ visible, onClose, onContinue }: Props) => {
             >
 
 
-
-                <ScrollView showsVerticalScrollIndicator={false}
+<ScrollView
+                 showsVerticalScrollIndicator={false}
                     contentContainerStyle={styles.content}
                     keyboardShouldPersistTaps="handled"
-                >
 
 
 
@@ -106,6 +105,7 @@ const ConfirmDetailsSheet = ({ visible, onClose, onContinue }: Props) => {
 
 
 
+>
                     <View
                         style={{
                             flexDirection: 'row',
@@ -116,7 +116,7 @@ const ConfirmDetailsSheet = ({ visible, onClose, onContinue }: Props) => {
 
                         <View
                             style={{ flex: 1 }}
-                            onLayout={(e) => {
+                            onLayout={e => {
                                 setContentHeight(
                                     e.nativeEvent.layout.height
                                 );
@@ -167,7 +167,7 @@ const ConfirmDetailsSheet = ({ visible, onClose, onContinue }: Props) => {
                         valueStyle={styles.estimatedDeliveryFee}
                         labelStyle={styles.infodelivery}
                     />
-                    <CustomInput label='Add Tip' value={tipAmount} onChangeText={handleTipChange}
+                    <CustomInput label="Add Tip" value={tipAmount} onChangeText={handleTipChange}
                         editable
                         keyboardType="numeric"
                         labelStyle={styles.addtip} fieldStyle={styles.addtipcont}
@@ -195,7 +195,6 @@ const ConfirmDetailsSheet = ({ visible, onClose, onContinue }: Props) => {
 
 
 
-
                     {/* ================= QR ================= */}
 
 
@@ -214,61 +213,53 @@ const ConfirmDetailsSheet = ({ visible, onClose, onContinue }: Props) => {
 };
 
 interface StepperProps {
-    contentHeight: number;
+  contentHeight: number;
 }
 
-const LocationStepper: React.FC<StepperProps> = ({
-    contentHeight,
-}) => {
-    /* Dot spacing height */
-    const DOT_SPACING = verticalScale(18);
+const LocationStepper: React.FC<StepperProps> = ({ contentHeight }) => {
+  /* Dot spacing height */
+  const DOT_SPACING = verticalScale(18);
 
-    /* Calculate dots */
-    const dotCount = Math.max(
-        1,
-        Math.floor(contentHeight / DOT_SPACING) - 2
-    );
+  /* Calculate dots */
+  const dotCount = Math.max(1, Math.floor(contentHeight / DOT_SPACING) - 2);
 
-    const dots = Array.from({
-        length: dotCount,
-    });
+  const dots = Array.from({
+    length: dotCount,
+  });
 
-    return (
-        <View style={styles.stepperContainer}>
-            {/* Pickup Icon */}
-            <ImageComponent
-                source={images.location}
-                style={styles.stepperPickupIcon}
-            />
+  return (
+    <View style={styles.stepperContainer}>
+      {/* Pickup Icon */}
+      <ImageComponent
+        source={images.location}
+        style={styles.stepperPickupIcon}
+      />
 
-            {/* Dynamic Dots */}
-            <View style={{
-                gap: verticalScale(6), marginVertical: verticalScale(5),
-            }}>
-                {dots.map((_, index) => (
-                    <View
-                        key={index}
-                        style={styles.stepperDot}
-                    />
-                ))}
-            </View>
+      {/* Dynamic Dots */}
+      <View
+        style={{
+          gap: verticalScale(6),
+          marginVertical: verticalScale(5),
+        }}
+      >
+        {dots.map((_, index) => (
+          <View key={index} style={styles.stepperDot} />
+        ))}
+      </View>
 
-            {/* Delivery Circle */}
-            {dots.length > 0 && (
-                <View style={styles.stepDeliveryCircleContainer}>
-                    <ImageComponent
-                        source={images.greenIndicator}
-                        style={styles.stepperDeliveryCircle}
-                    />
-                </View>
-            )}
+      {/* Delivery Circle */}
+      {dots.length > 0 && (
+        <View style={styles.stepDeliveryCircleContainer}>
+          <ImageComponent
+            source={images.greenIndicator}
+            style={styles.stepperDeliveryCircle}
+          />
         </View>
-    );
+      )}
+    </View>
+  );
 };
-const LocationBlock = ({
-    label,
-    value,
-    showVendor,
+const LocationBlock = ({ label, value, showVendor
 
 }: any) => {
     return (
@@ -276,16 +267,12 @@ const LocationBlock = ({
 
             {/* LEFT STEPPER */}
 
-            {/* TEXT */}
-            <View style={{ flex: 1, marginLeft: scale(14) }}>
-                <Text style={styles.locationLabel}>
-                    {label}
-                </Text>
+      {/* TEXT */}
+      <View style={{ flex: 1, marginLeft: scale(14) }}>
+        <Text style={styles.locationLabel}>{label}</Text>
 
-                <Text style={styles.locationText}>
-                    {value}
-                </Text>
-            </View>
+        <Text style={styles.locationText}>{value}</Text>
+      </View>
 
             {/* Vendor Logo */}
             {showVendor && (
@@ -297,60 +284,39 @@ const LocationBlock = ({
         </View>
     );
 };
-const InfoItem = ({
-    label,
-    value,
-    full,
-    valueStyle,
-    labelStyle
-}: any) => {
-    return (
-        <View
-            style={[
-                styles.infoItem,
-                full && { width: '100%' },
-            ]}
-        >
-            <Text style={[styles.infoLabel, labelStyle]}>
-                {label}
-            </Text>
+const InfoItem = ({ label, value, full, valueStyle, labelStyle }: any) => {
+  return (
+    <View style={[styles.infoItem, full && { width: '100%' }]}>
+      <Text style={[styles.infoLabel, labelStyle]}>{label}</Text>
 
-            <Text style={[styles.infoValue, valueStyle]}>
-                {value}
-            </Text>
-        </View>
-    );
+      <Text style={[styles.infoValue, valueStyle]}>{value}</Text>
+    </View>
+  );
 };
 const BarcodeBlock = ({ title }: any) => {
-    return (
-        <View style={styles.barcodeBlock}>
+  return (
+    <View style={styles.barcodeBlock}>
+      <Text style={styles.barcodeTitle}>{title}</Text>
 
-            <Text style={styles.barcodeTitle}>
-                {title}
-            </Text>
-
-            <ImageComponent
-                source={images.dummyBarCode}
-                style={styles.barcodeImg}
-            />
-        </View>
-    );
+      <ImageComponent source={images.dummyBarCode} style={styles.barcodeImg} />
+    </View>
+  );
 };
 
 export default ConfirmDetailsSheet;
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: scale(10),
-        height: verticalScale(650)
+        height: verticalScale(650),
     },
     mainbelowcont: {
         flexDirection: 'row',
         gap: scale(11),
-        marginLeft: scale(2)
+        marginLeft: scale(2),
     },
     buttoncontainer: {
         marginHorizontal: scale(16),
-        marginBottom: verticalScale(10)
+        marginBottom: verticalScale(10),
     },
     belowcont: {
         width: scale(45),
@@ -360,14 +326,14 @@ const styles = StyleSheet.create({
         borderWidth: scale(1),
         alignItems: 'center',
         justifyContent: 'center',
+},
 
-    },
     dollarsymbol: {
         height: scale(14),
         width: scale(14),
         paddingRight: scale(2),
+},
 
-    },
     infodelivery: {
         color: color.textMuted,
     },
@@ -390,7 +356,6 @@ const styles = StyleSheet.create({
         color: color.textMuted,
     },
 
-
     button: {
         margin: verticalScale(20),
     },
@@ -399,19 +364,17 @@ const styles = StyleSheet.create({
         color: color.error,
         fontSize: fontSize.fontSize_13,
         fontFamily: fontFamily.weight400,
+},
 
-    },
     addtipcont: {
-        height: verticalScale(41),
+        height: verticalScale(40),
         marginBottom: verticalScale(20),
         paddingVertical: 0,
         color: color.delivery.value,
-        paddingLeft: scale(16)
+        paddingLeft: scale(16),
+  },
 
-
-    },
-
-    /* Owner */
+  /* Owner */
 
     sectionLabel: {
         fontSize: fontSize.fontSize_20,
@@ -419,22 +382,21 @@ const styles = StyleSheet.create({
         color: color.textMain,
         marginBottom: verticalScale(16),
         marginTop: verticalScale(10),
-        marginLeft: scale(26)
+        marginLeft: scale(26),
     },
 
+  ownerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: verticalScale(24),
+    gap: scale(12),
+  },
 
-    ownerRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: verticalScale(24),
-        gap: scale(12)
-    },
-
-    ownerName: {
-        fontSize: fontSize.fontSize_16,
-        fontFamily: fontFamily.weight500,
-        color: color.text,
-    },
+  ownerName: {
+    fontSize: fontSize.fontSize_16,
+    fontFamily: fontFamily.weight500,
+    color: color.text,
+  },
 
     returnText: {
         fontSize: fontSize.fontSize_12,
@@ -444,21 +406,21 @@ const styles = StyleSheet.create({
 
     },
 
-    callBox: {
-        width: scale(32),
-        height: verticalScale(32),
-        borderRadius: verticalScale(5),
-        backgroundColor: color.surfaceSecondary,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+  callBox: {
+    width: scale(32),
+    height: verticalScale(32),
+    borderRadius: verticalScale(5),
+    backgroundColor: color.surfaceSecondary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
-    callIcon: {
-        width: scale(18),
-        height: scale(18),
-    },
+  callIcon: {
+    width: scale(18),
+    height: scale(18),
+  },
 
-    /* Location */
+  /* Location */
 
     locationBlock: {
         marginBottom: verticalScale(18),
@@ -468,29 +430,29 @@ const styles = StyleSheet.create({
 
     },
 
-    locationLabel: {
-        fontSize: fontSize.fontSize_12,
-        fontFamily: fontFamily.weight400,
-        color: color.textMuted,
-        marginBottom: verticalScale(4),
-    },
+  locationLabel: {
+    fontSize: fontSize.fontSize_12,
+    fontFamily: fontFamily.weight400,
+    color: color.textMuted,
+    marginBottom: verticalScale(4),
+  },
 
-    locationRow: {
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-    },
+  locationRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
 
-    locationIcon: {
-        width: scale(12),
-        height: verticalScale(12),
-    },
+  locationIcon: {
+    width: scale(12),
+    height: verticalScale(12),
+  },
 
-    locationText: {
-        flex: 1,
-        fontFamily: fontFamily.weight500,
-        fontSize: fontSize.fontSize_14,
-        color: color.text,
-    },
+  locationText: {
+    flex: 1,
+    fontFamily: fontFamily.weight500,
+    fontSize: fontSize.fontSize_14,
+    color: color.text,
+  },
 
     vendorLogo: {
         width: scale(42),
@@ -500,13 +462,12 @@ const styles = StyleSheet.create({
 
     },
 
-    greenIndicatorIcon: {
-        width: scale(10),
-        height: verticalScale(10),
+  greenIndicatorIcon: {
+    width: scale(10),
+    height: verticalScale(10),
+  },
 
-    },
-
-    /* Grid */
+  /* Grid */
 
     gridRow: {
         flexDirection: 'row',
@@ -516,9 +477,9 @@ const styles = StyleSheet.create({
 
     },
 
-    infoItem: {
-        width: '48%',
-    },
+  infoItem: {
+    width: '48%',
+  },
 
     infoLabel: {
         fontSize: fontSize.fontSize_12,
@@ -527,12 +488,12 @@ const styles = StyleSheet.create({
 
     },
 
-    infoValue: {
-        fontSize: fontSize.fontSize_14,
-        fontFamily: fontFamily.weight500,
-        color: color.textMain,
-        marginTop: verticalScale(2),
-    },
+  infoValue: {
+    fontSize: fontSize.fontSize_14,
+    fontFamily: fontFamily.weight500,
+    color: color.textMain,
+    marginTop: verticalScale(2),
+  },
 
     estimatedDeliveryFee: {
         color: color.delivery.price,
@@ -543,89 +504,80 @@ const styles = StyleSheet.create({
 
     },
 
-    /* Barcode */
+  /* Barcode */
 
-    barcodeBlock: {
-    },
+  barcodeBlock: {},
 
-    barcodeTitle: {
-        fontSize: fontSize.fontSize_12,
-        fontFamily: fontFamily.weight400,
-        color: color.textMuted,
-        marginBottom: verticalScale(10),
-    },
+  barcodeTitle: {
+    fontSize: fontSize.fontSize_12,
+    fontFamily: fontFamily.weight400,
+    color: color.textMuted,
+    marginBottom: verticalScale(10),
+  },
 
     barcodeImg: {
         width: '100%',
         height: verticalScale(102),
         resizeMode: 'contain',
         marginBottom: verticalScale(18),
+},
+  avatarBox: {
+    width: scale(56),
+    height: scale(56),
+    borderRadius: scale(56),
+    backgroundColor: color.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
-    },
-    avatarBox: {
-        width: scale(56),
-        height: scale(56),
-        borderRadius: scale(56),
-        backgroundColor: color.primary,
-        alignItems: 'center',
-        justifyContent: 'center',
-
-    },
-
-    avatarText: {
-        fontFamily: fontFamily.weight500,
-        fontSize: fontSize.fontSize_16,
-        color: color.textSecondary,
-        lineHeight: verticalScale(20),
-        marginTop: verticalScale(4),
-    },
-    locationIconContainer: {
-        width: scale(12),
-        height: verticalScale(12),
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    stepperDotsContainer: {
-        gap: verticalScale(6),
-        marginVertical: verticalScale(4),
-    },
-    /* =========================
+  avatarText: {
+    fontFamily: fontFamily.weight500,
+    fontSize: fontSize.fontSize_16,
+    color: color.textSecondary,
+    lineHeight: verticalScale(20),
+    marginTop: verticalScale(4),
+  },
+  locationIconContainer: {
+    width: scale(12),
+    height: verticalScale(12),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  stepperDotsContainer: {
+    gap: verticalScale(6),
+    marginVertical: verticalScale(4),
+  },
+  /* =========================
    Location Stepper
    ========================= */
 
+  stepperContainer: {
+    alignItems: 'center',
+    width: scale(26),
+  },
 
-    stepperContainer: {
-        alignItems: 'center',
-        width: scale(26),
-    },
+  stepperPickupIcon: {
+    width: scale(20),
+    height: scale(20),
+    resizeMode: 'contain',
+  },
 
-    stepperPickupIcon: {
-        width: scale(20),
-        height: scale(20),
-        resizeMode: 'contain',
-    },
+  stepperDot: {
+    width: scale(4),
+    height: scale(4),
+    borderRadius: scale(4),
+    backgroundColor: color.locationStepperDot,
+  },
 
-    stepperDot: {
-        width: scale(4),
-        height: scale(4),
-        borderRadius: scale(4),
-        backgroundColor: color.locationStepperDot,
-    },
+  stepperDeliveryCircle: {
+    width: scale(10),
+    height: scale(10),
+  },
 
-
-    stepperDeliveryCircle: {
-        width: scale(10),
-        height: scale(10),
-    },
-
-
-    stepDeliveryCircleContainer: {
-        width: scale(12),
-        height: scale(12),
-        alignItems: 'center',
-        justifyContent: 'center',
-
-    },
-
+  stepDeliveryCircleContainer: {
+    width: scale(12),
+    height: scale(12),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
-

@@ -72,8 +72,8 @@ const CustomButton = ({
   borderRadius = DEFAULTS.borderRadius,
 
   textColor = DEFAULTS.textColor,
-  fontSize = DEFAULTS.fontSize,
-  fontFamily = DEFAULTS.fontFamily,
+  fontSize: textFontSize = DEFAULTS.fontSize,
+  fontFamily: textFontFamily = DEFAULTS.fontFamily,
   letterSpacing = DEFAULTS.letterSpacing,
   textStyle,
 
@@ -110,8 +110,8 @@ const CustomButton = ({
           {
             height,
             borderRadius,
-            opacity: disabled ? 0.6 : 1,
           },
+          disabled ? styles.gradientDisabled : styles.gradientEnabled,
           containerStyle,
         ]}
       >
@@ -126,8 +126,8 @@ const CustomButton = ({
             style={[
               {
                 color: textColor,
-                fontSize,
-                fontFamily,
+                fontSize: textFontSize,
+                fontFamily: textFontFamily,
                 letterSpacing,
               },
               textStyle,
@@ -153,6 +153,12 @@ const styles = StyleSheet.create({
   gradient: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  gradientDisabled: {
+    opacity: 0.6,
+  },
+  gradientEnabled: {
+    opacity: 1,
   },
   content: {
     flexDirection: 'row',

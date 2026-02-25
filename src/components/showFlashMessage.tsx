@@ -30,7 +30,7 @@ export const showFlashMessage = (
 };
 
 // ✅ Maps toast type to our custom keys
-const mapToastType = (type: ToastType): 'common' => {
+const mapToastType = (_type: ToastType): 'common' => {
   return 'common'; // All types use the same UI
 };
 

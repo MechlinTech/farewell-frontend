@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  StatusBar,
   ScrollView,
   StyleSheet,
   KeyboardAvoidingView,
@@ -20,7 +19,6 @@ import HeadingGroup from '@components/HeadingGroupComponent';
 import UserRoleComponent from '@components/UserRoleComponent';
 import images from '@images';
 import CheckBox from '@components/CustomCheckbox';
-import { showFlashMessage } from '@components/showFlashMessage';
 
 const SignupScreen = ({ navigation }: any) => {
   const [firstName, setFirstName] = useState('');
@@ -117,6 +115,7 @@ const SignupScreen = ({ navigation }: any) => {
 
   /* 🔴 Submit validation */
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const validateAll = () => {
     let err: any = {};
     const trimmedEmail = email.trim();
@@ -164,7 +163,7 @@ const SignupScreen = ({ navigation }: any) => {
       showFlashMessage("Please Correctly Fill All The Fields")
       return;
     }
-    Navigator.pushScreen(navigation, 'OTPVerificationScreen')
+    Navigator.pushScreen(navigation, 'OTPVerificationScreen');
     console.log('Signup pressed', {
       firstName,
       lastName,
@@ -182,24 +181,21 @@ const SignupScreen = ({ navigation }: any) => {
   };
 
   const handleTermsPress = () => {
-
-    Navigator.pushScreen(navigation, 'TermsAndConditionsScreen')
+    Navigator.pushScreen(navigation, 'TermsAndConditionsScreen');
   };
   const handlePrivacyPress = () => {
-    Navigator.pushScreen(navigation, 'PrivacyPolicyScreen')
-
+    Navigator.pushScreen(navigation, 'PrivacyPolicyScreen');
   };
 
-
   return (
-    <Base  >
+    <Base>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(40)}
       >
         <ScrollView
-          style={{ flexGrow: 1, }}
+          style={{ flexGrow: 1 }}
           contentContainerStyle={{}}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
@@ -322,7 +318,6 @@ const SignupScreen = ({ navigation }: any) => {
                 <View style={styles.checkboxContainer}>
                   <CheckBox
                     isChecked={agreeToTerms}
-
                     onChange={(v: boolean) => {
                       setAgreeToTerms(v);
                       setErrors((p: any) => ({ ...p, agreeToTerms: '' }));
@@ -368,7 +363,6 @@ const SignupScreen = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
   signupContainer: {
-
     paddingHorizontal: scale(20),
   },
   errorText: {
@@ -385,7 +379,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     paddingHorizontal: scale(4),
     marginTop: verticalScale(52),
-
   },
   signupTitle: {
     color: color.textMain,

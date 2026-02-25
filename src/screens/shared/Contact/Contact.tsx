@@ -11,7 +11,6 @@ import CustomToolbar from 'components/CustomToolbar';
 import CustomInput from 'components/CustomInput';
 import CustomButton from 'components/CustomButton';
 
-import color from '@color';
 import { scale, verticalScale } from '@scale';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -79,7 +78,7 @@ const ContactUs = ({ navigation }: any) => {
   };
 
   return (
-    <Base >
+    <Base>
       <CustomToolbar
         title="Contact Us"
         showLeftIcon
@@ -89,15 +88,13 @@ const ContactUs = ({ navigation }: any) => {
 
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : "height"}
-        keyboardVerticalOffset={Platform.OS === 'android' ? verticalScale(40) : 0}
-
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={
+          Platform.OS === 'android' ? verticalScale(40) : 0
+        }
       >
         <ScrollView
-          contentContainerStyle={[
-            styles.content,
-            { flexGrow: 1 }
-          ]}
+          contentContainerStyle={[styles.content, { flexGrow: 1 }]}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
@@ -146,23 +143,15 @@ const ContactUs = ({ navigation }: any) => {
             pressableStyle={styles.buttonContainer}
           />
         </ScrollView>
-
       </KeyboardAvoidingView>
-
-
     </Base>
-
   );
 };
 
 export default ContactUs;
 
-
-
-
 const styles = StyleSheet.create({
   content: {
-
     paddingHorizontal: scale(24),
     paddingTop: verticalScale(34),
   },

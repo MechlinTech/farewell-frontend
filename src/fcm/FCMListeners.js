@@ -1,7 +1,6 @@
 import messaging from '@react-native-firebase/messaging';
 import NotificationUtil from '../utils/NotificationUtil';
 
-
 let lastMessageId = null;
 
 export function registerNotificationListener() {

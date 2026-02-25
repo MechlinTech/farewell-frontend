@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import Base from '@components/Base';
 import CustomToolbar from '@components/CustomToolbar';
 import CustomInput from '@components/CustomInput';
@@ -11,7 +17,6 @@ import color from '@color';
 import { scale, verticalScale } from '@scale';
 import { fontFamily, fontSize } from '@constants';
 import images from '@images';
-import { showFlashMessage } from '@components/showFlashMessage';
 import SelectionListBottomSheet from '@components/SelectionListBottomSheet';
 
 const BankDetails = ({ navigation }: any) => {
@@ -27,14 +32,14 @@ const BankDetails = ({ navigation }: any) => {
   const nameRegex = /^[A-Za-z\s]+$/;
   const accountNumberRegex = /^[0-9]{8,17}$/;
   const branchCodeRegex = /^[0-9]{4,6}$/;
-  const [banks, setBanks] = React.useState([
+  const [banks, _setBanks] = React.useState([
     { id: 1, title: 'HDFC Bank' },
     { id: 2, title: 'ICICI Bank' },
     { id: 3, title: 'Axis Bank' },
     { id: 4, title: 'SBI Bank' },
   ]);
 
-  const [accountTypes, setAccountTypes] = React.useState([
+  const [accountTypes, _setAccountTypes] = React.useState([
     { id: 1, title: 'Savings' },
     { id: 2, title: 'Current' },
   ]);
@@ -49,8 +54,7 @@ const BankDetails = ({ navigation }: any) => {
     } else if (!nameRegex.test(trimmedName)) {
       setErrors((p: any) => ({
         ...p,
-        accountHolderName:
-          'Name cannot contain numbers or special characters',
+        accountHolderName: 'Name cannot contain numbers or special characters',
       }));
     }
   };
@@ -143,7 +147,7 @@ const BankDetails = ({ navigation }: any) => {
   };
 
   return (
-    <Base >
+    <Base>
       <CustomToolbar
         title="Bank Details"
         showLeftIcon
@@ -152,20 +156,17 @@ const BankDetails = ({ navigation }: any) => {
       />
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : "height"}
-        keyboardVerticalOffset={Platform.OS === 'android' ? verticalScale(40) : 0}
-
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={
+          Platform.OS === 'android' ? verticalScale(40) : 0
+        }
       >
         <ScrollView
-          contentContainerStyle={[
-            styles.content,
-            { flexGrow: 1 }
-          ]}
+          contentContainerStyle={[styles.content, { flexGrow: 1 }]}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
           <View style={{ flex: 1 }}>
-
             <CustomInput
               placeholder="Account Holder Name"
               value={accountHolderName}
@@ -252,9 +253,8 @@ const BankDetails = ({ navigation }: any) => {
               containerStyle={styles.input}
             />
 
-
             <UploadDocument
-              label='Upload Document'
+              label="Upload Document"
               labelStyle={styles.uploadLabel}
               imageData={document}
               error={errors.document}
@@ -263,7 +263,6 @@ const BankDetails = ({ navigation }: any) => {
                 setErrors((p: any) => ({ ...p, document: '' }));
               }}
             />
-
           </View>
           <CustomButton
             title="Save"
@@ -271,19 +270,16 @@ const BankDetails = ({ navigation }: any) => {
             pressableStyle={styles.button}
           />
         </ScrollView>
-
-
       </KeyboardAvoidingView>
 
       <SelectionListBottomSheet
         visible={showbanksheet}
         onDismiss={() => setshowbanksheet(false)}
-        onPress={(item) => {
+        onPress={item => {
           setErrors((p: any) => ({ ...p, bank: '' }));
           setBank(item.title);
           setshowbanksheet(false);
         }}
-
         data={banks}
         selectedItem={bank}
       />
@@ -291,12 +287,11 @@ const BankDetails = ({ navigation }: any) => {
       <SelectionListBottomSheet
         visible={showaccountsheet}
         onDismiss={() => setshowaccountsheet(false)}
-        onPress={(item) => {
+        onPress={item => {
           setErrors((p: any) => ({ ...p, accountType: '' }));
           setAccountType(item.title);
           setshowaccountsheet(false);
         }}
-
         data={accountTypes}
         selectedItem={accountType}
       />
@@ -313,8 +308,6 @@ const styles = StyleSheet.create({
 
   input: {
     marginBottom: verticalScale(14),
-
-
   },
   downarrowimg: {
     width: scale(14),
@@ -322,21 +315,17 @@ const styles = StyleSheet.create({
     paddingRight: scale(17),
   },
 
-
   uploadLabel: {
     marginTop: verticalScale(13),
     marginBottom: verticalScale(18),
-
 
     color: color.textSecondary,
     fontSize: fontSize.fontSize_15,
     fontFamily: fontFamily.weight300,
   },
 
-
-
   button: {
     marginTop: verticalScale(30),
-    marginBottom: verticalScale(20)
+    marginBottom: verticalScale(20),
   },
 });

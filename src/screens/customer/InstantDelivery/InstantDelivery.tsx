@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 
-import Base from '@components/Base';
 import CustomToolbar from '@components/CustomToolbar';
 import CustomInput from '@components/CustomInput';
 import CustomButton from '@components/CustomButton';
@@ -13,14 +19,12 @@ import { scale, verticalScale } from '@scale';
 import { fontFamily, fontSize } from '@constants';
 import images from '@images';
 import CustomImageButton from '@components/CustomImageButton';
-import { showFlashMessage } from '@components/showFlashMessage';
 import SelectionListBottomSheet from '@components/SelectionListBottomSheet';
 import ConfirmDetailsSheet from '@screens/components/ConfirmDetailsSheet';
 import PaymentSuccessModal from '@screens/components/PaymentSuccessModal';
 import BaseWrapper from '@components/Base';
 
 const InstantDelivery = ({ navigation }: any) => {
-
   const courierdata = [
     { id: 1, title: 'FedEx' },
     { id: 2, title: 'UPS' },
@@ -31,7 +35,9 @@ const InstantDelivery = ({ navigation }: any) => {
   );
   const [labelImage, setLabelImage] = useState<any>(null);
   const [packageQuantity, setPackageQuantity] = useState<any>('1');
-  const [pickupLocation, setPickupLocation] = useState<any>('2972 Westheimer, California');
+  const [pickupLocation, setPickupLocation] = useState<any>(
+    '2972 Westheimer, California',
+  );
   const [courierCompany, setCourierCompany] = useState<any>('');
   const [showCourierSheet, setShowCourierSheet] = useState(false);
   const [showPackageSheet, setShowPackageSheet] = useState(false);
@@ -40,7 +46,7 @@ const InstantDelivery = ({ navigation }: any) => {
   const [errors, setErrors] = useState<any>({});
   const validatePickupLocation = () => {
     if (!pickupLocation?.trim())
-      setErrors((p: any) => ({ ...p, pickupLocation: 'Pickup location required' }));
+      setErrors((p: any) => ({ ...p, pickupLocation: 'Pickup location required', }));
   };
   const validateCourier = () => {
     if (!courierCompany?.trim())
@@ -54,7 +60,8 @@ const InstantDelivery = ({ navigation }: any) => {
     else if (Number(packageQuantity) <= 0)
       setErrors((p: any) => ({ ...p, quantity: 'Must be greater than 0' }));
   };
-  const validateImage = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _validateImage = () => {
     if (!labelImage)
       setErrors((p: any) => ({ ...p, image: 'Upload label/QR image' }));
   };
@@ -63,9 +70,8 @@ const InstantDelivery = ({ navigation }: any) => {
 
     if (!packageQuantity) err.quantity = 'Quantity required';
     else if (isNaN(packageQuantity)) err.quantity = 'Must be a number';
-    else if (Number(packageQuantity) <= 0) err.quantity = 'Must be greater than 0';
-
-
+    else if (Number(packageQuantity) <= 0)
+      err.quantity = 'Must be greater than 0';
 
     if (!packageSize) err.packageSize = 'Select package size';
 
@@ -96,7 +102,6 @@ const InstantDelivery = ({ navigation }: any) => {
         title="Instant Pickup"
         showLeftIcon
         onLeftPress={() => navigation.goBack()}
-
         navigation={navigation}
       />
       <KeyboardAvoidingView
@@ -106,19 +111,19 @@ const InstantDelivery = ({ navigation }: any) => {
       >
 
         <ScrollView
-          contentContainerStyle={[styles.content, { paddingBottom: verticalScale(28) }]}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps='handled'
+          contentContainerStyle={[styles.content, { paddingBottom: verticalScale(28) },
+          ]}showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
 
         >
           {/* Pickup Location */}
 
           <CustomInput
-            label='Pickup Location'
+            label="Pickup Location"
             value={pickupLocation}
             error={errors.pickupLocation}
             textStyle={styles.pickupLocationTextStyle}
-            onChangeText={(text) => setPickupLocation(text)}
+            onChangeText={text  => setPickupLocation(text)}
             editable={false}
             leftIcon={
               <ImageComponent source={images.location} style={styles.locationicon} />
@@ -131,7 +136,7 @@ const InstantDelivery = ({ navigation }: any) => {
 
           <CustomInput
             label="Courier Company"
-            placeholder='Select Company'
+            placeholder="Select Company"
             textStyle={styles.couriertextStyle}
             value={courierCompany}
 
@@ -139,7 +144,7 @@ const InstantDelivery = ({ navigation }: any) => {
             onBlur={validateCourier}
             // editable={false}
             onChangeText={text => {
-              setCourierCompany(text)
+              setCourierCompany(text);
 
               setErrors((p: any) => ({ ...p, courier: '' }));
             }}
@@ -156,13 +161,12 @@ const InstantDelivery = ({ navigation }: any) => {
 
           />
 
-
           {/* Package Quantity */}
 
-          <CustomInput value={packageQuantity} containerStyle={styles.input} label='Package Quantity'
+          <CustomInput value={packageQuantity} containerStyle={styles.input} label="Package Quantity"
 
-            onChangeText={(text) => {
-              setPackageQuantity(text)
+            onChangeText={text => {
+              setPackageQuantity(text);
               setErrors((p: any) => ({ ...p, quantity: '' }));
             }}
             error={errors.quantity}
@@ -176,7 +180,7 @@ const InstantDelivery = ({ navigation }: any) => {
           <View style={styles.sizeRow}>
             <CustomImageButton
               title="Small"
-              imageSource={images.small}   // svg / image
+              imageSource={images.small} // svg / image
               selected={packageSize === 'Small'}
               onPress={() => setPackageSize('Small')}
               containerStyle={styles.smallContainer}
@@ -205,7 +209,7 @@ const InstantDelivery = ({ navigation }: any) => {
 
           <UploadDocument
 
-            label='Take a picture of the Label/QR code'
+            label="Take a picture of the Label/QR code"
             labelStyle={styles.labelimg}
             imageData={labelImage}
             error={errors.image}
@@ -213,7 +217,7 @@ const InstantDelivery = ({ navigation }: any) => {
             centerImageStyle={styles.imgcamera}
             centerImageView={styles.imgview}
             onImageSelected={img => {
-              setLabelImage(img)
+              setLabelImage(img);
               setErrors((p: any) => ({ ...p, image: '' }));
             }}
 
@@ -245,7 +249,7 @@ const InstantDelivery = ({ navigation }: any) => {
         onDismiss={() => setShowCourierSheet(false)}
 
         data={courierdata}
-        onPress={(item) => {
+        onPress={item => {
           setErrors((p: any) => ({ ...p, courier: '' }));
           setCourierCompany(item.title);
           setShowCourierSheet(false);
@@ -281,17 +285,12 @@ const styles = StyleSheet.create({
   mediumContainer: {
     paddingTop: verticalScale(18),
     gap: verticalScale(6),
-    paddingBottom: verticalScale(8)
-
+    paddingBottom: verticalScale(8),
   },
   couriertextStyle: {
-
-
     fontSize: fontSize.fontSize_14,
     color: color.delivery.value,
-
-
-
+    paddingLeft:scale(8)
   },
   textpackage: {
     fontSize: fontSize.fontSize_14,
@@ -301,13 +300,12 @@ const styles = StyleSheet.create({
   smallContainer: {
     paddingTop: verticalScale(21),
     gap: verticalScale(9),
-    paddingBottom: verticalScale(8)
-
+    paddingBottom: verticalScale(8),
   },
   largeContainer: {
     paddingTop: verticalScale(12),
     gap: verticalScale(2),
-    paddingBottom: verticalScale(8)
+    paddingBottom: verticalScale(8),
   },
   righticon: {
     width: scale(14),
@@ -318,7 +316,6 @@ const styles = StyleSheet.create({
     fontSize: fontSize.fontSize_14,
 
     color: color.delivery.value,
-
   },
   imgview: {
     width: scale(32),
@@ -361,7 +358,6 @@ const styles = StyleSheet.create({
 
   input: {
     marginBottom: verticalScale(16),
-
   },
   imgcamera: {
     width: scale(16),
@@ -393,7 +389,6 @@ const styles = StyleSheet.create({
   sizeBoxActive: {
     borderWidth: 1,
     borderColor: color.primary,
-
   },
 
   sizeText: {
@@ -402,7 +397,6 @@ const styles = StyleSheet.create({
   },
 
   sizeTextActive: {
-
     fontFamily: fontFamily.Medium,
   },
 
