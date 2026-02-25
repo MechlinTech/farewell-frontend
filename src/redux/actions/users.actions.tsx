@@ -1,9 +1,9 @@
 /**
  *  Import action creator constants & dependencies
  */
-import {userConstants} from '../constants';
-import {API_URLS} from '../../configs/url';
-import {Utils} from '@Utils';
+import { userConstants } from '../constants';
+import { API_URLS } from '../../configs/url';
+import { Utils } from '@Utils';
 
 export const beginLogin = (data: any) => ({
   type: userConstants.LOGIN,
@@ -23,7 +23,7 @@ export function Login_user(params: any) {
       console.log('params312321', response);
 
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -51,7 +51,7 @@ export function register(params: any) {
       console.log('params312321', response);
 
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -77,7 +77,7 @@ export function getAllModules() {
       console.log('params312321', response);
 
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -103,7 +103,7 @@ export function getUserModules() {
       console.log('params312321', response);
 
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -130,7 +130,7 @@ export function getModuleDetail(params: any) {
       console.log('params312321', response);
 
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -157,7 +157,7 @@ export function getTopics(params: any) {
       console.log('params312321', response);
 
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -184,7 +184,7 @@ export function getTopicLesson(params: any) {
       console.log('params312321', response);
 
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -211,7 +211,7 @@ export function getOtherLesson(params: any) {
       console.log('params312321', response);
 
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -239,7 +239,7 @@ export function lessonDone(params: any) {
       console.log('params312321', response);
 
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -266,7 +266,7 @@ export function userTopicQuestions(params: any) {
       console.log('params312321', response);
 
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -293,7 +293,7 @@ export function startTopicTest(params: any) {
       console.log('params312321', response);
 
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -321,7 +321,7 @@ export function topicNextQuestion(params: any) {
       console.log('params312321', response);
 
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -349,7 +349,7 @@ export function topicPrevQuestion(params: any) {
       console.log('params312321', response);
 
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -377,7 +377,7 @@ export function saveMyQuestion(params: any) {
       console.log('params312321', response);
 
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -403,7 +403,7 @@ export function questionNote(params: any) {
     try {
       const response = await dispatch(questionNote_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -428,7 +428,7 @@ export function questionHelpText(params: any) {
     try {
       const response = await dispatch(questionHelpText_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -452,7 +452,7 @@ export function getUserModuleHistory() {
     try {
       const response = await dispatch(getUserModuleHistory_api());
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -478,7 +478,7 @@ export function changeUserPassword(params: any) {
     try {
       const response = await dispatch(changeUserPassword_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -523,7 +523,7 @@ export function updateUserProfile(params: any) {
     try {
       const response = await dispatch(updateUserProfile_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -547,7 +547,7 @@ export function getProfile() {
     try {
       const response = await dispatch(getProfile_api());
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -572,7 +572,7 @@ export function topicPracticeReport(params: any) {
     try {
       const response = await dispatch(topicPracticeReport_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -597,7 +597,7 @@ export function startMockTest(params: any) {
     try {
       const response = await dispatch(startMockTest_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -623,7 +623,7 @@ export function prevMockQuestion(params: any) {
     try {
       const response = await dispatch(prevMockQuestion_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -649,7 +649,7 @@ export function nextMockQuestion(params: any) {
     try {
       const response = await dispatch(nextMockQuestion_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -674,7 +674,7 @@ export function endTopicTest(params: any) {
     try {
       const response = await dispatch(endTopicTest_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -698,7 +698,7 @@ export function hazardPreparation() {
     try {
       const response = await dispatch(hazardPreparation_api());
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -722,7 +722,7 @@ export function hazardPreparationVideos() {
     try {
       const response = await dispatch(hazardPreparationVideos_api());
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -747,7 +747,7 @@ export function getGroupVideos(params: any) {
     try {
       const response = await dispatch(getGroupVideos_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -772,7 +772,7 @@ export function startVideoTest(params: any) {
     try {
       const response = await dispatch(startVideoTest_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -796,7 +796,7 @@ export function updateUserDeleteStatus() {
     try {
       const response = await dispatch(updateUserDeleteStatus_api());
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -822,7 +822,7 @@ export function forgetPassword(params: any) {
     try {
       const response = await dispatch(forgetPassword_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -847,7 +847,7 @@ export function mockTestReport(params: any) {
     try {
       const response = await dispatch(mockTestReport_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -872,7 +872,7 @@ export function getAnswerView(params: any) {
     try {
       const response = await dispatch(getAnswerView_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -896,7 +896,7 @@ export function hazardPerceptionTestReport() {
     try {
       const response = await dispatch(hazardPerceptionTestReport_api());
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -922,7 +922,7 @@ export function saveVideo(params: any) {
     try {
       const response = await dispatch(saveVideo_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -948,7 +948,7 @@ export function exceedClicks(params: any) {
     try {
       const response = await dispatch(exceedClicks_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -974,7 +974,7 @@ export function clickedHotspot(params: any) {
     try {
       const response = await dispatch(clickedHotspot_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1000,7 +1000,7 @@ export function endVideoTest(params: any) {
     try {
       const response = await dispatch(endVideoTest_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1025,7 +1025,7 @@ export function getQuestionNote(params: any) {
     try {
       const response = await dispatch(getQuestionNote_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1050,7 +1050,7 @@ export function getNotification(params: any) {
     try {
       const response = await dispatch(getNotification_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1076,7 +1076,7 @@ export function deleteNotification(params: any) {
     try {
       const response = await dispatch(deleteNotification_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1101,7 +1101,7 @@ export function deleteAllNotification() {
     try {
       const response = await dispatch(deleteAllNotification_api());
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1126,7 +1126,7 @@ export function getAllCasestudy(params: any) {
     try {
       const response = await dispatch(getAllCasestudy_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1151,7 +1151,7 @@ export function caseStudyTestDetail(params: any) {
     try {
       const response = await dispatch(caseStudyTestDetail_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1177,7 +1177,7 @@ export function startCaseStudyTest(params: any) {
     try {
       const response = await dispatch(startCaseStudyTest_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1203,7 +1203,7 @@ export function nextCaseStudyQuestion(params: any) {
     try {
       const response = await dispatch(nextCaseStudyQuestion_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1229,7 +1229,7 @@ export function prevCaseStudyQuestion(params: any) {
     try {
       const response = await dispatch(prevCaseStudyQuestion_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1254,7 +1254,7 @@ export function endCsTopicTest(params: any) {
     try {
       const response = await dispatch(endCsTopicTest_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1280,7 +1280,7 @@ export function startCsMockTest(params: any) {
     try {
       const response = await dispatch(startCsMockTest_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1306,7 +1306,7 @@ export function nextCsMockQuestion(params: any) {
     try {
       const response = await dispatch(nextCsMockQuestion_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1332,7 +1332,7 @@ export function prevCsMockQuestion(params: any) {
     try {
       const response = await dispatch(prevCsMockQuestion_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1341,7 +1341,6 @@ export function prevCsMockQuestion(params: any) {
     }
   };
 }
-
 
 export const endCsMockTest_api = (data: any) => ({
   type: userConstants.endCsMockTest,
@@ -1358,7 +1357,7 @@ export function endCsMockTest(params: any) {
     try {
       const response = await dispatch(endCsMockTest_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1383,7 +1382,7 @@ export function getAllCaseStudyTest(params: any) {
     try {
       const response = await dispatch(getAllCaseStudyTest_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1408,7 +1407,7 @@ export function getAllCsMockTest(params: any) {
     try {
       const response = await dispatch(getAllCsMockTest_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1432,7 +1431,7 @@ export function getAvailableModules() {
     try {
       const response = await dispatch(getAvailableModules_api());
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;
@@ -1458,7 +1457,7 @@ export function modulePayment(params: any) {
     try {
       const response = await dispatch(modulePayment_api(params));
       if (response.payload) {
-        const {data} = response.payload;
+        const { data } = response.payload;
         return data;
       }
       throw response;

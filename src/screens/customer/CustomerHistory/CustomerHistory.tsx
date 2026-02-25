@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  ScrollView,
   StyleSheet,
   View,
   Text,
@@ -18,7 +17,6 @@ import InProgressCustomerBookingCard from './components/InProgressCustomerBookin
 import CustomerBookingCard from './components/CustomerBookingCard';
 
 const CustomerHistory = ({ navigation }: any) => {
-
   useFocusEffect(
     React.useCallback(() => {
       // /* Reset pages */
@@ -36,84 +34,76 @@ const CustomerHistory = ({ navigation }: any) => {
       return () => {
         // cleanup if needed
       };
-    }, [])
+    }, []),
   );
-
 
   /* ---------------- ACTIVE TAB ---------------- */
 
-  const [activeTab, setActiveTab] =
-    React.useState<'IN_PROGRESS' | 'COMPLETED'>(
-      'IN_PROGRESS'
-    );
+  const [activeTab, setActiveTab] = React.useState<'IN_PROGRESS' | 'COMPLETED'>(
+    'IN_PROGRESS',
+  );
 
   /* ---------------- IN PROGRESS ---------------- */
 
-  const [inProgressPage, setInProgressPage] =
-    React.useState(1);
+  const [inProgressPage, setInProgressPage] = React.useState(1);
 
-  const [inProgressList, setInProgressList] =
-    React.useState<any[]>([
-      {
-        id: 1,
-        bookingId: 'ORDB1234',
-        location: 'California - FedEx',
-        status: 'IN_PROGRESS',
-        address: 'Abc street, California',
-        pickedAt: '4:00pm',
-      },
-      {
-        id: 2,
-        bookingId: 'ORDB1234',
-        location: 'Texas - DHL',
-        status: 'IN_PROGRESS',
-        address: 'Sunset Blvd, Texas',
-        pickedAt: '3:15pm',
-      },
-      {
-        id: 3,
-        bookingId: 'ORDB1234',
-        location: 'California - FedEx',
-        time: 'Today, 2:43pm',
-        status: 'NOT_STARTED',
-        address: 'Abc street, California',
-        pickedAt: '4:00pm',
-      },
-    ]);
+  const [inProgressList, setInProgressList] = React.useState<any[]>([
+    {
+      id: 1,
+      bookingId: 'ORDB1234',
+      location: 'California - FedEx',
+      status: 'IN_PROGRESS',
+      address: 'Abc street, California',
+      pickedAt: '4:00pm',
+    },
+    {
+      id: 2,
+      bookingId: 'ORDB1234',
+      location: 'Texas - DHL',
+      status: 'IN_PROGRESS',
+      address: 'Sunset Blvd, Texas',
+      pickedAt: '3:15pm',
+    },
+    {
+      id: 3,
+      bookingId: 'ORDB1234',
+      location: 'California - FedEx',
+      time: 'Today, 2:43pm',
+      status: 'NOT_STARTED',
+      address: 'Abc street, California',
+      pickedAt: '4:00pm',
+    },
+  ]);
 
   /* ---------------- COMPLETED ---------------- */
 
-  const [completedPage, setCompletedPage] =
-    React.useState(1);
+  const [completedPage, setCompletedPage] = React.useState(1);
 
-  const [completedList, setCompletedList] =
-    React.useState<any[]>([
-      {
-        id: 101,
-        bookingId: 'ORDB1234',
-        location: 'New York - FedEx',
-        time: '12 Jan 2026, 2:43pm',
-        status: 'COMPLETED',
-      },
-      {
-        id: 102,
-        bookingId: 'ORDB1234',
-        location: 'Chicago - DHL',
-        time: '10 Jan 2026, 11:20am',
-        status: 'COMPLETED',
-      },
-      {
-        id: 103,
-        bookingId: 'ORDB1234',
-        location: 'Florida - UPS',
-        time: '08 Jan 2026, 9:10am',
-        status: 'COMPLETED',
-      },
-    ]);
+  const [completedList, setCompletedList] = React.useState<any[]>([
+    {
+      id: 101,
+      bookingId: 'ORDB1234',
+      location: 'New York - FedEx',
+      time: '12 Jan 2026, 2:43pm',
+      status: 'COMPLETED',
+    },
+    {
+      id: 102,
+      bookingId: 'ORDB1234',
+      location: 'Chicago - DHL',
+      time: '10 Jan 2026, 11:20am',
+      status: 'COMPLETED',
+    },
+    {
+      id: 103,
+      bookingId: 'ORDB1234',
+      location: 'Florida - UPS',
+      time: '08 Jan 2026, 9:10am',
+      status: 'COMPLETED',
+    },
+  ]);
 
-  const [refreshing, setRefreshing] =
-    React.useState(false);
-
+  const [refreshing, setRefreshing] = React.useState(false);
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -128,10 +118,9 @@ const CustomerHistory = ({ navigation }: any) => {
     }, 1000);
   };
 
-
   /* ---------------- PAGINATION ---------------- */
-
-  const loadMoreInProgress = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _loadMoreInProgress = () => {
     setInProgressPage(prev => prev + 1);
 
     setInProgressList(prev => [
@@ -146,8 +135,8 @@ const CustomerHistory = ({ navigation }: any) => {
       },
     ]);
   };
-
-  const loadMoreCompleted = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _loadMoreCompleted = () => {
     setCompletedPage(prev => prev + 1);
 
     setCompletedList(prev => [
@@ -164,9 +153,7 @@ const CustomerHistory = ({ navigation }: any) => {
 
   const EmptyList = () => (
     <View style={styles.emptyContainer}>
-      <Text style={styles.emptyTitle}>
-        No Deliveries Found
-      </Text>
+      <Text style={styles.emptyTitle}>No Deliveries Found</Text>
 
       <Text style={styles.emptySubtitle}>
         {activeTab === 'IN_PROGRESS'
@@ -176,75 +163,51 @@ const CustomerHistory = ({ navigation }: any) => {
     </View>
   );
 
-
   /* ---------------- TABS ---------------- */
 
   const TabSection = React.useMemo(
     () => (
-      <View style={[styles.tabContainer, { marginBottom: activeTab === 'IN_PROGRESS' ? verticalScale(26) : verticalScale(36) }]}>
-        {['IN_PROGRESS', 'COMPLETED'].map(
-          tab => {
-            const isActive =
-              activeTab === tab;
+      <View
+        style={[
+          styles.tabContainer,
+          {
+            marginBottom:
+              activeTab === 'IN_PROGRESS'
+                ? verticalScale(26)
+                : verticalScale(36),
+          },
+        ]}
+      >
+        {['IN_PROGRESS', 'COMPLETED'].map(tab => {
+          const isActive = activeTab === tab;
 
-            return (
-              <TouchableOpacity
-                key={tab}
-                style={[
-                  styles.tabBtn,
-                  isActive &&
-                  styles.activeTab,
-
-                ]}
-                onPress={() =>
-                  setActiveTab(tab as any)
-                }
-              >
-                <Text
-                  style={[
-                    styles.tabText,
-                    isActive &&
-                    styles.activeTabText,
-                  ]}
-                >
-                  {tab === 'IN_PROGRESS'
-                    ? 'In Progress'
-                    : 'Completed'}
-                </Text>
-              </TouchableOpacity>
-            );
-          }
-        )}
+          return (
+            <TouchableOpacity
+              key={tab}
+              style={[styles.tabBtn, isActive && styles.activeTab]}
+              onPress={() => setActiveTab(tab as any)}
+            >
+              <Text style={[styles.tabText, isActive && styles.activeTabText]}>
+                {tab === 'IN_PROGRESS' ? 'In Progress' : 'Completed'}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
       </View>
     ),
-    [activeTab]
+    [activeTab],
   );
 
-
   return (
-    <BaseWrapper
-      backgroundColor={color.background}
-      fullScreenMode
-    >
-      <View
-        style={styles.container}
-
-      >
-        <Text style={styles.title}>
-          Delivery History
-        </Text>
+    <BaseWrapper backgroundColor={color.background} fullScreenMode>
+      <View style={styles.container}>
+        <Text style={styles.title}>Delivery History</Text>
 
         {TabSection}
 
         <FlatList
-          data={
-            activeTab === 'IN_PROGRESS'
-              ? inProgressList
-              : completedList
-          }
-          keyExtractor={item =>
-            item.id.toString()
-          }
+          data={activeTab === 'IN_PROGRESS' ? inProgressList : completedList}
+          keyExtractor={item => item.id.toString()}
           ItemSeparatorComponent={() => (
             <View
               style={{
@@ -270,10 +233,7 @@ const CustomerHistory = ({ navigation }: any) => {
           refreshing={refreshing}
           onRefresh={onRefresh}
           showsVerticalScrollIndicator={false}
-
         />
-
-
       </View>
     </BaseWrapper>
   );
@@ -353,5 +313,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingHorizontal: scale(40),
   },
-
 });

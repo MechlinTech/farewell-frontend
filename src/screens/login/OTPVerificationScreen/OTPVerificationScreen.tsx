@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import BaseWrapper from '@components/Base';
 import HeadingGroup from '@components/HeadingGroupComponent';
 import { scale, verticalScale } from '@scale';
-import { Text, type ViewStyle, Alert, Pressable } from 'react-native';
+import { Text, type ViewStyle, Alert } from 'react-native';
 import { OTPInput, type SlotProps } from 'input-otp-native';
 import type { OTPInputRef } from 'input-otp-native';
 import { useRef, useState } from 'react';
@@ -22,7 +22,7 @@ import Navigator from '@Navigator';
 
 const OTP_LENGTH = 4;
 
-const OTPVerificationScreen = ({ navigation}: any) => {
+const OTPVerificationScreen = ({ navigation }: any) => {
   // const email = useSelector((state: any) => state.users.email);
   const [otp, setOtp] = useState('');
   const ref = useRef<OTPInputRef>(null);
@@ -40,12 +40,8 @@ const OTPVerificationScreen = ({ navigation}: any) => {
     handleVerify(code);
   };
   const handlesend = () => {
- 
-  
-      Navigator.replaceScreen(navigation, 'LoginScreen');
-    
-   
-  }
+    Navigator.replaceScreen(navigation, 'LoginScreen');
+  };
   return (
     <BaseWrapper container_style={styles.container} fullScreenMode={true}>
       <HeadingGroup

@@ -54,5 +54,5 @@ export const userConstants = {
   getAllCaseStudyTest: 'getAllCaseStudyTest',
   getAllCsMockTest: 'getAllCsMockTest',
   getAvailableModules: 'getAvailableModules',
-  modulePayment: 'modulePayment'
+  modulePayment: 'modulePayment',
 };

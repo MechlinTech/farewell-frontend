@@ -1,18 +1,17 @@
-import React from 'react'
-import { View, ActivityIndicator, Image, Text } from 'react-native'
-import styles from './styles'
-import color from '@color'
-
+import React from 'react';
+import { View, ActivityIndicator } from 'react-native';
+import styles from './styles';
+import color from '@color';
 
 const Loader = ({ isLoading = false }) => {
   if (isLoading) {
     return (
-      <View style={{ ...styles.loader, zIndex: 100 }}>
+      <View style={styles.loader}>
         <ActivityIndicator size="large" color={color.purple} />
       </View>
-    )
+    );
   }
-  return null
-}
+  return null;
+};
 
-export default Loader
+export default Loader;

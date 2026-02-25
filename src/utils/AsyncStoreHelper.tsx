@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Utils} from '@Utils';
+import { Utils } from '@Utils';
 
 const USER_DATA = 'userData';
 const SIGNUP_PROGRESS_KEY = 'SIGNUP_PROGRESS';

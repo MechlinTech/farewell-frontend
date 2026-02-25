@@ -2,16 +2,11 @@ import color from '@color';
 import { scale } from '@scale';
 import * as React from 'react';
 import {
-  Modal,
   View,
-  Pressable,
   StyleSheet,
   StyleProp,
   ViewStyle,
-  KeyboardAvoidingView,
-  Platform,
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface BottomSheetProps {
   children: React.ReactNode;

@@ -5,7 +5,7 @@ import {
   TextStyle,
   ViewStyle,
   Pressable,
-  ImageStyle
+  ImageStyle,
 } from 'react-native';
 import * as React from 'react';
 import ImageComponent from './ImageComponent';
@@ -29,31 +29,29 @@ const CustomImageButton = ({
   onPress,
   imageSource,
   selected,
-  selectedStyle,
+  selectedStyle: _selectedStyle,
   imageStyle,
   titleStyle,
-  containerStyle
+  containerStyle,
 }: CustomImageButtonProps) => {
   return (
-      <Pressable
-        onPress={onPress}
-        style={[styles.pressable, selected && styles.selectedStyle,containerStyle]}
-      >
-        <ImageComponent
-          source={imageSource}
-          style={[styles.image, imageStyle]}
-        />
-        <Text style={[styles.title, titleStyle]}>
-          {title}
-        </Text>
-      </Pressable>
+    <Pressable
+      onPress={onPress}
+      style={[
+        styles.pressable,
+        selected && styles.selectedStyle,
+        containerStyle,
+      ]}
+    >
+      <ImageComponent source={imageSource} style={[styles.image, imageStyle]} />
+      <Text style={[styles.title, titleStyle]}>{title}</Text>
+    </Pressable>
   );
 };
 
 export default CustomImageButton;
 
 const styles = StyleSheet.create({
-
   pressable: {
     width: scale(98),
     height: verticalScale(82),
@@ -62,7 +60,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: scale(5),
     backgroundColor: color.primaryMuted,
-    alignSelf:'flex-start'
+    alignSelf: 'flex-start',
   },
   image: {
     width: scale(27),
@@ -76,5 +74,5 @@ const styles = StyleSheet.create({
   selectedStyle: {
     borderColor: color.delivery.selected,
     borderWidth: 1,
-  }
+  },
 });

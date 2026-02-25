@@ -57,7 +57,6 @@ const faqDataArray = [
   },
 ];
 const FAQScreen = ({ navigation }: any) => {
-
   const [faqData, setFaqData] = useState<any>([]);
   useEffect(() => {
     setFaqData(faqDataArray);
@@ -87,15 +86,18 @@ const FAQScreen = ({ navigation }: any) => {
             <Text style={styles.footerTitle}>
               Still Stuck ? We're just a mail away
             </Text>
-            <CustomButton title="Contact Us" onPress={() => {
-              Navigator.pushScreen(navigation, 'ContactUs');
-            }} />
+            <CustomButton
+              title="Contact Us"
+              onPress={() => {
+                Navigator.pushScreen(navigation, 'ContactUs');
+              }}
+            />
           </View>
         </View>
       </ScrollView>
     </BaseWrapper>
   );
-}
+};
 
 export default FAQScreen;
 

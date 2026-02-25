@@ -1,6 +1,6 @@
 import FastImage from '@d11/react-native-fast-image';
 import * as React from 'react';
-import { Image, Pressable, StyleSheet, View, ViewStyle } from 'react-native';
+import { Image, Pressable, View, ViewStyle } from 'react-native';
 
 interface Props {
   source: any;
@@ -67,5 +67,3 @@ const itemPropsAreEqual = (prevProps: Props, nextProps: Props) => {
 };
 
 export default React.memo(ImageComponent, itemPropsAreEqual);
-
-const styles = StyleSheet.create({});

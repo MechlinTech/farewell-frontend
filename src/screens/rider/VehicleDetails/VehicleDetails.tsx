@@ -47,6 +47,7 @@ const VehicleDetails = ({ navigation, route }: any) => {
 
   useEffect(() => {
     handleVehicleData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run only on vehicleId change
   }, [vehicleId]);
 
   const handleVehicleData = () => {
