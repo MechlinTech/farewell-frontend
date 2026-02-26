@@ -1,0 +1,17 @@
+name: Branch Check
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Branch Name
+        run: |
+          BRANCH="${{ github.head_ref }}"
+          REGEX="^(feat|fix|hotfix|chore|docs|refactor|test)/.+"
+          if [[ ! $BRANCH =~ $REGEX ]]; then
+            echo "Invalid branch name '$BRANCH'. Must match $REGEX"
+            exit 1
+          fi
