@@ -7,7 +7,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Check Branch Nameadd
+      - name: Check Branch Name
         run: |
           BRANCH="${{ github.head_ref }}"
           REGEX="^(feat|fix|feature|hotfix|chore|docs|refactor|test)/.+"
