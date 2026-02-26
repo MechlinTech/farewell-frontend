@@ -92,7 +92,7 @@ const ForgotPasswordScreen = ({ navigation }: any) => {
       err.password = 'Password must be 8–16 characters';
     else if (!strongPasswordRegex.test(password))
       err.password =
-        'Weak password — use uppercase, lowercase, number & special character';
+        'Weak password';
 
     if (!confirmPassword) err.confirmPassword = 'Confirm password is required';
     else if (password !== confirmPassword)

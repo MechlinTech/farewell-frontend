@@ -313,6 +313,11 @@ function LoginStack() {
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
         <Stack.Screen
+          name="ScheduleDelivery"
+          component={ScheduleDelivery}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
@@ -593,11 +598,11 @@ function CustomerHomeStack() {
           component={CustomerBottomTabStack}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="ScheduleDelivery"
           component={ScheduleDelivery}
           options={{ headerShown: false }}
-        />
+        /> */}
         <Stack.Screen
           name="InstantDelivery"
           component={InstantDelivery}

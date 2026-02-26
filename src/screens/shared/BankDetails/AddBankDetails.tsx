@@ -195,10 +195,7 @@ const BankDetails = ({ navigation }: any) => {
               placeholder="Select Bank"
               value={bank}
               editable={false}
-              onChangeText={text => {
-                setBank(text);
-                setErrors((p: any) => ({ ...p, bank: '' }));
-              }}
+             
               rightIcon={
                 <ImageComponent
                   source={images.downarrow}
@@ -232,10 +229,7 @@ const BankDetails = ({ navigation }: any) => {
               placeholder="Type of Account"
               editable={false}
               value={accountType}
-              onChangeText={text => {
-                setAccountType(text);
-                setErrors((p: any) => ({ ...p, accountType: '' }));
-              }}
+            
               rightIcon={
                 <ImageComponent
                   source={images.downarrow}

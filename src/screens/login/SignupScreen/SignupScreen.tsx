@@ -19,6 +19,7 @@ import HeadingGroup from '@components/HeadingGroupComponent';
 import UserRoleComponent from '@components/UserRoleComponent';
 import images from '@images';
 import CheckBox from '@components/CustomCheckbox';
+import { showFlashMessage } from '@components/showFlashMessage';
 
 const SignupScreen = ({ navigation }: any) => {
   const [firstName, setFirstName] = useState('');
@@ -96,7 +97,7 @@ const SignupScreen = ({ navigation }: any) => {
       setErrors((p: any) => ({
         ...p,
         password:
-          'Weak password — use uppercase, lowercase, number & special character',
+          'Weak password',
       }));
   };
 
@@ -115,7 +116,7 @@ const SignupScreen = ({ navigation }: any) => {
 
   /* 🔴 Submit validation */
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const validateAll = () => {
     let err: any = {};
     const trimmedEmail = email.trim();
@@ -142,8 +143,7 @@ const SignupScreen = ({ navigation }: any) => {
     else if (password.length < 8 || password.length > 16)
       err.password = 'Password must be 8–16 characters';
     else if (!strongPasswordRegex.test(password))
-      err.password =
-        'Weak password — use uppercase, lowercase, number & special character';
+      err.password = 'Weak password';
 
     if (!confirmPassword) err.confirmPassword = 'Confirm password is required';
     else if (password !== confirmPassword)
@@ -335,9 +335,7 @@ const SignupScreen = ({ navigation }: any) => {
                     </Text>
                   </Text>
                 </View>
-                {errors.agreeToTerms && (
-                  <Text style={styles.errorText}>{errors.agreeToTerms}</Text>
-                )}
+               
               </View>
 
               <CustomButton
