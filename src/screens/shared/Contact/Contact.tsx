@@ -12,15 +12,27 @@ import CustomInput from 'components/CustomInput';
 import CustomButton from 'components/CustomButton';
 
 import { scale, verticalScale } from '@scale';
+import ImageComponent from '@components/ImageComponent';
+import images from '@images';
+import SelectionListBottomSheet from '@components/SelectionListBottomSheet';
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+ 
 const nameRegex = /^[A-Za-z\s]+$/;
 
 const ContactUs = ({ navigation }: any) => {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState<any>({});
+    const [categories, _setCategories] = React.useState([
+      { id: 1, title: 'Payment & Refund' },
+      { id: 2, title: 'Delivery & Rider' },
+      { id: 3, title: 'Account & Verification' },
+      { id: 4, title: 'Technical Issues' },
+      { id: 5, title: 'Safety, Fraud & Policy' },
+    ]);
+    const [category, setCategory] = useState('');
+    const [showCategorySheet, setShowCategorySheet] = useState(false);
 
   /* 🔴 Validators */
 
@@ -35,16 +47,7 @@ const ContactUs = ({ navigation }: any) => {
       }));
   };
 
-  const validateEmail = () => {
-    const trimmedEmail = email.trim();
-    if (!trimmedEmail)
-      setErrors((p: any) => ({ ...p, email: 'Email is required' }));
-    else if (!emailRegex.test(trimmedEmail))
-      setErrors((p: any) => ({
-        ...p,
-        email: 'Enter a valid email address',
-      }));
-  };
+
 
   const validateMessage = () => {
     if (!message.trim())
@@ -54,18 +57,17 @@ const ContactUs = ({ navigation }: any) => {
   const validateAll = () => {
     let err: any = {};
     const trimmedName = name.trim();
-    const trimmedEmail = email.trim();
+    
     const trimmedMessage = message.trim();
 
     if (!trimmedName) err.name = 'Name is required';
     else if (!nameRegex.test(trimmedName))
       err.name = 'Name cannot contain numbers or special characters';
 
-    if (!trimmedEmail) err.email = 'Email is required';
-    else if (!emailRegex.test(trimmedEmail))
-      err.email = 'Enter a valid email address';
+ 
 
     if (!trimmedMessage) err.message = 'Message is required';
+    if (!category) err.category = 'Category is required';
 
     setErrors(err);
     return Object.keys(err).length === 0;
@@ -74,7 +76,7 @@ const ContactUs = ({ navigation }: any) => {
   const handleSubmit = () => {
     if (!validateAll()) return;
 
-    console.log({ name, email, message });
+    console.log({ name, category, message });
   };
 
   return (
@@ -112,14 +114,25 @@ const ContactUs = ({ navigation }: any) => {
             />
 
             <CustomInput
-              placeholder="Email ID"
-              value={email}
-              onChangeText={t => {
-                setEmail(t);
-                setErrors((p: any) => ({ ...p, email: '' }));
+              placeholder="Category"
+              value={category}
+                error={errors.category}
+                 rightIcon={
+                              <ImageComponent
+                                source={images.downarrow}
+                                style={styles.downarrowimg}
+                              />
+                            }
+             
+              onPress={() => {
+                setShowCategorySheet(true)
               }}
-              onBlur={validateEmail}
-              error={errors.email}
+              onRightIconPress={
+                () => setShowCategorySheet(true)
+              }
+              editable={false}
+              
+              
               containerStyle={styles.input}
             />
 
@@ -144,6 +157,17 @@ const ContactUs = ({ navigation }: any) => {
           />
         </ScrollView>
       </KeyboardAvoidingView>
+         <SelectionListBottomSheet
+              visible={showCategorySheet}
+              onDismiss={() => setShowCategorySheet(false)}
+              onPress={item => {
+                setErrors((p: any) => ({ ...p, category: '' }));
+                setCategory(item.title);
+                setShowCategorySheet(false);
+              }}
+              data={categories}
+              selectedItem={category}
+            />
     </Base>
   );
 };
@@ -153,7 +177,7 @@ export default ContactUs;
 const styles = StyleSheet.create({
   content: {
     paddingHorizontal: scale(24),
-    paddingTop: verticalScale(34),
+    paddingTop: verticalScale(27),
   },
   input: {
     marginBottom: verticalScale(14),
@@ -170,5 +194,10 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginVertical: verticalScale(20),
     height: verticalScale(56)
+  },
+  downarrowimg: {
+    width: scale(14),
+    height: verticalScale(14),
+    paddingRight: scale(17),
   },
 });

@@ -4,7 +4,7 @@ import {
     StyleSheet,
     View,
     Text,
-    TouchableOpacity,
+    
 } from 'react-native';
 
 import BaseWrapper from '@components/Base';
@@ -19,7 +19,7 @@ import CustomButton from '@components/CustomButton';
 
 const TripDetails = ({ navigation, route }: any) => {
 
-    const { title, id } = route.params;
+    const { title} = route.params;
     const [contentHeight, setContentHeight] = React.useState(0);
 
     return (
@@ -209,7 +209,7 @@ const InfoItem = ({ label, value }: any) => {
     );
 };
 
-const BarcodeBlock = ({ title }: any) => {
+const BarcodeBlock = () => {
     return (
 
 

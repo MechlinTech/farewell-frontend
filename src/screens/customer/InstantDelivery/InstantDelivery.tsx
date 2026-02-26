@@ -112,7 +112,7 @@ const InstantDelivery = ({ navigation }: any) => {
 
         <ScrollView
           contentContainerStyle={[styles.content, { paddingBottom: verticalScale(28) },
-          ]}showsVerticalScrollIndicator={false}
+          ]} showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
 
         >
@@ -123,7 +123,7 @@ const InstantDelivery = ({ navigation }: any) => {
             value={pickupLocation}
             error={errors.pickupLocation}
             textStyle={styles.pickupLocationTextStyle}
-            onChangeText={text  => setPickupLocation(text)}
+            onChangeText={text => setPickupLocation(text)}
             editable={false}
             leftIcon={
               <ImageComponent source={images.location} style={styles.locationicon} />
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
   couriertextStyle: {
     fontSize: fontSize.fontSize_14,
     color: color.delivery.value,
-    paddingLeft:scale(8)
+    paddingLeft: scale(8)
   },
   textpackage: {
     fontSize: fontSize.fontSize_14,
