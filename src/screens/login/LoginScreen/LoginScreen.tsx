@@ -67,7 +67,7 @@ const LoginScreen = ({ navigation }: any) => {
 
   /* 🔴 Submit validation */
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  
   const validateAll = () => {
     let err: any = {};
 

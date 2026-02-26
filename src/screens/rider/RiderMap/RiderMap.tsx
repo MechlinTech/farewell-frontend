@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import BaseWrapper from '@components/Base';
 import RiderMapBottomSheet from './components/RiderMapBottomSheet';
 import color from '@color';

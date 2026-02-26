@@ -2,19 +2,19 @@ import color from '@color';
 import { scale, verticalScale } from '@scale';
 import * as React from 'react';
 import {
-  Modal,
+  
   View,
-  Pressable,
+  
   StyleSheet,
   StyleProp,
   ViewStyle,
-  KeyboardAvoidingView,
-  Platform,
+ 
+ 
   Text,
   TouchableOpacity,
 } from 'react-native';
 import ImageComponent from '@components/ImageComponent';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import { fontFamily, fontSize } from '@constants';
 import HeadingGroup from '@components/HeadingGroupComponent';
 import images from '@images';
@@ -22,7 +22,7 @@ import { Utils } from '@Utils';
 import Rating from '@components/Rating';
 import CustomButton from '@components/CustomButton';
 import BaseLine from '@components/BaseLine';
-import { useState } from 'react';
+
 import Navigator from '@Navigator';
 import { useNavigation } from '@react-navigation/native';
 
@@ -46,9 +46,6 @@ const RiderMapBottomSheetContent = ({
     setData({ ...data, state: 1 });
   };
 
-  const handlePickupMorePackages = () => {
-    setData({ ...data, state: 0 });
-  };
 
   const handleDeliverToCourier = () => {
     setData({ ...data, state: 2 });
