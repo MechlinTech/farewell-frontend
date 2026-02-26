@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  StatusBar,
   ScrollView,
   StyleSheet,
   KeyboardAvoidingView,
@@ -34,7 +33,9 @@ const SignupScreen = ({ navigation }: any) => {
   const [errors, setErrors] = useState<any>({});
   const [phone, setPhone] = useState('');
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const strongPasswordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
 
   /* 🔴 Field validators */
 
@@ -92,6 +93,11 @@ const SignupScreen = ({ navigation }: any) => {
         ...p,
         password: 'Password must be 8–16 characters',
       }));
+    else if (!strongPasswordRegex.test(password))
+      setErrors((p: any) => ({
+        ...p,
+        password: 'Weak password',
+      }));
   };
 
   const validateConfirmPassword = () => {
@@ -134,6 +140,8 @@ const SignupScreen = ({ navigation }: any) => {
       err.password = 'Password cannot contain spaces';
     else if (password.length < 8 || password.length > 16)
       err.password = 'Password must be 8–16 characters';
+    else if (!strongPasswordRegex.test(password))
+      err.password = 'Weak password';
 
     if (!confirmPassword) err.confirmPassword = 'Confirm password is required';
     else if (password !== confirmPassword)
@@ -148,12 +156,11 @@ const SignupScreen = ({ navigation }: any) => {
   };
 
   const handleSignup = () => {
-
-    //     if (!validateAll()) {
-    //  showFlashMessage("Please Fill All The Fields")
-    //       return;
-    //     }
-    Navigator.pushScreen(navigation, 'OTPVerificationScreen')
+    if (!validateAll()) {
+      showFlashMessage('Please Correctly Fill All The Fields');
+      return;
+    }
+    Navigator.pushScreen(navigation, 'OTPVerificationScreen');
     console.log('Signup pressed', {
       firstName,
       lastName,
@@ -171,24 +178,21 @@ const SignupScreen = ({ navigation }: any) => {
   };
 
   const handleTermsPress = () => {
-
-    Navigator.pushScreen(navigation, 'TermsAndConditionsScreen')
+    Navigator.pushScreen(navigation, 'TermsAndConditionsScreen');
   };
   const handlePrivacyPress = () => {
-    Navigator.pushScreen(navigation, 'PrivacyPolicyScreen')
-
+    Navigator.pushScreen(navigation, 'PrivacyPolicyScreen');
   };
 
-
   return (
-    <Base  >
+    <Base>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(40)}
       >
         <ScrollView
-          style={{ flexGrow: 1, }}
+          style={{ flexGrow: 1 }}
           contentContainerStyle={{}}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
@@ -311,7 +315,6 @@ const SignupScreen = ({ navigation }: any) => {
                 <View style={styles.checkboxContainer}>
                   <CheckBox
                     isChecked={agreeToTerms}
-
                     onChange={(v: boolean) => {
                       setAgreeToTerms(v);
                       setErrors((p: any) => ({ ...p, agreeToTerms: '' }));
@@ -329,15 +332,12 @@ const SignupScreen = ({ navigation }: any) => {
                     </Text>
                   </Text>
                 </View>
-                {errors.agreeToTerms && (
-                  <Text style={styles.errorText}>{errors.agreeToTerms}</Text>
-                )}
               </View>
 
               <CustomButton
                 title="Continue"
                 onPress={handleSignup}
-                containerStyle={styles.signupButton}
+                pressableStyle={styles.signupButton}
                 textStyle={styles.signupButtonText}
               />
             </View>
@@ -357,7 +357,6 @@ const SignupScreen = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
   signupContainer: {
-
     paddingHorizontal: scale(20),
   },
   errorText: {
@@ -374,7 +373,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     paddingHorizontal: scale(4),
     marginTop: verticalScale(52),
-
   },
   signupTitle: {
     color: color.textMain,
@@ -440,7 +438,7 @@ const styles = StyleSheet.create({
   },
 
   signupButton: {
-    height: verticalScale(55),
+    height: verticalScale(56),
     marginTop: verticalScale(8),
   },
   signupButtonText: {

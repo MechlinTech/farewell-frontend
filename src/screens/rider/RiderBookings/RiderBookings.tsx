@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  ScrollView,
   StyleSheet,
   View,
   Text,
@@ -17,7 +16,7 @@ import RiderBookingCard from './components/RiderBookingCard';
 import InProgressBookingCard from './components/InProgressBookingCard';
 import { useFocusEffect } from '@react-navigation/native';
 
-const RiderBookings = () => {
+const RiderBookings = ({ navigation }: any) => {
   useFocusEffect(
     React.useCallback(() => {
       // /* Reset pages */
@@ -120,8 +119,8 @@ const RiderBookings = () => {
   };
 
   /* ---------------- PAGINATION ---------------- */
-
-  const loadMoreInProgress = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _loadMoreInProgress = () => {
     setInProgressPage(prev => prev + 1);
 
     setInProgressList(prev => [
@@ -136,8 +135,8 @@ const RiderBookings = () => {
       },
     ]);
   };
-
-  const loadMoreCompleted = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _loadMoreCompleted = () => {
     setCompletedPage(prev => prev + 1);
 
     setCompletedList(prev => [
@@ -223,9 +222,9 @@ const RiderBookings = () => {
           }}
           renderItem={({ item }) =>
             item.status === 'IN_PROGRESS' ? (
-              <InProgressBookingCard item={item} />
+              <InProgressBookingCard item={item} navigation={navigation} />
             ) : (
-              <RiderBookingCard item={item} />
+              <RiderBookingCard item={item} navigation={navigation} />
             )
           }
           refreshing={refreshing}

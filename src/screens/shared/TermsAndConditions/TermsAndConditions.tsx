@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { Text, StyleSheet, ScrollView } from 'react-native';
 import BaseWrapper from 'components/Base';
 import color from '@color';
 import HTMLView from 'react-native-htmlview';

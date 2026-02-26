@@ -1,14 +1,6 @@
 import * as React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {
-  View,
-  StyleSheet,
-  StatusBar,
-  Platform,
-
-  Keyboard,
-  TextInput,
-} from 'react-native';
+import { View, StyleSheet, Keyboard, TextInput } from 'react-native';
 import TranslucentStatusBar from './TranslucentStatusBar';
 import color from '@color';
 import { useEffect } from 'react';
@@ -46,24 +38,18 @@ const BaseWrapper: React.FC<Props> = ({
   return (
     <SafeAreaView
       edges={edges}
-      style={[
-        styles.safeAreaView,
-        { backgroundColor: backgroundColor },
-      ]}
+      style={[styles.safeAreaView, { backgroundColor: backgroundColor }]}
     >
       <View style={styles.contentContainer}>
         <TranslucentStatusBar
           container_style={container_style}
           translucent={fullScreenMode}
-          backgroundColor={
-            fullScreenMode ? 'transparent' : backgroundColor
-          }
+          backgroundColor={fullScreenMode ? 'transparent' : backgroundColor}
           barStyle="dark-content"
         >
           {children}
         </TranslucentStatusBar>
       </View>
-
     </SafeAreaView>
   );
 };

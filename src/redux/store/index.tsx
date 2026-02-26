@@ -1,12 +1,10 @@
-import {configureStore} from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import reducers from '../reducers';
-import thunk from 'redux-thunk';
 import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
-import {Utils} from '../../utils/Utils';
-import {showFlashMessage} from 'components/showFlashMessage';
-import Navigator from '@Navigator';
-import {resetToLogin} from '@redux/NavigationService';
+import { Utils } from '../../utils/Utils';
+import { showFlashMessage } from 'components/showFlashMessage';
+import { resetToLogin } from '@redux/NavigationService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const live = '';
@@ -19,14 +17,17 @@ export const getAuthHeader = (useAuth = true) => {
   if (!useAuth) return {}; // ⛔ Don't attach Authorization header
   console.log('token3213123', Utils.loggedInUser);
   const token = Utils.loggedInUser?.token;
-  return token ? {Authorization: `Bearer ${token}`} : {};
+  return token ? { Authorization: `Bearer ${token}` } : {};
 };
 
 const middlewareConfig = {
   interceptors: {
     request: [
       {
-        success({getState, dispatch, getSourceAction}: any, req: any) {
+        success(
+          { getState: _getState, dispatch: _dispatch, getSourceAction }: any,
+          req: any,
+        ) {
           const sourceAction = getSourceAction;
 
           const useAuth = sourceAction?.meta?.useAuth ?? true;
@@ -52,10 +53,16 @@ const middlewareConfig = {
     ],
     response: [
       {
-        success({getState, dispatch, getSourceAction}, response) {
+        success(
+          { getState: _gS, dispatch: _d, getSourceAction: _gsa },
+          response,
+        ) {
           return response;
         },
-        error({getState, dispatch, getSourceAction}, error) {
+        error(
+          { getState: _gS2, dispatch: _d2, getSourceAction: _gsa2 },
+          error,
+        ) {
           console.log('err34232', error);
 
           if (!axios.isCancel(error)) {

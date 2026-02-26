@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, Text, StyleProp, TextStyle, StyleSheet } from 'react-native';
 import { fontFamily, fontSize } from '@constants';
-import { scale, verticalScale } from '@scale';
+import { verticalScale } from '@scale';
 import color from '@color';
 
 interface HeadingGroupProps {
@@ -39,7 +39,7 @@ const style = StyleSheet.create({
   heading: {
     color: color.textMain,
     fontSize: fontSize.fontSize_20,
-    fontFamily: fontFamily.weight800,
+    fontFamily: fontFamily.Heavy,
     marginBottom: verticalScale(6),
   },
   subheading: {

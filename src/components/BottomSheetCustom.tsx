@@ -28,7 +28,7 @@ const BottomSheet = ({
   children,
   containerStyle,
   backdropOpacity = 0.4,
-borderRadius = scale(18),
+  borderRadius = scale(18),
 }: BottomSheetProps) => {
   const insets = useSafeAreaInsets();
 

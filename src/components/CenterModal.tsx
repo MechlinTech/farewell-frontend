@@ -16,12 +16,10 @@ import { scale } from '@scale';
 interface CenterModalProps {
   visible: boolean;
   onClose?: () => void;
-  disableClose?: boolean;   // ✅ NEW
+  disableClose?: boolean; // ✅ NEW
 
   containerStyle?: StyleProp<ViewStyle>;
   modalStyle?: StyleProp<ViewStyle>;
-
-
 
   animationType?: 'none' | 'slide' | 'fade';
   transparent?: boolean;
@@ -38,8 +36,6 @@ const CenterModal = ({
   containerStyle,
   modalStyle,
 
-
-
   animationType = 'fade',
   transparent = true,
   statusBarTranslucent = true,
@@ -52,7 +48,7 @@ const CenterModal = ({
       transparent={transparent}
       animationType={animationType}
       statusBarTranslucent={statusBarTranslucent}
-      onRequestClose={disableClose ? () => { } : onClose}
+      onRequestClose={disableClose ? () => {} : onClose}
     >
       {/* Backdrop */}
       <Pressable
@@ -64,17 +60,7 @@ const CenterModal = ({
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : undefined}
           >
-          
-            <View
-              style={[
-                styles.modal,
-                modalStyle,
-
-              ]}
-            >
-              {children}
-              </View>
-            
+            <View style={[styles.modal, modalStyle]}>{children}</View>
           </KeyboardAvoidingView>
         </Pressable>
       </Pressable>
@@ -90,19 +76,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-    
   },
   modal: {
     backgroundColor: color.background,
     borderRadius: scale(32),
- paddingHorizontal:scale(33),
+    paddingHorizontal: scale(33),
     paddingTop: scale(40),
     paddingBottom: scale(36),
     marginTop: scale(30),
     marginBottom: scale(30),
-    
-
   },
-  
-
 });

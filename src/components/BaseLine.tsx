@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { View, StyleSheet, ViewStyle } from 'react-native';
 import color from '@color';
-import { scale, verticalScale } from '@scale';
+import { scale } from '@scale';
 
 interface Props {
   style?: ViewStyle;

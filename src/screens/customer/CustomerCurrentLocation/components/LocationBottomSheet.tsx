@@ -1,17 +1,7 @@
 import color from '@color';
 import { scale } from '@scale';
 import * as React from 'react';
-import {
-  Modal,
-  View,
-  Pressable,
-  StyleSheet,
-  StyleProp,
-  ViewStyle,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 
 interface BottomSheetProps {
   children: React.ReactNode;
@@ -20,16 +10,9 @@ interface BottomSheetProps {
   borderRadius?: number;
 }
 
-const LocationBottomSheet = ({
-  children,
-}: BottomSheetProps) => {
+const LocationBottomSheet = ({ children }: BottomSheetProps) => {
   return (
-    <View
-      style={[
-        styles.sheet,
-
-      ]}
-    >
+    <View style={[styles.sheet]}>
       {children}
       {/* </KeyboardAvoidingView> */}
     </View>
@@ -51,7 +34,8 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: color.background,
     padding: scale(16),
-    borderRadius: scale(25),
+    borderTopLeftRadius: scale(25),
+    borderTopRightRadius: scale(25),
     position: 'absolute',
   },
 });

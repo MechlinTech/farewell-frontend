@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   PermissionsAndroid,
   Platform,
   StatusBar,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -62,6 +61,8 @@ import SavedAddress from './customer/SavedAddress/SavedAddress';
 import CustomerCurrentLocation from './customer/CustomerCurrentLocation/CustomerCurrentLocation';
 import Navigator from '@Navigator';
 import RiderEarnings from './rider/RiderEarnings/RiderEarnings';
+import TripDetails from './rider/TripDetails/TripDetails';
+import RiderMap from './rider/RiderMap/RiderMap';
 
 const Stack = createNativeStackNavigator();
 
@@ -232,7 +233,8 @@ function RiderBottomTabStack() {
 }
 
 function CustomRiderBottomTab({ state, navigation }: any) {
-  const insets = useSafeAreaInsets();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _insets = useSafeAreaInsets();
 
   return (
     <View
@@ -311,6 +313,11 @@ function LoginStack() {
     <React.Suspense>
       <Stack.Navigator id="LoginStack">
         <Stack.Screen
+          name="ScheduleDelivery"
+          component={ScheduleDelivery}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
@@ -356,7 +363,8 @@ function LoginStack() {
 }
 
 function RiderHomeStack() {
-  let navigation = useNavigation();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  let _navigation = useNavigation();
 
   // const handledNotificationRef: any = useRef<string | null>(null);
 
@@ -438,11 +446,6 @@ function RiderHomeStack() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="TermsAndConditionsScreen"
-          component={TermsAndConditionsScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
           name="FAQScreen"
           component={FAQScreen}
           options={{ headerShown: false }}
@@ -502,13 +505,24 @@ function RiderHomeStack() {
           component={DropOffPackage}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="TripDetails"
+          component={TripDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="RiderMap"
+          component={RiderMap}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </React.Suspense>
   );
 }
 
 function CustomerHomeStack() {
-  let navigation = useNavigation();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  let _navigation = useNavigation();
 
   // const handledNotificationRef: any = useRef<string | null>(null);
 
@@ -584,11 +598,11 @@ function CustomerHomeStack() {
           component={CustomerBottomTabStack}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="ScheduleDelivery"
           component={ScheduleDelivery}
           options={{ headerShown: false }}
-        />
+        /> */}
         <Stack.Screen
           name="InstantDelivery"
           component={InstantDelivery}
@@ -650,7 +664,10 @@ export const checkApplicationPermission = async () => {
           }
         }
       }
-    } catch (error) { }
+    } catch (
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      _error
+    ) {}
   } else {
     try {
       const authStatus = await messaging().requestPermission();
@@ -770,5 +787,3 @@ const InnerApp = () => {
 };
 
 export default InnerApp;
-
-const styles = StyleSheet.create({});

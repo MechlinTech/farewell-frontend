@@ -33,7 +33,7 @@ interface CustomToolbarProps {
   children?: React.ReactNode;
   navigation: any;
   rightIconPressStyle?: any;
-  rightIconStyle?: any
+  rightIconStyle?: any;
   rightView?: () => React.ReactNode;
 }
 
@@ -101,12 +101,14 @@ export const CustomToolbar = ({
         <Pressable onPress={onRightPress} style={rightIconPressStyle}>
           <ImageComponent
             source={rightIcon}
-            style={[{ width: scale(20), height: verticalScale(20) }, rightIconStyle]}
+            style={[
+              { width: scale(20), height: verticalScale(20) },
+              rightIconStyle,
+            ]}
           />
         </Pressable>
       )}
       {rightView && rightView()}
-
     </View>
   );
 };
