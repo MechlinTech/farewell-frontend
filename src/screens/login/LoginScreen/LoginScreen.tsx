@@ -34,7 +34,7 @@ const LoginScreen = ({ navigation }: any) => {
   const [userRole, setUserRole] = React.useState<string>('customer');
 
   const [errors, setErrors] = useState<any>({});
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   /* 🔴 Field validators */
 
@@ -67,7 +67,6 @@ const LoginScreen = ({ navigation }: any) => {
 
   /* 🔴 Submit validation */
 
-  
   const validateAll = () => {
     let err: any = {};
 

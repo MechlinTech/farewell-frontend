@@ -195,7 +195,6 @@ const BankDetails = ({ navigation }: any) => {
               placeholder="Select Bank"
               value={bank}
               editable={false}
-             
               rightIcon={
                 <ImageComponent
                   source={images.downarrow}
@@ -203,8 +202,7 @@ const BankDetails = ({ navigation }: any) => {
                 />
               }
               onPress={() => {
-
-                setshowbanksheet(true)
+                setshowbanksheet(true);
               }}
               onRightIconPress={() => {
                 setshowbanksheet(true);
@@ -229,7 +227,6 @@ const BankDetails = ({ navigation }: any) => {
               placeholder="Type of Account"
               editable={false}
               value={accountType}
-            
               rightIcon={
                 <ImageComponent
                   source={images.downarrow}
@@ -240,8 +237,7 @@ const BankDetails = ({ navigation }: any) => {
                 setshowaccountsheet(true);
               }}
               onPress={() => {
-
-                setshowaccountsheet(true)
+                setshowaccountsheet(true);
               }}
               error={errors.accountType}
               containerStyle={styles.input}

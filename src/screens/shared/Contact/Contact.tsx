@@ -16,7 +16,6 @@ import ImageComponent from '@components/ImageComponent';
 import images from '@images';
 import SelectionListBottomSheet from '@components/SelectionListBottomSheet';
 
- 
 const nameRegex = /^[A-Za-z\s]+$/;
 
 const ContactUs = ({ navigation }: any) => {
@@ -24,15 +23,15 @@ const ContactUs = ({ navigation }: any) => {
 
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState<any>({});
-    const [categories, _setCategories] = React.useState([
-      { id: 1, title: 'Payment & Refund' },
-      { id: 2, title: 'Delivery & Rider' },
-      { id: 3, title: 'Account & Verification' },
-      { id: 4, title: 'Technical Issues' },
-      { id: 5, title: 'Safety, Fraud & Policy' },
-    ]);
-    const [category, setCategory] = useState('');
-    const [showCategorySheet, setShowCategorySheet] = useState(false);
+  const [categories, _setCategories] = React.useState([
+    { id: 1, title: 'Payment & Refund' },
+    { id: 2, title: 'Delivery & Rider' },
+    { id: 3, title: 'Account & Verification' },
+    { id: 4, title: 'Technical Issues' },
+    { id: 5, title: 'Safety, Fraud & Policy' },
+  ]);
+  const [category, setCategory] = useState('');
+  const [showCategorySheet, setShowCategorySheet] = useState(false);
 
   /* 🔴 Validators */
 
@@ -47,8 +46,6 @@ const ContactUs = ({ navigation }: any) => {
       }));
   };
 
-
-
   const validateMessage = () => {
     if (!message.trim())
       setErrors((p: any) => ({ ...p, message: 'Message is required' }));
@@ -57,14 +54,12 @@ const ContactUs = ({ navigation }: any) => {
   const validateAll = () => {
     let err: any = {};
     const trimmedName = name.trim();
-    
+
     const trimmedMessage = message.trim();
 
     if (!trimmedName) err.name = 'Name is required';
     else if (!nameRegex.test(trimmedName))
       err.name = 'Name cannot contain numbers or special characters';
-
- 
 
     if (!trimmedMessage) err.message = 'Message is required';
     if (!category) err.category = 'Category is required';
@@ -116,23 +111,18 @@ const ContactUs = ({ navigation }: any) => {
             <CustomInput
               placeholder="Category"
               value={category}
-                error={errors.category}
-                 rightIcon={
-                              <ImageComponent
-                                source={images.downarrow}
-                                style={styles.downarrowimg}
-                              />
-                            }
-             
-              onPress={() => {
-                setShowCategorySheet(true)
-              }}
-              onRightIconPress={
-                () => setShowCategorySheet(true)
+              error={errors.category}
+              rightIcon={
+                <ImageComponent
+                  source={images.downarrow}
+                  style={styles.downarrowimg}
+                />
               }
+              onPress={() => {
+                setShowCategorySheet(true);
+              }}
+              onRightIconPress={() => setShowCategorySheet(true)}
               editable={false}
-              
-              
               containerStyle={styles.input}
             />
 
@@ -157,17 +147,17 @@ const ContactUs = ({ navigation }: any) => {
           />
         </ScrollView>
       </KeyboardAvoidingView>
-         <SelectionListBottomSheet
-              visible={showCategorySheet}
-              onDismiss={() => setShowCategorySheet(false)}
-              onPress={item => {
-                setErrors((p: any) => ({ ...p, category: '' }));
-                setCategory(item.title);
-                setShowCategorySheet(false);
-              }}
-              data={categories}
-              selectedItem={category}
-            />
+      <SelectionListBottomSheet
+        visible={showCategorySheet}
+        onDismiss={() => setShowCategorySheet(false)}
+        onPress={item => {
+          setErrors((p: any) => ({ ...p, category: '' }));
+          setCategory(item.title);
+          setShowCategorySheet(false);
+        }}
+        data={categories}
+        selectedItem={category}
+      />
     </Base>
   );
 };
@@ -182,18 +172,15 @@ const styles = StyleSheet.create({
   input: {
     marginBottom: verticalScale(14),
   },
-  messageInput: {
-
-  },
+  messageInput: {},
   messageField: {
     minHeight: verticalScale(203), // fixed textarea height
-    textAlignVertical: 'top',      // pushes text + placeholder to top
+    textAlignVertical: 'top', // pushes text + placeholder to top
     paddingTop: verticalScale(12.64), // spacing from top like figma
-
   },
   buttonContainer: {
     marginVertical: verticalScale(20),
-    height: verticalScale(56)
+    height: verticalScale(56),
   },
   downarrowimg: {
     width: scale(14),

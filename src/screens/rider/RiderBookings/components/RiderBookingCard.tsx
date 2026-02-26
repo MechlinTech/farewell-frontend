@@ -7,7 +7,6 @@ import { scale, verticalScale } from '@scale';
 import ImageComponent from '@components/ImageComponent';
 import images from '@images';
 
-
 interface Props {
   item: {
     bookingId: string;

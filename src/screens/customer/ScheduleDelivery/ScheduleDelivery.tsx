@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -6,7 +6,6 @@ import {
   ScrollView,
   Platform,
   KeyboardAvoidingView,
- 
 } from 'react-native';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -43,8 +42,6 @@ const ScheduleDelivery = ({ navigation }: any) => {
   const [showCourierSheet, setShowCourierSheet] = useState(false);
   const [time, setTime] = useState('');
   const [showTimeSheet, setShowTimeSheet] = useState(false);
-  
-   
 
   /* ===================== DATE & TIME LOGIC ===================== */
   const [timeOptions, _setTimeOptions] = React.useState([
@@ -131,8 +128,6 @@ const ScheduleDelivery = ({ navigation }: any) => {
     pickupLocation?.trim() &&
     courierCompany?.trim();
 
-
-
   return (
     <BaseWrapper>
       <CustomToolbar
@@ -145,17 +140,14 @@ const ScheduleDelivery = ({ navigation }: any) => {
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : verticalScale(40)}
-    
       >
         <ScrollView
-          
           contentContainerStyle={[
             styles.content,
             { paddingBottom: verticalScale(28) },
           ]}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
-         
         >
           {/* Pickup Location */}
           <CustomInput
@@ -244,7 +236,6 @@ const ScheduleDelivery = ({ navigation }: any) => {
               value={time}
               error={errors.time}
               textStyle={styles.commontextStyle}
-
               fieldStyle={styles.commonfield}
               rightIcon={
                 <ImageComponent
@@ -309,7 +300,7 @@ const ScheduleDelivery = ({ navigation }: any) => {
             error={errors.image}
             centerImageView={styles.imgview}
             onImageSelected={img => {
-              setLabelImage(img)
+              setLabelImage(img);
               setErrors((p: any) => ({ ...p, image: '' }));
             }}
           />
@@ -318,7 +309,6 @@ const ScheduleDelivery = ({ navigation }: any) => {
             title="Next"
             containerStyle={styles.button}
             disabled={!isFormValid}
-
             onPress={() => {
               if (!validateAll()) {
                 return;
@@ -412,7 +402,7 @@ const styles = StyleSheet.create({
   textpackage: {
     fontSize: fontSize.fontSize_14,
     paddingLeft: scale(8),
-    color: color.delivery.value
+    color: color.delivery.value,
   },
   mediumContainer: {
     paddingTop: verticalScale(18),
@@ -441,7 +431,6 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     width: scale(154),
     color: color.primaryMuted,
-
   },
 
   commonlabel: {
@@ -456,7 +445,6 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(8),
 
     gap: scale(16),
-
   },
 
   imgview: {
@@ -545,6 +533,6 @@ const styles = StyleSheet.create({
 
   button: {
     marginTop: verticalScale(15),
-    height: verticalScale(56)
+    height: verticalScale(56),
   },
 });

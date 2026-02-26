@@ -58,8 +58,6 @@ const DropOffPackage = ({ navigation }: any) => {
 
       {/* Content */}
       <View style={styles.content}>
-
-
         <UploadDocument
           label="Take a picture of the receipt"
           labelStyle={styles.label}
@@ -99,7 +97,6 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: verticalScale(15),
-
   },
   cameraWrapper: {
     width: scale(32),

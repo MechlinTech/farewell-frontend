@@ -41,7 +41,6 @@ const ForgotPasswordScreen = ({ navigation }: any) => {
       }));
   };
 
-
   const validatePassword = () => {
     if (!password)
       setErrors((p: any) => ({ ...p, password: 'Password is required' }));
@@ -58,8 +57,7 @@ const ForgotPasswordScreen = ({ navigation }: any) => {
     else if (!strongPasswordRegex.test(password))
       setErrors((p: any) => ({
         ...p,
-        password:
-          'Weak password',
+        password: 'Weak password',
       }));
   };
 
@@ -74,7 +72,6 @@ const ForgotPasswordScreen = ({ navigation }: any) => {
         ...p,
         confirmPassword: 'Passwords do not match',
       }));
-
   };
 
   const validateAll = () => {
@@ -91,8 +88,7 @@ const ForgotPasswordScreen = ({ navigation }: any) => {
     else if (password.length < 8 || password.length > 16)
       err.password = 'Password must be 8–16 characters';
     else if (!strongPasswordRegex.test(password))
-      err.password =
-        'Weak password';
+      err.password = 'Weak password';
 
     if (!confirmPassword) err.confirmPassword = 'Confirm password is required';
     else if (password !== confirmPassword)
