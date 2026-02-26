@@ -7,10 +7,10 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Check Branch Name
+      - name: Check Branch Nameadd
         run: |
           BRANCH="${{ github.head_ref }}"
-          REGEX="^(feat|fix|hotfix|chore|docs|refactor|test)/.+"
+          REGEX="^(feat|fix|feature|hotfix|chore|docs|refactor|test)/.+"
           if [[ ! $BRANCH =~ $REGEX ]]; then
             echo "Invalid branch name '$BRANCH'. Must match $REGEX"
             exit 1
