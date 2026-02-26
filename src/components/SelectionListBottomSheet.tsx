@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  FlatList,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import BottomSheetCustom from './BottomSheetCustom';
 import color from '@color';
 import { fontFamily, fontSize } from '@constants';

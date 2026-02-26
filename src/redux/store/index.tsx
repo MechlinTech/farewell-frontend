@@ -24,7 +24,10 @@ const middlewareConfig = {
   interceptors: {
     request: [
       {
-        success({ getState: _getState, dispatch: _dispatch, getSourceAction }: any, req: any) {
+        success(
+          { getState: _getState, dispatch: _dispatch, getSourceAction }: any,
+          req: any,
+        ) {
           const sourceAction = getSourceAction;
 
           const useAuth = sourceAction?.meta?.useAuth ?? true;
@@ -50,10 +53,16 @@ const middlewareConfig = {
     ],
     response: [
       {
-        success({ getState: _gS, dispatch: _d, getSourceAction: _gsa }, response) {
+        success(
+          { getState: _gS, dispatch: _d, getSourceAction: _gsa },
+          response,
+        ) {
           return response;
         },
-        error({ getState: _gS2, dispatch: _d2, getSourceAction: _gsa2 }, error) {
+        error(
+          { getState: _gS2, dispatch: _d2, getSourceAction: _gsa2 },
+          error,
+        ) {
           console.log('err34232', error);
 
           if (!axios.isCancel(error)) {

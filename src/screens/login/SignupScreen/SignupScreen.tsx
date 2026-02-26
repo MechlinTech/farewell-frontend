@@ -33,7 +33,7 @@ const SignupScreen = ({ navigation }: any) => {
   const [errors, setErrors] = useState<any>({});
   const [phone, setPhone] = useState('');
 
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const strongPasswordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
 
@@ -96,8 +96,7 @@ const SignupScreen = ({ navigation }: any) => {
     else if (!strongPasswordRegex.test(password))
       setErrors((p: any) => ({
         ...p,
-        password:
-          'Weak password',
+        password: 'Weak password',
       }));
   };
 
@@ -115,7 +114,6 @@ const SignupScreen = ({ navigation }: any) => {
   };
 
   /* 🔴 Submit validation */
-
 
   const validateAll = () => {
     let err: any = {};
@@ -158,9 +156,8 @@ const SignupScreen = ({ navigation }: any) => {
   };
 
   const handleSignup = () => {
-
     if (!validateAll()) {
-      showFlashMessage("Please Correctly Fill All The Fields")
+      showFlashMessage('Please Correctly Fill All The Fields');
       return;
     }
     Navigator.pushScreen(navigation, 'OTPVerificationScreen');
@@ -335,7 +332,6 @@ const SignupScreen = ({ navigation }: any) => {
                     </Text>
                   </Text>
                 </View>
-               
               </View>
 
               <CustomButton

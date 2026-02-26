@@ -1,12 +1,7 @@
 import color from '@color';
 import { scale } from '@scale';
 import * as React from 'react';
-import {
-  View,
-  StyleSheet,
-  StyleProp,
-  ViewStyle,
-} from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 
 interface BottomSheetProps {
   children: React.ReactNode;

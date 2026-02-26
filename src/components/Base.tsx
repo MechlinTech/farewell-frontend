@@ -1,11 +1,6 @@
 import * as React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {
-  View,
-  StyleSheet,
-  Keyboard,
-  TextInput,
-} from 'react-native';
+import { View, StyleSheet, Keyboard, TextInput } from 'react-native';
 import TranslucentStatusBar from './TranslucentStatusBar';
 import color from '@color';
 import { useEffect } from 'react';

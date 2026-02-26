@@ -64,7 +64,7 @@ export const CustomInput = ({
   showError = true,
   onBlur,
   onFocus,
-  onRightIconPress
+  onRightIconPress,
 }: CustomInputProps) => {
   const [isFocused, setIsFocused] = React.useState(false);
 
@@ -108,7 +108,9 @@ export const CustomInput = ({
           <TextInput
             style={[
               {
-                fontSize: fontSize.fontSize_16, color: color.inputText, flex: 1,
+                fontSize: fontSize.fontSize_16,
+                color: color.inputText,
+                flex: 1,
 
                 textAlignVertical: multiline ? 'top' : 'center',
               },
@@ -184,6 +186,4 @@ const styles = StyleSheet.create({
     color: color.delivery.label,
     marginBottom: verticalScale(6),
   },
-
-
 });

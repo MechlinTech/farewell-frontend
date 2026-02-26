@@ -2,14 +2,10 @@ import color from '@color';
 import { scale, verticalScale } from '@scale';
 import * as React from 'react';
 import {
-  
   View,
-  
   StyleSheet,
   StyleProp,
   ViewStyle,
- 
- 
   Text,
   TouchableOpacity,
 } from 'react-native';
@@ -45,7 +41,6 @@ const RiderMapBottomSheetContent = ({
   const handleStartPickup = () => {
     setData({ ...data, state: 1 });
   };
-
 
   const handleDeliverToCourier = () => {
     setData({ ...data, state: 2 });
